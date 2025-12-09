@@ -143,6 +143,15 @@ exports.saveDailyRates = async (req, res) => {
     }
 };
 
+exports.getRateStatus = async (req, res) => {
+    try {
+        const result = await db.query('SELECT date FROM daily_rates ORDER BY date DESC LIMIT 10');
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 exports.getSuppliers = async (req, res) => {
     try {
         const result = await db.query('SELECT * FROM suppliers ORDER BY name');
@@ -190,6 +199,48 @@ exports.saveMarkupRule = async (req, res) => {
             [supplier_id, item_name, base_rate_type, op1, val1, op2, val2]
         );
         res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+exports.updateMarkupRule = async (req, res) => {
+    const { id } = req.params;
+    const { item_name, base_rate_type, op1, val1, op2, val2 } = req.body;
+
+    try {
+        const result = await db.query(
+            `UPDATE markup_rules 
+             SET item_name = $1, base_rate_type = $2, op1 = $3, val1 = $4, op2 = $5, val2 = $6, updated_at = NOW()
+             WHERE id = $7
+             RETURNING *`,
+            [item_name, base_rate_type, op1, val1, op2 || null, val2 || null, id]
+        );
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: 'Markup rule not found' });
+        }
+
+        res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+exports.deleteMarkupRule = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const result = await db.query(
+            'DELETE FROM markup_rules WHERE id = $1 RETURNING *',
+            [id]
+        );
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: 'Markup rule not found' });
+        }
+
+        res.json({ success: true, message: 'Markup rule deleted successfully' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -268,6 +319,56 @@ exports.getBillEntries = async (req, res) => {
     try {
         const result = await db.query(query, params);
         res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+exports.getBillSummary = async (req, res) => {
+    const { date, supplierId } = req.query;
+    try {
+        let query = `
+            SELECT 
+                COUNT(*) as total_entries,
+                COALESCE(SUM(qty * vendor_rate), 0) as total_amount,
+                COALESCE(SUM(qty * expected_rate), 0) as total_expected,
+                COALESCE(SUM(variance), 0) as total_variance,
+                COUNT(CASE WHEN status = 'Approved' THEN 1 END) as approved_count,
+                COUNT(CASE WHEN status = 'Pending' THEN 1 END) as pending_count
+            FROM bill_entries
+            WHERE 1=1
+        `;
+        const params = [];
+        let pIdx = 1;
+
+        if (date) {
+            query += ` AND date = $${pIdx++}`;
+            params.push(date);
+        }
+        if (supplierId) {
+            query += ` AND supplier_id = $${pIdx++}`;
+            params.push(supplierId);
+        }
+
+        const result = await db.query(query, params);
+        const data = result.rows[0];
+
+        // Calculate percentage
+        const totalAmount = parseFloat(data.total_amount);
+        const totalVariance = parseFloat(data.total_variance);
+        const variancePercentage = totalAmount > 0 ? ((totalVariance / totalAmount) * 100).toFixed(2) : 0;
+
+        res.json({
+            summary: {
+                total_entries: parseInt(data.total_entries),
+                total_amount: totalAmount,
+                total_expected: parseFloat(data.total_expected),
+                total_variance: totalVariance,
+                variance_percentage: variancePercentage,
+                approved_count: parseInt(data.approved_count),
+                pending_count: parseInt(data.pending_count)
+            }
+        });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

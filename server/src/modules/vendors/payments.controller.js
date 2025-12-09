@@ -71,7 +71,7 @@ exports.processPayment = async (req, res) => {
             INSERT INTO vendor_ledger 
             (supplier_id, date, transaction_type, amount, details, payment_mode, reference_number, payment_id)
             VALUES ($1, CURRENT_DATE, 'Payment', $2, $3, $4, $5, $6)
-        `, [vendorId, -parseFloat(amount), notes, paymentMode, reference, payment.id]);
+        `, [vendorId, parseFloat(amount), notes, paymentMode, reference, payment.id]);
 
         // 7. Create journal entry
         const jeRes = await client.query(`

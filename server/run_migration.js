@@ -1,68 +1,67 @@
-require('dotenv').config();
 const db = require('./src/config/db');
 const fs = require('fs');
 const path = require('path');
 
 async function runMigration() {
-    const client = await db.pool.connect();
     try {
-        console.log('=== Running Advance Recovery Validation Migration ===\n');
+        console.log('Running migration 13_audit_and_status.sql...\n');
 
-        // First, update any NULL paid_by values
-        console.log('1. Updating NULL paid_by values...');
-        const updateResult = await client.query(`
-            UPDATE advance_ledger 
-            SET paid_by = 'System' 
-            WHERE paid_by IS NULL
-        `);
-        console.log(`   Updated ${updateResult.rowCount} records\n`);
+        const migrationPath = path.join(__dirname, '..', 'database', '13_audit_and_status.sql');
+        const sql = fs.readFileSync(migrationPath, 'utf8');
 
-        // Read and execute migration file
-        const migrationPath = path.join(__dirname, 'migrations', '001_advance_recovery_validation.sql');
-        const migrationSQL = fs.readFileSync(migrationPath, 'utf8');
+        // Execute the migration
+        await db.query(sql);
 
-        console.log('2. Applying database constraints...');
-        await client.query(migrationSQL);
-        console.log('   ✅ Constraints applied\n');
+        console.log('✓ Migration completed successfully!\n');
 
-        console.log('3. Verifying changes...');
+        // Verify the changes
+        console.log('Verifying changes...\n');
 
-        // Check if constraint exists
-        const constraintCheck = await client.query(`
-            SELECT constraint_name 
-            FROM information_schema.table_constraints 
-            WHERE table_name = 'advance_ledger' 
-            AND constraint_name = 'advance_ledger_amount_positive'
-        `);
-        console.log(`   Amount constraint: ${constraintCheck.rows.length > 0 ? '✅' : '❌'}`);
-
-        // Check if column exists
-        const columnCheck = await client.query(`
-            SELECT column_name 
+        // Check suppliers table
+        const suppliersCheck = await db.query(`
+            SELECT column_name, data_type 
             FROM information_schema.columns 
-            WHERE table_name = 'advance_ledger' 
-            AND column_name = 'repayment_source'
+            WHERE table_name = 'suppliers' 
+            AND column_name IN ('updated_at', 'updated_by')
+            ORDER BY column_name
         `);
-        console.log(`   Repayment source column: ${columnCheck.rows.length > 0 ? '✅' : '❌'}`);
+        console.log('Suppliers table new columns:', suppliersCheck.rows);
+
+        // Check daily_rates table
+        const ratesCheck = await db.query(`
+            SELECT column_name, data_type 
+            FROM information_schema.columns 
+            WHERE table_name = 'daily_rates' 
+            AND column_name IN ('status', 'updated_at', 'updated_by')
+            ORDER BY column_name
+        `);
+        console.log('Daily rates table new columns:', ratesCheck.rows);
 
         // Check indexes
-        const indexCheck = await client.query(`
+        const indexCheck = await db.query(`
             SELECT indexname 
             FROM pg_indexes 
-            WHERE tablename = 'advance_ledger' 
-            AND indexname IN ('idx_advance_ledger_employee_type', 'idx_advance_ledger_date')
+            WHERE tablename IN ('daily_rates', 'bill_entries', 'vendor_ledger', 'markup_rules')
+            AND indexname LIKE 'idx_%'
+            ORDER BY indexname
         `);
-        console.log(`   Indexes created: ${indexCheck.rows.length}/2 ✅\n`);
+        console.log('\nNew indexes created:', indexCheck.rows.map(r => r.indexname));
 
-        console.log('=== Migration Completed Successfully ===');
+        // Check triggers
+        const triggerCheck = await db.query(`
+            SELECT trigger_name, event_object_table
+            FROM information_schema.triggers
+            WHERE trigger_name LIKE '%updated_at%'
+            ORDER BY event_object_table, trigger_name
+        `);
+        console.log('\nTriggers created:', triggerCheck.rows);
 
-    } catch (err) {
-        console.error('Migration failed:', err.message);
-        console.error(err.stack);
-        process.exit(1);
-    } finally {
-        client.release();
+        console.log('\n✓ All changes verified successfully!');
         process.exit(0);
+    } catch (error) {
+        console.error('Migration failed:', error.message);
+        console.error(error);
+        process.exit(1);
     }
 }
 

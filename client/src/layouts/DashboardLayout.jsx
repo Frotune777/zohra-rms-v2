@@ -43,7 +43,7 @@ export default ({ children }) => {
             <SidebarItem to="/chicken/bills" icon={FiCoffee} label="Chicken Bill Entry" active={loc.pathname === '/chicken/bills'} />
             <SidebarItem to="/chicken/rates" icon={FiDollarSign} label="Daily Rates" active={loc.pathname === '/chicken/rates'} />
             <SidebarItem to="/chicken/vendors" icon={FiUsers} label="Vendors" active={loc.pathname === '/chicken/vendors'} />
-            <SidebarItem to="/finance/payments" icon={FiDollarSign} label="Vendor Payments" active={loc.pathname === '/finance/payments'} />
+            <SidebarItem to="/vendor-payments" icon={FiDollarSign} label="Vendor Payments" active={loc.pathname === '/vendor-payments'} />
           </div>
 
           <div className="my-2 border-t border-white/10 pt-2">

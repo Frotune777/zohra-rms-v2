@@ -45,16 +45,21 @@ exports.getDailyRates = async (req, res) => {
 
 exports.saveDailyRates = async (req, res) => {
     const { date, tandoor_rate, boiler_rate, egg_rate } = req.body;
+    const userId = req.user?.id; // From auth middleware
+
     try {
         const result = await db.query(
-            `INSERT INTO daily_rates (date, tandoor_rate, boiler_rate, egg_rate)
-             VALUES ($1, $2, $3, $4)
+            `INSERT INTO daily_rates (date, tandoor_rate, boiler_rate, egg_rate, status, updated_by, updated_at)
+             VALUES ($1, $2, $3, $4, 'confirmed', $5, CURRENT_TIMESTAMP)
              ON CONFLICT (date) DO UPDATE 
              SET tandoor_rate = EXCLUDED.tandoor_rate,
                  boiler_rate = EXCLUDED.boiler_rate,
-                 egg_rate = EXCLUDED.egg_rate
+                 egg_rate = EXCLUDED.egg_rate,
+                 status = 'confirmed',
+                 updated_by = EXCLUDED.updated_by,
+                 updated_at = CURRENT_TIMESTAMP
              RETURNING *`,
-            [date, tandoor_rate, boiler_rate, egg_rate]
+            [date, tandoor_rate, boiler_rate, egg_rate, userId]
         );
         res.json(result.rows[0]);
     } catch (err) {
@@ -206,6 +211,166 @@ exports.getVendorLedger = async (req, res) => {
             [supplierId]
         );
         res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+// Get rate status for a specific date
+exports.getRateStatus = async (req, res) => {
+    const { date } = req.query;
+    try {
+        const result = await db.query(
+            `SELECT dr.*, u.full_name as updated_by_name 
+             FROM daily_rates dr
+             LEFT JOIN users u ON dr.updated_by = u.id
+             WHERE dr.date = $1`,
+            [date || new Date().toISOString().split('T')[0]]
+        );
+
+        if (result.rows.length === 0) {
+            return res.json({ status: 'pending', exists: false });
+        }
+
+        res.json({ ...result.rows[0], exists: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+// Update markup rule
+exports.updateMarkupRule = async (req, res) => {
+    const { id } = req.params;
+    const { item_name, base_rate_type, op1, val1, op2, val2 } = req.body;
+    const userId = req.user?.id;
+
+    try {
+        const result = await db.query(
+            `UPDATE markup_rules 
+             SET item_name = $1, base_rate_type = $2, op1 = $3, val1 = $4, 
+                 op2 = $5, val2 = $6, updated_by = $7
+             WHERE id = $8
+             RETURNING *`,
+            [item_name, base_rate_type, op1, val1, op2, val2, userId, id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Markup rule not found' });
+        }
+
+        res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+// Delete markup rule
+exports.deleteMarkupRule = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const result = await db.query(
+            'DELETE FROM markup_rules WHERE id = $1 RETURNING *',
+            [id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Markup rule not found' });
+        }
+
+        res.json({ success: true, deleted: result.rows[0] });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+// Get bill summary/totals
+exports.getBillSummary = async (req, res) => {
+    const { date, supplierId, startDate, endDate } = req.query;
+
+    try {
+        let query = `
+            SELECT 
+                COUNT(*) as total_entries,
+                COUNT(DISTINCT supplier_id) as total_suppliers,
+                SUM(qty * vendor_rate) as total_amount,
+                SUM(qty * expected_rate) as total_expected,
+                SUM(variance) as total_variance,
+                AVG(variance) as avg_variance,
+                SUM(CASE WHEN variance > 0 THEN 1 ELSE 0 END) as high_variance_count,
+                SUM(CASE WHEN status = 'Approved' THEN 1 ELSE 0 END) as approved_count,
+                SUM(CASE WHEN status = 'Pending' THEN 1 ELSE 0 END) as pending_count
+            FROM bill_entries
+            WHERE 1=1
+        `;
+        const params = [];
+        let pIdx = 1;
+
+        if (date) {
+            query += ` AND date = $${pIdx++}`;
+            params.push(date);
+        } else if (startDate && endDate) {
+            query += ` AND date BETWEEN $${pIdx++} AND $${pIdx++}`;
+            params.push(startDate, endDate);
+        }
+
+        if (supplierId) {
+            query += ` AND supplier_id = $${pIdx++}`;
+            params.push(supplierId);
+        }
+
+        const summaryResult = await db.query(query, params);
+        const summary = summaryResult.rows[0];
+
+        // Get per-supplier breakdown
+        let breakdownQuery = `
+            SELECT 
+                s.id as supplier_id,
+                s.name as supplier_name,
+                COUNT(*) as entry_count,
+                SUM(b.qty * b.vendor_rate) as total_amount,
+                SUM(b.variance) as total_variance
+            FROM bill_entries b
+            JOIN suppliers s ON b.supplier_id = s.id
+            WHERE 1=1
+        `;
+        const breakdownParams = [];
+        let bIdx = 1;
+
+        if (date) {
+            breakdownQuery += ` AND b.date = $${bIdx++}`;
+            breakdownParams.push(date);
+        } else if (startDate && endDate) {
+            breakdownQuery += ` AND b.date BETWEEN $${bIdx++} AND $${bIdx++}`;
+            breakdownParams.push(startDate, endDate);
+        }
+
+        if (supplierId) {
+            breakdownQuery += ` AND b.supplier_id = $${bIdx++}`;
+            breakdownParams.push(supplierId);
+        }
+
+        breakdownQuery += ` GROUP BY s.id, s.name ORDER BY total_amount DESC`;
+
+        const breakdownResult = await db.query(breakdownQuery, breakdownParams);
+
+        res.json({
+            summary: {
+                total_entries: parseInt(summary.total_entries),
+                total_suppliers: parseInt(summary.total_suppliers),
+                total_amount: parseFloat(summary.total_amount || 0),
+                total_expected: parseFloat(summary.total_expected || 0),
+                total_variance: parseFloat(summary.total_variance || 0),
+                avg_variance: parseFloat(summary.avg_variance || 0),
+                variance_percentage: summary.total_expected > 0
+                    ? ((summary.total_variance / summary.total_expected) * 100).toFixed(2)
+                    : 0,
+                high_variance_count: parseInt(summary.high_variance_count),
+                approved_count: parseInt(summary.approved_count),
+                pending_count: parseInt(summary.pending_count)
+            },
+            breakdown: breakdownResult.rows
+        });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

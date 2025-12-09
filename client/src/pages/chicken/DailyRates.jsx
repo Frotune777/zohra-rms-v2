@@ -11,6 +11,7 @@ const DailyRates = () => {
         egg_rate: ''
     });
     const [loading, setLoading] = useState(false);
+    const [rateStatus, setRateStatus] = useState(null);
 
     useEffect(() => {
         fetchRates();
@@ -31,6 +32,12 @@ const DailyRates = () => {
             } else {
                 setRates({ tandoor_rate: '', boiler_rate: '', egg_rate: '' });
             }
+
+            // Fetch status
+            const statusRes = await axios.get(`http://localhost:5000/api/chicken/rates/status?date=${date}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setRateStatus(statusRes.data);
         } catch (err) {
             console.error(err);
             toast.error('Failed to fetch rates');
@@ -49,6 +56,7 @@ const DailyRates = () => {
                 headers: { Authorization: `Bearer ${token}` }
             });
             toast.success('Rates updated successfully');
+            fetchRates(); // Refresh to get updated status
         } catch (err) {
             console.error(err);
             toast.error('Failed to update rates');
@@ -59,7 +67,24 @@ const DailyRates = () => {
 
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-bold text-white mb-6">Daily Market Rates</h1>
+            <div className="flex justify-between items-center mb-6">
+                <h1 className="text-2xl font-bold text-white">Daily Market Rates</h1>
+                {rateStatus && rateStatus.exists && (
+                    <div className="flex items-center gap-3">
+                        <span className={`px-3 py-1 rounded-full text-sm font-semibold ${rateStatus.status === 'confirmed'
+                                ? 'bg-green-500/20 text-green-400 border border-green-500'
+                                : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500'
+                            }`}>
+                            {rateStatus.status === 'confirmed' ? '✓ Confirmed' : '⏳ Pending'}
+                        </span>
+                        {rateStatus.updated_by_name && (
+                            <span className="text-sm text-gray-400">
+                                Last updated by {rateStatus.updated_by_name}
+                            </span>
+                        )}
+                    </div>
+                )}
+            </div>
 
             <div className="glass-panel p-6 max-w-xl mx-auto">
                 <form onSubmit={handleSubmit} className="space-y-6">

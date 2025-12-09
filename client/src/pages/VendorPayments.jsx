@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FiDollarSign, FiTrendingUp, FiUsers, FiAlertCircle, FiPlus, FiX, FiCheckCircle } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
 export default function VendorPayments() {
+    const navigate = useNavigate();
     const [vendors, setVendors] = useState([]);
     const [payments, setPayments] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -100,7 +102,7 @@ export default function VendorPayments() {
         setFormData({
             ...formData,
             vendorId: vendor.vendor_id,
-            amount: vendor.outstanding_balance > 0 ? vendor.outstanding_balance.toFixed(2) : ''
+            amount: parseFloat(vendor.outstanding_balance) > 0 ? parseFloat(vendor.outstanding_balance).toFixed(2) : ''
         });
         setShowPaymentModal(true);
     };
@@ -124,12 +126,20 @@ export default function VendorPayments() {
                     <h2 className="text-3xl font-bold text-zohra-blue mb-2">Vendor Payments</h2>
                     <p className="text-xs text-gray-400">Manage vendor payments and track outstanding balances</p>
                 </div>
-                <button
-                    onClick={() => setShowPaymentModal(true)}
-                    className="flex items-center gap-2 btn-primary"
-                >
-                    <FiPlus /> Process Payment
-                </button>
+                <div className="flex gap-4">
+                    <button
+                        onClick={() => navigate('/chicken/vendors')}
+                        className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition"
+                    >
+                        <FiUsers /> Manage Vendors
+                    </button>
+                    <button
+                        onClick={() => setShowPaymentModal(true)}
+                        className="flex items-center gap-2 btn-primary"
+                    >
+                        <FiPlus /> Process Payment
+                    </button>
+                </div>
             </div>
 
             {/* Summary Cards */}
@@ -201,197 +211,213 @@ export default function VendorPayments() {
             </div>
 
             {/* Payment Modal */}
-            {showPaymentModal && (
-                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-                    <div className="glass-panel p-6 rounded-xl w-full max-w-2xl">
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-xl font-bold">Process Vendor Payment</h3>
-                            <button onClick={() => setShowPaymentModal(false)} className="text-gray-400 hover:text-white">
-                                <FiX size={24} />
-                            </button>
-                        </div>
-
-                        {loadingDetails && (
-                            <div className="mb-4 p-4 bg-white/5 rounded-lg flex items-center justify-center">
-                                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mr-3"></div>
-                                <span className="text-gray-400">Loading vendor details...</span>
+            {
+                showPaymentModal && (
+                    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+                        <div className="glass-panel p-6 rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="text-xl font-bold">Process Vendor Payment</h3>
+                                <button onClick={() => setShowPaymentModal(false)} className="text-gray-400 hover:text-white">
+                                    <FiX size={24} />
+                                </button>
                             </div>
-                        )}
 
-                        {vendorDetails && !loadingDetails && (
-                            <div className="mb-4 space-y-3">
-                                {/* Current Balance Card */}
-                                <div className="p-4 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/50 rounded-lg">
-                                    <p className="text-sm text-gray-300">Outstanding Balance</p>
-                                    <p className="text-3xl font-bold text-red-400">
-                                        ₹{parseFloat(vendorDetails.outstanding_balance).toLocaleString('en-IN')}
-                                    </p>
-                                    <p className="text-xs text-gray-400 mt-1">
-                                        {vendorDetails.category_name} • {vendorDetails.vendor_type}
-                                    </p>
+                            {loadingDetails && (
+                                <div className="mb-4 p-4 bg-white/5 rounded-lg flex items-center justify-center">
+                                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mr-3"></div>
+                                    <span className="text-gray-400">Loading vendor details...</span>
                                 </div>
+                            )}
 
-                                {/* Summary Grid */}
-                                <div className="grid grid-cols-2 gap-3">
-                                    <div className="p-3 bg-white/5 rounded-lg">
-                                        <p className="text-xs text-gray-400">Total Bills</p>
-                                        <p className="text-lg font-bold">{vendorDetails.total_bills}</p>
-                                        <p className="text-xs text-gray-500">₹{vendorDetails.total_bill_amount.toLocaleString('en-IN')}</p>
+                            {vendorDetails && !loadingDetails && (
+                                <div className="mb-4 space-y-3">
+                                    {/* Current Balance Card */}
+                                    <div className="p-4 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/50 rounded-lg">
+                                        <p className="text-sm text-gray-300">Outstanding Balance</p>
+                                        <p className="text-3xl font-bold text-red-400">
+                                            ₹{parseFloat(vendorDetails.outstanding_balance).toLocaleString('en-IN')}
+                                        </p>
+                                        <p className="text-xs text-gray-400 mt-1">
+                                            {vendorDetails.category_name} • {vendorDetails.vendor_type}
+                                        </p>
                                     </div>
-                                    <div className="p-3 bg-white/5 rounded-lg">
-                                        <p className="text-xs text-gray-400">Total Payments</p>
-                                        <p className="text-lg font-bold text-green-400">{vendorDetails.total_payments}</p>
-                                        <p className="text-xs text-gray-500">₹{vendorDetails.total_payment_amount.toLocaleString('en-IN')}</p>
-                                    </div>
-                                </div>
 
-                                {/* Last Payment */}
-                                {vendorDetails.last_payment ? (
-                                    <div className="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                                        <p className="text-xs text-gray-400 mb-1">Last Payment</p>
-                                        <div className="flex justify-between items-center">
-                                            <div>
-                                                <p className="text-sm font-medium">₹{parseFloat(vendorDetails.last_payment.amount).toLocaleString('en-IN')}</p>
-                                                <p className="text-xs text-gray-500">{new Date(vendorDetails.last_payment.date).toLocaleDateString()}</p>
-                                            </div>
-                                            <div className="text-right">
-                                                <p className="text-xs text-gray-400">{vendorDetails.last_payment.payment_mode}</p>
-                                                <p className="text-xs text-gray-500">by {vendorDetails.last_payment.paid_by}</p>
-                                            </div>
+                                    {/* Summary Grid */}
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div className="p-3 bg-white/5 rounded-lg">
+                                            <p className="text-xs text-gray-400">Total Bills</p>
+                                            <p className="text-lg font-bold">{vendorDetails.total_bills}</p>
+                                            <p className="text-xs text-gray-500">₹{vendorDetails.total_bill_amount.toLocaleString('en-IN')}</p>
+                                        </div>
+                                        <div className="p-3 bg-white/5 rounded-lg">
+                                            <p className="text-xs text-gray-400">Total Payments</p>
+                                            <p className="text-lg font-bold text-green-400">{vendorDetails.total_payments}</p>
+                                            <p className="text-xs text-gray-500">₹{vendorDetails.total_payment_amount.toLocaleString('en-IN')}</p>
                                         </div>
                                     </div>
-                                ) : (
-                                    <div className="p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                                        <p className="text-xs text-yellow-400">No previous payments</p>
-                                    </div>
-                                )}
 
-                                {/* Recent Payments */}
-                                {vendorDetails.recent_payments && vendorDetails.recent_payments.length > 0 && (
-                                    <div className="p-3 bg-white/5 rounded-lg">
-                                        <p className="text-xs text-gray-400 mb-2">Recent Payments (Last 5)</p>
-                                        <div className="space-y-2 max-h-32 overflow-y-auto">
-                                            {vendorDetails.recent_payments.map((payment, idx) => (
-                                                <div key={idx} className="flex justify-between text-xs border-b border-white/5 pb-1">
-                                                    <span className="text-gray-400">{new Date(payment.date).toLocaleDateString()}</span>
-                                                    <span className="text-green-400 font-medium">₹{parseFloat(payment.amount).toLocaleString('en-IN')}</span>
-                                                    <span className="text-gray-500">{payment.payment_mode}</span>
+                                    {/* Last Payment */}
+                                    {vendorDetails.last_payment ? (
+                                        <div className="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+                                            <p className="text-xs text-gray-400 mb-1">Last Payment</p>
+                                            <div className="flex justify-between items-center">
+                                                <div>
+                                                    <p className="text-sm font-medium">₹{parseFloat(vendorDetails.last_payment.amount).toLocaleString('en-IN')}</p>
+                                                    <p className="text-xs text-gray-500">{new Date(vendorDetails.last_payment.date).toLocaleDateString()}</p>
                                                 </div>
-                                            ))}
+                                                <div className="text-right">
+                                                    <p className="text-xs text-gray-400">{vendorDetails.last_payment.payment_mode}</p>
+                                                    <p className="text-xs text-gray-500">by {vendorDetails.last_payment.paid_by}</p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
-                            </div>
-                        )}
+                                    ) : (
+                                        <div className="p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                                            <p className="text-xs text-yellow-400">No previous payments</p>
+                                        </div>
+                                    )}
 
-                        <form onSubmit={handlePaymentSubmit} className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Vendor *</label>
-                                <select
-                                    value={formData.vendorId}
-                                    onChange={(e) => {
-                                        const vendorId = e.target.value;
-                                        const vendor = vendors.find(v => v.vendor_id == vendorId);
-                                        setFormData({
-                                            ...formData,
-                                            vendorId: vendorId,
-                                            amount: vendor?.outstanding_balance > 0 ? vendor.outstanding_balance.toFixed(2) : ''
-                                        });
-                                        setSelectedVendor(vendor);
-                                        fetchVendorDetails(vendorId);
-                                    }}
-                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
-                                    required
-                                >
-                                    <option value="">Select Vendor</option>
-                                    {vendors.filter(v => parseFloat(v.outstanding_balance) > 0).map(v => (
-                                        <option key={v.vendor_id} value={v.vendor_id} className="bg-gray-800">
-                                            {v.vendor_name} - ₹{parseFloat(v.outstanding_balance).toFixed(2)}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                                    {/* Recent Payments */}
+                                    {vendorDetails.recent_payments && vendorDetails.recent_payments.length > 0 && (
+                                        <div className="p-3 bg-white/5 rounded-lg">
+                                            <p className="text-xs text-gray-400 mb-2">Recent Payments (Last 5)</p>
+                                            <div className="space-y-2 max-h-32 overflow-y-auto">
+                                                {vendorDetails.recent_payments.map((payment, idx) => (
+                                                    <div key={idx} className="flex justify-between text-xs border-b border-white/5 pb-1">
+                                                        <span className="text-gray-400">{new Date(payment.date).toLocaleDateString()}</span>
+                                                        <span className="text-green-400 font-medium">₹{parseFloat(payment.amount).toLocaleString('en-IN')}</span>
+                                                        <span className="text-gray-500">{payment.payment_mode}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <form onSubmit={handlePaymentSubmit} className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">Amount (₹) *</label>
-                                    <input
-                                        type="number"
-                                        step="0.01"
-                                        value={formData.amount}
-                                        onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                                        className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">Vendor *</label>
+                                    <select
+                                        value={formData.vendorId}
+                                        onChange={(e) => {
+                                            const vendorId = e.target.value;
+                                            const vendor = vendors.find(v => v.vendor_id == vendorId);
+                                            setFormData({
+                                                ...formData,
+                                                vendorId: vendorId,
+                                                amount: parseFloat(vendor?.outstanding_balance) > 0 ? parseFloat(vendor.outstanding_balance).toFixed(2) : ''
+                                            });
+                                            setSelectedVendor(vendor);
+                                            fetchVendorDetails(vendorId);
+                                        }}
+                                        className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
                                         required
+                                    >
+                                        <option value="">Select Vendor</option>
+                                        {vendors.map(v => (
+                                            <option key={v.vendor_id} value={v.vendor_id} className="bg-gray-800">
+                                                {v.vendor_name} - ₹{parseFloat(v.outstanding_balance).toFixed(2)}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">Amount (₹) *</label>
+                                        <input
+                                            type="number"
+                                            step="0.01"
+                                            value={formData.amount}
+                                            onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+                                            className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
+                                            required
+                                        />
+                                        {vendorDetails && formData.amount && (
+                                            <div className="mt-2 text-xs text-right">
+                                                <span className="text-gray-400">Balance after: </span>
+                                                <span className={`font-bold ${(parseFloat(vendorDetails.outstanding_balance) - parseFloat(formData.amount)) < 0
+                                                    ? 'text-green-400'
+                                                    : 'text-red-400'
+                                                    }`}>
+                                                    ₹{(parseFloat(vendorDetails.outstanding_balance) - parseFloat(formData.amount || 0)).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                                                </span>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">Payment Mode *</label>
+                                        <select
+                                            value={formData.paymentMode}
+                                            onChange={(e) => setFormData({ ...formData, paymentMode: e.target.value })}
+                                            className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
+                                            required
+                                        >
+                                            <option value="Cash" className="bg-gray-800">Cash</option>
+                                            <option value="UPI" className="bg-gray-800">UPI</option>
+                                            <option value="Bank Transfer" className="bg-gray-800">Bank Transfer</option>
+                                            <option value="Cheque" className="bg-gray-800">Cheque</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">Reference Number</label>
+                                    <input
+                                        type="text"
+                                        value={formData.reference}
+                                        onChange={(e) => setFormData({ ...formData, reference: e.target.value })}
+                                        className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
+                                        placeholder="Transaction ID / Cheque No"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">Payment Mode *</label>
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">Paid By *</label>
                                     <select
-                                        value={formData.paymentMode}
-                                        onChange={(e) => setFormData({ ...formData, paymentMode: e.target.value })}
+                                        value={formData.paidBy}
+                                        onChange={(e) => setFormData({ ...formData, paidBy: e.target.value })}
                                         className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
                                         required
                                     >
-                                        <option value="Cash" className="bg-gray-800">Cash</option>
-                                        <option value="UPI" className="bg-gray-800">UPI</option>
-                                        <option value="Bank Transfer" className="bg-gray-800">Bank Transfer</option>
-                                        <option value="Cheque" className="bg-gray-800">Cheque</option>
+                                        <option value="" className="bg-gray-800">Select Payer</option>
+                                        <option value="Owner" className="bg-gray-800">Owner</option>
+                                        <option value="Manager" className="bg-gray-800">Manager</option>
+                                        <option value="Staff" className="bg-gray-800">Staff</option>
                                     </select>
                                 </div>
-                            </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Reference Number</label>
-                                <input
-                                    type="text"
-                                    value={formData.reference}
-                                    onChange={(e) => setFormData({ ...formData, reference: e.target.value })}
-                                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
-                                    placeholder="Transaction ID / Cheque No"
-                                />
-                            </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">Notes *</label>
+                                    <textarea
+                                        value={formData.notes}
+                                        onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                                        className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
+                                        rows="3"
+                                        placeholder="Payment details / Bill reference"
+                                        required
+                                    />
+                                </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Paid By *</label>
-                                <input
-                                    type="text"
-                                    value={formData.paidBy}
-                                    onChange={(e) => setFormData({ ...formData, paidBy: e.target.value })}
-                                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
-                                    placeholder="Name of person making payment"
-                                    required
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Notes *</label>
-                                <textarea
-                                    value={formData.notes}
-                                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
-                                    rows="3"
-                                    placeholder="Payment details / Bill reference"
-                                    required
-                                />
-                            </div>
-
-                            <div className="flex gap-3 justify-end">
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPaymentModal(false)}
-                                    className="btn-secondary"
-                                >
-                                    Cancel
-                                </button>
-                                <button type="submit" className="btn-primary">
-                                    Process Payment
-                                </button>
-                            </div>
-                        </form>
+                                <div className="flex gap-3 justify-end">
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPaymentModal(false)}
+                                        className="btn-secondary"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button type="submit" className="btn-primary">
+                                        Process Payment
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            )}
-        </div>
+                )
+            }
+        </div >
     );
 }

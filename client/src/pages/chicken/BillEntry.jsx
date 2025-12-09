@@ -18,6 +18,7 @@ const BillEntry = () => {
 
     // Available items for selected supplier
     const [availableItems, setAvailableItems] = useState([]);
+    const [summary, setSummary] = useState(null);
 
     useEffect(() => {
         fetchSuppliers();
@@ -31,6 +32,7 @@ const BillEntry = () => {
 
     useEffect(() => {
         fetchEntries();
+        fetchSummary();
     }, [date, formData.supplier_id]);
 
     const fetchSuppliers = async () => {
@@ -72,6 +74,21 @@ const BillEntry = () => {
         }
     };
 
+    const fetchSummary = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            let url = `http://localhost:5000/api/chicken/bills/summary?date=${date}`;
+            if (formData.supplier_id) url += `&supplierId=${formData.supplier_id}`;
+
+            const res = await axios.get(url, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setSummary(res.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -84,6 +101,7 @@ const BillEntry = () => {
             });
             toast.success('Bill entry added');
             fetchEntries();
+            fetchSummary();
             setFormData({ ...formData, item_name: '', qty: '', vendor_rate: '' });
         } catch (err) {
             toast.error(err.response?.data?.error || 'Failed to add entry');
@@ -93,6 +111,39 @@ const BillEntry = () => {
     return (
         <div className="p-6">
             <h1 className="text-2xl font-bold text-white mb-6">Daily Bill Entry</h1>
+
+            {/* Summary Cards */}
+            {summary && summary.summary.total_entries > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div className="glass-panel p-4">
+                        <p className="text-gray-400 text-sm mb-1">Total Amount</p>
+                        <p className="text-2xl font-bold text-white">₹{summary.summary.total_amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</p>
+                        <p className="text-xs text-gray-500 mt-1">{summary.summary.total_entries} entries</p>
+                    </div>
+                    <div className="glass-panel p-4">
+                        <p className="text-gray-400 text-sm mb-1">Expected Amount</p>
+                        <p className="text-2xl font-bold text-white">₹{summary.summary.total_expected.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</p>
+                    </div>
+                    <div className="glass-panel p-4">
+                        <p className="text-gray-400 text-sm mb-1">Variance</p>
+                        <p className={`text-2xl font-bold ${summary.summary.total_variance > 0 ? 'text-red-400' : 'text-green-400'}`}>
+                            {summary.summary.total_variance > 0 ? '+' : ''}₹{summary.summary.total_variance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">{summary.summary.variance_percentage}%</p>
+                    </div>
+                    <div className="glass-panel p-4">
+                        <p className="text-gray-400 text-sm mb-1">Status</p>
+                        <div className="flex gap-2 mt-2">
+                            <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs">
+                                {summary.summary.approved_count} Approved
+                            </span>
+                            <span className="px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded text-xs">
+                                {summary.summary.pending_count} Pending
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Entry Form */}

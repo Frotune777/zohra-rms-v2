@@ -32,6 +32,8 @@ const VendorManager = () => {
         op2: '',
         val2: 0
     });
+    const [editingRule, setEditingRule] = useState(null);
+    const [deleteConfirm, setDeleteConfirm] = useState(null);
 
     useEffect(() => {
         fetchSuppliers();
@@ -99,8 +101,50 @@ const VendorManager = () => {
             });
             toast.success('Rule saved');
             fetchRules(selectedSupplier);
+            setNewRule({ item_name: '', base_rate_type: 'TandoorRate', op1: '+', val1: 0, op2: '', val2: 0 });
         } catch (err) {
             toast.error('Failed to save rule');
+        }
+    };
+
+    const handleEditRule = (rule) => {
+        setEditingRule(rule);
+    };
+
+    const handleUpdateRule = async (e) => {
+        e.preventDefault();
+        console.log('Update rule called', editingRule);
+        try {
+            const token = localStorage.getItem('token');
+            console.log('Sending update request for rule ID:', editingRule.id);
+            const response = await axios.put(`http://localhost:5000/api/chicken/markups/${editingRule.id}`, editingRule, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            console.log('Update response:', response.data);
+            toast.success('Rule updated');
+            fetchRules(selectedSupplier);
+            setEditingRule(null);
+        } catch (err) {
+            console.error('Update error:', err);
+            toast.error(err.response?.data?.error || 'Failed to update rule');
+        }
+    };
+
+    const handleDeleteRule = async (ruleId) => {
+        console.log('Delete rule called for ID:', ruleId);
+        try {
+            const token = localStorage.getItem('token');
+            console.log('Sending delete request for rule ID:', ruleId);
+            const response = await axios.delete(`http://localhost:5000/api/chicken/markups/${ruleId}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            console.log('Delete response:', response.data);
+            toast.success('Rule deleted');
+            fetchRules(selectedSupplier);
+            setDeleteConfirm(null);
+        } catch (err) {
+            console.error('Delete error:', err);
+            toast.error(err.response?.data?.error || 'Failed to delete rule');
         }
     };
 
@@ -301,17 +345,142 @@ const VendorManager = () => {
                             <div className="space-y-2">
                                 <h3 className="text-white font-bold mb-4">Current Rules</h3>
                                 {rules.map(r => (
-                                    <div key={r.id} className="p-3 bg-white/5 rounded-lg border border-white/10">
-                                        <p className="font-bold text-white">{r.item_name}</p>
-                                        <p className="text-sm text-gray-400">
-                                            = {r.base_rate_type} {r.op1} {r.val1} {r.op2 && `${r.op2} ${r.val2}`}
-                                        </p>
-                                    </div>
+                                    editingRule?.id === r.id ? (
+                                        <form key={r.id} onSubmit={handleUpdateRule} className="p-4 bg-white/10 rounded-lg border border-zohra-blue space-y-3">
+                                            <div>
+                                                <label className="text-xs text-gray-400 block mb-1">Item Name</label>
+                                                <input
+                                                    type="text"
+                                                    value={editingRule.item_name}
+                                                    onChange={(e) => setEditingRule({ ...editingRule, item_name: e.target.value })}
+                                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
+                                                    required
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-gray-400 block mb-1">Base Rate</label>
+                                                <select
+                                                    value={editingRule.base_rate_type}
+                                                    onChange={(e) => setEditingRule({ ...editingRule, base_rate_type: e.target.value })}
+                                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white text-sm"
+                                                >
+                                                    <option value="TandoorRate" className="bg-gray-800">Tandoor Rate</option>
+                                                    <option value="BoilerRate" className="bg-gray-800">Boiler Rate</option>
+                                                    <option value="EggRate" className="bg-gray-800">Egg Rate</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-gray-400 block mb-1">Operation 1</label>
+                                                <div className="flex gap-2">
+                                                    <select
+                                                        value={editingRule.op1}
+                                                        onChange={(e) => setEditingRule({ ...editingRule, op1: e.target.value })}
+                                                        className="bg-white/5 border border-white/10 rounded-lg p-2 text-white text-sm w-20"
+                                                    >
+                                                        <option value="+" className="bg-gray-800">+</option>
+                                                        <option value="-" className="bg-gray-800">-</option>
+                                                        <option value="*" className="bg-gray-800">*</option>
+                                                        <option value="/" className="bg-gray-800">/</option>
+                                                    </select>
+                                                    <input
+                                                        type="number"
+                                                        step="0.01"
+                                                        value={editingRule.val1}
+                                                        onChange={(e) => setEditingRule({ ...editingRule, val1: e.target.value })}
+                                                        className="flex-1 bg-white/5 border border-white/10 rounded-lg p-2 text-white text-sm"
+                                                        placeholder="Value"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-gray-400 block mb-1">Operation 2 (Optional)</label>
+                                                <div className="flex gap-2">
+                                                    <select
+                                                        value={editingRule.op2 || ''}
+                                                        onChange={(e) => setEditingRule({ ...editingRule, op2: e.target.value })}
+                                                        className="bg-white/5 border border-white/10 rounded-lg p-2 text-white text-sm w-20"
+                                                    >
+                                                        <option value="" className="bg-gray-800">None</option>
+                                                        <option value="+" className="bg-gray-800">+</option>
+                                                        <option value="-" className="bg-gray-800">-</option>
+                                                        <option value="*" className="bg-gray-800">*</option>
+                                                        <option value="/" className="bg-gray-800">/</option>
+                                                    </select>
+                                                    <input
+                                                        type="number"
+                                                        step="0.01"
+                                                        value={editingRule.val2 || ''}
+                                                        onChange={(e) => setEditingRule({ ...editingRule, val2: e.target.value })}
+                                                        className="flex-1 bg-white/5 border border-white/10 rounded-lg p-2 text-white text-sm"
+                                                        placeholder="Value"
+                                                        disabled={!editingRule.op2}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="flex gap-2 pt-2">
+                                                <button type="submit" className="flex-1 bg-green-600 hover:bg-green-700 p-2 rounded-lg text-white text-sm flex items-center justify-center gap-1">
+                                                    <FiSave /> Save
+                                                </button>
+                                                <button type="button" onClick={() => setEditingRule(null)} className="flex-1 bg-gray-600 hover:bg-gray-700 p-2 rounded-lg text-white text-sm">
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </form>
+                                    ) : (
+                                        <div key={r.id} className="p-3 bg-white/5 rounded-lg border border-white/10 flex justify-between items-start">
+                                            <div>
+                                                <p className="font-bold text-white">{r.item_name}</p>
+                                                <p className="text-sm text-gray-400">
+                                                    = {r.base_rate_type} {r.op1} {r.val1} {r.op2 && `${r.op2} ${r.val2}`}
+                                                </p>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <button
+                                                    onClick={() => handleEditRule(r)}
+                                                    className="p-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition"
+                                                    title="Edit rule"
+                                                >
+                                                    <FiEdit2 size={14} />
+                                                </button>
+                                                <button
+                                                    onClick={() => setDeleteConfirm(r.id)}
+                                                    className="p-2 bg-red-600 hover:bg-red-700 rounded-lg text-white transition"
+                                                    title="Delete rule"
+                                                >
+                                                    <FiTrash2 size={14} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )
                                 ))}
                                 {rules.length === 0 && <p className="text-gray-500">No rules configured.</p>}
                             </div>
                         </div>
                     )}
+                </div>
+            )}
+
+            {/* Delete Confirmation Modal */}
+            {deleteConfirm && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="glass-panel p-6 max-w-md mx-4">
+                        <h3 className="text-xl font-bold text-white mb-4">Confirm Delete</h3>
+                        <p className="text-gray-300 mb-6">Are you sure you want to delete this markup rule? This action cannot be undone.</p>
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => handleDeleteRule(deleteConfirm)}
+                                className="flex-1 bg-red-600 hover:bg-red-700 p-3 rounded-lg text-white font-bold"
+                            >
+                                Delete
+                            </button>
+                            <button
+                                onClick={() => setDeleteConfirm(null)}
+                                className="flex-1 bg-gray-600 hover:bg-gray-700 p-3 rounded-lg text-white font-bold"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

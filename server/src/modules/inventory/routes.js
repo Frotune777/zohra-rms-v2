@@ -12,6 +12,7 @@ router.delete('/:id', verifyToken, checkRole(['owner']), inventoryController.del
 // Daily Rates (Chicken Tracker)
 router.get('/rates', verifyToken, inventoryController.getDailyRates);
 router.post('/rates', verifyToken, checkRole(['manager', 'owner']), inventoryController.saveDailyRates);
+router.get('/rates/status', verifyToken, inventoryController.getRateStatus);
 
 // Suppliers
 router.get('/suppliers', verifyToken, inventoryController.getSuppliers);
@@ -20,10 +21,13 @@ router.post('/suppliers', verifyToken, checkRole(['manager', 'owner']), inventor
 // Markup Rules
 router.get('/markups', verifyToken, inventoryController.getMarkupRules);
 router.post('/markups', verifyToken, checkRole(['manager', 'owner']), inventoryController.saveMarkupRule);
+router.put('/markups/:id', verifyToken, checkRole(['manager', 'owner']), inventoryController.updateMarkupRule);
+router.delete('/markups/:id', verifyToken, checkRole(['manager', 'owner']), inventoryController.deleteMarkupRule);
 
 // Bill Entries
 router.get('/bills', verifyToken, inventoryController.getBillEntries);
 router.post('/bills', verifyToken, checkRole(['manager', 'owner']), inventoryController.createBillEntry);
+router.get('/bills/summary', verifyToken, inventoryController.getBillSummary);
 
 // Ledger
 router.get('/ledger', verifyToken, inventoryController.getVendorLedger);
