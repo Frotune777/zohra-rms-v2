@@ -1,0 +1,628 @@
+
+> al-zohra-server@1.0.0 test
+> jest --verbose
+
+FAIL tests/chicken.test.js
+  Chicken/Supplier Module
+    getDailyRates
+      ✓ should return daily rates for a specific date (46 ms)
+      ✓ should return latest rates if no date specified (5 ms)
+    saveDailyRates
+      ✕ should save daily rates for all item types (28 ms)
+      ✕ should return 400 if required rates are missing (7 ms)
+      ✕ should validate rates are positive numbers (6 ms)
+    getSuppliers
+      ✓ should return all suppliers (7 ms)
+    createSupplier
+      ✕ should create a new supplier (8 ms)
+      ✕ should return 400 if name is missing (7 ms)
+    getMarkupRules
+      ✓ should return markup rules for a supplier (5 ms)
+      ✓ should return all rules if no supplier specified (4 ms)
+    saveMarkupRule
+      ✕ should create a new markup rule (10 ms)
+      ✕ should validate operation type (5 ms)
+    calculateExpectedRate
+      ✕ should calculate rate with add operation (3 ms)
+      ✕ should calculate rate with subtract operation (4 ms)
+      ✕ should calculate rate with multiply operation (5 ms)
+      ✕ should calculate rate with percentage operation (3 ms)
+      ✕ should return base rate if no rule provided (7 ms)
+    createBillEntry
+      ✕ should create a bill with auto-calculated rate (7 ms)
+      ✕ should handle actual_rate if provided (5 ms)
+      ✕ should return 400 if required fields are missing (4 ms)
+      ✕ should validate weight is positive (4 ms)
+    getBillEntries
+      ✓ should return all bill entries (3 ms)
+      ✓ should filter by supplier_id (4 ms)
+      ✓ should filter by date range (3 ms)
+
+  ● Chicken/Supplier Module › saveDailyRates › should save daily rates for all item types
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"rates": ObjectContaining {"boiler": 165, "egg": 6.5, "tandoor": 185}, "success": true}
+    Received: {"boiler": 165, "date": "2024-12-08", "egg": 6.5, "tandoor": 185}
+
+    Number of calls: 1
+
+      56 |             await saveDailyRates(req, res);
+      57 |
+    > 58 |             expect(res.json).toHaveBeenCalledWith(
+         |                              ^
+      59 |                 expect.objectContaining({
+      60 |                     success: true,
+      61 |                     rates: expect.objectContaining({
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:58:30)
+
+  ● Chicken/Supplier Module › saveDailyRates › should return 400 if required rates are missing
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 400
+
+    Number of calls: 0
+
+      73 |             await saveDailyRates(req, res);
+      74 |
+    > 75 |             expect(res.status).toHaveBeenCalledWith(400);
+         |                                ^
+      76 |         });
+      77 |
+      78 |         it('should validate rates are positive numbers', async () => {
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:75:32)
+
+  ● Chicken/Supplier Module › saveDailyRates › should validate rates are positive numbers
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 400
+
+    Number of calls: 0
+
+      86 |             await saveDailyRates(req, res);
+      87 |
+    > 88 |             expect(res.status).toHaveBeenCalledWith(400);
+         |                                ^
+      89 |         });
+      90 |     });
+      91 |
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:88:32)
+
+  ● Chicken/Supplier Module › createSupplier › should create a new supplier
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"success": true, "supplier": ObjectContaining {"name": "New Supplier"}}
+    Received: {"address": "789 Street", "contact": "3333333333", "id": 3, "name": "New Supplier"}
+
+    Number of calls: 1
+
+      113 |             await createSupplier(req, res);
+      114 |
+    > 115 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      116 |                 expect.objectContaining({
+      117 |                     success: true,
+      118 |                     supplier: expect.objectContaining({ name: 'New Supplier' }),
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:115:30)
+
+  ● Chicken/Supplier Module › createSupplier › should return 400 if name is missing
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 400
+
+    Number of calls: 0
+
+      126 |             await createSupplier(req, res);
+      127 |
+    > 128 |             expect(res.status).toHaveBeenCalledWith(400);
+          |                                ^
+      129 |         });
+      130 |     });
+      131 |
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:128:32)
+
+  ● Chicken/Supplier Module › saveMarkupRule › should create a new markup rule
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"success": true}
+    Received: {"item_type": "tandoor", "operand": 5, "operation": "add", "supplier_id": 1}
+
+    Number of calls: 1
+
+      171 |             await saveMarkupRule(req, res);
+      172 |
+    > 173 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      174 |                 expect.objectContaining({ success: true })
+      175 |             );
+      176 |         });
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:173:30)
+
+  ● Chicken/Supplier Module › saveMarkupRule › should validate operation type
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 400
+
+    Number of calls: 0
+
+      186 |             await saveMarkupRule(req, res);
+      187 |
+    > 188 |             expect(res.status).toHaveBeenCalledWith(400);
+          |                                ^
+      189 |         });
+      190 |     });
+      191 |
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:188:32)
+
+  ● Chicken/Supplier Module › calculateExpectedRate › should calculate rate with add operation
+
+    TypeError: calculateExpectedRate is not a function
+
+      195 |             const rule = { operation: 'add', operand: 5 };
+      196 |
+    > 197 |             const result = calculateExpectedRate(rawRates, rule);
+          |                            ^
+      198 |
+      199 |             expect(result).toBe(185); // 180 + 5
+      200 |         });
+
+      at Object.calculateExpectedRate (tests/chicken.test.js:197:28)
+
+  ● Chicken/Supplier Module › calculateExpectedRate › should calculate rate with subtract operation
+
+    TypeError: calculateExpectedRate is not a function
+
+      204 |             const rule = { operation: 'subtract', operand: 3 };
+      205 |
+    > 206 |             const result = calculateExpectedRate(rawRates, rule);
+          |                            ^
+      207 |
+      208 |             expect(result).toBe(157); // 160 - 3
+      209 |         });
+
+      at Object.calculateExpectedRate (tests/chicken.test.js:206:28)
+
+  ● Chicken/Supplier Module › calculateExpectedRate › should calculate rate with multiply operation
+
+    TypeError: calculateExpectedRate is not a function
+
+      213 |             const rule = { operation: 'multiply', operand: 1.1 };
+      214 |
+    > 215 |             const result = calculateExpectedRate(rawRates, rule);
+          |                            ^
+      216 |
+      217 |             expect(result).toBe(198); // 180 * 1.1
+      218 |         });
+
+      at Object.calculateExpectedRate (tests/chicken.test.js:215:28)
+
+  ● Chicken/Supplier Module › calculateExpectedRate › should calculate rate with percentage operation
+
+    TypeError: calculateExpectedRate is not a function
+
+      222 |             const rule = { operation: 'percentage', operand: 10 };
+      223 |
+    > 224 |             const result = calculateExpectedRate(rawRates, rule);
+          |                            ^
+      225 |
+      226 |             expect(result).toBe(198); // 180 + (180 * 0.10)
+      227 |         });
+
+      at Object.calculateExpectedRate (tests/chicken.test.js:224:28)
+
+  ● Chicken/Supplier Module › calculateExpectedRate › should return base rate if no rule provided
+
+    TypeError: calculateExpectedRate is not a function
+
+      230 |             const rawRates = { tandoor: 180 };
+      231 |
+    > 232 |             const result = calculateExpectedRate(rawRates, null);
+          |                            ^
+      233 |
+      234 |             expect(result).toBe(180);
+      235 |         });
+
+      at Object.calculateExpectedRate (tests/chicken.test.js:232:28)
+
+  ● Chicken/Supplier Module › createBillEntry › should create a bill with auto-calculated rate
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"bill": ObjectContaining {"expected_rate": 185, "total_cost": 9250}, "success": true}
+    Received: {"bill_date": "2024-12-08", "expected_rate": 185, "id": 1, "item_type": "tandoor", "supplier_id": 1, "total_cost": 9250, "weight": 50}
+
+    Number of calls: 1
+
+      258 |             await createBillEntry(req, res);
+      259 |
+    > 260 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      261 |                 expect.objectContaining({
+      262 |                     success: true,
+      263 |                     bill: expect.objectContaining({
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:260:30)
+
+  ● Chicken/Supplier Module › createBillEntry › should handle actual_rate if provided
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"bill": ObjectContaining {"actual_rate": 190, "variance": 5}}
+    Received: {"actual_rate": 190, "bill_date": "2024-12-08", "expected_rate": 185, "item_type": "tandoor", "supplier_id": 1, "variance": 5, "weight": 50}
+
+    Number of calls: 1
+
+      289 |             await createBillEntry(req, res);
+      290 |
+    > 291 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      292 |                 expect.objectContaining({
+      293 |                     bill: expect.objectContaining({
+      294 |                         actual_rate: 190,
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:291:30)
+
+  ● Chicken/Supplier Module › createBillEntry › should return 400 if required fields are missing
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 400
+
+    Number of calls: 0
+
+      304 |             await createBillEntry(req, res);
+      305 |
+    > 306 |             expect(res.status).toHaveBeenCalledWith(400);
+          |                                ^
+      307 |         });
+      308 |
+      309 |         it('should validate weight is positive', async () => {
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:306:32)
+
+  ● Chicken/Supplier Module › createBillEntry › should validate weight is positive
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 400
+
+    Number of calls: 0
+
+      316 |             await createBillEntry(req, res);
+      317 |
+    > 318 |             expect(res.status).toHaveBeenCalledWith(400);
+          |                                ^
+      319 |         });
+      320 |     });
+      321 |
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:318:32)
+
+FAIL tests/advances.test.js
+  Advances and Payroll Module
+    getAllAdvances
+      ✓ should return all advance transactions (40 ms)
+      ✓ should filter advances by employee_id (6 ms)
+    getEmployeeAdvanceHistory
+      ✓ should return advance history for an employee (6 ms)
+    getEmployeeBalance
+      ✓ should calculate correct balance for employee (9 ms)
+      ✕ should return 0 balance if no transactions (37 ms)
+    createTransaction
+      ✓ should create an advance transaction (7 ms)
+      ✓ should create a repayment transaction (7 ms)
+      ✓ should return 400 if required fields are missing (5 ms)
+    runPayroll
+      ✕ should process payroll with advance deduction (11 ms)
+      ✕ should apply manual adjustments to payroll (9 ms)
+      ✕ should calculate prorated salary for partial month (21 ms)
+      ✕ should return 404 if employee not found (13 ms)
+    getMonthlyPayroll
+      ✕ should return payroll records for a month (11 ms)
+      ✓ should filter by employee_id if provided (7 ms)
+
+  ● Advances and Payroll Module › getEmployeeBalance › should return 0 balance if no transactions
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"balance": 0}
+    Received: {"balance": NaN}
+
+    Number of calls: 1
+
+      89 |             await getEmployeeBalance(req, res);
+      90 |
+    > 91 |             expect(res.json).toHaveBeenCalledWith(
+         |                              ^
+      92 |                 expect.objectContaining({ balance: 0 })
+      93 |             );
+      94 |         });
+
+      at Object.toHaveBeenCalledWith (tests/advances.test.js:91:30)
+
+  ● Advances and Payroll Module › runPayroll › should process payroll with advance deduction
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"payroll": ObjectContaining {"advance_deduction": 5000, "base_salary": 30000, "net_pay": 25000}, "success": true}
+    Received: {"earnedSalary": NaN, "netPay": NaN, "success": true}
+
+    Number of calls: 1
+
+      190 |             await runPayroll(req, res);
+      191 |
+    > 192 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      193 |                 expect.objectContaining({
+      194 |                     success: true,
+      195 |                     payroll: expect.objectContaining({
+
+      at Object.toHaveBeenCalledWith (tests/advances.test.js:192:30)
+
+  ● Advances and Payroll Module › runPayroll › should apply manual adjustments to payroll
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"payroll": ObjectContaining {"base_salary": 30000, "net_pay": 31500, "total_adjustments": 1500}, "success": true}
+    Received: {"earnedSalary": NaN, "netPay": NaN, "success": true}
+
+    Number of calls: 1
+
+      224 |             await runPayroll(req, res);
+      225 |
+    > 226 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      227 |                 expect.objectContaining({
+      228 |                     success: true,
+      229 |                     payroll: expect.objectContaining({
+
+      at Object.toHaveBeenCalledWith (tests/advances.test.js:226:30)
+
+  ● Advances and Payroll Module › runPayroll › should calculate prorated salary for partial month
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"payroll": ObjectContaining {"days_worked": 15}, "success": true}
+    Received: {"earnedSalary": NaN, "netPay": NaN, "success": true}
+
+    Number of calls: 1
+
+      256 |
+      257 |             // Should calculate based on days worked
+    > 258 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      259 |                 expect.objectContaining({
+      260 |                     success: true,
+      261 |                     payroll: expect.objectContaining({
+
+      at Object.toHaveBeenCalledWith (tests/advances.test.js:258:30)
+
+  ● Advances and Payroll Module › runPayroll › should return 404 if employee not found
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 404
+    Received: 500
+
+    Number of calls: 1
+
+      278 |             await runPayroll(req, res);
+      279 |
+    > 280 |             expect(res.status).toHaveBeenCalledWith(404);
+          |                                ^
+      281 |         });
+      282 |     });
+      283 |
+
+      at Object.toHaveBeenCalledWith (tests/advances.test.js:280:32)
+
+  ● Advances and Payroll Module › getMonthlyPayroll › should return payroll records for a month
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: [{"base_salary": 30000, "employee_id": 1, "employee_name": "John Doe", "id": 1, "month": 12, "net_pay": 28000, "year": 2024}]
+    Received: {"data": [{"base_salary": 30000, "employee_id": 1, "employee_name": "John Doe", "id": 1, "month": 12, "net_pay": 28000, "year": 2024}], "month": "12", "year": "2024"}
+
+    Number of calls: 1
+
+      300 |             await getMonthlyPayroll(req, res);
+      301 |
+    > 302 |             expect(res.json).toHaveBeenCalledWith(payrollRecords);
+          |                              ^
+      303 |         });
+      304 |
+      305 |         it('should filter by employee_id if provided', async () => {
+
+      at Object.toHaveBeenCalledWith (tests/advances.test.js:302:30)
+
+FAIL tests/inventory.test.js
+  Inventory Module
+    getInventory
+      ✓ should return all inventory items (60 ms)
+      ✓ should handle empty inventory (6 ms)
+      ✓ should handle database errors (5 ms)
+    addInventory
+      ✕ should add a new inventory item (18 ms)
+      ✕ should calculate total_value correctly (9 ms)
+      ✓ should return 400 if required fields are missing (5 ms)
+      ✓ should validate quantity is positive (4 ms)
+    updateInventory
+      ✕ should update inventory item (14 ms)
+      ✕ should recalculate total_value when quantity changes (8 ms)
+      ✕ should recalculate total_value when unit_cost changes (25 ms)
+      ✕ should return 404 if item not found (8 ms)
+    deleteInventory
+      ✓ should delete an inventory item (7 ms)
+      ✓ should return 404 if item not found (3 ms)
+      ✓ should handle database errors (3 ms)
+
+  ● Inventory Module › addInventory › should add a new inventory item
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"item": ObjectContaining {"item_name": "Tomatoes", "total_value": 800}, "success": true}
+    Received: {"error": "All fields are required"}
+
+    Number of calls: 1
+
+      65 |             await addInventory(req, res);
+      66 |
+    > 67 |             expect(res.json).toHaveBeenCalledWith(
+         |                              ^
+      68 |                 expect.objectContaining({
+      69 |                     success: true,
+      70 |                     item: expect.objectContaining({
+
+      at Object.toHaveBeenCalledWith (tests/inventory.test.js:67:30)
+
+  ● Inventory Module › addInventory › should calculate total_value correctly
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"item": ObjectContaining {"total_value": 1500}}
+    Received: {"error": "All fields are required"}
+
+    Number of calls: 1
+
+      94 |             await addInventory(req, res);
+      95 |
+    > 96 |             expect(res.json).toHaveBeenCalledWith(
+         |                              ^
+      97 |                 expect.objectContaining({
+      98 |                     item: expect.objectContaining({ total_value: 1500 }),
+      99 |                 })
+
+      at Object.toHaveBeenCalledWith (tests/inventory.test.js:96:30)
+
+  ● Inventory Module › updateInventory › should update inventory item
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"item": ObjectContaining {"quantity": 150, "total_value": 8250}, "success": true}
+    Received: {"error": "All fields are required"}
+
+    Number of calls: 1
+
+      142 |             await updateInventory(req, res);
+      143 |
+    > 144 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      145 |                 expect.objectContaining({
+      146 |                     success: true,
+      147 |                     item: expect.objectContaining({
+
+      at Object.toHaveBeenCalledWith (tests/inventory.test.js:144:30)
+
+  ● Inventory Module › updateInventory › should recalculate total_value when quantity changes
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"item": ObjectContaining {"total_value": 10000}}
+    Received: {"error": "All fields are required"}
+
+    Number of calls: 1
+
+      166 |             await updateInventory(req, res);
+      167 |
+    > 168 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      169 |                 expect.objectContaining({
+      170 |                     item: expect.objectContaining({ total_value: 10000 }),
+      171 |                 })
+
+      at Object.toHaveBeenCalledWith (tests/inventory.test.js:168:30)
+
+  ● Inventory Module › updateInventory › should recalculate total_value when unit_cost changes
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"item": ObjectContaining {"total_value": 6000}}
+    Received: {"error": "All fields are required"}
+
+    Number of calls: 1
+
+      186 |             await updateInventory(req, res);
+      187 |
+    > 188 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      189 |                 expect.objectContaining({
+      190 |                     item: expect.objectContaining({ total_value: 6000 }),
+      191 |                 })
+
+      at Object.toHaveBeenCalledWith (tests/inventory.test.js:188:30)
+
+  ● Inventory Module › updateInventory › should return 404 if item not found
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 404
+    Received: 400
+
+    Number of calls: 1
+
+      200 |             await updateInventory(req, res);
+      201 |
+    > 202 |             expect(res.status).toHaveBeenCalledWith(404);
+          |                                ^
+      203 |         });
+      204 |     });
+      205 |
+
+      at Object.toHaveBeenCalledWith (tests/inventory.test.js:202:32)
+
+PASS tests/employees.test.js
+  Employee Module
+    getEmployees
+      ✓ should return all employees (20 ms)
+      ✓ should hide salary for staff role (5 ms)
+      ✓ should handle database errors (8 ms)
+    createEmployee
+      ✓ should create a new employee with valid data (9 ms)
+      ✓ should return 400 if required fields are missing (8 ms)
+      ✓ should handle database errors during creation (6 ms)
+    updateEmployee
+      ✓ should update employee details (7 ms)
+      ✓ should return 404 if employee not found (5 ms)
+    deleteEmployee
+      ✓ should hard delete an employee (23 ms)
+      ✓ should return 404 if employee not found (5 ms)
+    getEmployeeHistory
+      ✓ should return employee change history (6 ms)
+      ✓ should return empty array if no history exists (5 ms)
+
+PASS tests/auth.test.js (6.46 s)
+  Auth Module
+    POST /api/auth/login
+      ✓ should return 400 if email is missing (469 ms)
+      ✓ should return 400 if password is missing (68 ms)
+      ✓ should return 401 for non-existent user (90 ms)
+      ✓ should return 401 for incorrect password (1111 ms)
+      ✓ should successfully login with correct credentials (demo mode) (68 ms)
+      ✓ should return valid JWT token on successful login (58 ms)
+    POST /api/auth/register
+      ✓ should return 401 if not authenticated (31 ms)
+      ✓ should return 400 if required fields are missing (with auth) (45 ms)
+      ✓ should return 400 if email already exists (50 ms)
+      ✓ should successfully register a new user with auth (620 ms)
+      ✓ should hash the password before storing (530 ms)
+    GET /health
+      ✓ should return status ok (31 ms)
+
+Test Suites: 3 failed, 2 passed, 5 total
+Tests:       28 failed, 48 passed, 76 total
+Snapshots:   0 total
+Time:        8.428 s, estimated 13 s
+Ran all test suites.

@@ -1,0 +1,50 @@
+######## general ########
+*.log
+*.pid
+*.seed
+*.pid.lock
+*~
+.env
+.env.local
+.env.*.local
+.DS_Store
+Thumbs.db
+
+######## python ########
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+instance/
+
+######## node ########
+node_modules/
+package-lock.json
+yarn.lock
+.pnp*
+.pnp.js
+
+######## build ########
+build/
+dist/
+coverage/
+.nyc_output/
+
+######## runtime ########
+tmp/
+temp/
+*.tmp
+*.cache
+.cache/
+*.gz
+*.swp
+*.swo
+
+######## vscode ########
+.vscode/
+.idea/
+
+######## docker ########
+docker-compose.override.yml

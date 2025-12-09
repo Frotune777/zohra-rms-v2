@@ -1,0 +1,2 @@
+ALTER TABLE salary_history
+ADD COLUMN IF NOT EXISTS paid_by VARCHAR(100);

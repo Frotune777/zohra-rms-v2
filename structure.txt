@@ -1,0 +1,157 @@
+📁 Project structure for: /home/fortune/Desktop/py_project/zohra-rms-v2-main (with file sizes)
+├── .gitignore (0.4 KB)
+├── .setup_complete (0.0 KB)
+├── CHANGELOG.md (1.8 KB)
+├── README.md (7.2 KB)
+├── SETUP.md (5.0 KB)
+├── client
+│   ├── .env (0.1 KB)
+│   ├── Dockerfile (0.1 KB)
+│   ├── index.html (0.4 KB)
+│   ├── package-lock.json (100.4 KB)
+│   ├── package.json (0.6 KB)
+│   ├── postcss.config.js (0.1 KB)
+│   ├── src
+│   │   ├── App.jsx (3.5 KB)
+│   │   ├── components
+│   │   │   ├── ProtectedRoute.jsx (0.9 KB)
+│   │   │   └── reports
+│   │   │       ├── DateRangePicker.jsx (2.8 KB)
+│   │   │       ├── ExportButton.jsx (3.8 KB)
+│   │   │       ├── ReportLayout.jsx (0.8 KB)
+│   │   │       └── StatsCard.jsx (2.4 KB)
+│   │   ├── context
+│   │   │   └── AuthContext.jsx (2.1 KB)
+│   │   ├── index.css (5.6 KB)
+│   │   ├── layouts
+│   │   │   └── DashboardLayout.jsx (4.1 KB)
+│   │   ├── main.jsx (0.2 KB)
+│   │   └── pages
+│   │       ├── AIDashboard.jsx (7.4 KB)
+│   │       ├── Advances.jsx (14.3 KB)
+│   │       ├── BulkAttendance.jsx (5.8 KB)
+│   │       ├── EmployeeManagement.jsx (20.3 KB)
+│   │       ├── Finance.jsx (26.5 KB)
+│   │       ├── Inventory.jsx (12.7 KB)
+│   │       ├── Login.jsx (4.3 KB)
+│   │       ├── MasterDashboard.jsx (7.0 KB)
+│   │       ├── MenuManagement.jsx (9.5 KB)
+│   │       ├── POS.jsx (10.6 KB)
+│   │       ├── Payroll.jsx (13.8 KB)
+│   │       ├── Staff.jsx (5.9 KB)
+│   │       ├── chicken
+│   │       │   ├── BillEntry.jsx (10.4 KB)
+│   │       │   ├── DailyRates.jsx (5.5 KB)
+│   │       │   └── VendorManager.jsx (15.0 KB)
+│   │       ├── finance
+│   │       │   ├── DailySummary.jsx (5.5 KB)
+│   │       │   └── PaymentEntry.jsx (5.3 KB)
+│   │       └── reports
+│   │           ├── FinancialReports.jsx (10.4 KB)
+│   │           ├── HRReports.jsx (11.6 KB)
+│   │           ├── InventoryReports.jsx (11.5 KB)
+│   │           ├── OperationsReports.jsx (11.5 KB)
+│   │           └── ReportsDashboard.jsx (8.6 KB)
+│   ├── tailwind.config.js (0.2 KB)
+│   └── vite.config.js (0.2 KB)
+├── database
+│   ├── 00_init.sql (10.4 KB)
+│   ├── 01_add_employee_code.sql (0.5 KB)
+│   ├── 02_missing_tables.sql (1.6 KB)
+│   ├── 03_fix_advance_ledger.sql (0.3 KB)
+│   ├── 04_fix_salary_history.sql (0.2 KB)
+│   └── 05_phase2_schema.sql (1.4 KB)
+├── debug_advances.js (0.7 KB)
+├── debug_employees.js (0.6 KB)
+├── docker-compose.yml (0.7 KB)
+├── docs
+│   └── INITIALIZATION.md (4.6 KB)
+├── implementation_plan.md (5.3 KB)
+├── implementation_plans
+│   ├── v1_backend_refactoring.md (2.8 KB)
+│   ├── v2_operations_inventory.md (1.9 KB)
+│   └── v3_ai_automation.md (1.8 KB)
+├── package-lock.json (9.9 KB)
+├── package.json (0.0 KB)
+├── rms.code-workspace (0.1 KB)
+├── server
+│   ├── .env (0.3 KB)
+│   ├── Dockerfile (0.1 KB)
+│   ├── jest.config.js (0.6 KB)
+│   ├── package-lock.json (207.2 KB)
+│   ├── package.json (0.7 KB)
+│   ├── run_schema.js (0.7 KB)
+│   ├── scripts
+│   │   ├── check-db.js (1.9 KB)
+│   │   ├── migrate.js (1.1 KB)
+│   │   └── update_employee_schema.js (1.2 KB)
+│   ├── seed_kds.js (1.9 KB)
+│   ├── server.js (0.4 KB)
+│   ├── src
+│   │   ├── app.js (1.9 KB)
+│   │   ├── config
+│   │   │   └── db.js (0.2 KB)
+│   │   ├── controllers
+│   │   │   ├── advances.js (3.6 KB)
+│   │   │   ├── attendance.controller.js (1.3 KB)
+│   │   │   ├── chicken.controller.js (7.3 KB)
+│   │   │   └── employees.js (4.7 KB)
+│   │   ├── middleware
+│   │   │   ├── auth.js (1.0 KB)
+│   │   │   └── rbac.js (1.2 KB)
+│   │   ├── modules
+│   │   │   ├── ai
+│   │   │   │   ├── controller.js (5.7 KB)
+│   │   │   │   └── routes.js (0.4 KB)
+│   │   │   ├── auth
+│   │   │   │   ├── controller.js (3.3 KB)
+│   │   │   │   └── routes.js (0.4 KB)
+│   │   │   ├── dashboard
+│   │   │   │   ├── controller.js (4.4 KB)
+│   │   │   │   └── routes.js (0.3 KB)
+│   │   │   ├── employees
+│   │   │   │   ├── controller.js (14.0 KB)
+│   │   │   │   └── routes.js (1.8 KB)
+│   │   │   ├── finance
+│   │   │   │   ├── controller.js (9.0 KB)
+│   │   │   │   └── routes.js (0.9 KB)
+│   │   │   ├── inventory
+│   │   │   │   ├── controller.js (9.5 KB)
+│   │   │   │   ├── po.controller.js (3.4 KB)
+│   │   │   │   └── routes.js (1.8 KB)
+│   │   │   ├── operations
+│   │   │   │   ├── kds.controller.js (2.1 KB)
+│   │   │   │   ├── routes.js (0.7 KB)
+│   │   │   │   └── wastage.controller.js (2.2 KB)
+│   │   │   ├── pos
+│   │   │   │   ├── controller.js (3.4 KB)
+│   │   │   │   └── routes.js (0.5 KB)
+│   │   │   └── reports
+│   │   │       ├── controller.js (21.0 KB)
+│   │   │       └── routes.js (1.2 KB)
+│   │   ├── routes
+│   │   │   ├── attendance.routes.js (0.4 KB)
+│   │   │   ├── auth.js (3.4 KB)
+│   │   │   ├── chicken.routes.js (1.1 KB)
+│   │   │   └── employees.js (0.9 KB)
+│   │   └── socket.js (0.8 KB)
+│   ├── test-results.txt (23.2 KB)
+│   └── tests
+│       ├── advances.test.js (11.6 KB)
+│       ├── auth.test.js (8.2 KB)
+│       ├── chicken.test.js (11.6 KB)
+│       ├── dashboard.test.js (7.6 KB)
+│       ├── employees.test.js (6.9 KB)
+│       ├── finance.test.js (8.9 KB)
+│       ├── helpers
+│       │   ├── auth-helper.js (1.9 KB)
+│       │   └── db-mock.js (3.2 KB)
+│       ├── inventory.test.js (6.8 KB)
+│       ├── pos.test.js (8.1 KB)
+│       └── setup.js (1.1 KB)
+├── setup.sh (7.7 KB)
+├── start.sh (1.6 KB)
+├── structure.py (2.2 KB)
+├── structure.txt (6.7 KB)
+├── task.md (2.4 KB)
+└── update_advance_schema.js (0.6 KB)

@@ -1,0 +1,6 @@
+-- Add contact fields to suppliers table
+ALTER TABLE suppliers 
+ADD COLUMN IF NOT EXISTS contact_person VARCHAR(100),
+ADD COLUMN IF NOT EXISTS email VARCHAR(100),
+ADD COLUMN IF NOT EXISTS address TEXT,
+ADD COLUMN IF NOT EXISTS gstin VARCHAR(20);
