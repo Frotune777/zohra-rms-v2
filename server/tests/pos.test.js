@@ -139,9 +139,11 @@ describe('POS Module', () => {
         it('should delete a menu item', async () => {
             req.params = { id: '1' };
 
-            db.query
+            db._mockClient.query
+                .mockResolvedValueOnce({ rows: [] }) // BEGIN
                 .mockResolvedValueOnce(mockQueryResult([])) // DELETE recipe ingredients
-                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }], 1)); // DELETE menu item
+                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }], 1)) // DELETE menu item
+                .mockResolvedValueOnce({ rows: [] }); // COMMIT
 
             await deleteMenuItem(req, res);
 
@@ -156,9 +158,11 @@ describe('POS Module', () => {
         it('should return 404 if menu item not found', async () => {
             req.params = { id: '999' };
 
-            db.query
-                .mockResolvedValueOnce(mockQueryResult([]))
-                .mockResolvedValueOnce(mockQueryResult([], 0));
+            db._mockClient.query
+                .mockResolvedValueOnce({ rows: [] }) // BEGIN
+                .mockResolvedValueOnce(mockQueryResult([])) // DELETE recipe
+                .mockResolvedValueOnce(mockQueryResult([], 0)) // DELETE item
+                .mockResolvedValueOnce({ rows: [] }); // ROLLBACK
 
             await deleteMenuItem(req, res);
 
@@ -167,7 +171,10 @@ describe('POS Module', () => {
 
         it('should handle database errors', async () => {
             req.params = { id: '1' };
-            db.query.mockRejectedValue(new Error('Database error'));
+
+            db._mockClient.query
+                .mockResolvedValueOnce({ rows: [] }) // BEGIN
+                .mockRejectedValue(new Error('Database error'));
 
             await deleteMenuItem(req, res);
 
@@ -182,25 +189,62 @@ describe('POS Module', () => {
                     { id: 1, name: 'Chicken Biryani', price: 250, qty: 2 },
                     { id: 2, name: 'Mutton Curry', price: 300, qty: 1 },
                 ],
+                customerName: 'John',
+                paymentMethod: 'CASH',
             };
 
-            // Mock BEGIN, journal entry, recipe queries, inventory updates, ledger entries, COMMIT
-            db.query
-                .mockResolvedValueOnce({}) // BEGIN
-                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // INSERT journal entry
-                .mockResolvedValueOnce(mockQueryResult([
-                    { inventory_item_id: 1, quantity_required: 0.3, unit_cost: 200 },
-                ])) // Recipe for item 1
-                .mockResolvedValueOnce(mockQueryResult([])) // UPDATE inventory
-                .mockResolvedValueOnce(mockQueryResult([
-                    { inventory_item_id: 2, quantity_required: 0.2, unit_cost: 300 },
-                ])) // Recipe for item 2
-                .mockResolvedValueOnce(mockQueryResult([])) // UPDATE inventory
-                .mockResolvedValueOnce(mockQueryResult([])) // INSERT ledger line 1
-                .mockResolvedValueOnce(mockQueryResult([])) // INSERT ledger line 2
-                .mockResolvedValueOnce(mockQueryResult([])) // INSERT ledger line 3
-                .mockResolvedValueOnce(mockQueryResult([])) // INSERT ledger line 4
-                .mockResolvedValueOnce({}); // COMMIT
+            // Mock BEGIN, INSERT pos_transactions, Loop Items...
+            // Logic in PosService:
+            // 1. BEGIN
+            // 2. INSERT pos_transactions
+            // 3. For each item:
+            //    - INSERT pos_transaction_items
+            //    - SELECT recipe ingredients
+            //    - For each ingredient: 
+            //      - adjustStock (UPDATE inventory, INSERT stock_movement)
+            // 4. INSERT journal_entries (Revenue)
+            // 5. INSERT ledger_lines (Revenue Debit/Credit)
+            // 6. IF COGS > 0: INSERT ledger_lines (COGS Debit/Credit)
+            // 7. COMMIT
+
+            // This is complex to mock sequentially.
+            // Simplified: we just need to ensure the chain doesn't break.
+            // But we need to respond to specific queries like recipe lookup.
+
+            // Or simpler: Mock specific responses and let others return default { rows: [] }.
+            // But jest manual mock returns rows: [] by default if not instructed.
+            // Wait, manual mock `query` is just `jest.fn()`. It returns undefined unless mocked.
+            // My tests usually set `mockResolvedValue`.
+            // If I set `mockResolvedValue` on `query`, it returns that for ALL calls unless `Once` is used.
+
+            // Best strategy: Use `mockResolvedValue` for default success (empty rows), 
+            // and `mockResolvedValueOnce` for specific queries IF order matters.
+            // But order matters a lot here.
+
+            // Let's try to match the sequence roughly:
+            const q = db._mockClient.query;
+
+            q.mockResolvedValueOnce({ rows: [] }) // BEGIN
+                .mockResolvedValueOnce(mockQueryResult([{ id: 100 }])) // INSERT pos_transactions
+                // Item 1
+                .mockResolvedValueOnce({ rows: [] }) // INSERT pos_transaction_items
+                .mockResolvedValueOnce(mockQueryResult([{ inventory_item_id: 1, quantity_required: 0.1, unit_cost: 50 }, { inventory_item_id: 99, quantity_required: 0, unit_cost: 0 }])) // SELECT recipe (mocking 2 ingredients for test or just 1)
+                // Ing 1 Adjustment:
+                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // UPDATE inventory
+                .mockResolvedValueOnce({ rows: [] }) // INSERT stock_movement
+                // Ing 2 Adjustment (dummy):
+                .mockResolvedValueOnce(mockQueryResult([{ id: 99 }]))
+                .mockResolvedValueOnce({ rows: [] })
+                // Item 2
+                .mockResolvedValueOnce({ rows: [] }) // INSERT pos_transaction_items
+                .mockResolvedValueOnce(mockQueryResult([])) // SELECT recipe (no ingredients)
+                // Journal
+                .mockResolvedValueOnce(mockQueryResult([{ id: 500 }])) // INSERT journal_entries
+                .mockResolvedValueOnce({ rows: [] }) // Ledger 1
+                .mockResolvedValueOnce({ rows: [] }) // Ledger 2
+                .mockResolvedValueOnce({ rows: [] }) // Ledger 3 (COGS)
+                .mockResolvedValueOnce({ rows: [] }) // Ledger 4 (COGS)
+                .mockResolvedValueOnce({ rows: [] }); // COMMIT
 
             await createOrder(req, res);
 
@@ -212,24 +256,27 @@ describe('POS Module', () => {
         it('should calculate total revenue correctly', async () => {
             req.body = {
                 items: [
-                    { id: 1, price: 250, qty: 2 }, // 500
-                    { id: 2, price: 300, qty: 1 }, // 300
+                    { id: 1, name: 'Item', price: 250, qty: 2 },
                 ],
-                // Total: 800
             };
 
-            db.query
-                .mockResolvedValueOnce({})
-                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }]))
-                .mockResolvedValue(mockQueryResult([]));
+            const q = db._mockClient.query;
+            q.mockResolvedValue({ rows: [], rowCount: 1 }); // Default
+            q.mockResolvedValueOnce({ rows: [] }) // BEGIN
+                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // Trans ID
+                // ... subsequent calls return default (empty array) which usually works for inserts
+                // BUT recipe lookup needs to return array, or empty array. Empty array is fine (no stock deduction).
+                // Recipe lookup is SELECT.
+                .mockResolvedValueOnce({ rows: [] }) // INSERT item
+                .mockResolvedValueOnce(mockQueryResult([])); // SELECT recipe (empty)
 
             await createOrder(req, res);
 
-            // Verify ledger entry for revenue (800)
-            const ledgerCalls = db.query.mock.calls.filter(call =>
-                call[0].includes('ledger_lines')
+            // We can check if pos_transactions insert had correct total
+            expect(q).toHaveBeenCalledWith(
+                expect.stringContaining('INSERT INTO pos_transactions'),
+                expect.arrayContaining([500]) // 250 * 2
             );
-            expect(ledgerCalls.length).toBeGreaterThan(0);
         });
 
         it('should handle database errors and rollback', async () => {
@@ -237,15 +284,14 @@ describe('POS Module', () => {
                 items: [{ id: 1, price: 250, qty: 1 }],
             };
 
-            db.query
+            db._mockClient.query
                 .mockResolvedValueOnce({}) // BEGIN
                 .mockRejectedValueOnce(new Error('Database error'));
 
             await createOrder(req, res);
 
             expect(res.status).toHaveBeenCalledWith(500);
-            // Verify ROLLBACK was called
-            expect(db.query).toHaveBeenCalledWith('ROLLBACK');
+            expect(db._mockClient.query).toHaveBeenCalledWith('ROLLBACK');
         });
     });
 });

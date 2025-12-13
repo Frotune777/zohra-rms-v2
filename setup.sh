@@ -102,7 +102,7 @@ JWT_SECRET=$(openssl rand -base64 32)
 JWT_EXPIRES_IN=24h
 
 # CORS Configuration
-CLIENT_URL=http://localhost:3001
+CLIENT_URL=http://localhost:3002
 EOF
     print_success "Created server/.env file"
 else
@@ -114,7 +114,7 @@ if [ ! -f "client/.env" ]; then
     print_info "Creating client/.env file..."
     cat > client/.env << EOF
 # API Configuration
-REACT_APP_API_URL=http://localhost:5000
+VITE_API_URL=http://localhost:5000
 REACT_APP_WS_URL=http://localhost:5000
 EOF
     print_success "Created client/.env file"

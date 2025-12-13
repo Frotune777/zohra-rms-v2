@@ -18,6 +18,9 @@ import VendorManager from './pages/chicken/VendorManager';
 import BulkAttendance from './pages/BulkAttendance';
 import PaymentEntry from './pages/finance/PaymentEntry';
 import DailySummary from './pages/finance/DailySummary';
+import DailyTracker from './pages/finance/DailyTracker';
+import ManagerFloat from './pages/finance/ManagerFloat';
+import ExpenseMapping from './pages/finance/ExpenseMapping';
 import ReportsDashboard from './pages/reports/ReportsDashboard';
 import FinancialReports from './pages/reports/FinancialReports';
 import HRReports from './pages/reports/HRReports';
@@ -51,6 +54,9 @@ function AppRoutes() {
                 <Route path="finance" element={<Finance />} />
                 <Route path="finance/payments" element={<PaymentEntry />} />
                 <Route path="finance/summary" element={<DailySummary />} />
+                <Route path="finance/daily-tracker" element={<DailyTracker />} />
+                <Route path="finance/float" element={<ManagerFloat />} />
+                <Route path="finance/mappings" element={<ExpenseMapping />} />
                 <Route path="attendance/bulk" element={<BulkAttendance />} />
                 <Route path="ai-dashboard" element={<AIDashboard />} />
 

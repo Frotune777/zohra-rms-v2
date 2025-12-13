@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FiCoffee, FiDollarSign, FiUsers, FiLogOut, FiUser, FiGift, FiMenu, FiTrendingUp, FiHome, FiBarChart2, FiActivity } from 'react-icons/fi';
+import { FiCoffee, FiDollarSign, FiUsers, FiLogOut, FiUser, FiGift, FiMenu, FiTrendingUp, FiHome, FiBarChart2, FiActivity, FiGrid } from 'react-icons/fi';
 
 const SidebarItem = ({ icon: Icon, label, to, active }) => (
   <Link to={to} className={`flex items-center gap-3 p-3 rounded-lg transition-all ${active ? 'bg-zohra-blue text-white font-bold' : 'hover:bg-white/5 text-gray-400'}`}>
@@ -50,6 +50,7 @@ export default ({ children }) => {
             <p className="text-xs text-gray-500 px-3 mb-1 uppercase font-bold">Financials</p>
             <SidebarItem to="/finance" icon={FiDollarSign} label="General Ledger" active={loc.pathname === '/finance'} />
             <SidebarItem to="/finance/summary" icon={FiDollarSign} label="Daily Summary" active={loc.pathname === '/finance/summary'} />
+            <SidebarItem to="/finance/daily-tracker" icon={FiGrid} label="Daily Tracker" active={loc.pathname === '/finance/daily-tracker'} />
           </div>
 
           <div className="my-2 border-t border-white/10 pt-2">

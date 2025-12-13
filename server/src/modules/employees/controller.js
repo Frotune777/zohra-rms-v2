@@ -45,6 +45,7 @@ exports.createEmployee = async (req, res) => {
 
         res.status(201).json(result.rows[0]);
     } catch (err) {
+        console.error('DEBUG: createEmployee Error:', err);
         res.status(500).json({ error: err.message });
     }
 };
@@ -345,6 +346,7 @@ exports.runPayroll = async (req, res) => {
         await client.query('BEGIN');
 
         const empRes = await client.query("SELECT * FROM employees WHERE id = $1", [employeeId]);
+        console.log('DEBUG: runPayroll empRes rows:', empRes.rows);
         const employee = empRes.rows[0];
         const baseSalary = parseFloat(employee.base_salary);
 

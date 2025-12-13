@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiUser, FiBell, FiGlobe, FiGrid, FiList, FiMinus, FiPlus, FiX, FiPrinter, FiSave } from 'react-icons/fi';
@@ -93,11 +93,13 @@ const POS = () => {
     }
   };
 
-  const filteredMenu = menu.filter(item => {
-    const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
-    const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filteredMenu = useMemo(() => {
+    return menu.filter(item => {
+      const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
+      const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [menu, selectedCategory, searchQuery]);
 
   return (
     <div className="flex h-screen w-full bg-gray-100 text-gray-800 font-sans overflow-hidden">

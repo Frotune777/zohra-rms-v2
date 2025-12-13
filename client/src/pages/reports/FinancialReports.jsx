@@ -17,6 +17,7 @@ export default function FinancialReports() {
     const [loading, setLoading] = useState(true);
     const [overview, setOverview] = useState(null);
     const [expenseBreakdown, setExpenseBreakdown] = useState([]);
+    const [spendingByPerson, setSpendingByPerson] = useState([]); // [NEW]
     const [balanceSheet, setBalanceSheet] = useState(null);
     const [dateRange, setDateRange] = useState({
         startDate: new Date(new Date().setDate(new Date().getDate() - 30)).toISOString().split('T')[0],
@@ -31,15 +32,17 @@ export default function FinancialReports() {
         try {
             setLoading(true);
 
-            const [overviewRes, expenseRes, balanceSheetRes] = await Promise.all([
-                axios.get('http://localhost:5000/api/reports/financial/overview', { params: dateRange }),
-                axios.get('http://localhost:5000/api/reports/financial/expense-breakdown', { params: dateRange }),
-                axios.get('http://localhost:5000/api/reports/financial/balance-sheet', { params: { date: dateRange.endDate } })
+            const [overviewRes, expenseRes, balanceSheetRes, spendingRes] = await Promise.all([
+                axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3002'}/api/reports/financial/overview`, { params: dateRange }),
+                axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3002'}/api/reports/financial/expense-breakdown`, { params: dateRange }),
+                axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3002'}/api/reports/financial/balance-sheet`, { params: { date: dateRange.endDate } }),
+                axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3002'}/api/reports/financial/spending-by-person`, { params: dateRange })
             ]);
 
             setOverview(overviewRes.data);
             setExpenseBreakdown(expenseRes.data);
             setBalanceSheet(balanceSheetRes.data);
+            setSpendingByPerson(spendingRes.data); // [NEW]
         } catch (error) {
             console.error('Error fetching financial data:', error);
             toast.error('Failed to load financial reports');
@@ -232,75 +235,116 @@ export default function FinancialReports() {
                 </div>
             </div>
 
+            {/* Spending By Person Table [NEW] */}
+            <div className="report-table-card mt-8">
+                <h3 className="table-title">Spending by Person</h3>
+                <div className="overflow-x-auto">
+                    <table className="report-table">
+                        <thead>
+                            <tr>
+                                <th>Person</th>
+                                <th>Total Spent</th>
+                                <th>Calculated Transactions</th>
+                                <th>% of Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {spendingByPerson.map((item, idx) => {
+                                const total = spendingByPerson.reduce((sum, i) => sum + parseFloat(i.total_amount), 0);
+                                const percentage = total > 0 ? (parseFloat(item.total_amount) / total) * 100 : 0;
+
+                                return (
+                                    <tr key={idx}>
+                                        <td className="font-medium text-white">{item.paid_by || 'Unknown'}</td>
+                                        <td className="font-mono text-yellow-400">
+                                            ₹{parseFloat(item.total_amount).toLocaleString('en-IN')}
+                                        </td>
+                                        <td>{item.transaction_count}</td>
+                                        <td>{percentage.toFixed(1)}%</td>
+                                    </tr>
+                                );
+                            })}
+                            {spendingByPerson.length === 0 && (
+                                <tr>
+                                    <td colSpan="4" className="text-center py-4 text-gray-500">No spending data available.</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             {/* Balance Sheet Section */}
-            {balanceSheet && (
-                <div className="mt-8">
-                    <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                        <FiDollarSign className="text-zohra-blue" />
-                        Balance Sheet (As of {new Date(dateRange.endDate).toLocaleDateString('en-IN')})
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Assets */}
-                        <div className="glass-panel p-6 rounded-xl border border-green-500/20">
-                            <h3 className="text-lg font-bold text-green-400 mb-4 border-b border-white/10 pb-2">Assets</h3>
-                            <div className="space-y-3">
-                                {balanceSheet.assets.map((asset, idx) => (
-                                    <div key={idx} className="flex justify-between items-center text-sm">
-                                        <span className="text-gray-300">{asset.name}</span>
-                                        <span className="font-mono text-white">₹{parseFloat(asset.balance).toLocaleString('en-IN')}</span>
-                                    </div>
-                                ))}
-                                <div className="border-t border-white/10 pt-3 flex justify-between items-center font-bold text-lg">
-                                    <span className="text-white">Total Assets</span>
-                                    <span className="text-green-400">₹{parseFloat(balanceSheet.summary.totalAssets).toLocaleString('en-IN')}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Liabilities & Equity */}
-                        <div className="glass-panel p-6 rounded-xl border border-red-500/20">
-                            <h3 className="text-lg font-bold text-red-400 mb-4 border-b border-white/10 pb-2">Liabilities & Equity</h3>
-
-                            <div className="mb-6">
-                                <h4 className="text-sm font-bold text-gray-400 mb-2 uppercase">Liabilities</h4>
+            {
+                balanceSheet && (
+                    <div className="mt-8">
+                        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                            <FiDollarSign className="text-zohra-blue" />
+                            Balance Sheet (As of {new Date(dateRange.endDate).toLocaleDateString('en-IN')})
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {/* Assets */}
+                            <div className="glass-panel p-6 rounded-xl border border-green-500/20">
+                                <h3 className="text-lg font-bold text-green-400 mb-4 border-b border-white/10 pb-2">Assets</h3>
                                 <div className="space-y-3">
-                                    {balanceSheet.liabilities.map((liab, idx) => (
+                                    {balanceSheet.assets.map((asset, idx) => (
                                         <div key={idx} className="flex justify-between items-center text-sm">
-                                            <span className="text-gray-300">{liab.name}</span>
-                                            <span className="font-mono text-white">₹{parseFloat(liab.balance).toLocaleString('en-IN')}</span>
+                                            <span className="text-gray-300">{asset.name}</span>
+                                            <span className="font-mono text-white">₹{parseFloat(asset.balance).toLocaleString('en-IN')}</span>
                                         </div>
                                     ))}
-                                    <div className="border-t border-white/10 pt-2 flex justify-between items-center font-bold">
-                                        <span className="text-gray-400">Total Liabilities</span>
-                                        <span className="text-white">₹{parseFloat(balanceSheet.summary.totalLiabilities).toLocaleString('en-IN')}</span>
+                                    <div className="border-t border-white/10 pt-3 flex justify-between items-center font-bold text-lg">
+                                        <span className="text-white">Total Assets</span>
+                                        <span className="text-green-400">₹{parseFloat(balanceSheet.summary.totalAssets).toLocaleString('en-IN')}</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div>
-                                <h4 className="text-sm font-bold text-gray-400 mb-2 uppercase">Equity</h4>
-                                <div className="space-y-3">
-                                    {balanceSheet.equity.map((eq, idx) => (
-                                        <div key={idx} className="flex justify-between items-center text-sm">
-                                            <span className="text-gray-300">{eq.name}</span>
-                                            <span className="font-mono text-white">₹{parseFloat(eq.balance).toLocaleString('en-IN')}</span>
+                            {/* Liabilities & Equity */}
+                            <div className="glass-panel p-6 rounded-xl border border-red-500/20">
+                                <h3 className="text-lg font-bold text-red-400 mb-4 border-b border-white/10 pb-2">Liabilities & Equity</h3>
+
+                                <div className="mb-6">
+                                    <h4 className="text-sm font-bold text-gray-400 mb-2 uppercase">Liabilities</h4>
+                                    <div className="space-y-3">
+                                        {balanceSheet.liabilities.map((liab, idx) => (
+                                            <div key={idx} className="flex justify-between items-center text-sm">
+                                                <span className="text-gray-300">{liab.name}</span>
+                                                <span className="font-mono text-white">₹{parseFloat(liab.balance).toLocaleString('en-IN')}</span>
+                                            </div>
+                                        ))}
+                                        <div className="border-t border-white/10 pt-2 flex justify-between items-center font-bold">
+                                            <span className="text-gray-400">Total Liabilities</span>
+                                            <span className="text-white">₹{parseFloat(balanceSheet.summary.totalLiabilities).toLocaleString('en-IN')}</span>
                                         </div>
-                                    ))}
-                                    <div className="border-t border-white/10 pt-2 flex justify-between items-center font-bold">
-                                        <span className="text-gray-400">Total Equity</span>
-                                        <span className="text-white">₹{parseFloat(balanceSheet.summary.totalEquity).toLocaleString('en-IN')}</span>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="border-t-2 border-white/20 mt-4 pt-3 flex justify-between items-center font-bold text-lg">
-                                <span className="text-white">Total Liabilities & Equity</span>
-                                <span className="text-red-400">₹{parseFloat(balanceSheet.summary.totalLiabilitiesAndEquity).toLocaleString('en-IN')}</span>
+                                <div>
+                                    <h4 className="text-sm font-bold text-gray-400 mb-2 uppercase">Equity</h4>
+                                    <div className="space-y-3">
+                                        {balanceSheet.equity.map((eq, idx) => (
+                                            <div key={idx} className="flex justify-between items-center text-sm">
+                                                <span className="text-gray-300">{eq.name}</span>
+                                                <span className="font-mono text-white">₹{parseFloat(eq.balance).toLocaleString('en-IN')}</span>
+                                            </div>
+                                        ))}
+                                        <div className="border-t border-white/10 pt-2 flex justify-between items-center font-bold">
+                                            <span className="text-gray-400">Total Equity</span>
+                                            <span className="text-white">₹{parseFloat(balanceSheet.summary.totalEquity).toLocaleString('en-IN')}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="border-t-2 border-white/20 mt-4 pt-3 flex justify-between items-center font-bold text-lg">
+                                    <span className="text-white">Total Liabilities & Equity</span>
+                                    <span className="text-red-400">₹{parseFloat(balanceSheet.summary.totalLiabilitiesAndEquity).toLocaleString('en-IN')}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            )}
-        </ReportLayout>
+                )
+            }
+        </ReportLayout >
     );
 }

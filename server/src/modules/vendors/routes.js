@@ -67,6 +67,9 @@ router.get('/reports/aging', async (req, res) => {
     }
 });
 
+// Vendor list for dropdowns
+router.get('/all-suppliers', paymentsController.getAllSuppliers);
+
 // Vendor list with outstanding
 router.get('/outstanding', paymentsController.getVendorsWithOutstanding);
 

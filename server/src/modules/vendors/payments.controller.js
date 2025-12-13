@@ -99,6 +99,26 @@ exports.processPayment = async (req, res) => {
             VALUES ($1, $2, 0, $3)
         `, [jeId, creditAccount, parseFloat(amount)]);
 
+        await client.query(`
+            INSERT INTO ledger_lines (journal_entry_id, account_code, debit, credit)
+            VALUES ($1, $2, 0, $3)
+        `, [jeId, creditAccount, parseFloat(amount)]);
+
+        // 10. Single Source of Truth: Sync with Daily Tracker (Transactions Table)
+        // Ensure this payment appears in the Daily Tracker as an outflow.
+        await client.query(`
+            INSERT INTO transactions 
+            (date, type, description, amount, status, payment_method, mode, vendor_id, paid_by, category_id)
+            VALUES (CURRENT_DATE, 'Payment', $1, $2, 'Paid', $3, $4, $5, $6, NULL)
+        `, [
+            `Vendor Payment to ${vendor.name} (${notes})`,
+            parseFloat(amount),
+            paymentMode,
+            paymentMode === 'Cash' ? 'Cash' : 'Bank',
+            vendorId,
+            paidBy
+        ]);
+
         await client.query('COMMIT');
 
         // Get updated balance
@@ -389,6 +409,19 @@ exports.getCategories = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 
+};
+
+/**
+ * Get All Suppliers for Dropdown
+ */
+exports.getAllSuppliers = async (req, res) => {
+    try {
+        const result = await db.query('SELECT id, name FROM suppliers ORDER BY name');
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Error fetching suppliers:', err);
+        res.status(500).json({ error: err.message });
+    }
 };
 
 module.exports = exports;

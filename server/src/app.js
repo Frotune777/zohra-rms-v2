@@ -45,7 +45,7 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/reports', reportsRoutes);
 app.use('/api/payroll', payrollRoutes);
 
-const attendanceRoutes = require('./routes/attendance.routes');
+const attendanceRoutes = require('./modules/attendance/routes');
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/vendors', vendorRoutes);
 

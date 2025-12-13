@@ -1,41 +1,42 @@
 const express = require('express');
 const router = express.Router();
 const inventoryController = require('./controller');
-const { verifyToken, checkRole } = require('../../middleware/auth');
+const { verifyToken, requirePermission } = require('../../middleware/auth');
+const { PERMISSIONS } = require('../../config/permissions');
 
 // General Inventory
-router.get('/', verifyToken, inventoryController.getInventory);
-router.post('/', verifyToken, checkRole(['manager', 'owner']), inventoryController.addInventory);
-router.put('/:id', verifyToken, checkRole(['manager', 'owner']), inventoryController.updateInventory);
-router.delete('/:id', verifyToken, checkRole(['owner']), inventoryController.deleteInventory);
+router.get('/', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getInventory);
+router.post('/', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.addInventory);
+router.put('/:id', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.updateInventory);
+router.delete('/:id', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.deleteInventory);
 
 // Daily Rates (Chicken Tracker)
-router.get('/rates', verifyToken, inventoryController.getDailyRates);
-router.post('/rates', verifyToken, checkRole(['manager', 'owner']), inventoryController.saveDailyRates);
-router.get('/rates/status', verifyToken, inventoryController.getRateStatus);
+router.get('/rates', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getDailyRates);
+router.post('/rates', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.saveDailyRates);
+router.get('/rates/status', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getRateStatus);
 
 // Suppliers
-router.get('/suppliers', verifyToken, inventoryController.getSuppliers);
-router.post('/suppliers', verifyToken, checkRole(['manager', 'owner']), inventoryController.createSupplier);
+router.get('/suppliers', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getSuppliers);
+router.post('/suppliers', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.createSupplier);
 
 // Markup Rules
-router.get('/markups', verifyToken, inventoryController.getMarkupRules);
-router.post('/markups', verifyToken, checkRole(['manager', 'owner']), inventoryController.saveMarkupRule);
-router.put('/markups/:id', verifyToken, checkRole(['manager', 'owner']), inventoryController.updateMarkupRule);
-router.delete('/markups/:id', verifyToken, checkRole(['manager', 'owner']), inventoryController.deleteMarkupRule);
+router.get('/markups', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getMarkupRules);
+router.post('/markups', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.saveMarkupRule);
+router.put('/markups/:id', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.updateMarkupRule);
+router.delete('/markups/:id', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.deleteMarkupRule);
 
 // Bill Entries
-router.get('/bills', verifyToken, inventoryController.getBillEntries);
-router.post('/bills', verifyToken, checkRole(['manager', 'owner']), inventoryController.createBillEntry);
-router.get('/bills/summary', verifyToken, inventoryController.getBillSummary);
+router.get('/bills', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getBillEntries);
+router.post('/bills', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.createBillEntry);
+router.get('/bills/summary', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getBillSummary);
 
 // Ledger
-router.get('/ledger', verifyToken, inventoryController.getVendorLedger);
+router.get('/ledger', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getVendorLedger);
 
 // Purchase Orders
 const poController = require('./po.controller');
-router.get('/po', verifyToken, checkRole(['manager', 'owner']), poController.getPurchaseOrders);
-router.post('/po', verifyToken, checkRole(['manager', 'owner']), poController.createPurchaseOrder);
-router.put('/po/:id/status', verifyToken, checkRole(['manager', 'owner']), poController.updatePOStatus);
+router.get('/po', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), poController.getPurchaseOrders);
+router.post('/po', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), poController.createPurchaseOrder);
+router.put('/po/:id/status', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), poController.updatePOStatus);
 
 module.exports = router;
