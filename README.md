@@ -138,7 +138,12 @@ That's it! The setup script will automatically:
 - **Backend API**: http://localhost:5000
 - **Database**: localhost:5432
 
-📖 **For detailed setup instructions and troubleshooting**, see [SETUP.md](SETUP.md)tup Instructions
+### Documentation
+For detailed guides and architecture:
+- [User Guide](documentation/user_guide.md) - How to use the system
+- [Installation](documentation/INITIALIZATION.md) - Setup instructions
+- [Architecture Audit](documentation/arch_audit.md) - Technical architecture review
+- [Walkthrough](documentation/walkthrough.md) - Recent feature updates
 
 ### Prerequisites
 - Docker & Docker Compose
@@ -189,23 +194,18 @@ That's it! The setup script will automatically:
 ```
 al-zohra-rms-v2/
 ├── client/                 # React Frontend
-│   ├── src/
-│   │   ├── pages/         # Application Pages (POS, Payroll, etc.)
-│   │   ├── components/    # Reusable UI Components
-│   │   ├── context/       # Auth Context
-│   │   └── ...
 ├── server/                 # Node.js Backend
 │   ├── src/
-│   │   ├── controllers/   # Business Logic
-│   │   ├── routes/        # API Endpoints
-│   │   └── ...
+│   │   ├── modules/       # Service-based Modules (Finance, POS, etc.)
+│   │   ├── config/        # Configuration
+│   │   └── app.js         # App Entry Point
+├── documentation/          # User Guides & Technical Docs
 ├── database/               # SQL Scripts
-│   └── init.sql           # Schema & Seed Data
 └── docker-compose.yml     # Container Orchestration
 ```
 
 ---
 
-**Version**: 2.0.0  
-**Last Updated**: December 8, 2025  
+**Version**: 2.1.0  
+**Last Updated**: December 13, 2025  
 **Status**: Production Ready
