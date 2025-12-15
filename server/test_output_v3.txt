@@ -1,0 +1,269 @@
+
+> al-zohra-server@1.0.0 test
+> jest
+
+  console.log
+    DEBUG: runPayroll empRes rows: [
+      {
+        id: 1,
+        full_name: 'Test Employee',
+        base_salary: 30000,
+        status: 'active'
+      }
+    ]
+
+      at log (src/modules/employees/controller.js:349:17)
+
+  console.log
+    DEBUG: runPayroll empRes rows: [ { id: 1, full_name: 'Test Employee', base_salary: 30000 } ]
+
+      at log (src/modules/employees/controller.js:349:17)
+
+  console.log
+    DEBUG: runPayroll empRes rows: [ { id: 1, full_name: 'Test Employee', base_salary: 30000 } ]
+
+      at log (src/modules/employees/controller.js:349:17)
+
+PASS tests/advances.test.js
+  Advances and Payroll Module
+    getAllAdvances
+      ✓ should return all advance transactions (56 ms)
+      ✓ should filter advances by employee_id (15 ms)
+    getEmployeeAdvanceHistory
+      ✓ should return advance history for an employee (12 ms)
+    getEmployeeBalance
+      ✓ should calculate correct balance for employee (13 ms)
+      ✓ should return 0 balance if no transactions (10 ms)
+    createTransaction
+      ✓ should create an advance transaction (16 ms)
+      ✓ should create a repayment transaction (16 ms)
+      ✓ should return 400 if required fields are missing (12 ms)
+    runPayroll
+      ✓ should process payroll with prorated salary (217 ms)
+      ✓ should apply manual adjustments to payroll (11 ms)
+      ✓ should calculate prorated salary for partial month (9 ms)
+      ✓ should handle database errors (7 ms)
+    getMonthlyPayroll
+      ✓ should return payroll records for a month (7 ms)
+      ✓ should use current month/year if not provided (4 ms)
+
+  console.error
+    DEBUG: createEmployee Error: Error: Insert failed
+        at Object.<anonymous> (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/tests/employees.test.js:129:40)
+        at Promise.finally.completed (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+        at new Promise (<anonymous>)
+        at callAsyncCircusFn (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+        at _callCircusTest (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+        at processTicksAndRejections (node:internal/process/task_queues:95:5)
+        at _runTest (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+        at /home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+        at _runTestsForDescribeBlock (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+        at _runTestsForDescribeBlock (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+        at _runTestsForDescribeBlock (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+        at run (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+        at runAndTransformResultsToJestFormat (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+        at jestAdapter (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/runner.js:101:19)
+        at runTestInternal (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-runner/build/testWorker.js:275:16)
+        at runTest (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-runner/build/testWorker.js:343:7)
+        at Object.worker (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-runner/build/testWorker.js:497:12)
+
+      46 |         res.status(201).json(result.rows[0]);
+      47 |     } catch (err) {
+    > 48 |         console.error('DEBUG: createEmployee Error:', err);
+         |                 ^
+      49 |         res.status(500).json({ error: err.message });
+      50 |     }
+      51 | };
+
+      at error (src/modules/employees/controller.js:48:17)
+      at Object.<anonymous> (tests/employees.test.js:131:13)
+
+PASS tests/employees.test.js
+  Employee Module
+    getEmployees
+      ✓ should return all employees (56 ms)
+      ✓ should hide salary for staff role (5 ms)
+      ✓ should handle database errors (9 ms)
+    createEmployee
+      ✓ should create a new employee with valid data (7 ms)
+      ✓ should return 400 if required fields are missing (6 ms)
+      ✓ should handle database errors during creation (213 ms)
+    updateEmployee
+      ✓ should update employee details (19 ms)
+      ✓ should return 404 if employee not found (16 ms)
+    deleteEmployee
+      ✓ should hard delete an employee (20 ms)
+      ✓ should return 404 if employee not found (6 ms)
+    getEmployeeHistory
+      ✓ should return employee change history (5 ms)
+      ✓ should return empty array if no history exists (4 ms)
+
+PASS tests/inventory.test.js
+  Inventory Module
+    getInventory
+      ✓ should return all inventory items (35 ms)
+      ✓ should handle empty inventory (9 ms)
+      ✓ should handle database errors (16 ms)
+    addInventory
+      ✓ should add a new inventory item (12 ms)
+      ✓ should calculate total_value correctly (10 ms)
+      ✓ should validate quantity is positive (10 ms)
+    updateInventory
+      ✓ should update inventory item (14 ms)
+      ✓ should recalculate total_value when quantity changes (7 ms)
+      ✓ should recalculate total_value when unit_cost changes (5 ms)
+      ✓ should return 404 if item not found (5 ms)
+    deleteInventory
+      ✓ should delete an inventory item (6 ms)
+      ✓ should return 404 if item not found (4 ms)
+      ✓ should handle database errors (4 ms)
+
+PASS tests/pos.test.js
+  POS Module
+    getMenu
+      ✓ should return all menu items (87 ms)
+      ✓ should handle empty menu (28 ms)
+      ✓ should handle database errors (12 ms)
+    addMenuItem
+      ✓ should add a new menu item (40 ms)
+      ✓ should return 400 if name is missing (23 ms)
+      ✓ should return 400 if price is missing (6 ms)
+      ✓ should return 400 if category is missing (7 ms)
+      ✓ should return 400 if price is not positive (9 ms)
+      ✓ should handle database errors (12 ms)
+    deleteMenuItem
+      ✓ should delete a menu item (16 ms)
+      ✓ should return 404 if menu item not found (5 ms)
+      ✓ should handle database errors (19 ms)
+    createOrder
+      ✓ should create an order with inventory updates (17 ms)
+      ✓ should calculate total revenue correctly (6 ms)
+      ✓ should handle database errors and rollback (4 ms)
+
+  console.error
+    Error: Database connection failed
+        at Object.<anonymous> (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/tests/dashboard.test.js:139:40)
+        at Promise.finally.completed (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+        at new Promise (<anonymous>)
+        at callAsyncCircusFn (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+        at _callCircusTest (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+        at processTicksAndRejections (node:internal/process/task_queues:95:5)
+        at _runTest (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+        at /home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+        at _runTestsForDescribeBlock (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+        at _runTestsForDescribeBlock (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+        at _runTestsForDescribeBlock (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+        at run (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+        at runAndTransformResultsToJestFormat (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+        at jestAdapter (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/runner.js:101:19)
+        at runTestInternal (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-runner/build/testWorker.js:275:16)
+        at runTest (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-runner/build/testWorker.js:343:7)
+        at Object.worker (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-runner/build/testWorker.js:497:12)
+
+      102 |         res.json(stats);
+      103 |     } catch (err) {
+    > 104 |         console.error(err);
+          |                 ^
+      105 |         res.status(500).json({ error: err.message });
+      106 |     }
+      107 | };
+
+      at error (src/modules/dashboard/controller.js:104:17)
+      at Object.<anonymous> (tests/dashboard.test.js:141:13)
+
+PASS tests/dashboard.test.js
+  Dashboard Module
+    getDashboardStats
+      ✓ should return comprehensive dashboard statistics (21 ms)
+      ✓ should calculate approximate profit correctly (6 ms)
+      ✓ should handle zero sales and expenses (5 ms)
+      ✓ should return low stock items (27 ms)
+      ✓ should return sales trend data (10 ms)
+      ✓ should handle database errors gracefully (311 ms)
+      ✓ should handle null values in queries (7 ms)
+
+PASS tests/auth.test.js (6.197 s)
+  Auth Module
+    POST /api/auth/login
+      ✓ should return 400 if email is missing (348 ms)
+      ✓ should return 400 if password is missing (69 ms)
+      ✓ should return 401 for non-existent user (59 ms)
+      ✓ should return 401 for incorrect password (631 ms)
+      ✓ should successfully login with correct credentials (demo mode) (41 ms)
+      ✓ should return valid JWT token on successful login (34 ms)
+    POST /api/auth/register
+      ✓ should return 401 if not authenticated (22 ms)
+      ✓ should return 400 if required fields are missing (with auth) (28 ms)
+      ✓ should return 400 if email already exists (28 ms)
+      ✓ should successfully register a new user with auth (378 ms)
+      ✓ should hash the password before storing (418 ms)
+    GET /health
+      ✓ should return status ok (17 ms)
+
+PASS tests/finance_reconciliation.test.js
+  ReconciliationService
+    getCounterReconciliation
+      ✓ should calculate theoretical closing balance correctly (27 ms)
+      ✓ should handle missing data gracefully (3 ms)
+    getManagerFloat
+      ✓ should calculate manager float correctly (5 ms)
+
+PASS tests/finance.test.js
+  Finance Module
+    getYearlyPnL
+      ✓ should return yearly P&L data (83 ms)
+    getPnL
+      ✓ should return P&L for a specific month (25 ms)
+      ✓ should use current month/year if not provided (17 ms)
+    getTransactions
+      ✓ should return all transactions (53 ms)
+      ✓ should filter transactions by date range (56 ms)
+    addRevenue
+      ✓ should add a revenue transaction (34 ms)
+      ✓ should return 400 if amount is missing (17 ms)
+      ✓ should handle database errors (15 ms)
+    addExpense
+      ✓ should add an expense transaction (5 ms)
+      ✓ should return 400 if amount is missing (4 ms)
+    deleteTransaction
+      ✓ should delete a transaction (4 ms)
+    recordPayment
+      ✓ should record a vendor payment (9 ms)
+      ✓ should handle database errors (7 ms)
+
+PASS tests/chicken.test.js
+  Chicken/Supplier Module
+    getDailyRates
+      ✓ should return daily rates for a specific date (23 ms)
+      ✓ should return null if no rates found (6 ms)
+    saveDailyRates
+      ✓ should save daily rates for all item types (4 ms)
+      ✓ should handle upsert on conflict (7 ms)
+    getSuppliers
+      ✓ should return all suppliers (5 ms)
+    createSupplier
+      ✓ should create a new supplier (5 ms)
+      ✓ should handle database errors (6 ms)
+    getMarkupRules
+      ✓ should return markup rules for a supplier (4 ms)
+      ✓ should return empty array if no rules found (4 ms)
+    saveMarkupRule
+      ✓ should create a new markup rule (5 ms)
+      ✓ should handle upsert on conflict (5 ms)
+    createBillEntry
+      ✓ should create a bill with auto-calculated rate (7 ms)
+      ✓ should handle variance calculation (3 ms)
+      ✓ should return 400 if daily rates not set (3 ms)
+    getBillEntries
+      ✓ should return all bill entries (3 ms)
+      ✓ should filter by supplier_id (4 ms)
+      ✓ should filter by date (4 ms)
+    getVendorLedger
+      ✓ should return vendor ledger entries (4 ms)
+      ✓ should handle empty ledger (3 ms)
+
+Test Suites: 9 passed, 9 total
+Tests:       108 passed, 108 total
+Snapshots:   0 total
+Time:        10.309 s
+Ran all test suites.

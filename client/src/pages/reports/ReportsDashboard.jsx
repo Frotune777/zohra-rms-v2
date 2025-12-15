@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../utils/api';
 import {
     FiDollarSign,
     FiUsers,
@@ -32,7 +32,7 @@ export default function ReportsDashboard() {
     const fetchKPIs = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:5000/api/reports/dashboard/kpis', {
+            const response = await axios.get('reports/dashboard/kpis', {
                 params: dateRange
             });
             setKpis(response.data);

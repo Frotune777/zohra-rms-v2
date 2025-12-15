@@ -259,7 +259,9 @@ const Finance = () => {
   };
 
   const monthName = new Date(selectedYear, selectedMonth - 1).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
-  const previousMonthName = new Date(selectedYear, selectedMonth - 2 >= 0 ? selectedMonth - 2 : 10).toLocaleDateString('en-IN', { month: 'short' });
+  const prevMonthIndex = (selectedMonth - 2 + 12) % 12;
+  const prevYear = selectedMonth === 1 ? selectedYear - 1 : selectedYear;
+  const previousMonthName = new Date(prevYear, prevMonthIndex).toLocaleDateString('en-IN', { month: 'short' });
 
   return (
     <div className="p-8 h-full w-full overflow-auto flex flex-col bg-gradient-to-br from-midnight to-midnight/95">

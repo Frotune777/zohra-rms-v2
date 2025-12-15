@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { FiPlus, FiEdit2, FiTrash2, FiX, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
 
@@ -42,7 +42,7 @@ const EmployeeManagement = () => {
   const fetchEmployees = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/employees');
+      const response = await api.get('/employees');
       setEmployees(response.data);
       setError('');
     } catch (err) {
@@ -84,10 +84,10 @@ const EmployeeManagement = () => {
       };
 
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/employees/${editingId}`, payload);
+        await api.put(`/employees/${editingId}`, payload);
         setSuccessMessage('Employee updated successfully');
       } else {
-        await axios.post('http://localhost:5000/api/employees', payload);
+        await api.post('/employees', payload);
         setSuccessMessage('Employee registered successfully');
       }
 
@@ -144,7 +144,7 @@ const EmployeeManagement = () => {
     if (!window.confirm('Are you sure you want to delete this employee?')) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/employees/${id}`);
+      await api.delete(`/employees/${id}`);
       setSuccessMessage('Employee deleted successfully');
       fetchEmployees();
       setTimeout(() => setSuccessMessage(''), 3000);
@@ -189,7 +189,7 @@ const EmployeeManagement = () => {
   const handleViewHistory = async (employee) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5000/api/employees/${employee.id}/history`);
+      const response = await api.get(`/employees/${employee.id}/history`);
       setHistoryData(response.data);
       setSelectedEmployeeName(employee.full_name);
       setShowHistory(true);

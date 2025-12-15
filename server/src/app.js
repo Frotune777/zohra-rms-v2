@@ -46,7 +46,11 @@ app.use('/api/reports', reportsRoutes);
 app.use('/api/payroll', payrollRoutes);
 
 const attendanceRoutes = require('./modules/attendance/routes');
+const leavesRoutes = require('./modules/leaves/routes');
+const advanceRequestsRoutes = require('./modules/advance-requests/routes');
 app.use('/api/attendance', attendanceRoutes);
+app.use('/api/leaves', leavesRoutes);
+app.use('/api/advance-requests', advanceRequestsRoutes);
 app.use('/api/vendors', vendorRoutes);
 
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import {
     FiTrendingUp, FiTrendingDown, FiDollarSign, FiShoppingBag,
     FiUsers, FiAlertTriangle, FiActivity, FiBox
@@ -20,10 +20,7 @@ const MasterDashboard = () => {
 
     const fetchStats = async () => {
         try {
-            const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:5000/api/dashboard/stats', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const response = await api.get('dashboard/stats');
             setStats(response.data);
         } catch (err) {
             console.error('Failed to load dashboard stats:', err);

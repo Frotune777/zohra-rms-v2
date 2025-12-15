@@ -1,0 +1,114 @@
+
+ RUN  v1.6.1 /home/zohra/Desktop/zohra-rms/zohra-rms-v2/client
+
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validatePositiveNumber > should return null for positive numbers
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validatePositiveNumber > should return error for zero
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validatePositiveNumber > should return error for negative numbers
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validatePositiveNumber > should return error for non-numbers
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validatePositiveNumber > should return error for empty string
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validateMaxAmount > should return null for amounts within limit
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validateMaxAmount > should return error for amounts exceeding limit
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validateMaxAmount > should handle string inputs
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validateEmail > should return null for valid emails
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validateEmail > should return error for invalid emails
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validatePhone > should return null for valid Indian phone numbers
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validatePhone > should return error for invalid phone numbers
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validateRequired > should return null for valid values
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validateRequired > should return error for empty string
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validateRequired > should return error for whitespace only
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validateRequired > should return error for null
+ ✓ src/utils/__tests__/validation.test.js > Validation Utilities > validateRequired > should return error for undefined
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatCurrency > should format numbers as Indian Rupees
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatCurrency > should handle decimals correctly
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatCurrency > should handle string inputs
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatCurrency > should handle zero
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatCurrency > should handle invalid inputs
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatDate > should format dates in Indian locale
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatDate > should handle string dates
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatDate > should accept custom options
+ × src/utils/__tests__/format.test.js > Formatting Utilities > formatDateTime > should format date and time
+   → expected '14 Dec 2025, 03:30 pm' to contain '15'
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatNumber > should format with Indian numbering system
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatNumber > should handle string inputs
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatNumber > should handle invalid inputs
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatPercentage > should format percentages with default decimals
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatPercentage > should format with custom decimals
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatPercentage > should handle string inputs
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > formatPercentage > should handle invalid inputs
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > parseFormattedNumber > should extract numbers from formatted strings
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > parseFormattedNumber > should handle plain numbers
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > parseFormattedNumber > should handle negative numbers
+ ✓ src/utils/__tests__/format.test.js > Formatting Utilities > parseFormattedNumber > should return 0 for invalid inputs
+stderr | src/tests/Login.test.jsx > Login Component > renders login form correctly
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+ ✓ src/tests/Login.test.jsx > Login Component > renders login form correctly 843ms
+ ✓ src/tests/Login.test.jsx > Login Component > handles input changes
+ ✓ src/tests/Login.test.jsx > Login Component > submits form with credentials 349ms
+ ✓ src/tests/Login.test.jsx > Login Component > displays error on failed login 322ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/POS.test.jsx [ src/tests/POS.test.jsx ]
+TypeError: Cannot read properties of undefined (reading 'interceptors')
+ ❯ src/utils/api.js:8:5
+      6| 
+      7| // Request interceptor to add auth token
+      8| api.interceptors.request.use(
+       |     ^
+      9|     (config) => {
+     10|         const token = localStorage.getItem('token');
+ ❯ src/pages/POS.jsx:3:31
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  src/tests/VendorPayments.test.jsx [ src/tests/VendorPayments.test.jsx ]
+TypeError: Cannot read properties of undefined (reading 'interceptors')
+ ❯ src/utils/api.js:8:5
+      6| 
+      7| // Request interceptor to add auth token
+      8| api.interceptors.request.use(
+       |     ^
+      9|     (config) => {
+     10|         const token = localStorage.getItem('token');
+ ❯ src/pages/VendorPayments.jsx:6:31
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  src/hooks/__tests__/usePagination.test.js [ src/hooks/__tests__/usePagination.test.js ]
+Error: Failed to parse source for import analysis because the content contains invalid JS syntax. If you are using JSX, make sure to name the file with the .jsx or .tsx extension.
+ ❯ TransformPluginContext._formatError node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41
+ ❯ TransformPluginContext.error node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16
+ ❯ TransformPluginContext.transform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64259:14
+ ❯ PluginContainer.transform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/utils/__tests__/format.test.js > Formatting Utilities > formatDateTime > should format date and time
+AssertionError: expected '14 Dec 2025, 03:30 pm' to contain '15'
+
+- Expected
++ Received
+
+- 15
++ 14 Dec 2025, 03:30 pm
+
+ ❯ src/utils/__tests__/format.test.js:68:31
+     66|             expect(formatted).toContain('14');
+     67|             expect(formatted).toContain('Dec');
+     68|             expect(formatted).toContain('15');
+       |                               ^
+     69|             expect(formatted).toContain('30');
+     70|         });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  4 failed | 2 passed (6)
+      Tests  1 failed | 40 passed (41)
+   Start at  17:10:12
+   Duration  19.45s (transform 2.67s, setup 4.69s, collect 2.31s, tests 2.01s, environment 21.25s, prepare 5.85s)
+

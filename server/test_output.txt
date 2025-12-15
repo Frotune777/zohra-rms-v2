@@ -1,0 +1,470 @@
+
+> al-zohra-server@1.0.0 test
+> jest
+
+FAIL tests/chicken.test.js
+  Chicken/Supplier Module
+    getDailyRates
+      ✓ should return daily rates for a specific date (45 ms)
+      ✓ should return null if no rates found (7 ms)
+    saveDailyRates
+      ✓ should save daily rates for all item types (7 ms)
+      ✓ should handle upsert on conflict (13 ms)
+    getSuppliers
+      ✓ should return all suppliers (6 ms)
+    createSupplier
+      ✓ should create a new supplier (8 ms)
+      ✓ should handle database errors (7 ms)
+    getMarkupRules
+      ✓ should return markup rules for a supplier (23 ms)
+      ✓ should return empty array if no rules found (7 ms)
+    saveMarkupRule
+      ✓ should create a new markup rule (8 ms)
+      ✓ should handle upsert on conflict (13 ms)
+    createBillEntry
+      ✕ should create a bill with auto-calculated rate (49 ms)
+      ✕ should handle variance calculation (7 ms)
+      ✕ should return 400 if daily rates not set (6 ms)
+    getBillEntries
+      ✕ should return all bill entries (21 ms)
+      ✓ should filter by supplier_id (5 ms)
+      ✓ should filter by date (3 ms)
+    getVendorLedger
+      ✕ should return vendor ledger entries (8 ms)
+      ✕ should handle empty ledger (7 ms)
+
+  ● Chicken/Supplier Module › createBillEntry › should create a bill with auto-calculated rate
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"expected_rate": 185, "item_name": "Tandoor"}
+    Received: {"error": "Cannot read properties of undefined (reading 'rows')"}
+
+    Number of calls: 1
+
+      245 |             await createBillEntry(req, res);
+      246 |
+    > 247 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      248 |                 expect.objectContaining({
+      249 |                     item_name: 'Tandoor',
+      250 |                     expected_rate: 185,
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:247:30)
+
+  ● Chicken/Supplier Module › createBillEntry › should handle variance calculation
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"variance": 250}
+    Received: {"error": "Cannot read properties of undefined (reading 'rows')"}
+
+    Number of calls: 1
+
+      283 |             await createBillEntry(req, res);
+      284 |
+    > 285 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      286 |                 expect.objectContaining({ variance: 250 })
+      287 |             );
+      288 |         });
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:285:30)
+
+  ● Chicken/Supplier Module › createBillEntry › should return 400 if daily rates not set
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 400
+    Received: 500
+
+    Number of calls: 1
+
+      301 |             await createBillEntry(req, res);
+      302 |
+    > 303 |             expect(res.status).toHaveBeenCalledWith(400);
+          |                                ^
+      304 |             expect(res.json).toHaveBeenCalledWith(
+      305 |                 expect.objectContaining({ error: 'Daily rates not set for this date' })
+      306 |             );
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:303:32)
+
+  ● Chicken/Supplier Module › getBillEntries › should return all bill entries
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    - Expected
+    + Received
+
+      Array [
+        Object {
+    -     "expected_rate": 185,
+    -     "id": 1,
+    -     "item_name": "Tandoor",
+    -     "qty": 50,
+    -     "supplier_id": 1,
+    -     "supplier_name": "ABC Suppliers",
+    -     "variance": 0,
+    -     "vendor_rate": 185,
+    +     "boiler_rate": 160,
+    +     "date": "2024-12-08",
+    +     "egg_rate": 6,
+    +     "tandoor_rate": 180,
+        },
+      ],
+
+    Number of calls: 1
+
+      326 |             await getBillEntries(req, res);
+      327 |
+    > 328 |             expect(res.json).toHaveBeenCalledWith(bills);
+          |                              ^
+      329 |         });
+      330 |
+      331 |         it('should filter by supplier_id', async () => {
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:328:30)
+
+  ● Chicken/Supplier Module › getVendorLedger › should return vendor ledger entries
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    - Expected
+    + Received
+
+    - Array [
+    -   Object {
+    -     "amount": 9250,
+    -     "date": "2024-12-08",
+    -     "details": "Bill for Tandoor (50 x 185)",
+    -     "id": 1,
+    -     "supplier_id": 1,
+    -     "transaction_type": "Bill",
+    -   },
+    - ]
+    + Array [],
+
+    Number of calls: 1
+
+      371 |             await getVendorLedger(req, res);
+      372 |
+    > 373 |             expect(res.json).toHaveBeenCalledWith(ledger);
+          |                              ^
+      374 |         });
+      375 |
+      376 |         it('should handle empty ledger', async () => {
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:373:30)
+
+  ● Chicken/Supplier Module › getVendorLedger › should handle empty ledger
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    - Expected
+    + Received
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "boiler_rate": 160,
+    +     "egg_rate": 6,
+    +     "tandoor_rate": 180,
+    +   },
+    + ],
+
+    Number of calls: 1
+
+      380 |             await getVendorLedger(req, res);
+      381 |
+    > 382 |             expect(res.json).toHaveBeenCalledWith([]);
+          |                              ^
+      383 |         });
+      384 |     });
+      385 | });
+
+      at Object.toHaveBeenCalledWith (tests/chicken.test.js:382:30)
+
+FAIL tests/employees.test.js
+  Employee Module
+    getEmployees
+      ✓ should return all employees (39 ms)
+      ✓ should hide salary for staff role (6 ms)
+      ✓ should handle database errors (9 ms)
+    createEmployee
+      ✓ should create a new employee with valid data (8 ms)
+      ✓ should return 400 if required fields are missing (7 ms)
+      ✕ should handle database errors during creation (15 ms)
+    updateEmployee
+      ✓ should update employee details (7 ms)
+      ✓ should return 404 if employee not found (5 ms)
+    deleteEmployee
+      ✓ should hard delete an employee (7 ms)
+      ✓ should return 404 if employee not found (4 ms)
+    getEmployeeHistory
+      ✓ should return employee change history (17 ms)
+      ✓ should return empty array if no history exists (4 ms)
+
+  ● Employee Module › createEmployee › should handle database errors during creation
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 500
+    Received: 201
+
+    Number of calls: 1
+
+      169 |             await createEmployee(req, res);
+      170 |
+    > 171 |             expect(res.status).toHaveBeenCalledWith(500);
+          |                                ^
+      172 |         });
+      173 |     });
+      174 |
+
+      at Object.toHaveBeenCalledWith (tests/employees.test.js:171:32)
+
+  console.log
+    DEBUG: runPayroll empRes rows: [
+      {
+        id: 1,
+        full_name: 'Test Employee',
+        base_salary: 30000,
+        status: 'active'
+      }
+    ]
+
+      at log (src/modules/employees/controller.js:349:17)
+
+  console.log
+    DEBUG: runPayroll empRes rows: []
+
+      at log (src/modules/employees/controller.js:349:17)
+
+  console.log
+    DEBUG: runPayroll empRes rows: [ { id: 202 } ]
+
+      at log (src/modules/employees/controller.js:349:17)
+
+  console.log
+    DEBUG: runPayroll empRes rows: [ { id: 1, full_name: 'Test Employee', base_salary: 30000 } ]
+
+      at log (src/modules/employees/controller.js:349:17)
+
+FAIL tests/advances.test.js
+  Advances and Payroll Module
+    getAllAdvances
+      ✓ should return all advance transactions (34 ms)
+      ✓ should filter advances by employee_id (17 ms)
+    getEmployeeAdvanceHistory
+      ✓ should return advance history for an employee (8 ms)
+    getEmployeeBalance
+      ✓ should calculate correct balance for employee (6 ms)
+      ✓ should return 0 balance if no transactions (7 ms)
+    createTransaction
+      ✓ should create an advance transaction (5 ms)
+      ✓ should create a repayment transaction (6 ms)
+      ✓ should return 400 if required fields are missing (4 ms)
+    runPayroll
+      ✓ should process payroll with prorated salary (247 ms)
+      ✕ should apply manual adjustments to payroll (34 ms)
+      ✕ should calculate prorated salary for partial month (16 ms)
+      ✕ should handle database errors (15 ms)
+    getMonthlyPayroll
+      ✓ should return payroll records for a month (8 ms)
+      ✓ should use current month/year if not provided (6 ms)
+
+  ● Advances and Payroll Module › runPayroll › should apply manual adjustments to payroll
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"netPay": Any<Number>, "success": true}
+    Received: {"error": "Cannot read properties of undefined (reading 'base_salary')"}
+
+    Number of calls: 1
+
+      262 |             await runPayroll(req, res);
+      263 |
+    > 264 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      265 |                 expect.objectContaining({
+      266 |                     success: true,
+      267 |                     netPay: expect.any(Number), // ~31032
+
+      at Object.toHaveBeenCalledWith (tests/advances.test.js:264:30)
+
+  ● Advances and Payroll Module › runPayroll › should calculate prorated salary for partial month
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"success": true}
+    Received: {"error": "Cannot read properties of undefined (reading 'id')"}
+
+    Number of calls: 1
+
+      296 |             await runPayroll(req, res);
+      297 |
+    > 298 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      299 |                 expect.objectContaining({
+      300 |                     success: true,
+      301 |                 })
+
+      at Object.toHaveBeenCalledWith (tests/advances.test.js:298:30)
+
+  ● Advances and Payroll Module › runPayroll › should handle database errors
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 500
+
+    Number of calls: 0
+
+      317 |             await runPayroll(req, res);
+      318 |
+    > 319 |             expect(res.status).toHaveBeenCalledWith(500);
+          |                                ^
+      320 |         });
+      321 |     });
+      322 |
+
+      at Object.toHaveBeenCalledWith (tests/advances.test.js:319:32)
+
+PASS tests/pos.test.js
+  POS Module
+    getMenu
+      ✓ should return all menu items (19 ms)
+      ✓ should handle empty menu (5 ms)
+      ✓ should handle database errors (6 ms)
+    addMenuItem
+      ✓ should add a new menu item (8 ms)
+      ✓ should return 400 if name is missing (16 ms)
+      ✓ should return 400 if price is missing (9 ms)
+      ✓ should return 400 if category is missing (6 ms)
+      ✓ should return 400 if price is not positive (8 ms)
+      ✓ should handle database errors (6 ms)
+    deleteMenuItem
+      ✓ should delete a menu item (6 ms)
+      ✓ should return 404 if menu item not found (6 ms)
+      ✓ should handle database errors (5 ms)
+    createOrder
+      ✓ should create an order with inventory updates (7 ms)
+      ✓ should calculate total revenue correctly (9 ms)
+      ✓ should handle database errors and rollback (4 ms)
+
+PASS tests/finance.test.js
+  Finance Module
+    getYearlyPnL
+      ✓ should return yearly P&L data (62 ms)
+    getPnL
+      ✓ should return P&L for a specific month (13 ms)
+      ✓ should use current month/year if not provided (20 ms)
+    getTransactions
+      ✓ should return all transactions (18 ms)
+      ✓ should filter transactions by date range (14 ms)
+    addRevenue
+      ✓ should add a revenue transaction (6 ms)
+      ✓ should return 400 if amount is missing (6 ms)
+      ✓ should handle database errors (6 ms)
+    addExpense
+      ✓ should add an expense transaction (10 ms)
+      ✓ should return 400 if amount is missing (4 ms)
+    deleteTransaction
+      ✓ should delete a transaction (7 ms)
+    recordPayment
+      ✓ should record a vendor payment (6 ms)
+      ✓ should handle database errors (3 ms)
+
+PASS tests/inventory.test.js
+  Inventory Module
+    getInventory
+      ✓ should return all inventory items (24 ms)
+      ✓ should handle empty inventory (5 ms)
+      ✓ should handle database errors (7 ms)
+    addInventory
+      ✓ should add a new inventory item (10 ms)
+      ✓ should calculate total_value correctly (6 ms)
+      ✓ should validate quantity is positive (7 ms)
+    updateInventory
+      ✓ should update inventory item (12 ms)
+      ✓ should recalculate total_value when quantity changes (4 ms)
+      ✓ should recalculate total_value when unit_cost changes (8 ms)
+      ✓ should return 404 if item not found (5 ms)
+    deleteInventory
+      ✓ should delete an inventory item (7 ms)
+      ✓ should return 404 if item not found (4 ms)
+      ✓ should handle database errors (6 ms)
+
+PASS tests/finance_reconciliation.test.js
+  ReconciliationService
+    getCounterReconciliation
+      ✓ should calculate theoretical closing balance correctly (25 ms)
+      ✓ should handle missing data gracefully (4 ms)
+    getManagerFloat
+      ✓ should calculate manager float correctly (8 ms)
+
+  console.error
+    Error: Database connection failed
+        at Object.<anonymous> (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/tests/dashboard.test.js:139:40)
+        at Promise.finally.completed (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+        at new Promise (<anonymous>)
+        at callAsyncCircusFn (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+        at _callCircusTest (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+        at processTicksAndRejections (node:internal/process/task_queues:95:5)
+        at _runTest (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+        at /home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+        at _runTestsForDescribeBlock (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+        at _runTestsForDescribeBlock (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+        at _runTestsForDescribeBlock (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+        at run (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+        at runAndTransformResultsToJestFormat (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+        at jestAdapter (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/runner.js:101:19)
+        at runTestInternal (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-runner/build/testWorker.js:275:16)
+        at runTest (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-runner/build/testWorker.js:343:7)
+        at Object.worker (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-runner/build/testWorker.js:497:12)
+
+      102 |         res.json(stats);
+      103 |     } catch (err) {
+    > 104 |         console.error(err);
+          |                 ^
+      105 |         res.status(500).json({ error: err.message });
+      106 |     }
+      107 | };
+
+      at error (src/modules/dashboard/controller.js:104:17)
+      at Object.<anonymous> (tests/dashboard.test.js:141:13)
+
+PASS tests/dashboard.test.js
+  Dashboard Module
+    getDashboardStats
+      ✓ should return comprehensive dashboard statistics (25 ms)
+      ✓ should calculate approximate profit correctly (7 ms)
+      ✓ should handle zero sales and expenses (5 ms)
+      ✓ should return low stock items (8 ms)
+      ✓ should return sales trend data (6 ms)
+      ✓ should handle database errors gracefully (128 ms)
+      ✓ should handle null values in queries (6 ms)
+
+PASS tests/auth.test.js
+  Auth Module
+    POST /api/auth/login
+      ✓ should return 400 if email is missing (257 ms)
+      ✓ should return 400 if password is missing (25 ms)
+      ✓ should return 401 for non-existent user (27 ms)
+      ✓ should return 401 for incorrect password (472 ms)
+      ✓ should successfully login with correct credentials (demo mode) (29 ms)
+      ✓ should return valid JWT token on successful login (24 ms)
+    POST /api/auth/register
+      ✓ should return 401 if not authenticated (18 ms)
+      ✓ should return 400 if required fields are missing (with auth) (27 ms)
+      ✓ should return 400 if email already exists (27 ms)
+      ✓ should successfully register a new user with auth (213 ms)
+      ✓ should hash the password before storing (170 ms)
+    GET /health
+      ✓ should return status ok (12 ms)
+
+Test Suites: 3 failed, 6 passed, 9 total
+Tests:       10 failed, 98 passed, 108 total
+Snapshots:   0 total
+Time:        7.367 s, estimated 8 s
+Ran all test suites.

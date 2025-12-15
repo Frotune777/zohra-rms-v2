@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { toast } from 'react-hot-toast';
 import { FiCalendar, FiSave } from 'react-icons/fi';
 
@@ -49,7 +49,7 @@ const DailyRates = () => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:5000/api/chicken/rates', {
+            await axios.post('chicken/rates', {
                 date,
                 ...rates
             }, {

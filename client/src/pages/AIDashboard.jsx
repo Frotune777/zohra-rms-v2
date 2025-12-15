@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { FiTrendingUp, FiShoppingCart, FiAlertCircle } from 'react-icons/fi';
 
@@ -26,8 +26,8 @@ const AIDashboard = () => {
             const headers = { Authorization: token };
 
             const [ordersRes, itemsRes] = await Promise.all([
-                axios.get('http://localhost:5000/api/ai/suggested-orders', { headers }),
-                axios.get('http://localhost:5000/api/inventory', { headers })
+                axios.get('ai/suggested-orders', { headers }),
+                axios.get('inventory', { headers })
             ]);
 
             setSuggestedOrders(ordersRes.data);

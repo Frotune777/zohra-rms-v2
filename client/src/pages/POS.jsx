@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiUser, FiBell, FiGlobe, FiGrid, FiList, FiMinus, FiPlus, FiX, FiPrinter, FiSave } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
@@ -26,7 +26,7 @@ const POS = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:5000/api/menu', {
+        const response = await axios.get('menu', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setMenu(response.data);
@@ -75,7 +75,7 @@ const POS = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/orders', {
+      await axios.post('orders', {
         items: cart,
         type: orderType,
         paymentMode: paymentMode

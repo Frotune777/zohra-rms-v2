@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { FiAlertCircle, FiCheckCircle, FiPlus, FiX, FiTrash2, FiArrowUpRight, FiArrowDownLeft } from 'react-icons/fi';
 
@@ -38,9 +38,9 @@ const Advances = () => {
 
       const [advRes, empRes] = await Promise.all([
         selectedEmployee
-          ? axios.get(`http://localhost:5000/api/employees/payroll/advances/${selectedEmployee}`, config)
-          : axios.get('http://localhost:5000/api/employees/payroll/advances', config),
-        axios.get('http://localhost:5000/api/employees', config)
+          ? api.get(`http://localhost:5000/api/employees/payroll/advances/${selectedEmployee}`)
+          : api.get('employees/payroll/advances'),
+        api.get('employees')
       ]);
 
       setTransactions(Array.isArray(advRes.data) ? advRes.data : []);
@@ -76,7 +76,7 @@ const Advances = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/employees/payroll/advance', {
+      await axios.post('employees/payroll/advance', {
         employeeId: parseInt(formData.employeeId),
         type: formData.type,
         amount: parseFloat(formData.amount),
@@ -320,7 +320,7 @@ const Advances = () => {
             <tbody>
               {transactions.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="p-4 text-center text-gray-400">
+                  <td colSpan={11} className="p-4 text-center text-gray-400">
                     No transactions found
                   </td>
                 </tr>

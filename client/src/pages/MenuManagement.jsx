@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { FiPlus, FiTrash2, FiX, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
 
@@ -26,10 +26,7 @@ const MenuManagement = () => {
   const fetchMenuItems = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/menu', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const response = await api.get('menu');
       setItems(response.data);
       setError('');
     } catch (err) {
@@ -62,10 +59,7 @@ const MenuManagement = () => {
         category: formData.category
       };
 
-      const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/menu', payload, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await api.post('menu', payload);
       setSuccessMessage(`✓ Menu item "${formData.name}" added successfully`);
       setFormData({ name: '', price: '', category: '' });
       setShowForm(false);

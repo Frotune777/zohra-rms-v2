@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { toast } from 'react-hot-toast';
 import { FiPlus, FiTrash2, FiEdit2, FiSave } from 'react-icons/fi';
 
@@ -47,10 +47,7 @@ const VendorManager = () => {
 
     const fetchSuppliers = async () => {
         try {
-            const token = localStorage.getItem('token');
-            const res = await axios.get('http://localhost:5000/api/chicken/suppliers', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await api.get('chicken/suppliers');
             setSuppliers(res.data);
         } catch (err) {
             console.error(err);
@@ -72,10 +69,7 @@ const VendorManager = () => {
     const handleAddSupplier = async (e) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('token');
-            await axios.post('http://localhost:5000/api/chicken/suppliers', newSupplier, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            await api.post('chicken/suppliers', newSupplier);
             toast.success('Supplier added');
             fetchSuppliers();
             setNewSupplier({
@@ -93,7 +87,7 @@ const VendorManager = () => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:5000/api/chicken/markups', {
+            await axios.post('chicken/markups', {
                 supplier_id: selectedSupplier,
                 ...newRule
             }, {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { toast } from 'react-hot-toast';
 import { FiSave, FiCalendar } from 'react-icons/fi';
 
@@ -21,10 +21,7 @@ const BulkAttendance = () => {
 
     const fetchEmployees = async () => {
         try {
-            const token = localStorage.getItem('token');
-            const res = await axios.get('http://localhost:5000/api/employees', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await api.get('employees');
             const activeEmployees = res.data.filter(e => e.status === 'active');
             setEmployees(activeEmployees);
             // Initialize attendance state
@@ -74,7 +71,7 @@ const BulkAttendance = () => {
                 status
             }));
 
-            await axios.post('http://localhost:5000/api/attendance/bulk', {
+            await axios.post('attendance/bulk', {
                 date,
                 records
             }, {

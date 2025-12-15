@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { toast } from 'react-hot-toast';
 import { FiPlus, FiCalendar } from 'react-icons/fi';
 
@@ -37,10 +37,7 @@ const BillEntry = () => {
 
     const fetchSuppliers = async () => {
         try {
-            const token = localStorage.getItem('token');
-            const res = await axios.get('http://localhost:5000/api/chicken/suppliers', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await api.get('chicken/suppliers');
             setSuppliers(res.data);
         } catch (err) {
             console.error(err);
@@ -93,7 +90,7 @@ const BillEntry = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:5000/api/chicken/bills', {
+            await axios.post('chicken/bills', {
                 date,
                 ...formData
             }, {

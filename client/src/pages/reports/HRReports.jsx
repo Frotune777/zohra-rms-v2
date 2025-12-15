@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import ReportLayout from '../../components/reports/ReportLayout';
 import StatsCard from '../../components/reports/StatsCard';
 import DateRangePicker from '../../components/reports/DateRangePicker';
@@ -30,9 +30,9 @@ export default function HRReports() {
             setLoading(true);
 
             const [payrollRes, advanceRes, attendanceRes] = await Promise.all([
-                axios.get('http://localhost:5000/api/reports/hr/payroll-summary', { params: dateRange }),
-                axios.get('http://localhost:5000/api/reports/hr/advances', { params: dateRange }),
-                axios.get('http://localhost:5000/api/reports/hr/attendance', { params: dateRange })
+                axios.get('reports/hr/payroll-summary', { params: dateRange }),
+                axios.get('reports/hr/advances', { params: dateRange }),
+                axios.get('reports/hr/attendance', { params: dateRange })
             ]);
 
             setPayrollData(payrollRes.data);

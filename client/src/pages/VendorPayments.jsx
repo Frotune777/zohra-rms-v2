@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { FiDollarSign, FiTrendingUp, FiUsers, FiAlertCircle, FiPlus, FiX, FiCheckCircle } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import api from '../utils/api';
+import { validatePositiveNumber, validateMaxAmount } from '../utils/validation';
 
 export default function VendorPayments() {
     const navigate = useNavigate();
@@ -30,13 +31,10 @@ export default function VendorPayments() {
     const fetchData = async () => {
         try {
             setLoading(true);
-            const token = localStorage.getItem('token');
-            const config = { headers: { Authorization: `Bearer ${token}` } };
-
             const [vendorsRes, paymentsRes, categoriesRes] = await Promise.all([
-                axios.get('http://localhost:5000/api/vendors/outstanding', config),
-                axios.get('http://localhost:5000/api/vendors/payments', config),
-                axios.get('http://localhost:5000/api/vendors/categories', config)
+                api.get('/vendors/outstanding'),
+                api.get('/vendors/payments'),
+                api.get('/vendors/categories')
             ]);
 
             setVendors(vendorsRes.data);
@@ -58,10 +56,7 @@ export default function VendorPayments() {
 
         try {
             setLoadingDetails(true);
-            const token = localStorage.getItem('token');
-            const response = await axios.get(`http://localhost:5000/api/vendors/${vendorId}/details`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const response = await api.get(`/vendors/${vendorId}/details`);
             setVendorDetails(response.data);
         } catch (error) {
             console.error('Error fetching vendor details:', error);
@@ -74,10 +69,30 @@ export default function VendorPayments() {
     const handlePaymentSubmit = async (e) => {
         e.preventDefault();
 
+        // Validate amount is positive
+        const amountError = validatePositiveNumber(formData.amount, 'Amount');
+        if (amountError) {
+            toast.error(amountError);
+            return;
+        }
+
+        // Validate amount doesn't exceed outstanding balance
+        if (vendorDetails?.outstanding_balance) {
+            const maxError = validateMaxAmount(
+                formData.amount,
+                vendorDetails.outstanding_balance,
+                'Payment amount'
+            );
+            if (maxError) {
+                toast.error(maxError);
+                return;
+            }
+        }
+
         try {
-            const token = localStorage.getItem('token');
-            await axios.post('http://localhost:5000/api/vendors/payments', formData, {
-                headers: { Authorization: `Bearer ${token}` }
+            await api.post('/vendors/payments', {
+                ...formData,
+                amount: parseFloat(formData.amount)
             });
 
             toast.success('Payment processed successfully');

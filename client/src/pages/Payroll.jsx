@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { FiAlertCircle, FiCheckCircle, FiClock, FiDownload, FiDollarSign, FiFileText, FiRefreshCw, FiPlus } from 'react-icons/fi';
 import toast from 'react-hot-toast';
@@ -54,7 +54,7 @@ const Payroll = () => {
   const fetchPayrollData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/payroll/monthly', {
+      const response = await axios.get('payroll/monthly', {
         params: { month: selectedMonth, year: selectedYear },
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
@@ -94,7 +94,7 @@ const Payroll = () => {
 
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/payroll/run', {
+      await axios.post('payroll/run', {
         month: selectedMonth,
         year: selectedYear,
         employeeId: selectedEmployee.employee_id || selectedEmployee.id, // Handle both raw employee and payroll record
@@ -121,7 +121,7 @@ const Payroll = () => {
 
   const handleApprove = async (id) => {
     try {
-      await axios.post('http://localhost:5000/api/payroll/approve', { id }, {
+      await axios.post('payroll/approve', { id }, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       toast.success('Payroll approved');
@@ -152,7 +152,7 @@ const Payroll = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/payroll/payout', {
+      await axios.post('payroll/payout', {
         id: paymentData.id,
         payment_mode: finalMode,
         payment_date: new Date(),
@@ -262,7 +262,7 @@ const Payroll = () => {
                   <button onClick={() => {
                     if (window.confirm('Run full payroll calculation?')) {
                       setLoading(true);
-                      axios.post('http://localhost:5000/api/payroll/run', { month: selectedMonth, year: selectedYear }, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                      axios.post('payroll/run', { month: selectedMonth, year: selectedYear }, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                         .then(() => { toast.success('Calculated'); fetchPayrollData(); })
                         .catch((err) => toast.error(err.response?.data?.error || 'Failed to run payroll'))
                         .finally(() => setLoading(false));

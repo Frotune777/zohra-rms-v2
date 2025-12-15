@@ -1,0 +1,463 @@
+
+> al-zohra-server@1.0.0 test
+> jest
+
+FAIL tests/chicken.test.js
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation, specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    SyntaxError: /home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/tests/chicken.test.js: Identifier 'db' has already been declared. (30:6)
+
+      28 | });
+      29 |
+    > 30 | const db = require('../src/config/db');
+         |       ^
+      31 |
+      32 | describe('Chicken/Supplier Module', () => {
+      33 |     let req, res;
+
+      at constructor (node_modules/@babel/parser/src/parse-error.ts:95:45)
+      at Parser.toParseError [as raise] (node_modules/@babel/parser/src/tokenizer/index.ts:1507:19)
+      at ScopeHandler.raise [as checkRedeclarationInScope] (node_modules/@babel/parser/src/util/scope.ts:164:19)
+      at ScopeHandler.checkRedeclarationInScope [as declareName] (node_modules/@babel/parser/src/util/scope.ts:118:12)
+      at Parser.declareName [as declareNameFromIdentifier] (node_modules/@babel/parser/src/parser/lval.ts:852:16)
+      at Parser.declareNameFromIdentifier [as checkIdentifier] (node_modules/@babel/parser/src/parser/lval.ts:847:12)
+      at Parser.checkIdentifier [as checkLVal] (node_modules/@babel/parser/src/parser/lval.ts:739:12)
+      at Parser.checkLVal [as parseVarId] (node_modules/@babel/parser/src/parser/statement.ts:1633:10)
+      at Parser.parseVarId [as parseVar] (node_modules/@babel/parser/src/parser/statement.ts:1582:12)
+      at Parser.parseVar [as parseVarStatement] (node_modules/@babel/parser/src/parser/statement.ts:1251:10)
+      at Parser.parseVarStatement [as parseStatementContent] (node_modules/@babel/parser/src/parser/statement.ts:612:21)
+      at Parser.parseStatementContent [as parseStatementLike] (node_modules/@babel/parser/src/parser/statement.ts:482:17)
+      at Parser.parseStatementLike [as parseModuleItem] (node_modules/@babel/parser/src/parser/statement.ts:419:17)
+      at Parser.parseModuleItem [as parseBlockOrModuleBlockBody] (node_modules/@babel/parser/src/parser/statement.ts:1443:16)
+      at Parser.parseBlockOrModuleBlockBody [as parseBlockBody] (node_modules/@babel/parser/src/parser/statement.ts:1417:10)
+      at Parser.parseBlockBody [as parseProgram] (node_modules/@babel/parser/src/parser/statement.ts:229:10)
+      at Parser.parseProgram [as parseTopLevel] (node_modules/@babel/parser/src/parser/statement.ts:203:25)
+      at Parser.parseTopLevel [as parse] (node_modules/@babel/parser/src/parser/index.ts:88:25)
+      at parse (node_modules/@babel/parser/src/index.ts:86:38)
+      at parser (node_modules/@babel/core/src/parser/index.ts:29:19)
+          at parser.next (<anonymous>)
+      at normalizeFile (node_modules/@babel/core/src/transformation/normalize-file.ts:50:24)
+          at normalizeFile.next (<anonymous>)
+      at run (node_modules/@babel/core/src/transformation/index.ts:41:36)
+          at run.next (<anonymous>)
+      at transform (node_modules/@babel/core/src/transform.ts:29:20)
+          at transform.next (<anonymous>)
+      at evaluateSync (node_modules/gensync/index.js:251:28)
+      at sync (node_modules/gensync/index.js:89:14)
+      at fn (node_modules/@babel/core/src/errors/rewrite-stack-trace.ts:99:14)
+      at transformSync (node_modules/@babel/core/src/transform.ts:66:52)
+      at ScriptTransformer.transformSource (node_modules/@jest/transform/build/index.js:422:31)
+      at ScriptTransformer._transformAndBuildScript (node_modules/@jest/transform/build/index.js:519:40)
+      at ScriptTransformer.transform (node_modules/@jest/transform/build/index.js:558:19)
+
+  console.log
+    DEBUG: runPayroll empRes rows: [
+      {
+        id: 1,
+        full_name: 'Test Employee',
+        base_salary: 30000,
+        status: 'active'
+      }
+    ]
+
+      at log (src/modules/employees/controller.js:349:17)
+
+  console.error
+    DEBUG: createEmployee Error: TypeError: Cannot read properties of undefined (reading 'max_id')
+        at max_id (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/src/modules/employees/controller.js:35:51)
+        at processTicksAndRejections (node:internal/process/task_queues:95:5)
+        at Object.<anonymous> (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/tests/employees.test.js:101:13)
+
+      46 |         res.status(201).json(result.rows[0]);
+      47 |     } catch (err) {
+    > 48 |         console.error('DEBUG: createEmployee Error:', err);
+         |                 ^
+      49 |         res.status(500).json({ error: err.message });
+      50 |     }
+      51 | };
+
+      at error (src/modules/employees/controller.js:48:17)
+      at Object.<anonymous> (tests/employees.test.js:101:13)
+
+  console.log
+    DEBUG: runPayroll empRes rows: []
+
+      at log (src/modules/employees/controller.js:349:17)
+
+  console.log
+    DEBUG: runPayroll empRes rows: [ { net_pay: 31032, id: 1 } ]
+
+      at log (src/modules/employees/controller.js:349:17)
+
+  console.log
+    DEBUG: runPayroll empRes rows: []
+
+      at log (src/modules/employees/controller.js:349:17)
+
+FAIL tests/employees.test.js (6.283 s)
+  Employee Module
+    getEmployees
+      ✓ should return all employees (65 ms)
+      ✓ should hide salary for staff role (9 ms)
+      ✓ should handle database errors (28 ms)
+    createEmployee
+      ✕ should create a new employee with valid data (320 ms)
+      ✓ should return 400 if required fields are missing (8 ms)
+      ✕ should handle database errors during creation (8 ms)
+    updateEmployee
+      ✕ should update employee details (14 ms)
+      ✕ should return 404 if employee not found (5 ms)
+    deleteEmployee
+      ✕ should hard delete an employee (9 ms)
+      ✓ should return 404 if employee not found (5 ms)
+    getEmployeeHistory
+      ✕ should return employee change history (52 ms)
+      ✓ should return empty array if no history exists (12 ms)
+
+  ● Employee Module › createEmployee › should create a new employee with valid data
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 201
+    Received: 500
+
+    Number of calls: 1
+
+      101 |             await createEmployee(req, res);
+      102 |
+    > 103 |             expect(res.status).toHaveBeenCalledWith(201);
+          |                                ^
+      104 |             expect(res.json).toHaveBeenCalledWith(
+      105 |                 expect.objectContaining({ full_name: 'New Employee' })
+      106 |             );
+
+      at Object.toHaveBeenCalledWith (tests/employees.test.js:103:32)
+
+  ● Employee Module › createEmployee › should handle database errors during creation
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 500
+    Received: 201
+
+    Number of calls: 1
+
+      132 |             await createEmployee(req, res);
+      133 |
+    > 134 |             expect(res.status).toHaveBeenCalledWith(500);
+          |                                ^
+      135 |         });
+      136 |     });
+      137 |
+
+      at Object.toHaveBeenCalledWith (tests/employees.test.js:134:32)
+
+  ● Employee Module › updateEmployee › should update employee details
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"full_name": "Updated Name"}
+    Received: {"error": "Insert failed"}
+
+    Number of calls: 1
+
+      157 |             await updateEmployee(req, res);
+      158 |
+    > 159 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      160 |                 expect.objectContaining({ full_name: 'Updated Name' })
+      161 |             );
+      162 |         });
+
+      at Object.toHaveBeenCalledWith (tests/employees.test.js:159:30)
+
+  ● Employee Module › updateEmployee › should return 404 if employee not found
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 404
+
+    Number of calls: 0
+
+      174 |             await updateEmployee(req, res);
+      175 |
+    > 176 |             expect(res.status).toHaveBeenCalledWith(404);
+          |                                ^
+      177 |         });
+      178 |     });
+      179 |
+
+      at Object.toHaveBeenCalledWith (tests/employees.test.js:176:32)
+
+  ● Employee Module › deleteEmployee › should hard delete an employee
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"success": true}
+    Received: {"error": "Employee not found"}
+
+    Number of calls: 1
+
+      194 |                 expect.any(Array)
+      195 |             );
+    > 196 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      197 |                 expect.objectContaining({ success: true })
+      198 |             );
+      199 |         });
+
+      at Object.toHaveBeenCalledWith (tests/employees.test.js:196:30)
+
+  ● Employee Module › getEmployeeHistory › should return employee change history
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    - Expected
+    + Received
+
+    - Array [
+    -   Object {
+    -     "changed_at": "2024-12-01",
+    -     "changed_by": "Manager",
+    -     "employee_id": 1,
+    -     "field_changed": "salary",
+    -     "id": 1,
+    -     "new_value": "30000",
+    -     "old_value": "25000",
+    -   },
+    - ]
+    + Array [],
+
+    Number of calls: 1
+
+      232 |             await getEmployeeHistory(req, res);
+      233 |
+    > 234 |             expect(res.json).toHaveBeenCalledWith(history);
+          |                              ^
+      235 |         });
+      236 |
+      237 |         it('should return empty array if no history exists', async () => {
+
+      at Object.toHaveBeenCalledWith (tests/employees.test.js:234:30)
+
+FAIL tests/advances.test.js (6.258 s)
+  Advances and Payroll Module
+    getAllAdvances
+      ✓ should return all advance transactions (89 ms)
+      ✓ should filter advances by employee_id (18 ms)
+    getEmployeeAdvanceHistory
+      ✓ should return advance history for an employee (25 ms)
+    getEmployeeBalance
+      ✓ should calculate correct balance for employee (25 ms)
+      ✓ should return 0 balance if no transactions (20 ms)
+    createTransaction
+      ✓ should create an advance transaction (18 ms)
+      ✓ should create a repayment transaction (8 ms)
+      ✓ should return 400 if required fields are missing (5 ms)
+    runPayroll
+      ✓ should process payroll with prorated salary (187 ms)
+      ✕ should apply manual adjustments to payroll (63 ms)
+      ✕ should calculate prorated salary for partial month (12 ms)
+      ✓ should handle database errors (13 ms)
+    getMonthlyPayroll
+      ✓ should return payroll records for a month (6 ms)
+      ✓ should use current month/year if not provided (6 ms)
+
+  ● Advances and Payroll Module › runPayroll › should apply manual adjustments to payroll
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"netPay": Any<Number>, "success": true}
+    Received: {"error": "Cannot read properties of undefined (reading 'base_salary')"}
+
+    Number of calls: 1
+
+      243 |             await runPayroll(req, res);
+      244 |
+    > 245 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      246 |                 expect.objectContaining({
+      247 |                     success: true,
+      248 |                     netPay: expect.any(Number), // ~31032
+
+      at Object.toHaveBeenCalledWith (tests/advances.test.js:245:30)
+
+  ● Advances and Payroll Module › runPayroll › should calculate prorated salary for partial month
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"success": true}
+    Received: {"error": "Cannot read properties of undefined (reading 'id')"}
+
+    Number of calls: 1
+
+      277 |             await runPayroll(req, res);
+      278 |
+    > 279 |             expect(res.json).toHaveBeenCalledWith(
+          |                              ^
+      280 |                 expect.objectContaining({
+      281 |                     success: true,
+      282 |                 })
+
+      at Object.toHaveBeenCalledWith (tests/advances.test.js:279:30)
+
+PASS tests/finance.test.js
+  Finance Module
+    getYearlyPnL
+      ✓ should return yearly P&L data (48 ms)
+    getPnL
+      ✓ should return P&L for a specific month (13 ms)
+      ✓ should use current month/year if not provided (13 ms)
+    getTransactions
+      ✓ should return all transactions (11 ms)
+      ✓ should filter transactions by date range (13 ms)
+    addRevenue
+      ✓ should add a revenue transaction (16 ms)
+      ✓ should return 400 if amount is missing (10 ms)
+      ✓ should handle database errors (11 ms)
+    addExpense
+      ✓ should add an expense transaction (12 ms)
+      ✓ should return 400 if amount is missing (22 ms)
+    deleteTransaction
+      ✓ should delete a transaction (11 ms)
+    recordPayment
+      ✓ should record a vendor payment (10 ms)
+      ✓ should handle database errors (11 ms)
+
+  console.error
+    Error: Database connection failed
+        at Object.<anonymous> (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/tests/dashboard.test.js:139:40)
+        at Promise.finally.completed (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+        at new Promise (<anonymous>)
+        at callAsyncCircusFn (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+        at _callCircusTest (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+        at processTicksAndRejections (node:internal/process/task_queues:95:5)
+        at _runTest (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+        at /home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+        at _runTestsForDescribeBlock (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+        at _runTestsForDescribeBlock (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+        at _runTestsForDescribeBlock (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+        at run (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+        at runAndTransformResultsToJestFormat (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+        at jestAdapter (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-circus/build/runner.js:101:19)
+        at runTestInternal (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-runner/build/testWorker.js:275:16)
+        at runTest (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-runner/build/testWorker.js:343:7)
+        at Object.worker (/home/zohra/Desktop/zohra-rms/zohra-rms-v2/server/node_modules/jest-runner/build/testWorker.js:497:12)
+
+      102 |         res.json(stats);
+      103 |     } catch (err) {
+    > 104 |         console.error(err);
+          |                 ^
+      105 |         res.status(500).json({ error: err.message });
+      106 |     }
+      107 | };
+
+      at error (src/modules/dashboard/controller.js:104:17)
+      at Object.<anonymous> (tests/dashboard.test.js:141:13)
+
+PASS tests/dashboard.test.js
+  Dashboard Module
+    getDashboardStats
+      ✓ should return comprehensive dashboard statistics (84 ms)
+      ✓ should calculate approximate profit correctly (10 ms)
+      ✓ should handle zero sales and expenses (10 ms)
+      ✓ should return low stock items (25 ms)
+      ✓ should return sales trend data (18 ms)
+      ✓ should handle database errors gracefully (298 ms)
+      ✓ should handle null values in queries (18 ms)
+
+PASS tests/pos.test.js
+  POS Module
+    getMenu
+      ✓ should return all menu items (71 ms)
+      ✓ should handle empty menu (40 ms)
+      ✓ should handle database errors (8 ms)
+    addMenuItem
+      ✓ should add a new menu item (10 ms)
+      ✓ should return 400 if name is missing (10 ms)
+      ✓ should return 400 if price is missing (8 ms)
+      ✓ should return 400 if category is missing (6 ms)
+      ✓ should return 400 if price is not positive (8 ms)
+      ✓ should handle database errors (7 ms)
+    deleteMenuItem
+      ✓ should delete a menu item (8 ms)
+      ✓ should return 404 if menu item not found (14 ms)
+      ✓ should handle database errors (10 ms)
+    createOrder
+      ✓ should create an order with inventory updates (17 ms)
+      ✓ should calculate total revenue correctly (16 ms)
+      ✓ should handle database errors and rollback (12 ms)
+
+PASS tests/inventory.test.js
+  Inventory Module
+    getInventory
+      ✓ should return all inventory items (70 ms)
+      ✓ should handle empty inventory (27 ms)
+      ✓ should handle database errors (20 ms)
+    addInventory
+      ✓ should add a new inventory item (28 ms)
+      ✓ should calculate total_value correctly (17 ms)
+      ✓ should validate quantity is positive (25 ms)
+    updateInventory
+      ✓ should update inventory item (20 ms)
+      ✓ should recalculate total_value when quantity changes (6 ms)
+      ✓ should recalculate total_value when unit_cost changes (17 ms)
+      ✓ should return 404 if item not found (23 ms)
+    deleteInventory
+      ✓ should delete an inventory item (29 ms)
+      ✓ should return 404 if item not found (16 ms)
+      ✓ should handle database errors (19 ms)
+
+PASS tests/finance_reconciliation.test.js
+  ReconciliationService
+    getCounterReconciliation
+      ✓ should calculate theoretical closing balance correctly (25 ms)
+      ✓ should handle missing data gracefully (9 ms)
+    getManagerFloat
+      ✓ should calculate manager float correctly (7 ms)
+
+PASS tests/auth.test.js (8.165 s)
+  Auth Module
+    POST /api/auth/login
+      ✓ should return 400 if email is missing (197 ms)
+      ✓ should return 400 if password is missing (21 ms)
+      ✓ should return 401 for non-existent user (20 ms)
+      ✓ should return 401 for incorrect password (415 ms)
+      ✓ should successfully login with correct credentials (demo mode) (39 ms)
+      ✓ should return valid JWT token on successful login (39 ms)
+    POST /api/auth/register
+      ✓ should return 401 if not authenticated (24 ms)
+      ✓ should return 400 if required fields are missing (with auth) (28 ms)
+      ✓ should return 400 if email already exists (46 ms)
+      ✓ should successfully register a new user with auth (204 ms)
+      ✓ should hash the password before storing (246 ms)
+    GET /health
+      ✓ should return status ok (23 ms)
+
+Test Suites: 3 failed, 6 passed, 9 total
+Tests:       8 failed, 81 passed, 89 total
+Snapshots:   0 total
+Time:        22.162 s
+Ran all test suites.

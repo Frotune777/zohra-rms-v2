@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import ReportLayout from '../../components/reports/ReportLayout';
 import StatsCard from '../../components/reports/StatsCard';
 import DateRangePicker from '../../components/reports/DateRangePicker';
@@ -29,8 +29,8 @@ export default function InventoryReports() {
             setLoading(true);
 
             const [stockRes, wastageRes] = await Promise.all([
-                axios.get('http://localhost:5000/api/reports/inventory/stock-status'),
-                axios.get('http://localhost:5000/api/reports/inventory/wastage', { params: dateRange })
+                axios.get('reports/inventory/stock-status'),
+                axios.get('reports/inventory/wastage', { params: dateRange })
             ]);
 
             setStockData(stockRes.data);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import ReportLayout from '../../components/reports/ReportLayout';
 import StatsCard from '../../components/reports/StatsCard';
 import DateRangePicker from '../../components/reports/DateRangePicker';
@@ -29,8 +29,8 @@ export default function OperationsReports() {
             setLoading(true);
 
             const [chickenRes, vendorRes] = await Promise.all([
-                axios.get('http://localhost:5000/api/reports/operations/chicken-analytics', { params: dateRange }),
-                axios.get('http://localhost:5000/api/reports/operations/vendor-performance', { params: dateRange })
+                axios.get('reports/operations/chicken-analytics', { params: dateRange }),
+                axios.get('reports/operations/vendor-performance', { params: dateRange })
             ]);
 
             setChickenData(chickenRes.data);
