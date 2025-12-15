@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { FiPlus, FiTrash2, FiEdit2, FiX, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
 
@@ -32,7 +32,7 @@ const Inventory = () => {
   const fetchInventory = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:5000/api/inventory');
+      const res = await api.get('/inventory');
       setItems(res.data);
       setError('');
     } catch (err) {
@@ -55,10 +55,10 @@ const Inventory = () => {
 
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/inventory/${editingId}`, formData);
+        await api.put(`/inventory/${editingId}`, formData);
         setSuccessMessage(`✓ Inventory item updated successfully`);
       } else {
-        await axios.post('http://localhost:5000/api/inventory', formData);
+        await api.post('/inventory', formData);
         setSuccessMessage(`✓ Inventory item added successfully`);
       }
 
@@ -87,7 +87,7 @@ const Inventory = () => {
     if (!window.confirm(`Delete "${name}"? This action cannot be undone.`)) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/inventory/${id}`);
+      await api.delete(`/inventory/${id}`);
       setSuccessMessage(`✓ Item deleted successfully`);
       fetchInventory();
       setTimeout(() => setSuccessMessage(''), 3000);

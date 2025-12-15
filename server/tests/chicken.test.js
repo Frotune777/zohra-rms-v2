@@ -12,7 +12,22 @@ const {
 const db = require('../src/config/db');
 const { fixtures, mockQueryResult } = require('./helpers/db-mock');
 
-jest.mock('../src/config/db');
+jest.mock('../src/config/db', () => {
+    const mockQuery = jest.fn();
+    const mockRelease = jest.fn();
+    const mockClient = {
+        query: mockQuery,
+        release: mockRelease,
+    };
+    return {
+        query: mockQuery,
+        pool: {
+            connect: jest.fn().mockResolvedValue(mockClient),
+        },
+    };
+});
+
+
 
 describe('Chicken/Supplier Module', () => {
     let req, res;
@@ -216,8 +231,9 @@ describe('Chicken/Supplier Module', () => {
                 vendor_rate: 185,
             };
 
-            // Mock daily rates, markup rule, bill insert, vendor ledger insert
+            // Needs to account for BEGIN, SELECT rates, SELECT markup, INSERT bill, INSERT ledger, COMMIT
             db.query
+                .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
                 .mockResolvedValueOnce(mockQueryResult([{
                     date: '2024-12-08',
                     tandoor_rate: 180,
@@ -240,7 +256,8 @@ describe('Chicken/Supplier Module', () => {
                     variance: 0,
                     status: 'Pending',
                 }])) // Insert bill
-                .mockResolvedValueOnce(mockQueryResult([])); // Insert vendor ledger
+                .mockResolvedValueOnce(mockQueryResult([])) // Insert vendor ledger
+                .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
             await createBillEntry(req, res);
 
@@ -262,6 +279,7 @@ describe('Chicken/Supplier Module', () => {
             };
 
             db.query
+                .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
                 .mockResolvedValueOnce(mockQueryResult([{
                     tandoor_rate: 180,
                     boiler_rate: 160,
@@ -278,7 +296,8 @@ describe('Chicken/Supplier Module', () => {
                     expected_rate: 185,
                     variance: 250, // (190 - 185) * 50
                 }]))
-                .mockResolvedValueOnce(mockQueryResult([]));
+                .mockResolvedValueOnce(mockQueryResult([])) // LEDGER
+                .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
             await createBillEntry(req, res);
 

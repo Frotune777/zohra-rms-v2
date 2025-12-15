@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { FiCalendar, FiRefreshCw, FiSave, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 
@@ -23,12 +23,9 @@ const DailySummary = () => {
         setLoading(true);
         setMessage({ type: '', text: '' });
         try {
-            const token = localStorage.getItem('token');
-            const headers = { Authorization: `Bearer ${token}` };
-
             const [summaryRes, reconRes] = await Promise.all([
-                axios.get(`${API_URL}/api/finance/daily-summary?date=${date}`, { headers }),
-                axios.get(`${API_URL}/api/finance/reconciliation?date=${date}`, { headers })
+                api.get(`/finance/daily-summary?date=${date}`),
+                api.get(`/finance/reconciliation?date=${date}`)
             ]);
 
             setSummary(summaryRes.data);
@@ -54,12 +51,11 @@ const DailySummary = () => {
 
         setSubmitting(true);
         try {
-            const token = localStorage.getItem('token');
-            await axios.post(`${API_URL}/api/finance/reconciliation/${date}`, {
+            await api.post(`/finance/reconciliation/${date}`, {
                 actual_closing_balance: parseFloat(actualClosing),
                 status: 'Closed',
                 type: 'Counter'
-            }, { headers: { Authorization: `Bearer ${token}` } });
+            });
 
             setMessage({ type: 'success', text: 'Reconciliation saved successfully!' });
             fetchData(); // Refresh to calculate difference
@@ -200,7 +196,7 @@ const DailySummary = () => {
 
                             <div className="flex flex-col justify-center">
                                 <div className={`p-4 rounded-lg border ${(reconciliation?.difference || 0) === 0 ? 'bg-green-500/20 border-green-500' :
-                                        (reconciliation?.difference || 0) > 0 ? 'bg-blue-500/20 border-blue-500' : 'bg-red-500/20 border-red-500'
+                                    (reconciliation?.difference || 0) > 0 ? 'bg-blue-500/20 border-blue-500' : 'bg-red-500/20 border-red-500'
                                     }`}>
                                     <div className="flex justify-between items-center mb-1">
                                         <span className="text-sm font-bold uppercase tracking-wider opacity-80">Variance (Excess/Shortage)</span>

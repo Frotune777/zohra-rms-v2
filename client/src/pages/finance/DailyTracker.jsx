@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
 import {
     FiCalendar, FiPlus, FiTrash2, FiSave, FiAlertCircle,
@@ -75,8 +75,8 @@ const DailyTracker = () => {
         setLoading(true);
         try {
             const [summaryRes, txRes] = await Promise.all([
-                axios.get(`${API_URL}/api/finance/daily-summary/${date}`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }),
-                axios.get(`${API_URL}/api/finance/tracker/transactions?date=${date}`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                api.get(`/finance/daily-summary/${date}`),
+                api.get(`/finance/tracker/transactions?date=${date}`)
             ]);
 
             setSummary(summaryRes.data);
@@ -92,18 +92,14 @@ const DailyTracker = () => {
 
     const fetchSuppliers = async () => {
         try {
-            const res = await axios.get(`${API_URL}/api/vendors/all-suppliers`, {
-                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            });
+            const res = await api.get('/vendors/all-suppliers');
             setSuppliers(res.data);
         } catch (err) { console.error(err); }
     };
 
     const fetchCategories = async () => {
         try {
-            const res = await axios.get(`${API_URL}/api/finance/tracker/categories`, {
-                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            });
+            const res = await api.get('/finance/tracker/categories');
             setCategories(res.data);
         } catch (err) { console.error(err); }
     };
@@ -111,9 +107,7 @@ const DailyTracker = () => {
     // [NEW] Fetch Mappings
     const fetchMappings = async () => {
         try {
-            const res = await axios.get(`${API_URL}/api/finance/mappings`, {
-                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            });
+            const res = await api.get('/finance/mappings');
             setMappings(res.data);
         } catch (err) { console.error(err); }
     };
@@ -126,27 +120,65 @@ const DailyTracker = () => {
         const newRows = [...rows];
         newRows[index][field] = value;
 
-        // Auto-set Mode based on Payment Method if needed, or separate logic
+        // Auto-categorization based on description
+        if (field === 'description' && value && !newRows[index].category_id) {
+            const desc = value.toLowerCase();
+            let suggestedCategory = null;
+
+            // Auto-categorization rules
+            if (desc.includes('grocery') || desc.includes('vegetables') || desc.includes('chicken') || desc.includes('meat')) {
+                suggestedCategory = categories.find(c => c.name === 'Grocery');
+            } else if (desc.includes('salary') || desc.includes('wages') || desc.includes('payroll')) {
+                suggestedCategory = categories.find(c => c.name === 'Labor');
+            } else if (desc.includes('rent') || desc.includes('lease')) {
+                suggestedCategory = categories.find(c => c.name === 'Rent');
+            } else if (desc.includes('utility') || desc.includes('electricity') || desc.includes('water') || desc.includes('gas')) {
+                suggestedCategory = categories.find(c => c.name === 'Utilities');
+            } else if (desc.includes('repair') || desc.includes('maintenance')) {
+                suggestedCategory = categories.find(c => c.name === 'Maintenance');
+            } else if (desc.includes('transport') || desc.includes('fuel') || desc.includes('delivery')) {
+                suggestedCategory = categories.find(c => c.name === 'Transportation');
+            }
+
+            if (suggestedCategory) {
+                newRows[index].category_id = suggestedCategory.id;
+            }
+        }
+
+        // Auto-categorization based on vendor selection
+        if (field === 'vendor_id' && value && !newRows[index].category_id) {
+            const selectedVendor = suppliers.find(s => s.id === parseInt(value));
+            if (selectedVendor) {
+                // If vendor type is known, suggest category
+                if (selectedVendor.vendor_type === 'Chicken') {
+                    const groceryCategory = categories.find(c => c.name === 'Grocery');
+                    if (groceryCategory) {
+                        newRows[index].category_id = groceryCategory.id;
+                    }
+                }
+            }
+        }
+
+        // Auto-set Mode based on Payment Method
         if (field === 'payment_method') {
             if (value === 'Bank Transfer' || value === 'UPI' || value === 'Card') {
                 newRows[index].mode = 'Bank';
             } else if (value === 'Cash') {
                 newRows[index].mode = 'Cash';
             } else if (value === 'Manager Float') {
-                // Only set if not already set or if user is typing fresh?
-                // Let's set it. If user manually changes it later, they can.
-                // But we don't want to overwrite if they just selected a category manually and then typed more?
-                // Simple logic: If match found, update category. User can override.
-                newRows[index].category_id = matchedMapping.category_id;
+                // Find the mapping for Manager Float
+                const matchedMapping = mappings.find(m => m.name === 'Manager Float');
+                if (matchedMapping) {
+                    newRows[index].category_id = matchedMapping.category_id;
+                }
             }
         }
 
         // Special handling for Transfer to Manager (Sales Tab)
-        // If user selects "Transfer to Manager" logic
         if (activeTab === 'sales' && field === 'transfer_to_manager') {
             if (value === true) {
-                newRows[index].mode = 'Bank_Cash'; // Magic mode
-                newRows[index].payment_method = 'Cash'; // It IS cash leaving
+                newRows[index].mode = 'Bank_Cash';
+                newRows[index].payment_method = 'Cash';
                 newRows[index].description = 'Transfer to Manager';
             } else {
                 newRows[index].mode = 'Cash';
@@ -192,11 +224,7 @@ const DailyTracker = () => {
         };
 
         try {
-            await axios.post(
-                `${API_URL}/api/finance/tracker/transaction`,
-                payload,
-                { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-            );
+            await api.post('/finance/tracker/transaction', payload);
             setShowCashModal(false);
             setCashDenominations({ 500: '', 200: '', 100: '', 50: '', 20: '', 10: '', 5: '', 2: '', 1: '' });
             fetchData();
@@ -249,11 +277,7 @@ const DailyTracker = () => {
                     paid_by: row.status === 'Paid' ? 'Biller' : null,
                     paid_date: date
                 };
-                return axios.post(
-                    `${API_URL}/api/finance/tracker/transaction`,
-                    payload,
-                    { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-                );
+                return api.post('/finance/tracker/transaction', payload);
             }));
 
             setSuccess(`Saved ${rowsToSave.length} transactions!`);

@@ -10,7 +10,20 @@ const db = require('../src/config/db');
 const { mockQueryResult } = require('./helpers/db-mock');
 const { mockAuthRequest, userFixtures } = require('./helpers/auth-helper');
 
-jest.mock('../src/config/db');
+jest.mock('../src/config/db', () => {
+    const mockQuery = jest.fn();
+    const mockRelease = jest.fn();
+    const mockClient = {
+        query: mockQuery,
+        release: mockRelease,
+    };
+    return {
+        query: mockQuery,
+        pool: {
+            connect: jest.fn().mockResolvedValue(mockClient),
+        },
+    };
+});
 
 describe('Advances and Payroll Module', () => {
     let req, res;
@@ -103,14 +116,14 @@ describe('Advances and Payroll Module', () => {
                 amount: 5000,
             };
             // Mock BEGIN, balance query, INSERT, journal entries, COMMIT
-            db._mockClient.query
-                .mockResolvedValueOnce({}) // BEGIN
+            db.query
+                .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
                 .mockResolvedValueOnce(mockQueryResult([{ balance: 0 }])) // Get balance
                 .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // INSERT advance
                 .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // INSERT journal entry
                 .mockResolvedValueOnce(mockQueryResult([])) // INSERT ledger line 1
                 .mockResolvedValueOnce(mockQueryResult([])) // INSERT ledger line 2
-                .mockResolvedValueOnce({}); // COMMIT
+                .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
             await createTransaction(req, res);
 
@@ -132,37 +145,20 @@ describe('Advances and Payroll Module', () => {
             };
             req.user = { role: 'owner' }; // Needs auth (lowercase)
 
-            // Mock transaction: BEGIN, BALANCE check, INSERT repayment, UPDATE logic?, INSERT journal...
-            // Logic: 
-            // 1. Get Employee (check exists)
-            // 2. Get Balance
-            // 3. Insert specific query...
-
-            // Actually checking Service `createTransaction`:
-            // 1. BEGIN
-            // 2. Insert advances (RETURNING id)
-            // 3. Insert journal entry
-            // 4. Insert ledger lines (Cash/Advance)
-            // 5. COMMIT
-
-            // Wait, does it check balance first? 'Repayment' might not check limit.
-            // Let's assume standard sequence based on other tests.
-
-            db._mockClient.query
-                .mockResolvedValueOnce({ rows: [] }) // BEGIN
-                .mockResolvedValueOnce(mockQueryResult([{ balance: 5000 }])) // SELECT Balance (Check)
-                .mockResolvedValueOnce({ rows: [] }) // INSERT advance_ledger (Repayment)
-                .mockResolvedValueOnce(mockQueryResult([{ id: 102 }])) // INSERT Journal Entry (RETURNING id)
-                .mockResolvedValueOnce({ rows: [] }) // Ledger 1
-                .mockResolvedValueOnce({ rows: [] }) // Ledger 2
-                .mockResolvedValueOnce({ rows: [] }); // COMMIT
+            db.query
+                .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
+                .mockResolvedValueOnce(mockQueryResult([{ balance: 5000 }])) // SELECT Balance
+                .mockResolvedValueOnce(mockQueryResult([])) // INSERT advance_ledger (Repayment)
+                .mockResolvedValueOnce(mockQueryResult([{ id: 102 }])) // INSERT Journal
+                .mockResolvedValueOnce(mockQueryResult([])) // Ledger 1
+                .mockResolvedValueOnce(mockQueryResult([])) // Ledger 2
+                .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
             await createTransaction(req, res);
 
             expect(res.json).toHaveBeenCalledWith(
                 expect.objectContaining({
                     success: true,
-                    // newBalance might come from object returned by service if implemented
                 })
             );
         });
@@ -197,29 +193,20 @@ describe('Advances and Payroll Module', () => {
             // Controller logic:
             // 1. BEGIN
             // 2. SELECT employee
-            // 3. SELECT attendance... WAIT, manual daysWorked provided! so NO attendance select
-            // 4. SELECT advance_balance (optional but likely called to calc deduction)
-            //    Wait, logic: `if (daysWorked !== undefined ...) ...`
-            //    It calculates baseEarned.
-            //    Then Select OUTSTANDING BALANCE.
-            //    Then INSERT salary_history
-            //    Then INSERT journal
-            //    Then 2x Ledger
-            //    COMMIT
+            // No balance check in runPayroll
+            // 3. INSERT Salary History
+            // 4. INSERT Journal
+            // 5. INSERT ledger lines 1 & 2
+            // 6. COMMIT
 
-            // Wait, previous test might have assumed different flow.
-            // BUT payroll/controller.js `runPayroll` logic:
-            // "const empRes = await client.query('SELECT * FROM employees WHERE id = ...')" - Line 347
-
-            db._mockClient.query
-                .mockResolvedValueOnce({}) // BEGIN
+            db.query
+                .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
                 .mockResolvedValueOnce(mockQueryResult([employee])) // SELECT Employee
-                .mockResolvedValueOnce(mockQueryResult([{ balance: 0 }])) // SELECT advance_balance
                 .mockResolvedValueOnce(mockQueryResult([{ net_pay: 29032, id: 1 }])) // INSERT Salary History
                 .mockResolvedValueOnce(mockQueryResult([{ id: 201 }])) // INSERT Journal
-                .mockResolvedValueOnce({ rows: [] }) // Ledger 1
-                .mockResolvedValueOnce({ rows: [] }) // Ledger 2
-                .mockResolvedValueOnce({ rows: [] }); // COMMIT
+                .mockResolvedValueOnce(mockQueryResult([])) // Ledger 1
+                .mockResolvedValueOnce(mockQueryResult([])) // Ledger 2
+                .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
             await runPayroll(req, res);
 
@@ -249,15 +236,14 @@ describe('Advances and Payroll Module', () => {
                 base_salary: 30000
             };
 
-            db._mockClient.query
-                .mockResolvedValueOnce({ rows: [] }) // BEGIN
+            db.query
+                .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
                 .mockResolvedValueOnce(mockQueryResult([employee])) // SELECT Employee
-                // No Balance Check in employees/controller.js runPayroll
                 .mockResolvedValueOnce(mockQueryResult([{ net_pay: 31032, id: 1 }])) // INSERT Salary History
                 .mockResolvedValueOnce(mockQueryResult([{ id: 202 }])) // INSERT Journal
-                .mockResolvedValueOnce({ rows: [] }) // Ledger 1
-                .mockResolvedValueOnce({ rows: [] }) // Ledger 2
-                .mockResolvedValueOnce({ rows: [] }); // COMMIT
+                .mockResolvedValueOnce(mockQueryResult([])) // Ledger 1
+                .mockResolvedValueOnce(mockQueryResult([])) // Ledger 2
+                .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
             await runPayroll(req, res);
 
@@ -283,15 +269,14 @@ describe('Advances and Payroll Module', () => {
                 base_salary: 30000
             };
 
-            db._mockClient.query
-                .mockResolvedValueOnce({ rows: [] }) // BEGIN
+            db.query
+                .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
                 .mockResolvedValueOnce(mockQueryResult([employee])) // SELECT Employee
-                // No Balance Check
                 .mockResolvedValueOnce(mockQueryResult([{ net_pay: 14516, id: 1 }])) // INSERT Salary History
                 .mockResolvedValueOnce(mockQueryResult([{ id: 203 }])) // INSERT Journal
-                .mockResolvedValueOnce({ rows: [] }) // Ledger 1
-                .mockResolvedValueOnce({ rows: [] }) // Ledger 2
-                .mockResolvedValueOnce({ rows: [] }); // COMMIT
+                .mockResolvedValueOnce(mockQueryResult([])) // Ledger 1
+                .mockResolvedValueOnce(mockQueryResult([])) // Ledger 2
+                .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
             await runPayroll(req, res);
 
@@ -310,9 +295,11 @@ describe('Advances and Payroll Module', () => {
                 daysWorked: 30,
             };
 
-            db._mockClient.query
-                .mockResolvedValueOnce({}) // BEGIN
-                .mockRejectedValueOnce(new Error('Database error')); // Error on employee query
+            db.query
+                .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
+                .mockRejectedValueOnce(new Error('Database error')); // Error on employee query OR connect?
+            // If connect works, client.query('BEGIN') works.
+            // We assume Error on SELECT Employee.
 
             await runPayroll(req, res);
 
