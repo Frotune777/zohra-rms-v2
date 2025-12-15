@@ -402,8 +402,8 @@ const BulkAttendance = () => {
                                         key={day.date}
                                         onClick={() => setDate(day.date)}
                                         className={`w-full px-3 py-2 rounded-lg text-left text-sm transition ${isSelected
-                                                ? 'bg-zohra-blue text-white font-medium'
-                                                : 'hover:bg-white/5 text-gray-300'
+                                            ? 'bg-zohra-blue text-white font-medium'
+                                            : 'hover:bg-white/5 text-gray-300'
                                             }`}
                                     >
                                         <div className="flex items-center justify-between mb-1">
@@ -411,10 +411,10 @@ const BulkAttendance = () => {
                                                 {dayDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                                             </span>
                                             <span className={`text-xs px-2 py-0.5 rounded ${statusInfo.status === 'complete' ? 'bg-green-500/20 text-green-400' :
-                                                    statusInfo.status === 'partial' ? 'bg-yellow-500/20 text-yellow-400' :
-                                                        statusInfo.status === 'locked' ? 'bg-blue-500/20 text-blue-400' :
-                                                            statusInfo.status === 'missing' ? 'bg-red-500/20 text-red-400' :
-                                                                'bg-gray-500/20 text-gray-400'
+                                                statusInfo.status === 'partial' ? 'bg-yellow-500/20 text-yellow-400' :
+                                                    statusInfo.status === 'locked' ? 'bg-blue-500/20 text-blue-400' :
+                                                        statusInfo.status === 'missing' ? 'bg-red-500/20 text-red-400' :
+                                                            'bg-gray-500/20 text-gray-400'
                                                 }`}>
                                                 {statusInfo.label}
                                             </span>
@@ -496,11 +496,13 @@ const BulkAttendance = () => {
                                                                 className="flex items-center gap-2 cursor-pointer group"
                                                             >
                                                                 <input
-                                                                    type="radio"
-                                                                    name={`attendance-${emp.id}`}
+                                                                    type="checkbox"
                                                                     checked={attendance[emp.id] === status}
                                                                     onChange={() => handleStatusChange(emp.id, status)}
-                                                                    className="accent-zohra-blue w-4 h-4"
+                                                                    className={`w-4 h-4 rounded border-gray-600 bg-white/5 focus:ring-offset-0 focus:ring-1 ${status === 'Present' ? 'text-green-500 focus:ring-green-500' :
+                                                                            status === 'Absent' ? 'text-red-500 focus:ring-red-500' :
+                                                                                'text-yellow-500 focus:ring-yellow-500'
+                                                                        }`}
                                                                 />
                                                                 <span className={`text-sm ${status === 'Present' ? 'text-green-400' :
                                                                         status === 'Absent' ? 'text-red-400' :

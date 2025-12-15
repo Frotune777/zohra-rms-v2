@@ -28,3 +28,13 @@ exports.getLastMarkedDates = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+exports.getCalendar = async (req, res) => {
+    const { startDate, endDate } = req.query;
+    try {
+        const result = await AttendanceService.getCalendar(startDate, endDate);
+        res.json(result);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
