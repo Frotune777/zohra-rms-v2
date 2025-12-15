@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { toast } from 'react-hot-toast';
-import { FiSave, FiCalendar, FiCheckCircle, FiAlertCircle, FiClock, FiChevronLeft, FiChevronRight, FiRefreshCw } from 'react-icons/fi';
+import { FiSave, FiCalendar, FiCheckCircle, FiAlertCircle, FiClock, FiChevronLeft, FiChevronRight, FiRefreshCw, FiDatabase } from 'react-icons/fi';
 
 const BulkAttendance = () => {
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [employees, setEmployees] = useState([]);
     const [attendance, setAttendance] = useState({});
+    const [originalAttendance, setOriginalAttendance] = useState({}); // Track original data
     const [leaves, setLeaves] = useState([]);
     const [calendar, setCalendar] = useState([]);
     const [loading, setLoading] = useState(false);
     const [saving, setSaving] = useState(false);
+    const [dataExists, setDataExists] = useState(false);
     const [lastSaved, setLastSaved] = useState(null);
-    const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
     useEffect(() => {
         fetchEmployees();
@@ -39,7 +40,9 @@ const BulkAttendance = () => {
         try {
             setLoading(true);
             const res = await api.get(`/attendance?date=${date}`);
+
             if (res.data.length > 0) {
+                // Data exists for this date
                 const existing = {};
                 res.data.forEach(r => {
                     if (r.employee_id) {
@@ -47,18 +50,27 @@ const BulkAttendance = () => {
                     }
                 });
                 setAttendance(existing);
+                setOriginalAttendance(JSON.parse(JSON.stringify(existing))); // Deep copy
+                setDataExists(true);
                 setLastSaved(new Date(res.data[0]?.updated_at || res.data[0]?.created_at));
-                setHasUnsavedChanges(false);
             } else {
-                // Initialize with Present for new date
+                // No data for this date - initialize with Present
                 const initial = {};
                 employees.forEach(e => initial[e.id] = 'Present');
                 setAttendance(initial);
+                setOriginalAttendance({});
+                setDataExists(false);
                 setLastSaved(null);
-                setHasUnsavedChanges(false);
             }
         } catch (err) {
             console.error(err);
+            // Initialize with Present on error
+            const initial = {};
+            employees.forEach(e => initial[e.id] = 'Present');
+            setAttendance(initial);
+            setOriginalAttendance({});
+            setDataExists(false);
+            setLastSaved(null);
         } finally {
             setLoading(false);
         }
@@ -84,19 +96,22 @@ const BulkAttendance = () => {
             setCalendar(res.data || []);
         } catch (err) {
             console.error('Error fetching calendar:', err);
+            setCalendar([]);
         }
+    };
+
+    const hasUnsavedChanges = () => {
+        return JSON.stringify(attendance) !== JSON.stringify(originalAttendance);
     };
 
     const handleStatusChange = (empId, status) => {
         setAttendance(prev => ({ ...prev, [empId]: status }));
-        setHasUnsavedChanges(true);
     };
 
     const markAll = (status) => {
         const newAttendance = {};
         employees.forEach(e => newAttendance[e.id] = status);
         setAttendance(newAttendance);
-        setHasUnsavedChanges(true);
         toast.success(`All marked as ${status}`);
     };
 
@@ -110,8 +125,9 @@ const BulkAttendance = () => {
 
             await api.post('/attendance/bulk', { date, records });
 
+            setOriginalAttendance(JSON.parse(JSON.stringify(attendance)));
+            setDataExists(true);
             setLastSaved(new Date());
-            setHasUnsavedChanges(false);
             toast.success('✓ Attendance saved successfully');
             fetchCalendar();
         } catch (err) {
@@ -123,12 +139,14 @@ const BulkAttendance = () => {
 
     const getCalendarStatus = (calDate) => {
         const entry = calendar.find(c => c.date === calDate);
-        if (!entry) return { status: 'empty', label: 'No Data' };
+        if (!entry || !entry.filled_records) {
+            return { status: 'empty', label: 'No Data', filled: 0, total: 0 };
+        }
         return {
-            status: entry.status,
+            status: entry.status || 'empty',
             label: entry.status === 'complete' ? 'Complete' :
                 entry.status === 'partial' ? 'Partial' :
-                    entry.status === 'locked' ? 'Locked' : 'Missing',
+                    entry.status === 'locked' ? 'Locked' : 'No Data',
             filled: entry.filled_records || 0,
             total: entry.total_employees || 0
         };
@@ -152,6 +170,36 @@ const BulkAttendance = () => {
     };
 
     const completionRate = stats.total > 0 ? Math.round((stats.present + stats.absent + stats.halfDay) / stats.total * 100) : 0;
+    const unsavedChanges = hasUnsavedChanges();
+
+    // Determine status message
+    const getStatusMessage = () => {
+        if (unsavedChanges) {
+            return {
+                icon: FiAlertCircle,
+                text: 'You have unsaved changes',
+                color: 'text-yellow-400',
+                bgColor: 'bg-yellow-500/20'
+            };
+        }
+        if (dataExists && lastSaved) {
+            return {
+                icon: FiCheckCircle,
+                text: `Data saved for this date (${lastSaved.toLocaleTimeString()})`,
+                color: 'text-green-400',
+                bgColor: 'bg-green-500/20'
+            };
+        }
+        return {
+            icon: FiDatabase,
+            text: 'No attendance data for this date yet',
+            color: 'text-gray-400',
+            bgColor: 'bg-gray-500/20'
+        };
+    };
+
+    const statusMessage = getStatusMessage();
+    const StatusIcon = statusMessage.icon;
 
     return (
         <div className="p-6 h-full flex flex-col">
@@ -162,25 +210,11 @@ const BulkAttendance = () => {
                         <FiCalendar className="text-zohra-blue" />
                         Bulk Attendance
                     </h1>
-                    <div className="flex items-center gap-4 mt-2 text-sm">
-                        {lastSaved && (
-                            <span className="text-green-400 flex items-center gap-1">
-                                <FiCheckCircle size={14} />
-                                Last saved: {lastSaved.toLocaleTimeString()}
-                            </span>
-                        )}
-                        {hasUnsavedChanges && (
-                            <span className="text-yellow-400 flex items-center gap-1">
-                                <FiAlertCircle size={14} />
-                                Unsaved changes
-                            </span>
-                        )}
-                        {!lastSaved && !hasUnsavedChanges && (
-                            <span className="text-gray-400 flex items-center gap-1">
-                                <FiClock size={14} />
-                                No data for this date
-                            </span>
-                        )}
+                    <div className="flex items-center gap-2 mt-2">
+                        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${statusMessage.bgColor}`}>
+                            <StatusIcon className={statusMessage.color} size={16} />
+                            <span className={statusMessage.color}>{statusMessage.text}</span>
+                        </div>
                     </div>
                 </div>
 
@@ -199,7 +233,7 @@ const BulkAttendance = () => {
                     </button>
                     <button
                         onClick={handleSubmit}
-                        disabled={saving || !hasUnsavedChanges}
+                        disabled={saving || !unsavedChanges}
                         className="btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         <FiSave />
@@ -270,41 +304,45 @@ const BulkAttendance = () => {
                 {/* Calendar Sidebar */}
                 <div className="w-64 glass-panel rounded-xl p-4 overflow-y-auto">
                     <h3 className="text-sm font-bold text-white mb-3 uppercase tracking-wide">Calendar</h3>
-                    <div className="space-y-1">
-                        {calendar.map((day) => {
-                            const statusInfo = getCalendarStatus(day.date);
-                            const isSelected = day.date === date;
-                            const dayDate = new Date(day.date);
+                    {calendar.length === 0 ? (
+                        <p className="text-sm text-gray-400 text-center py-4">Loading calendar...</p>
+                    ) : (
+                        <div className="space-y-1">
+                            {calendar.map((day) => {
+                                const statusInfo = getCalendarStatus(day.date);
+                                const isSelected = day.date === date;
+                                const dayDate = new Date(day.date);
 
-                            return (
-                                <button
-                                    key={day.date}
-                                    onClick={() => setDate(day.date)}
-                                    className={`w-full px-3 py-2 rounded-lg text-left text-sm transition ${isSelected
-                                            ? 'bg-zohra-blue text-white font-medium'
-                                            : 'hover:bg-white/5 text-gray-300'
-                                        }`}
-                                >
-                                    <div className="flex items-center justify-between mb-1">
-                                        <span className="font-medium">
-                                            {dayDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                                        </span>
-                                        <span className={`text-xs px-2 py-0.5 rounded ${statusInfo.status === 'complete' ? 'bg-green-500/20 text-green-400' :
-                                                statusInfo.status === 'partial' ? 'bg-yellow-500/20 text-yellow-400' :
-                                                    statusInfo.status === 'locked' ? 'bg-blue-500/20 text-blue-400' :
-                                                        statusInfo.status === 'missing' ? 'bg-red-500/20 text-red-400' :
-                                                            'bg-gray-500/20 text-gray-400'
-                                            }`}>
-                                            {statusInfo.label}
-                                        </span>
-                                    </div>
-                                    <div className="text-xs text-gray-400">
-                                        {statusInfo.filled}/{statusInfo.total} marked
-                                    </div>
-                                </button>
-                            );
-                        })}
-                    </div>
+                                return (
+                                    <button
+                                        key={day.date}
+                                        onClick={() => setDate(day.date)}
+                                        className={`w-full px-3 py-2 rounded-lg text-left text-sm transition ${isSelected
+                                                ? 'bg-zohra-blue text-white font-medium'
+                                                : 'hover:bg-white/5 text-gray-300'
+                                            }`}
+                                    >
+                                        <div className="flex items-center justify-between mb-1">
+                                            <span className="font-medium">
+                                                {dayDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                            </span>
+                                            <span className={`text-xs px-2 py-0.5 rounded ${statusInfo.status === 'complete' ? 'bg-green-500/20 text-green-400' :
+                                                    statusInfo.status === 'partial' ? 'bg-yellow-500/20 text-yellow-400' :
+                                                        statusInfo.status === 'locked' ? 'bg-blue-500/20 text-blue-400' :
+                                                            statusInfo.status === 'missing' ? 'bg-red-500/20 text-red-400' :
+                                                                'bg-gray-500/20 text-gray-400'
+                                                }`}>
+                                                {statusInfo.label}
+                                            </span>
+                                        </div>
+                                        <div className="text-xs text-gray-400">
+                                            {statusInfo.filled}/{statusInfo.total} marked
+                                        </div>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    )}
                 </div>
 
                 {/* Attendance Table */}
