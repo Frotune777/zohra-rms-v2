@@ -139,8 +139,8 @@ const LeaveManagement = () => {
                         key={f}
                         onClick={() => setFilter(f)}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition ${filter === f
-                                ? 'bg-zohra-blue text-white'
-                                : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                            ? 'bg-zohra-blue text-white'
+                            : 'bg-white/5 text-gray-400 hover:bg-white/10'
                             }`}
                     >
                         {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -158,12 +158,14 @@ const LeaveManagement = () => {
                             <select
                                 value={formData.employee_id}
                                 onChange={(e) => setFormData({ ...formData, employee_id: e.target.value })}
-                                className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
+                                className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:border-zohra-blue"
                                 required
                             >
-                                <option value="">Select Employee</option>
+                                <option value="" className="bg-gray-800 text-white">Select Employee</option>
                                 {employees.map(emp => (
-                                    <option key={emp.id} value={emp.id}>{emp.full_name} ({emp.employee_code})</option>
+                                    <option key={emp.id} value={emp.id} className="bg-gray-800 text-white">
+                                        {emp.full_name} ({emp.employee_code})
+                                    </option>
                                 ))}
                             </select>
                         </div>
