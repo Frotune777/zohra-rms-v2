@@ -108,7 +108,18 @@ exports.createLeaveRequest = async (req, res) => {
             RETURNING *
         `, [employee_id, leave_type, start_date, end_date, reason]);
 
-        res.json(result.rows[0]);
+        // Fetch the complete leave request with employee data
+        const leaveWithEmployee = await db.query(`
+            SELECT lr.*, 
+                   e.full_name, 
+                   e.employee_code, 
+                   e.position
+            FROM leave_requests lr
+            JOIN employees e ON lr.employee_id = e.id
+            WHERE lr.id = $1
+        `, [result.rows[0].id]);
+
+        res.json(leaveWithEmployee.rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
