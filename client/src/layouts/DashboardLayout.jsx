@@ -36,6 +36,11 @@ export default ({ children }) => {
             <SidebarItem to="/payroll" icon={FiUser} label="Payroll" active={loc.pathname === '/payroll'} />
           )}
           <SidebarItem to="/advances" icon={FiGift} label="Advances" active={loc.pathname === '/advances'} />
+          {canAccessPayroll && (
+            <SidebarItem to="/advances/approvals" icon={FiGift} label="Advance Approvals" active={loc.pathname === '/advances/approvals'} />
+          )}
+          <SidebarItem to="/attendance/bulk" icon={FiUsers} label="Bulk Attendance" active={loc.pathname === '/attendance/bulk'} />
+          <SidebarItem to="/attendance/leaves" icon={FiUsers} label="Leave Management" active={loc.pathname === '/attendance/leaves'} />
 
           <div className="my-2 border-t border-white/10 pt-2">
             <p className="text-xs text-gray-500 px-3 mb-1 uppercase font-bold">Inventory & Procurement</p>
@@ -57,7 +62,6 @@ export default ({ children }) => {
             <p className="text-xs text-gray-500 px-3 mb-1 uppercase font-bold">Analytics</p>
             <SidebarItem to="/reports" icon={FiBarChart2} label="Reports" active={loc.pathname.startsWith('/reports')} />
             <SidebarItem to="/ai-dashboard" icon={FiTrendingUp} label="AI Insights" active={loc.pathname === '/ai-dashboard'} />
-            <SidebarItem to="/attendance/bulk" icon={FiUsers} label="Bulk Attendance" active={loc.pathname === '/attendance/bulk'} />
             <SidebarItem to="/development-status" icon={FiActivity} label="Dev Status" active={loc.pathname === '/development-status'} />
           </div>
         </nav>

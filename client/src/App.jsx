@@ -30,6 +30,8 @@ import InventoryReports from './pages/reports/InventoryReports';
 import AIDashboard from './pages/AIDashboard';
 import MasterDashboard from './pages/MasterDashboard';
 import DevelopmentStatus from './pages/DevelopmentStatus';
+import LeaveManagement from './pages/LeaveManagement';
+import AdvanceApprovals from './pages/AdvanceApprovals';
 
 function AppRoutes() {
   const { isAuthenticated } = useAuth();
@@ -58,6 +60,8 @@ function AppRoutes() {
                 <Route path="finance/float" element={<ManagerFloat />} />
                 <Route path="finance/mappings" element={<ExpenseMapping />} />
                 <Route path="attendance/bulk" element={<BulkAttendance />} />
+                <Route path="attendance/leaves" element={<LeaveManagement />} />
+                <Route path="advances/approvals" element={<AdvanceApprovals />} />
                 <Route path="ai-dashboard" element={<AIDashboard />} />
 
                 {/* Chicken Tracker Routes */}
