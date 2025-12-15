@@ -29,24 +29,14 @@ const LeaveManagement = () => {
         try {
             setLoading(true);
             const params = filter !== 'all' ? `?status=${filter.charAt(0).toUpperCase() + filter.slice(1)}` : '';
-
-            console.log('Fetching leaves and employees...');
             const [leavesRes, employeesRes] = await Promise.all([
                 api.get(`/leaves${params}`),
                 api.get('/employees')
             ]);
-
-            console.log('Leaves response:', leavesRes.data);
-            console.log('Employees response:', employeesRes.data);
-
             setLeaves(leavesRes.data);
-            const activeEmployees = employeesRes.data.filter(e => e.status === 'active');
-            console.log('Active employees:', activeEmployees);
-            setEmployees(activeEmployees);
+            setEmployees(employeesRes.data.filter(e => e.status === 'active'));
         } catch (err) {
             console.error('Error fetching data:', err);
-            console.error('Error details:', err.response?.data);
-            alert(`Failed to load data: ${err.response?.data?.error || err.message}`);
         } finally {
             setLoading(false);
         }
