@@ -35,6 +35,17 @@ class AttendanceService {
             client.release();
         }
     }
+
+    async getLastMarkedDates() {
+        const result = await db.query(
+            `SELECT DISTINCT ON (employee_id) 
+                employee_id, 
+                date as last_date
+             FROM attendance
+             ORDER BY employee_id, date DESC`
+        );
+        return result.rows;
+    }
 }
 
 module.exports = new AttendanceService();

@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { toast } from 'react-hot-toast';
-import { FiSave, FiCalendar, FiCheckCircle, FiAlertCircle, FiClock, FiChevronLeft, FiChevronRight, FiRefreshCw, FiDatabase } from 'react-icons/fi';
+import { FiSave, FiCalendar, FiCheckCircle, FiAlertCircle, FiClock, FiChevronLeft, FiChevronRight, FiRefreshCw, FiDatabase, FiAlertTriangle } from 'react-icons/fi';
 
 const BulkAttendance = () => {
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [employees, setEmployees] = useState([]);
     const [attendance, setAttendance] = useState({});
-    const [originalAttendance, setOriginalAttendance] = useState({}); // Track original data
+    const [originalAttendance, setOriginalAttendance] = useState({});
+    const [employeeLastDates, setEmployeeLastDates] = useState({}); // Track last marked date per employee
     const [leaves, setLeaves] = useState([]);
     const [calendar, setCalendar] = useState([]);
     const [loading, setLoading] = useState(false);
     const [saving, setSaving] = useState(false);
     const [dataExists, setDataExists] = useState(false);
     const [lastSaved, setLastSaved] = useState(null);
+    const [showOverwriteWarning, setShowOverwriteWarning] = useState(false);
 
     useEffect(() => {
         fetchEmployees();
@@ -23,6 +25,7 @@ const BulkAttendance = () => {
     useEffect(() => {
         fetchAttendance();
         fetchLeaves();
+        fetchEmployeeLastDates();
     }, [date]);
 
     const fetchEmployees = async () => {
@@ -36,13 +39,27 @@ const BulkAttendance = () => {
         }
     };
 
+    const fetchEmployeeLastDates = async () => {
+        try {
+            // Fetch last marked date for each employee
+            const res = await api.get('/attendance/last-dates');
+            const lastDates = {};
+            res.data.forEach(record => {
+                lastDates[record.employee_id] = record.last_date;
+            });
+            setEmployeeLastDates(lastDates);
+        } catch (err) {
+            console.error('Error fetching last dates:', err);
+            setEmployeeLastDates({});
+        }
+    };
+
     const fetchAttendance = async () => {
         try {
             setLoading(true);
             const res = await api.get(`/attendance?date=${date}`);
 
             if (res.data.length > 0) {
-                // Data exists for this date
                 const existing = {};
                 res.data.forEach(r => {
                     if (r.employee_id) {
@@ -50,11 +67,10 @@ const BulkAttendance = () => {
                     }
                 });
                 setAttendance(existing);
-                setOriginalAttendance(JSON.parse(JSON.stringify(existing))); // Deep copy
+                setOriginalAttendance(JSON.parse(JSON.stringify(existing)));
                 setDataExists(true);
                 setLastSaved(new Date(res.data[0]?.updated_at || res.data[0]?.created_at));
             } else {
-                // No data for this date - initialize with Present
                 const initial = {};
                 employees.forEach(e => initial[e.id] = 'Present');
                 setAttendance(initial);
@@ -64,7 +80,6 @@ const BulkAttendance = () => {
             }
         } catch (err) {
             console.error(err);
-            // Initialize with Present on error
             const initial = {};
             employees.forEach(e => initial[e.id] = 'Present');
             setAttendance(initial);
@@ -116,7 +131,17 @@ const BulkAttendance = () => {
     };
 
     const handleSubmit = async () => {
+        // Check if overwriting existing data
+        if (dataExists && Object.keys(originalAttendance).length > 0) {
+            setShowOverwriteWarning(true);
+            return;
+        }
+        await saveAttendance();
+    };
+
+    const saveAttendance = async () => {
         setSaving(true);
+        setShowOverwriteWarning(false);
         try {
             const records = Object.entries(attendance).map(([id, status]) => ({
                 employee_id: parseInt(id),
@@ -130,6 +155,7 @@ const BulkAttendance = () => {
             setLastSaved(new Date());
             toast.success('✓ Attendance saved successfully');
             fetchCalendar();
+            fetchEmployeeLastDates();
         } catch (err) {
             toast.error(err.response?.data?.error || 'Failed to save attendance');
         } finally {
@@ -156,6 +182,34 @@ const BulkAttendance = () => {
         return leaves.find(l => l.employee_id === empId);
     };
 
+    const getEmployeeStatus = (empId) => {
+        const lastDate = employeeLastDates[empId];
+        const currentDateMarked = originalAttendance[empId] !== undefined;
+
+        if (currentDateMarked) {
+            return {
+                text: 'Marked for this date',
+                color: 'text-green-400',
+                icon: FiCheckCircle
+            };
+        }
+
+        if (lastDate) {
+            const daysDiff = Math.floor((new Date(date) - new Date(lastDate)) / (1000 * 60 * 60 * 24));
+            if (daysDiff === 0) {
+                return { text: 'Marked today', color: 'text-green-400', icon: FiCheckCircle };
+            } else if (daysDiff === 1) {
+                return { text: 'Last: Yesterday', color: 'text-yellow-400', icon: FiClock };
+            } else if (daysDiff > 1 && daysDiff <= 7) {
+                return { text: `Last: ${daysDiff} days ago`, color: 'text-yellow-400', icon: FiClock };
+            } else {
+                return { text: `Last: ${new Date(lastDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`, color: 'text-red-400', icon: FiAlertCircle };
+            }
+        }
+
+        return { text: 'Never marked', color: 'text-gray-400', icon: FiAlertCircle };
+    };
+
     const navigateDate = (direction) => {
         const currentDate = new Date(date);
         currentDate.setDate(currentDate.getDate() + direction);
@@ -172,7 +226,6 @@ const BulkAttendance = () => {
     const completionRate = stats.total > 0 ? Math.round((stats.present + stats.absent + stats.halfDay) / stats.total * 100) : 0;
     const unsavedChanges = hasUnsavedChanges();
 
-    // Determine status message
     const getStatusMessage = () => {
         if (unsavedChanges) {
             return {
@@ -203,6 +256,37 @@ const BulkAttendance = () => {
 
     return (
         <div className="p-6 h-full flex flex-col">
+            {/* Overwrite Warning Modal */}
+            {showOverwriteWarning && (
+                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+                    <div className="glass-panel p-6 rounded-xl max-w-md">
+                        <div className="flex items-center gap-3 mb-4">
+                            <FiAlertTriangle className="text-yellow-400 text-3xl" />
+                            <h3 className="text-xl font-bold text-white">Overwrite Warning</h3>
+                        </div>
+                        <p className="text-gray-300 mb-6">
+                            Attendance data already exists for <strong>{new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong>.
+                            <br /><br />
+                            Do you want to overwrite the existing data?
+                        </p>
+                        <div className="flex gap-3 justify-end">
+                            <button
+                                onClick={() => setShowOverwriteWarning(false)}
+                                className="btn-secondary"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={saveAttendance}
+                                className="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-lg text-white font-medium"
+                            >
+                                Yes, Overwrite
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
                 <div>
@@ -359,6 +443,7 @@ const BulkAttendance = () => {
                                         <th className="p-4 font-semibold">EMP ID</th>
                                         <th className="p-4 font-semibold">Employee</th>
                                         <th className="p-4 font-semibold">Role/Dept</th>
+                                        <th className="p-4 font-semibold">Last Marked</th>
                                         <th className="p-4 text-center font-semibold">Status</th>
                                     </tr>
                                 </thead>
@@ -367,6 +452,8 @@ const BulkAttendance = () => {
                                         const leave = getLeaveForEmployee(emp.id);
                                         const hasApprovedLeave = leave && leave.status === 'Approved';
                                         const hasPendingLeave = leave && leave.status === 'Pending';
+                                        const empStatus = getEmployeeStatus(emp.id);
+                                        const EmpStatusIcon = empStatus.icon;
 
                                         return (
                                             <tr
@@ -394,6 +481,12 @@ const BulkAttendance = () => {
                                                 </td>
                                                 <td className="p-4 text-gray-400 capitalize">
                                                     {emp.role} • {emp.position}
+                                                </td>
+                                                <td className="p-4">
+                                                    <div className={`flex items-center gap-1 text-xs ${empStatus.color}`}>
+                                                        <EmpStatusIcon size={12} />
+                                                        {empStatus.text}
+                                                    </div>
                                                 </td>
                                                 <td className="p-4">
                                                     <div className="flex justify-center gap-6">

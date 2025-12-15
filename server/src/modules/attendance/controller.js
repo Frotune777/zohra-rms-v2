@@ -19,3 +19,12 @@ exports.saveBulkAttendance = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+exports.getLastMarkedDates = async (req, res) => {
+    try {
+        const result = await AttendanceService.getLastMarkedDates();
+        res.json(result);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
