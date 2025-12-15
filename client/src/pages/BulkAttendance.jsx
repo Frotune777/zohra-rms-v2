@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { toast } from 'react-hot-toast';
-import { FiSave, FiCalendar, FiCheckCircle, FiAlertCircle, FiClock, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiSave, FiCalendar, FiCheckCircle, FiAlertCircle, FiClock, FiChevronLeft, FiChevronRight, FiRefreshCw } from 'react-icons/fi';
 
 const BulkAttendance = () => {
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
@@ -11,7 +11,8 @@ const BulkAttendance = () => {
     const [calendar, setCalendar] = useState([]);
     const [loading, setLoading] = useState(false);
     const [saving, setSaving] = useState(false);
-    const [showCalendar, setShowCalendar] = useState(true);
+    const [lastSaved, setLastSaved] = useState(null);
+    const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
     useEffect(() => {
         fetchEmployees();
@@ -28,11 +29,9 @@ const BulkAttendance = () => {
             const res = await api.get('/employees');
             const activeEmployees = res.data.filter(e => e.status === 'active');
             setEmployees(activeEmployees);
-            const initial = {};
-            activeEmployees.forEach(e => initial[e.id] = 'Present');
-            setAttendance(prev => ({ ...initial, ...prev }));
         } catch (err) {
             console.error(err);
+            toast.error('Failed to load employees');
         }
     };
 
@@ -47,7 +46,16 @@ const BulkAttendance = () => {
                         existing[r.employee_id] = r.status || 'Present';
                     }
                 });
-                setAttendance(prev => ({ ...prev, ...existing }));
+                setAttendance(existing);
+                setLastSaved(new Date(res.data[0]?.updated_at || res.data[0]?.created_at));
+                setHasUnsavedChanges(false);
+            } else {
+                // Initialize with Present for new date
+                const initial = {};
+                employees.forEach(e => initial[e.id] = 'Present');
+                setAttendance(initial);
+                setLastSaved(null);
+                setHasUnsavedChanges(false);
             }
         } catch (err) {
             console.error(err);
@@ -81,13 +89,15 @@ const BulkAttendance = () => {
 
     const handleStatusChange = (empId, status) => {
         setAttendance(prev => ({ ...prev, [empId]: status }));
+        setHasUnsavedChanges(true);
     };
 
     const markAll = (status) => {
         const newAttendance = {};
         employees.forEach(e => newAttendance[e.id] = status);
         setAttendance(newAttendance);
-        toast.success(`All employees marked as ${status}`);
+        setHasUnsavedChanges(true);
+        toast.success(`All marked as ${status}`);
     };
 
     const handleSubmit = async () => {
@@ -100,8 +110,9 @@ const BulkAttendance = () => {
 
             await api.post('/attendance/bulk', { date, records });
 
-            toast.success('Attendance saved successfully');
-            fetchAttendance();
+            setLastSaved(new Date());
+            setHasUnsavedChanges(false);
+            toast.success('✓ Attendance saved successfully');
             fetchCalendar();
         } catch (err) {
             toast.error(err.response?.data?.error || 'Failed to save attendance');
@@ -112,15 +123,25 @@ const BulkAttendance = () => {
 
     const getCalendarStatus = (calDate) => {
         const entry = calendar.find(c => c.date === calDate);
-        if (!entry) return 'empty';
-        if (entry.status === 'locked') return 'locked';
-        if (entry.status === 'complete') return 'complete';
-        if (entry.status === 'partial') return 'partial';
-        return 'missing';
+        if (!entry) return { status: 'empty', label: 'No Data' };
+        return {
+            status: entry.status,
+            label: entry.status === 'complete' ? 'Complete' :
+                entry.status === 'partial' ? 'Partial' :
+                    entry.status === 'locked' ? 'Locked' : 'Missing',
+            filled: entry.filled_records || 0,
+            total: entry.total_employees || 0
+        };
     };
 
     const getLeaveForEmployee = (empId) => {
         return leaves.find(l => l.employee_id === empId);
+    };
+
+    const navigateDate = (direction) => {
+        const currentDate = new Date(date);
+        currentDate.setDate(currentDate.getDate() + direction);
+        setDate(currentDate.toISOString().split('T')[0]);
     };
 
     const stats = {
@@ -130,204 +151,243 @@ const BulkAttendance = () => {
         halfDay: Object.values(attendance).filter(s => s === 'Half-Day').length
     };
 
-    const navigateDate = (direction) => {
-        const currentDate = new Date(date);
-        currentDate.setDate(currentDate.getDate() + direction);
-        setDate(currentDate.toISOString().split('T')[0]);
-    };
+    const completionRate = stats.total > 0 ? Math.round((stats.present + stats.absent + stats.halfDay) / stats.total * 100) : 0;
 
     return (
-        <div className="h-full flex flex-col bg-gray-50 dark:bg-gray-900">
-            {/* Top Bar */}
-            <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <h1 className="text-xl font-semibold text-gray-900 dark:text-white">Attendance</h1>
-                        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                            <button onClick={() => navigateDate(-1)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
-                                <FiChevronLeft />
-                            </button>
-                            <input
-                                type="date"
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                className="px-3 py-1.5 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
-                            <button onClick={() => navigateDate(1)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
-                                <FiChevronRight />
-                            </button>
-                            <span className="ml-2 font-medium text-gray-700 dark:text-gray-300">
-                                {new Date(date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+        <div className="p-6 h-full flex flex-col">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-6">
+                <div>
+                    <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+                        <FiCalendar className="text-zohra-blue" />
+                        Bulk Attendance
+                    </h1>
+                    <div className="flex items-center gap-4 mt-2 text-sm">
+                        {lastSaved && (
+                            <span className="text-green-400 flex items-center gap-1">
+                                <FiCheckCircle size={14} />
+                                Last saved: {lastSaved.toLocaleTimeString()}
                             </span>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <button
-                            onClick={() => setShowCalendar(!showCalendar)}
-                            className="px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md flex items-center gap-2"
-                        >
-                            <FiCalendar size={16} />
-                            {showCalendar ? 'Hide' : 'Show'} Calendar
-                        </button>
-                        <button
-                            onClick={() => markAll('Present')}
-                            className="px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
-                        >
-                            Mark All Present
-                        </button>
-                        <button
-                            onClick={handleSubmit}
-                            disabled={saving}
-                            className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            <FiSave size={16} />
-                            {saving ? 'Saving...' : 'Save'}
-                        </button>
+                        )}
+                        {hasUnsavedChanges && (
+                            <span className="text-yellow-400 flex items-center gap-1">
+                                <FiAlertCircle size={14} />
+                                Unsaved changes
+                            </span>
+                        )}
+                        {!lastSaved && !hasUnsavedChanges && (
+                            <span className="text-gray-400 flex items-center gap-1">
+                                <FiClock size={14} />
+                                No data for this date
+                            </span>
+                        )}
                     </div>
                 </div>
 
-                {/* Stats Bar */}
-                <div className="flex items-center gap-6 mt-4 text-sm">
-                    <div className="flex items-center gap-2">
-                        <span className="text-gray-500 dark:text-gray-400">Total:</span>
-                        <span className="font-semibold text-gray-900 dark:text-white">{stats.total}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-gray-500 dark:text-gray-400">Present:</span>
-                        <span className="font-semibold text-green-600 dark:text-green-400">{stats.present}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-gray-500 dark:text-gray-400">Absent:</span>
-                        <span className="font-semibold text-red-600 dark:text-red-400">{stats.absent}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-gray-500 dark:text-gray-400">Half-Day:</span>
-                        <span className="font-semibold text-yellow-600 dark:text-yellow-400">{stats.halfDay}</span>
-                    </div>
-                    <div className="flex items-center gap-2 ml-auto">
-                        <span className="text-gray-500 dark:text-gray-400">Completion:</span>
-                        <span className="font-semibold text-blue-600 dark:text-blue-400">
-                            {Math.round((stats.present + stats.absent + stats.halfDay) / stats.total * 100)}%
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={() => markAll('Present')}
+                        className="px-4 py-2 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500/30 text-sm font-medium transition"
+                    >
+                        All Present
+                    </button>
+                    <button
+                        onClick={() => markAll('Absent')}
+                        className="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 text-sm font-medium transition"
+                    >
+                        All Absent
+                    </button>
+                    <button
+                        onClick={handleSubmit}
+                        disabled={saving || !hasUnsavedChanges}
+                        className="btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        <FiSave />
+                        {saving ? 'Saving...' : 'Save All'}
+                    </button>
+                </div>
+            </div>
+
+            {/* Date Navigator & Stats */}
+            <div className="glass-panel p-4 rounded-xl mb-6">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={() => navigateDate(-1)}
+                            className="p-2 hover:bg-white/10 rounded-lg transition"
+                        >
+                            <FiChevronLeft className="text-gray-400" />
+                        </button>
+                        <input
+                            type="date"
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                            className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white font-medium"
+                        />
+                        <button
+                            onClick={() => navigateDate(1)}
+                            className="p-2 hover:bg-white/10 rounded-lg transition"
+                        >
+                            <FiChevronRight className="text-gray-400" />
+                        </button>
+                        <span className="text-lg font-semibold text-white">
+                            {new Date(date).toLocaleDateString('en-US', {
+                                weekday: 'long',
+                                month: 'long',
+                                day: 'numeric',
+                                year: 'numeric'
+                            })}
                         </span>
+                    </div>
+
+                    <div className="flex items-center gap-8 text-sm">
+                        <div>
+                            <span className="text-gray-400">Total: </span>
+                            <span className="font-bold text-white">{stats.total}</span>
+                        </div>
+                        <div>
+                            <span className="text-gray-400">Present: </span>
+                            <span className="font-bold text-green-400">{stats.present}</span>
+                        </div>
+                        <div>
+                            <span className="text-gray-400">Absent: </span>
+                            <span className="font-bold text-red-400">{stats.absent}</span>
+                        </div>
+                        <div>
+                            <span className="text-gray-400">Half-Day: </span>
+                            <span className="font-bold text-yellow-400">{stats.halfDay}</span>
+                        </div>
+                        <div className="pl-4 border-l border-white/10">
+                            <span className="text-gray-400">Completion: </span>
+                            <span className="font-bold text-zohra-blue">{completionRate}%</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 flex overflow-hidden">
+            <div className="flex gap-4 flex-1 overflow-hidden">
                 {/* Calendar Sidebar */}
-                {showCalendar && (
-                    <div className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 overflow-y-auto">
-                        <div className="p-4">
-                            <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Calendar</h3>
-                            <div className="space-y-1">
-                                {calendar.map((day) => {
-                                    const status = getCalendarStatus(day.date);
-                                    const isSelected = day.date === date;
-                                    const dayDate = new Date(day.date);
+                <div className="w-64 glass-panel rounded-xl p-4 overflow-y-auto">
+                    <h3 className="text-sm font-bold text-white mb-3 uppercase tracking-wide">Calendar</h3>
+                    <div className="space-y-1">
+                        {calendar.map((day) => {
+                            const statusInfo = getCalendarStatus(day.date);
+                            const isSelected = day.date === date;
+                            const dayDate = new Date(day.date);
 
-                                    return (
-                                        <button
-                                            key={day.date}
-                                            onClick={() => setDate(day.date)}
-                                            className={`w-full px-3 py-2 rounded-md text-left text-sm transition ${isSelected
-                                                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-medium'
-                                                    : 'hover:bg-gray-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-300'
-                                                }`}
-                                        >
-                                            <div className="flex items-center justify-between">
-                                                <span>{dayDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                                                <div className={`w-2 h-2 rounded-full ${status === 'complete' ? 'bg-green-500' :
-                                                        status === 'partial' ? 'bg-yellow-500' :
-                                                            status === 'locked' ? 'bg-blue-500' :
-                                                                status === 'missing' ? 'bg-red-500' : 'bg-gray-300'
-                                                    }`} />
-                                            </div>
-                                            <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                                                {day.filled_records || 0}/{day.total_employees || 0}
-                                            </div>
-                                        </button>
-                                    );
-                                })}
-                            </div>
-                        </div>
+                            return (
+                                <button
+                                    key={day.date}
+                                    onClick={() => setDate(day.date)}
+                                    className={`w-full px-3 py-2 rounded-lg text-left text-sm transition ${isSelected
+                                            ? 'bg-zohra-blue text-white font-medium'
+                                            : 'hover:bg-white/5 text-gray-300'
+                                        }`}
+                                >
+                                    <div className="flex items-center justify-between mb-1">
+                                        <span className="font-medium">
+                                            {dayDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                        </span>
+                                        <span className={`text-xs px-2 py-0.5 rounded ${statusInfo.status === 'complete' ? 'bg-green-500/20 text-green-400' :
+                                                statusInfo.status === 'partial' ? 'bg-yellow-500/20 text-yellow-400' :
+                                                    statusInfo.status === 'locked' ? 'bg-blue-500/20 text-blue-400' :
+                                                        statusInfo.status === 'missing' ? 'bg-red-500/20 text-red-400' :
+                                                            'bg-gray-500/20 text-gray-400'
+                                            }`}>
+                                            {statusInfo.label}
+                                        </span>
+                                    </div>
+                                    <div className="text-xs text-gray-400">
+                                        {statusInfo.filled}/{statusInfo.total} marked
+                                    </div>
+                                </button>
+                            );
+                        })}
                     </div>
-                )}
+                </div>
 
                 {/* Attendance Table */}
-                <div className="flex-1 overflow-auto bg-white dark:bg-gray-800">
-                    <table className="w-full">
-                        <thead className="bg-gray-50 dark:bg-gray-900/50 sticky top-0 z-10">
-                            <tr className="border-b border-gray-200 dark:border-gray-700">
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                    Employee
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                    Role
-                                </th>
-                                <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                    Status
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                            {loading ? (
-                                <tr>
-                                    <td colSpan="3" className="px-6 py-12 text-center text-sm text-gray-500 dark:text-gray-400">
-                                        Loading...
-                                    </td>
-                                </tr>
-                            ) : employees.map(emp => {
-                                const leave = getLeaveForEmployee(emp.id);
-                                const hasApprovedLeave = leave && leave.status === 'Approved';
-
-                                return (
-                                    <tr key={emp.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition">
-                                        <td className="px-6 py-4">
-                                            <div className="flex items-center gap-3">
-                                                <div className="flex-shrink-0 w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-xs font-medium text-gray-600 dark:text-gray-300">
-                                                    {emp.full_name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
-                                                </div>
-                                                <div>
-                                                    <div className="text-sm font-medium text-gray-900 dark:text-white">{emp.full_name}</div>
-                                                    <div className="text-xs text-gray-500 dark:text-gray-400">{emp.employee_code}</div>
-                                                </div>
-                                                {hasApprovedLeave && (
-                                                    <span className="ml-2 px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded-md">
-                                                        On Leave
-                                                    </span>
-                                                )}
-                                            </div>
-                                        </td>
-                                        <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
-                                            {emp.position}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <div className="flex items-center justify-center gap-4">
-                                                {['Present', 'Absent', 'Half-Day'].map(status => (
-                                                    <label key={status} className="flex items-center gap-2 cursor-pointer group">
-                                                        <input
-                                                            type="radio"
-                                                            name={`attendance-${emp.id}`}
-                                                            checked={attendance[emp.id] === status}
-                                                            onChange={() => handleStatusChange(emp.id, status)}
-                                                            className="w-4 h-4 text-blue-600 focus:ring-blue-500 focus:ring-2"
-                                                        />
-                                                        <span className={`text-sm ${attendance[emp.id] === status
-                                                                ? 'font-medium text-gray-900 dark:text-white'
-                                                                : 'text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white'
-                                                            }`}>
-                                                            {status}
-                                                        </span>
-                                                    </label>
-                                                ))}
-                                            </div>
-                                        </td>
+                <div className="flex-1 glass-panel rounded-xl overflow-hidden">
+                    {loading ? (
+                        <div className="flex items-center justify-center h-full">
+                            <FiRefreshCw className="animate-spin text-3xl text-zohra-blue" />
+                        </div>
+                    ) : (
+                        <div className="overflow-auto h-full">
+                            <table className="w-full text-left text-sm">
+                                <thead className="bg-white/5 sticky top-0 z-10">
+                                    <tr className="text-gray-400 border-b border-white/10">
+                                        <th className="p-4 font-semibold">EMP ID</th>
+                                        <th className="p-4 font-semibold">Employee</th>
+                                        <th className="p-4 font-semibold">Role/Dept</th>
+                                        <th className="p-4 text-center font-semibold">Status</th>
                                     </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                    {employees.map(emp => {
+                                        const leave = getLeaveForEmployee(emp.id);
+                                        const hasApprovedLeave = leave && leave.status === 'Approved';
+                                        const hasPendingLeave = leave && leave.status === 'Pending';
+
+                                        return (
+                                            <tr
+                                                key={emp.id}
+                                                className={`border-b border-white/5 hover:bg-white/5 transition ${hasApprovedLeave ? 'bg-blue-500/10' : ''
+                                                    }`}
+                                            >
+                                                <td className="p-4 font-mono text-xs text-gray-400">
+                                                    {emp.employee_code || '-'}
+                                                </td>
+                                                <td className="p-4">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-white font-medium">{emp.full_name}</span>
+                                                        {hasApprovedLeave && (
+                                                            <span className="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded text-xs flex items-center gap-1">
+                                                                <FiCheckCircle size={10} /> {leave.leave_type} Leave
+                                                            </span>
+                                                        )}
+                                                        {hasPendingLeave && (
+                                                            <span className="px-2 py-0.5 bg-yellow-500/20 text-yellow-300 rounded text-xs flex items-center gap-1">
+                                                                <FiClock size={10} /> Pending Leave
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                </td>
+                                                <td className="p-4 text-gray-400 capitalize">
+                                                    {emp.role} • {emp.position}
+                                                </td>
+                                                <td className="p-4">
+                                                    <div className="flex justify-center gap-6">
+                                                        {['Present', 'Absent', 'Half-Day'].map(status => (
+                                                            <label
+                                                                key={status}
+                                                                className="flex items-center gap-2 cursor-pointer group"
+                                                            >
+                                                                <input
+                                                                    type="radio"
+                                                                    name={`attendance-${emp.id}`}
+                                                                    checked={attendance[emp.id] === status}
+                                                                    onChange={() => handleStatusChange(emp.id, status)}
+                                                                    className="accent-zohra-blue w-4 h-4"
+                                                                />
+                                                                <span className={`text-sm ${status === 'Present' ? 'text-green-400' :
+                                                                        status === 'Absent' ? 'text-red-400' :
+                                                                            'text-yellow-400'
+                                                                    } ${attendance[emp.id] === status ? 'font-semibold' : ''}`}>
+                                                                    {status}
+                                                                </span>
+                                                            </label>
+                                                        ))}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
