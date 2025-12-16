@@ -19,6 +19,10 @@ router.get('/payroll/advances', verifyToken, employeesController.getAllAdvances)
 router.get('/payroll/advances/:id', verifyToken, employeesController.getEmployeeAdvanceHistory);
 router.get('/payroll/advances/:id/balance', verifyToken, employeesController.getEmployeeBalance);
 router.post('/payroll/advance', verifyToken, checkRole(['manager', 'owner']), employeesController.createTransaction);
+router.get('/payroll/requests', verifyToken, checkRole(['manager', 'owner']), employeesController.getAdvanceRequests);
+router.post('/payroll/requests/:id/approve', verifyToken, checkRole(['manager', 'owner']), employeesController.approveAdvance);
+router.post('/payroll/requests/:id/reject', verifyToken, checkRole(['manager', 'owner']), employeesController.rejectAdvance);
+
 router.post('/payroll/run', verifyToken, checkRole(['manager', 'owner']), employeesController.runPayroll);
 router.get('/payroll/monthly', verifyToken, checkRole(['manager', 'owner']), employeesController.getMonthlyPayroll);
 

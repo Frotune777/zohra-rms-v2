@@ -1,53 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
-import { FiDollarSign, FiCheckCircle, FiXCircle, FiClock, FiPlus, FiUser, FiCalendar } from 'react-icons/fi';
+import { FiCheck, FiX, FiAlertCircle, FiClock } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 const AdvanceApprovals = () => {
     const [requests, setRequests] = useState([]);
-    const [employees, setEmployees] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [filter, setFilter] = useState('Pending');
+    const [error, setError] = useState('');
     const { userRole } = useAuth();
 
-    const canApprove = userRole === 'manager' || userRole === 'owner';
-
-    useEffect(() => {
-        fetchData();
-    }, [filter]);
-
-    const fetchData = async () => {
+    const fetchRequests = async () => {
         try {
             setLoading(true);
-            const [requestsRes, employeesRes] = await Promise.all([
-                api.get(`/advance-requests?status=${filter}`),
-                api.get('/employees')
-            ]);
-            setRequests(requestsRes.data);
-            setEmployees(employeesRes.data);
+            const res = await api.get('employees/payroll/requests');
+            setRequests(res.data);
+            setError('');
         } catch (err) {
-            console.error('Error fetching data:', err);
+            console.error(err);
+            setError('Failed to load requests');
         } finally {
             setLoading(false);
         }
     };
 
-    const handleApprove = async (id, requestedAmount) => {
-        const approvedAmount = window.prompt(`Enter approved amount (Requested: ₹${requestedAmount}):`, requestedAmount);
-        if (!approvedAmount) return;
+    useEffect(() => {
+        fetchRequests();
+    }, []);
 
-        const months = window.prompt('Repayment period (months):', '3');
-        if (!months) return;
-
+    const handleApprove = async (id) => {
+        if (!window.confirm('Approve this request? This will update the ledger immediately.')) return;
         try {
-            await api.put(`/advance-requests/${id}/approve`, {
-                approved_amount: parseFloat(approvedAmount),
-                repayment_months: parseInt(months)
-            });
-            fetchData();
-            alert('Advance request approved successfully!');
+            await api.post(`employees/payroll/requests/${id}/approve`);
+            toast.success('Request Approved');
+            fetchRequests(); // Refresh list
         } catch (err) {
-            alert(err.response?.data?.error || 'Failed to approve request');
+            toast.error(err.response?.data?.error || 'Failed to approve');
         }
     };
 
@@ -56,183 +44,107 @@ const AdvanceApprovals = () => {
         if (!reason) return;
 
         try {
-            await api.put(`/advance-requests/${id}/reject`, { rejection_reason: reason });
-            fetchData();
-            alert('Advance request rejected');
+            await api.post(`employees/payroll/requests/${id}/reject`, { reason });
+            toast.error('Request Rejected');
+            fetchRequests();
         } catch (err) {
-            alert(err.response?.data?.error || 'Failed to reject request');
+            toast.error(err.response?.data?.error || 'Failed to reject');
         }
     };
 
-    const getStatusBadge = (status) => {
-        const styles = {
-            Pending: 'bg-yellow-500/20 text-yellow-300 border-yellow-500',
-            Approved: 'bg-green-500/20 text-green-300 border-green-500',
-            Rejected: 'bg-red-500/20 text-red-300 border-red-500',
-            Disbursed: 'bg-blue-500/20 text-blue-300 border-blue-500'
-        };
-        const icons = {
-            Pending: FiClock,
-            Approved: FiCheckCircle,
-            Rejected: FiXCircle,
-            Disbursed: FiDollarSign
-        };
-        const Icon = icons[status];
-        return (
-            <span className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold border ${styles[status]}`}>
-                <Icon size={14} />
-                {status}
-            </span>
-        );
-    };
-
-    const getUrgencyBadge = (urgency) => {
-        const styles = {
-            Urgent: 'bg-red-500/20 text-red-300',
-            Normal: 'bg-blue-500/20 text-blue-300',
-            Low: 'bg-gray-500/20 text-gray-300'
-        };
-        return (
-            <span className={`px-2 py-1 rounded text-xs ${styles[urgency]}`}>
-                {urgency}
-            </span>
-        );
-    };
-
-    if (loading) {
-        return (
-            <div className="h-full flex items-center justify-center">
-                <p className="text-gray-400">Loading advance requests...</p>
-            </div>
-        );
-    }
+    if (loading) return <div className="p-8 text-gray-400">Loading requests...</div>;
 
     return (
         <div className="p-8 h-full w-full flex flex-col overflow-hidden bg-gradient-to-br from-midnight to-midnight/95">
-            {/* Header */}
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-8">
                 <div>
                     <h2 className="text-3xl font-bold text-zohra-blue mb-2">Advance Approvals</h2>
-                    <p className="text-xs text-gray-400">Review and approve employee advance requests</p>
+                    <p className="text-xs text-gray-400">Review pending advance and repayment requests</p>
                 </div>
             </div>
 
-            {/* Filter Tabs */}
-            <div className="flex gap-2 mb-6">
-                {['Pending', 'Approved', 'Rejected', 'Disbursed'].map(f => (
-                    <button
-                        key={f}
-                        onClick={() => setFilter(f)}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition ${filter === f
-                                ? 'bg-zohra-blue text-white'
-                                : 'bg-white/5 text-gray-400 hover:bg-white/10'
-                            }`}
-                    >
-                        {f}
-                    </button>
-                ))}
-            </div>
+            {error && (
+                <div className="flex items-center gap-2 p-4 bg-red-500/20 border border-red-500 rounded-lg mb-4">
+                    <FiAlertCircle className="text-red-500" />
+                    <p className="text-red-200">{error}</p>
+                </div>
+            )}
 
-            {/* Requests Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-auto flex-1">
-                {requests.length === 0 ? (
-                    <div className="col-span-2 glass-panel p-8 rounded-xl text-center text-gray-400">
-                        No {filter.toLowerCase()} requests found
-                    </div>
-                ) : (
-                    requests.map((request) => (
-                        <div key={request.id} className="glass-panel p-6 rounded-xl space-y-4">
-                            {/* Employee Info */}
-                            <div className="flex items-start justify-between">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 bg-zohra-blue/20 rounded-full flex items-center justify-center">
-                                        <FiUser className="text-zohra-blue" size={24} />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-bold text-lg">{request.full_name}</h3>
-                                        <p className="text-sm text-gray-400">{request.employee_code} • {request.position}</p>
-                                    </div>
-                                </div>
-                                {getStatusBadge(request.status)}
-                            </div>
-
-                            {/* Request Details */}
-                            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
-                                <div>
-                                    <p className="text-xs text-gray-400 mb-1">Requested Amount</p>
-                                    <p className="text-2xl font-bold text-zohra-blue">₹{parseFloat(request.requested_amount).toFixed(2)}</p>
-                                </div>
-                                {request.approved_amount && (
-                                    <div>
-                                        <p className="text-xs text-gray-400 mb-1">Approved Amount</p>
-                                        <p className="text-2xl font-bold text-green-400">₹{parseFloat(request.approved_amount).toFixed(2)}</p>
-                                    </div>
-                                )}
-                                <div>
-                                    <p className="text-xs text-gray-400 mb-1">Urgency</p>
-                                    {getUrgencyBadge(request.urgency)}
-                                </div>
-                                <div>
-                                    <p className="text-xs text-gray-400 mb-1">Repayment Period</p>
-                                    <p className="text-sm font-semibold">{request.repayment_months} months</p>
-                                </div>
-                                {request.monthly_deduction && (
-                                    <div className="col-span-2">
-                                        <p className="text-xs text-gray-400 mb-1">Monthly Deduction</p>
-                                        <p className="text-lg font-bold">₹{parseFloat(request.monthly_deduction).toFixed(2)}</p>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Reason */}
-                            <div className="pt-4 border-t border-white/10">
-                                <p className="text-xs text-gray-400 mb-2">Reason</p>
-                                <p className="text-sm text-gray-300">{request.reason}</p>
-                            </div>
-
-                            {/* Request Date */}
-                            <div className="flex items-center gap-2 text-xs text-gray-400">
-                                <FiCalendar size={12} />
-                                <span>Requested on {new Date(request.requested_at).toLocaleDateString()}</span>
-                            </div>
-
-                            {/* Approval Info */}
-                            {request.approved_by_name && (
-                                <div className="pt-4 border-t border-white/10 text-xs text-gray-400">
-                                    {request.status === 'Approved' && (
-                                        <p>Approved by {request.approved_by_name} on {new Date(request.approved_at).toLocaleDateString()}</p>
-                                    )}
-                                    {request.status === 'Rejected' && (
-                                        <>
-                                            <p>Rejected by {request.approved_by_name} on {new Date(request.approved_at).toLocaleDateString()}</p>
-                                            {request.rejection_reason && (
-                                                <p className="text-red-300 mt-1">Reason: {request.rejection_reason}</p>
+            <div className="glass-panel rounded-xl overflow-hidden flex-1 flex flex-col">
+                <div className="overflow-auto flex-1">
+                    <table className="w-full text-left border-collapse">
+                        <thead className="bg-white/5 text-gray-400 border-b border-white/10 sticky top-0">
+                            <tr>
+                                <th className="p-4 font-semibold">Date</th>
+                                <th className="p-4 font-semibold">Employee</th>
+                                <th className="p-4 font-semibold">Type</th>
+                                <th className="p-4 font-semibold">Amount</th>
+                                <th className="p-4 font-semibold">Requested By</th>
+                                <th className="p-4 font-semibold">Reason</th>
+                                <th className="p-4 font-semibold">Status</th>
+                                <th className="p-4 font-semibold text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {requests.length === 0 ? (
+                                <tr>
+                                    <td colSpan={8} className="p-8 text-center text-gray-500">No pending requests found.</td>
+                                </tr>
+                            ) : (
+                                requests.map((req) => (
+                                    <tr key={req.id} className="border-b border-white/5 hover:bg-white/5 transition">
+                                        <td className="p-4 text-gray-400 text-sm">
+                                            {new Date(req.requested_at).toLocaleDateString('en-IN')}
+                                            <span className="block text-xs text-gray-500">{new Date(req.requested_at).toLocaleTimeString()}</span>
+                                        </td>
+                                        <td className="p-4">
+                                            <div className="font-semibold text-white">{req.employee_name}</div>
+                                            <div className="text-xs text-gray-500">{req.role}</div>
+                                        </td>
+                                        <td className="p-4">
+                                            <span className={`px-2 py-1 rounded text-xs font-semibold ${req.type === 'Advance' ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'
+                                                }`}>
+                                                {req.type}
+                                            </span>
+                                        </td>
+                                        <td className="p-4 font-bold text-white">₹{parseFloat(req.amount).toFixed(2)}</td>
+                                        <td className="p-4 text-sm text-gray-300">{req.requester_name || 'Unknown'}</td>
+                                        <td className="p-4 text-sm text-gray-400 italic">{req.reason || '-'}</td>
+                                        <td className="p-4">
+                                            <span className={`flex items-center gap-1 px-2 py-1 rounded w-fit text-xs ${req.status === 'Pending' ? 'bg-yellow-500/20 text-yellow-500' :
+                                                    req.status === 'Approved' ? 'bg-green-500/20 text-green-500' :
+                                                        'bg-red-500/20 text-red-500'
+                                                }`}>
+                                                {req.status === 'Pending' && <FiClock />}
+                                                {req.status}
+                                            </span>
+                                        </td>
+                                        <td className="p-4 text-right">
+                                            {req.status === 'Pending' && (userRole === 'manager' || userRole === 'owner') && (
+                                                <div className="flex gap-2 justify-end">
+                                                    <button
+                                                        onClick={() => handleApprove(req.id)}
+                                                        className="p-2 bg-green-500/20 text-green-400 hover:bg-green-500/30 rounded transition"
+                                                        title="Approve"
+                                                    >
+                                                        <FiCheck />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleReject(req.id)}
+                                                        className="p-2 bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded transition"
+                                                        title="Reject"
+                                                    >
+                                                        <FiX />
+                                                    </button>
+                                                </div>
                                             )}
-                                        </>
-                                    )}
-                                </div>
+                                        </td>
+                                    </tr>
+                                ))
                             )}
-
-                            {/* Actions */}
-                            {canApprove && request.status === 'Pending' && (
-                                <div className="flex gap-3 pt-4 border-t border-white/10">
-                                    <button
-                                        onClick={() => handleApprove(request.id, request.requested_amount)}
-                                        className="flex-1 flex items-center justify-center gap-2 bg-green-500/20 text-green-300 px-4 py-2 rounded-lg hover:bg-green-500/30 transition"
-                                    >
-                                        <FiCheckCircle /> Approve
-                                    </button>
-                                    <button
-                                        onClick={() => handleReject(request.id)}
-                                        className="flex-1 flex items-center justify-center gap-2 bg-red-500/20 text-red-300 px-4 py-2 rounded-lg hover:bg-red-500/30 transition"
-                                    >
-                                        <FiXCircle /> Reject
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    ))
-                )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

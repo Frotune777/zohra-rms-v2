@@ -77,16 +77,18 @@ const Advances = () => {
     try {
       const token = localStorage.getItem('token');
       await api.post('employees/payroll/advance', {
-        employee_id: formData.employeeId,
+        employeeId: formData.employeeId,
+        type: formData.type,
         amount: parseFloat(formData.amount),
-        reason: formData.notes,
+        notes: formData.notes,
+        paymentMode: formData.paymentMode,
         paidBy: formData.paidBy
       }, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
       const empName = employees.find(e => e.id == formData.employeeId)?.full_name || 'Employee';
-      setSuccessMessage(`✓ ${formData.type} of ₹${parseFloat(formData.amount).toFixed(2)} recorded for ${empName}`);
+      setSuccessMessage(`✓ Request submitted: ${formData.type} of ₹${parseFloat(formData.amount).toFixed(2)} for ${empName} (Pending Approval)`);
       setFormData({ employeeId: '', type: 'Advance', amount: '', notes: '', paymentMode: 'Cash', paidBy: '' });
       setShowForm(false);
       fetchData();
@@ -135,12 +137,17 @@ const Advances = () => {
             ))}
           </select>
           {canManageAdvances && (
-            <button
-              onClick={() => setShowForm(!showForm)}
-              className="flex items-center gap-2 btn-primary"
-            >
-              <FiPlus /> New Transaction
-            </button>
+            <div className="flex gap-2">
+              <a href="/advances/approvals" className="flex items-center gap-2 btn-secondary text-sm">
+                <FiClock /> Review Requests
+              </a>
+              <button
+                onClick={() => setShowForm(!showForm)}
+                className="flex items-center gap-2 btn-primary"
+              >
+                <FiPlus /> New Transaction
+              </button>
+            </div>
           )}
         </div>
       </div>
@@ -261,20 +268,24 @@ const Advances = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Paid By (Name)</label>
-              <select
-                value={formData.paidBy}
-                onChange={(e) => setFormData({ ...formData, paidBy: e.target.value })}
-                className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
-              >
-                <option value="" className="bg-gray-800 text-white">Select Payer</option>
-                {employees
-                  .filter(e => e.role === 'manager' || e.role === 'owner')
-                  .map(emp => (
-                    <option key={emp.id} value={emp.full_name} className="bg-gray-800 text-white">
-                      {emp.full_name} ({emp.role})
-                    </option>
-                  ))}
-              </select>
+              <div className="relative">
+                <input
+                  type="text"
+                  list="payer-options"
+                  value={formData.paidBy}
+                  onChange={(e) => setFormData({ ...formData, paidBy: e.target.value })}
+                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-zohra-blue"
+                  placeholder="Select or Type Name"
+                />
+                <datalist id="payer-options">
+                  {employees
+                    .filter(e => e.role === 'manager' || e.role === 'owner')
+                    .map(emp => (
+                      <option key={emp.id} value={emp.full_name} />
+                    ))}
+                  <option value="Other" />
+                </datalist>
+              </div>
             </div>
           </div>
 

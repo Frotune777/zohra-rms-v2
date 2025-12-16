@@ -180,7 +180,7 @@ exports.saveBulkAttendance = async (req, res) => {
 
 exports.getAllAdvances = async (req, res) => {
     const query = `
-        SELECT al.*, e.full_name as employee_name
+        SELECT al.*, e.full_name as employee_name, e.employee_code, e.role, e.department
         FROM advance_ledger al
         JOIN employees e ON al.employee_id = e.id
         ORDER BY al.transaction_date DESC
@@ -196,10 +196,9 @@ exports.getAllAdvances = async (req, res) => {
 exports.getEmployeeAdvanceHistory = async (req, res) => {
     const { id } = req.params;
     const query = `
-        SELECT al.*, e.full_name as employee_name
+        SELECT al.*, e.full_name as employee_name, e.employee_code, e.role, e.department
         FROM advance_ledger al
         JOIN employees e ON al.employee_id = e.id
-        WHERE al.employee_id = $1
         ORDER BY al.transaction_date DESC
     `;
     try {
@@ -228,6 +227,7 @@ exports.getEmployeeBalance = async (req, res) => {
 
 exports.createTransaction = async (req, res) => {
     const { employeeId, type, amount, notes, paymentMode, paidBy } = req.body;
+    const userId = req.user.id;
 
     // Basic validation
     if (!employeeId || !type || !amount) {
@@ -238,104 +238,149 @@ exports.createTransaction = async (req, res) => {
         return res.status(400).json({ error: 'Amount must be greater than 0' });
     }
 
-    // Additional validation for Repayments
-    if (type === 'Repayment') {
-        // 1. Role-based access control
-        const userRole = req.user?.role; // Assuming req.user is set by auth middleware
-        if (userRole !== 'owner' && userRole !== 'accountant') {
-            return res.status(403).json({
-                error: 'Unauthorized: Only owners and accountants can process manual repayments'
-            });
-        }
-
-        // 2. Require notes for manual repayments
-        if (!notes || notes.trim().length === 0) {
-            return res.status(400).json({
-                error: 'Notes are required for manual repayments'
-            });
-        }
-
-        // 3. Require paid_by for manual repayments
-        if (!paidBy || paidBy.trim().length === 0) {
-            return res.status(400).json({
-                error: 'Paid by is required for manual repayments'
-            });
-        }
-    }
-
     const client = await db.pool.connect();
     try {
         await client.query('BEGIN');
 
-        // Get current balance
-        const balRes = await client.query(`
-            SELECT 
-                COALESCE(SUM(CASE WHEN transaction_type = 'Advance' THEN amount ELSE 0 END), 0) - 
-                COALESCE(SUM(CASE WHEN transaction_type = 'Repayment' THEN amount ELSE 0 END), 0) as balance
-             FROM advance_ledger WHERE employee_id = $1
-        `, [employeeId]);
-
-        const currentBalance = parseFloat(balRes.rows[0].balance || 0);
-
-        // Validate repayment amount doesn't exceed outstanding balance
-        if (type === 'Repayment') {
-            if (currentBalance <= 0) {
-                await client.query('ROLLBACK');
-                return res.status(400).json({
-                    error: 'No outstanding advance balance to repay'
-                });
-            }
-
-            if (parseFloat(amount) > currentBalance) {
-                await client.query('ROLLBACK');
-                return res.status(400).json({
-                    error: `Repayment amount (₹${amount}) exceeds outstanding balance (₹${currentBalance.toFixed(2)})`
-                });
-            }
-        }
-
-        // Calculate new balance
-        let newBalance = currentBalance;
-        if (type === 'Advance') {
-            newBalance += parseFloat(amount);
-        } else {
-            newBalance -= parseFloat(amount);
-        }
-
-        // Insert transaction with repayment source
-        await client.query(`
-            INSERT INTO advance_ledger 
-            (employee_id, transaction_type, amount, balance_after, notes, payment_mode, paid_by, repayment_source)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        // Insert into advance_requests
+        const result = await client.query(`
+            INSERT INTO advance_requests 
+            (employee_id, type, requested_amount, reason, payment_mode, paid_by, requested_by)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            RETURNING *
         `, [
             employeeId,
             type,
             parseFloat(amount),
-            newBalance,
             notes,
             paymentMode || 'Cash',
-            paidBy || null,
-            type === 'Repayment' ? 'Manual' : null
+            paidBy,
+            userId
         ]);
 
-        const jeRes = await client.query("INSERT INTO journal_entries (description) VALUES ($1) RETURNING id", [`Salary ${type} - Employee #${employeeId}`]);
-        const jeId = jeRes.rows[0].id;
-
-        if (type === 'Advance') {
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 1100, $2)", [jeId, parseFloat(amount)]);
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 1000, $2)", [jeId, parseFloat(amount)]);
-        } else {
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 1000, $2)", [jeId, parseFloat(amount)]);
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 1100, $2)", [jeId, parseFloat(amount)]);
-        }
-
         await client.query('COMMIT');
-        res.json({ success: true, newBalance });
+        res.json({ success: true, message: 'Request submitted for approval', request: result.rows[0] });
     } catch (err) {
         await client.query('ROLLBACK');
         res.status(500).json({ error: err.message });
     } finally {
         client.release();
+    }
+};
+
+exports.getAdvanceRequests = async (req, res) => {
+    try {
+        const query = `
+            SELECT ar.*, ar.requested_amount as amount, e.full_name as employee_name, e.employee_code, e.role, e.department, u.full_name as requester_name
+            FROM advance_requests ar
+            JOIN employees e ON ar.employee_id = e.id
+            LEFT JOIN users u ON ar.requested_by = u.id
+            ORDER BY 
+                CASE WHEN ar.status = 'Pending' THEN 1 ELSE 2 END,
+                ar.requested_at DESC
+        `;
+        const result = await db.query(query);
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+exports.approveAdvance = async (req, res) => {
+    const { id } = req.params;
+    const userId = req.user.id;
+    const client = await db.pool.connect();
+
+    try {
+        await client.query('BEGIN');
+
+        // 1. Get request details
+        const reqRes = await client.query('SELECT * FROM advance_requests WHERE id = $1 FOR UPDATE', [id]);
+        if (reqRes.rows.length === 0) throw new Error('Request not found');
+        const request = reqRes.rows[0];
+
+        if (request.status !== 'Pending') throw new Error('Request already processed');
+
+        // 2. Calculate Balance Logic (reused from old createTransaction)
+        const balRes = await client.query(`
+            SELECT 
+                COALESCE(SUM(CASE WHEN transaction_type = 'Advance' THEN amount ELSE 0 END), 0) - 
+                COALESCE(SUM(CASE WHEN transaction_type = 'Repayment' THEN amount ELSE 0 END), 0) as balance
+             FROM advance_ledger WHERE employee_id = $1
+        `, [request.employee_id]);
+        const currentBalance = parseFloat(balRes.rows[0].balance || 0);
+
+        if (request.type === 'Repayment' && parseFloat(request.requested_amount) > currentBalance) {
+            throw new Error(`Repayment amount exceeds outstanding balance (₹${currentBalance})`);
+        }
+
+        let newBalance = currentBalance;
+        if (request.type === 'Advance') {
+            newBalance += parseFloat(request.requested_amount);
+        } else {
+            newBalance -= parseFloat(request.requested_amount);
+        }
+
+        // 3. Insert into Ledger
+        await client.query(`
+            INSERT INTO advance_ledger 
+            (employee_id, transaction_type, amount, balance_after, notes, payment_mode, paid_by, advance_request_id, approved_by, approved_at)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW())
+        `, [
+            request.employee_id,
+            request.type,
+            request.requested_amount,
+            newBalance,
+            request.reason,
+            request.payment_mode,
+            request.paid_by,
+            id,
+            userId
+        ]);
+
+        // 4. Update Request Status
+        await client.query(`
+            UPDATE advance_requests 
+            SET status = 'Approved', approved_by = $1, approved_at = NOW() 
+            WHERE id = $2
+        `, [userId, id]);
+
+        // 5. Journal Entries
+        const jeRes = await client.query("INSERT INTO journal_entries (description, transaction_date) VALUES ($1, NOW()) RETURNING id", [`Salary ${request.type} - Approved Advance`]);
+        const jeId = jeRes.rows[0].id;
+
+        if (request.type === 'Advance') {
+            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 1100, $2)", [jeId, request.requested_amount]); // Receivables
+            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 1000, $2)", [jeId, request.requested_amount]); // Cash/Bank
+        } else {
+            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 1000, $2)", [jeId, request.requested_amount]);
+            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 1100, $2)", [jeId, request.requested_amount]);
+        }
+
+        await client.query('COMMIT');
+        res.json({ success: true, message: 'Approved successfully' });
+    } catch (err) {
+        await client.query('ROLLBACK');
+        res.status(500).json({ error: err.message });
+    } finally {
+        client.release();
+    }
+};
+
+exports.rejectAdvance = async (req, res) => {
+    const { id } = req.params;
+    const { reason } = req.body;
+    const userId = req.user.id;
+
+    try {
+        await db.query(`
+            UPDATE advance_requests 
+            SET status = 'Rejected', approved_by = $1, approved_at = NOW(), rejection_reason = $2
+            WHERE id = $3
+        `, [userId, reason, id]);
+        res.json({ success: true, message: 'Request rejected' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 };
 
