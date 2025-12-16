@@ -108,6 +108,19 @@ exports.createSupplier = async (req, res) => {
     }
 };
 
+exports.updateSupplier = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await InventoryService.updateSupplier(id, req.body);
+        res.json(result);
+    } catch (err) {
+        if (err.message === 'Supplier not found') {
+            return res.status(404).json({ error: 'Supplier not found' });
+        }
+        res.status(500).json({ error: err.message });
+    }
+};
+
 exports.getMarkupRules = async (req, res) => {
     const { supplierId } = req.query;
     try {

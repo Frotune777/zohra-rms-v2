@@ -229,8 +229,8 @@ export default function VendorPayments() {
             {
                 showPaymentModal && (
                     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-                        <div className="glass-panel p-6 rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-                            <div className="flex justify-between items-center mb-4">
+                        <div className="glass-panel p-4 rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                            <div className="flex justify-between items-center mb-3">
                                 <h3 className="text-xl font-bold">Process Vendor Payment</h3>
                                 <button onClick={() => setShowPaymentModal(false)} className="text-gray-400 hover:text-white">
                                     <FiX size={24} />
@@ -245,9 +245,9 @@ export default function VendorPayments() {
                             )}
 
                             {vendorDetails && !loadingDetails && (
-                                <div className="mb-4 space-y-3">
+                                <div className="mb-3 space-y-2">
                                     {/* Current Balance Card */}
-                                    <div className="p-4 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/50 rounded-lg">
+                                    <div className="p-3 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/50 rounded-lg">
                                         <p className="text-sm text-gray-300">Outstanding Balance</p>
                                         <p className="text-3xl font-bold text-red-400">
                                             ₹{parseFloat(vendorDetails.outstanding_balance).toLocaleString('en-IN')}
@@ -258,13 +258,13 @@ export default function VendorPayments() {
                                     </div>
 
                                     {/* Summary Grid */}
-                                    <div className="grid grid-cols-2 gap-3">
-                                        <div className="p-3 bg-white/5 rounded-lg">
+                                    <div className="grid grid-cols-2 gap-2">
+                                        <div className="p-2 bg-white/5 rounded-lg">
                                             <p className="text-xs text-gray-400">Total Bills</p>
                                             <p className="text-lg font-bold">{vendorDetails.total_bills}</p>
                                             <p className="text-xs text-gray-500">₹{vendorDetails.total_bill_amount.toLocaleString('en-IN')}</p>
                                         </div>
-                                        <div className="p-3 bg-white/5 rounded-lg">
+                                        <div className="p-2 bg-white/5 rounded-lg">
                                             <p className="text-xs text-gray-400">Total Payments</p>
                                             <p className="text-lg font-bold text-green-400">{vendorDetails.total_payments}</p>
                                             <p className="text-xs text-gray-500">₹{vendorDetails.total_payment_amount.toLocaleString('en-IN')}</p>
@@ -273,7 +273,7 @@ export default function VendorPayments() {
 
                                     {/* Last Payment */}
                                     {vendorDetails.last_payment ? (
-                                        <div className="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+                                        <div className="p-2 bg-blue-500/10 border border-blue-500/30 rounded-lg">
                                             <p className="text-xs text-gray-400 mb-1">Last Payment</p>
                                             <div className="flex justify-between items-center">
                                                 <div>
@@ -287,14 +287,14 @@ export default function VendorPayments() {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                                        <div className="p-2 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
                                             <p className="text-xs text-yellow-400">No previous payments</p>
                                         </div>
                                     )}
 
                                     {/* Recent Payments */}
                                     {vendorDetails.recent_payments && vendorDetails.recent_payments.length > 0 && (
-                                        <div className="p-3 bg-white/5 rounded-lg">
+                                        <div className="p-2 bg-white/5 rounded-lg">
                                             <p className="text-xs text-gray-400 mb-2">Recent Payments (Last 5)</p>
                                             <div className="space-y-2 max-h-32 overflow-y-auto">
                                                 {vendorDetails.recent_payments.map((payment, idx) => (
@@ -310,7 +310,7 @@ export default function VendorPayments() {
                                 </div>
                             )}
 
-                            <form onSubmit={handlePaymentSubmit} className="space-y-4">
+                            <form onSubmit={handlePaymentSubmit} className="space-y-3">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-300 mb-2">Vendor *</label>
                                     <select

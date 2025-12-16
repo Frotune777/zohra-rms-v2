@@ -32,7 +32,7 @@ export default function ReportsDashboard() {
     const fetchKPIs = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('reports/dashboard/kpis', {
+            const response = await api.get('reports/dashboard/kpis', {
                 params: dateRange
             });
             setKpis(response.data);

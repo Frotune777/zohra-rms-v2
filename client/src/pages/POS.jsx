@@ -26,9 +26,7 @@ const POS = () => {
       }
 
       try {
-        const response = await axios.get('menu', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const response = await api.get('menu');
         setMenu(response.data);
 
         // Extract Categories
@@ -74,13 +72,10 @@ const POS = () => {
 
     setLoading(true);
     try {
-      const token = localStorage.getItem('token');
-      await axios.post('orders', {
+      await api.post('orders', {
         items: cart,
         type: orderType,
         paymentMode: paymentMode
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
       });
 
       toast.success(print ? 'Order Saved & Printed!' : 'Order Saved!');

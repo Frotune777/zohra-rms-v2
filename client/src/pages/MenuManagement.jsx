@@ -74,10 +74,7 @@ const MenuManagement = () => {
     if (!window.confirm(`Delete menu item "${name}"? This action cannot be undone.`)) return;
 
     try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/menu/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await api.delete(`menu/${id}`);
       setSuccessMessage(`✓ Menu item "${name}" deleted successfully`);
       fetchMenuItems();
       setTimeout(() => setSuccessMessage(''), 3000);

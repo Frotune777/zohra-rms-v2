@@ -19,10 +19,7 @@ const DailyRates = () => {
 
     const fetchRates = async () => {
         try {
-            const token = localStorage.getItem('token');
-            const res = await axios.get(`http://localhost:5000/api/chicken/rates?date=${date}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await api.get(`chicken/rates?date=${date}`);
             if (res.data) {
                 setRates({
                     tandoor_rate: res.data.tandoor_rate,
@@ -34,9 +31,7 @@ const DailyRates = () => {
             }
 
             // Fetch status
-            const statusRes = await axios.get(`http://localhost:5000/api/chicken/rates/status?date=${date}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const statusRes = await api.get(`chicken/rates/status?date=${date}`);
             setRateStatus(statusRes.data);
         } catch (err) {
             console.error(err);
@@ -48,12 +43,9 @@ const DailyRates = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const token = localStorage.getItem('token');
-            await axios.post('chicken/rates', {
+            await api.post('chicken/rates', {
                 date,
                 ...rates
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
             });
             toast.success('Rates updated successfully');
             fetchRates(); // Refresh to get updated status
@@ -72,8 +64,8 @@ const DailyRates = () => {
                 {rateStatus && rateStatus.exists && (
                     <div className="flex items-center gap-3">
                         <span className={`px-3 py-1 rounded-full text-sm font-semibold ${rateStatus.status === 'confirmed'
-                                ? 'bg-green-500/20 text-green-400 border border-green-500'
-                                : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500'
+                            ? 'bg-green-500/20 text-green-400 border border-green-500'
+                            : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500'
                             }`}>
                             {rateStatus.status === 'confirmed' ? '✓ Confirmed' : '⏳ Pending'}
                         </span>

@@ -58,16 +58,57 @@ exports.runPayroll = async (req, res) => {
                 }
             }
 
-            // 3. Calculate Base Salary for Worked Days
-            const perDaySalary = parseFloat(emp.base_salary) / daysInMonth;
-            const baseEarned = perDaySalary * effectiveDays;
+            // 3. Salary Components & Base Calculation
+            // Fetch Salary Structure
+            const structureRes = await client.query(
+                `SELECT sc.name, sc.type, ess.amount 
+                 FROM employee_salary_structure ess
+                 JOIN salary_components sc ON ess.component_id = sc.id
+                 WHERE ess.employee_id = $1`,
+                [emp.id]
+            );
+
+            let baseEarned = 0;
+            let componentDeductions = 0;
+            const proratedComponents = [];
+
+            if (structureRes.rows.length > 0) {
+                // Calculate based on components
+                structureRes.rows.forEach(comp => {
+                    const amount = parseFloat(comp.amount);
+                    // Pro-rate all components based on attendance
+                    const proratedAmount = (amount / daysInMonth) * effectiveDays;
+
+                    if (comp.type === 'Earning') {
+                        baseEarned += proratedAmount;
+                    } else if (comp.type === 'Deduction') {
+                        componentDeductions += proratedAmount;
+                    }
+
+                    proratedComponents.push({
+                        name: comp.name,
+                        type: comp.type,
+                        amount: proratedAmount
+                    });
+                });
+            } else {
+                // Fallback to simple Base Salary
+                const perDaySalary = parseFloat(emp.base_salary) / daysInMonth;
+                baseEarned = perDaySalary * effectiveDays;
+
+                proratedComponents.push({
+                    name: 'Basic Salary',
+                    type: 'Earning',
+                    amount: baseEarned
+                });
+            }
 
             // 4. Overtime & Extra Days
             const otAmount = parseFloat(overtimeAmount || 0);
             const exDayAmount = parseFloat(extraDayAmount || 0);
             const manualAdj = parseFloat(manualAdjustment || 0);
 
-            // 5. Get Outstanding Advance Balance from advance_ledger
+            // 5. Get Outstanding Advance Balance
             const advanceBalanceRes = await client.query(`
                 SELECT 
                     COALESCE(SUM(CASE WHEN transaction_type = 'Advance' THEN amount ELSE 0 END), 0) - 
@@ -78,43 +119,35 @@ exports.runPayroll = async (req, res) => {
 
             const outstandingBalance = parseFloat(advanceBalanceRes.rows[0].outstanding_balance || 0);
 
-            // Determine deduction amount
-            let deductionAmount = 0;
-
-            // Only allow deduction if there's an outstanding balance
+            // Determine deduction amount (Advance)
+            let advanceDeduction = 0;
             if (outstandingBalance > 0) {
                 if (req.body.advanceDeduction !== undefined && employeeId && parseInt(employeeId) === emp.id) {
-                    // Manual deduction amount provided
-                    deductionAmount = parseFloat(req.body.advanceDeduction);
-
-                    // Validate: cannot deduct more than outstanding
-                    if (deductionAmount > outstandingBalance) {
-                        deductionAmount = outstandingBalance; // Cap at outstanding balance
-                    }
+                    advanceDeduction = parseFloat(req.body.advanceDeduction);
+                    if (advanceDeduction > outstandingBalance) advanceDeduction = outstandingBalance;
                 } else {
-                    // Default behavior: Deduct all outstanding advances (up to gross pay)
-                    const grossPay = baseEarned + otAmount + exDayAmount + manualAdj;
-                    deductionAmount = Math.min(outstandingBalance, grossPay);
+                    const grossPayChecker = baseEarned + otAmount + exDayAmount + manualAdj - componentDeductions;
+                    // Cap deduction at available Net (before Advance)
+                    const maxDeductible = Math.max(0, grossPayChecker);
+                    advanceDeduction = Math.min(outstandingBalance, maxDeductible);
                 }
             }
-            // If outstandingBalance <= 0, deductionAmount remains 0 (skip recovery)
 
             // 6. Net Pay Calculation
-            // Net Pay = Base Earned + Overtime + Extra Days + Manual Adj - Advances
             const grossPay = baseEarned + otAmount + exDayAmount + manualAdj;
-            const netPay = Math.max(0, grossPay - deductionAmount);
+            const netPay = Math.max(0, grossPay - componentDeductions - advanceDeduction);
 
-            // 7. Upsert Salary History (Draft/Pending)
+            // 7. Upsert Salary History
             const existing = await client.query(
                 'SELECT status FROM salary_history WHERE employee_id = $1 AND month = $2 AND year = $3',
                 [emp.id, month, year]
             );
 
             if (existing.rows.length > 0 && existing.rows[0].status === 'Paid') {
-                continue; // Skip already paid
+                continue;
             }
 
-            const result = await client.query(
+            const historyRes = await client.query(
                 `INSERT INTO salary_history 
                  (employee_id, month, year, days_worked, calculated_salary, advance_deduction, net_pay, status, allowances, deductions, overtime_hours, overtime_amount, extra_days, extra_day_amount)
                  VALUES ($1, $2, $3, $4, $5, $6, $7, 'Pending', $8, $9, $10, $11, $12, $13)
@@ -130,13 +163,45 @@ exports.runPayroll = async (req, res) => {
                     overtime_amount = EXCLUDED.overtime_amount,
                     extra_days = EXCLUDED.extra_days,
                     extra_day_amount = EXCLUDED.extra_day_amount
-                 RETURNING *`,
-                [emp.id, month, year, effectiveDays, baseEarned, deductionAmount, netPay, '{}', '{}', overtimeHours || 0, otAmount, extraDays || 0, exDayAmount]
+                 RETURNING id, *`,
+                [emp.id, month, year, effectiveDays, grossPay, advanceDeduction, netPay, '{}', componentDeductions ? { total: componentDeductions } : '{}', overtimeHours || 0, otAmount, extraDays || 0, exDayAmount]
             );
 
-            // Attach total outstanding advances to the result for frontend reference
-            result.rows[0].total_outstanding_advances = outstandingBalance;
-            payrollData.push(result.rows[0]);
+            const historyId = historyRes.rows[0].id;
+
+            // 8. Save Components Breakdown (P1 Fix)
+            // Clear existing components for this history if any (re-run scenario)
+            await client.query('DELETE FROM salary_history_components WHERE salary_history_id = $1', [historyId]);
+
+            for (const comp of proratedComponents) {
+                await client.query(
+                    `INSERT INTO salary_history_components (salary_history_id, component_name, amount, type)
+                     VALUES ($1, $2, $3, $4)`,
+                    [historyId, comp.name, comp.amount, comp.type]
+                );
+            }
+
+            // Also add OT etc as components for clear view?
+            if (otAmount > 0) {
+                await client.query(`INSERT INTO salary_history_components (salary_history_id, component_name, amount, type) VALUES ($1, 'Overtime', $2, 'Earning')`, [historyId, otAmount]);
+            }
+            if (exDayAmount > 0) {
+                await client.query(`INSERT INTO salary_history_components (salary_history_id, component_name, amount, type) VALUES ($1, 'Extra Days', $2, 'Earning')`, [historyId, exDayAmount]);
+            }
+            if (manualAdj !== 0) {
+                const type = manualAdj > 0 ? 'Earning' : 'Deduction';
+                await client.query(`INSERT INTO salary_history_components (salary_history_id, component_name, amount, type) VALUES ($1, 'Manual Adjustment', $2, $3)`, [historyId, Math.abs(manualAdj), type]);
+            }
+            if (componentDeductions > 0) {
+                // Logic already added components, don't duplicate "Total Deductions"
+            }
+            if (advanceDeduction > 0) {
+                await client.query(`INSERT INTO salary_history_components (salary_history_id, component_name, amount, type) VALUES ($1, 'Advance Recovery', $2, 'Deduction')`, [historyId, advanceDeduction, 'Deduction']);
+            }
+
+            const resultRow = historyRes.rows[0];
+            resultRow.total_outstanding_advances = outstandingBalance;
+            payrollData.push(resultRow);
         }
 
         await client.query('COMMIT');

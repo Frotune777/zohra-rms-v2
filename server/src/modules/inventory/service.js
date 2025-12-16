@@ -200,12 +200,26 @@ class InventoryService {
     }
 
     async createSupplier(data) {
-        const { name, phone, payment_type, vendor_type, markup_required } = data;
+        const { name, phone, payment_type, vendor_type, markup_required, contact_person, email, address, gstin } = data;
         const result = await db.query(
-            `INSERT INTO suppliers (name, phone, payment_type, vendor_type, markup_required)
-             VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-            [name, phone, payment_type, vendor_type, markup_required]
+            `INSERT INTO suppliers (name, phone, payment_type, vendor_type, markup_required, contact_person, email, address, gstin)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+            [name, phone, payment_type, vendor_type, markup_required, contact_person, email, address, gstin]
         );
+        return result.rows[0];
+    }
+
+    async updateSupplier(id, data) {
+        const { name, phone, payment_type, vendor_type, markup_required, contact_person, email, address, gstin } = data;
+        const result = await db.query(
+            `UPDATE suppliers 
+             SET name = $1, phone = $2, payment_type = $3, vendor_type = $4, markup_required = $5,
+                 contact_person = $6, email = $7, address = $8, gstin = $9, updated_at = NOW()
+             WHERE id = $10
+             RETURNING *`,
+            [name, phone, payment_type, vendor_type, markup_required, contact_person, email, address, gstin, id]
+        );
+        if (result.rowCount === 0) throw new Error('Supplier not found');
         return result.rows[0];
     }
 

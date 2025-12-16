@@ -76,12 +76,10 @@ const Advances = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.post('employees/payroll/advance', {
-        employeeId: parseInt(formData.employeeId),
-        type: formData.type,
+      await api.post('employees/payroll/advance', {
+        employee_id: formData.employeeId,
         amount: parseFloat(formData.amount),
-        notes: formData.notes,
-        paymentMode: formData.paymentMode,
+        reason: formData.notes,
         paidBy: formData.paidBy
       }, {
         headers: { Authorization: `Bearer ${token}` }

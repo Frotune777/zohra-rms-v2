@@ -30,9 +30,9 @@ export default function HRReports() {
             setLoading(true);
 
             const [payrollRes, advanceRes, attendanceRes] = await Promise.all([
-                axios.get('reports/hr/payroll-summary', { params: dateRange }),
-                axios.get('reports/hr/advances', { params: dateRange }),
-                axios.get('reports/hr/attendance', { params: dateRange })
+                api.get('reports/hr/payroll-summary', { params: dateRange }),
+                api.get('reports/hr/advances', { params: dateRange }),
+                api.get('reports/hr/attendance', { params: dateRange })
             ]);
 
             setPayrollData(payrollRes.data);

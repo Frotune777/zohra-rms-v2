@@ -8,8 +8,8 @@ const VendorManager = () => {
     const [suppliers, setSuppliers] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // Supplier Form State
-    const [newSupplier, setNewSupplier] = useState({
+    const [editingSupplierId, setEditingSupplierId] = useState(null);
+    const initialSupplierState = {
         name: '',
         phone: '',
         payment_type: 'Cash',
@@ -19,7 +19,8 @@ const VendorManager = () => {
         email: '',
         address: '',
         gstin: ''
-    });
+    };
+    const [newSupplier, setNewSupplier] = useState(initialSupplierState);
 
     // Markup Rule State
     const [selectedSupplier, setSelectedSupplier] = useState('');
@@ -56,29 +57,52 @@ const VendorManager = () => {
 
     const fetchRules = async (supplierId) => {
         try {
-            const token = localStorage.getItem('token');
-            const res = await axios.get(`http://localhost:5000/api/chicken/markups?supplierId=${supplierId}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            // Using direct axios or api helper. The original code had mixed usage.
+            // Using api helper for consistency as we have it.
+            const res = await api.get(`chicken/markups?supplierId=${supplierId}`);
             setRules(res.data);
         } catch (err) {
             console.error(err);
         }
     };
 
-    const handleAddSupplier = async (e) => {
+    const handleSaveSupplier = async (e) => {
         e.preventDefault();
         try {
-            await api.post('chicken/suppliers', newSupplier);
-            toast.success('Supplier added');
+            if (editingSupplierId) {
+                await api.put(`chicken/suppliers/${editingSupplierId}`, newSupplier);
+                toast.success('Supplier updated');
+            } else {
+                await api.post('chicken/suppliers', newSupplier);
+                toast.success('Supplier added');
+            }
             fetchSuppliers();
-            setNewSupplier({
-                name: '', phone: '', payment_type: 'Cash', vendor_type: 'Chicken', markup_required: true,
-                contact_person: '', email: '', address: '', gstin: ''
-            });
+            setNewSupplier(initialSupplierState);
+            setEditingSupplierId(null);
         } catch (err) {
-            toast.error(err.response?.data?.error || 'Failed to add supplier');
+            toast.error(err.response?.data?.error || 'Failed to save supplier');
         }
+    };
+
+    const handleEditSupplier = (supplier) => {
+        setNewSupplier({
+            name: supplier.name || '',
+            phone: supplier.phone || '',
+            payment_type: supplier.payment_type || 'Cash',
+            vendor_type: supplier.vendor_type || 'Chicken',
+            markup_required: supplier.markup_required ?? true,
+            contact_person: supplier.contact_person || '',
+            email: supplier.email || '',
+            address: supplier.address || '',
+            gstin: supplier.gstin || ''
+        });
+        setEditingSupplierId(supplier.id);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleCancelEdit = () => {
+        setNewSupplier(initialSupplierState);
+        setEditingSupplierId(null);
     };
 
     const handleSaveRule = async (e) => {
@@ -86,12 +110,13 @@ const VendorManager = () => {
         if (!selectedSupplier) return toast.error('Select a supplier first');
 
         try {
-            const token = localStorage.getItem('token');
-            await axios.post('chicken/markups', {
+            await api.post('chicken/markups', {
                 supplier_id: selectedSupplier,
-                ...newRule
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
+                item_name: newRule.item_name,
+                op1: newRule.op1,
+                val1: parseFloat(newRule.val1),
+                op2: newRule.op2 || null,
+                val2: newRule.val2 ? parseFloat(newRule.val2) : null
             });
             toast.success('Rule saved');
             fetchRules(selectedSupplier);
@@ -109,11 +134,8 @@ const VendorManager = () => {
         e.preventDefault();
         console.log('Update rule called', editingRule);
         try {
-            const token = localStorage.getItem('token');
             console.log('Sending update request for rule ID:', editingRule.id);
-            const response = await axios.put(`http://localhost:5000/api/chicken/markups/${editingRule.id}`, editingRule, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const response = await api.put(`chicken/markups/${editingRule.id}`, editingRule);
             console.log('Update response:', response.data);
             toast.success('Rule updated');
             fetchRules(selectedSupplier);
@@ -127,11 +149,7 @@ const VendorManager = () => {
     const handleDeleteRule = async (ruleId) => {
         console.log('Delete rule called for ID:', ruleId);
         try {
-            const token = localStorage.getItem('token');
-            console.log('Sending delete request for rule ID:', ruleId);
-            const response = await axios.delete(`http://localhost:5000/api/chicken/markups/${ruleId}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const response = await api.delete(`chicken/markups/${ruleId}`);
             console.log('Delete response:', response.data);
             toast.success('Rule deleted');
             fetchRules(selectedSupplier);
@@ -163,10 +181,12 @@ const VendorManager = () => {
 
             {activeTab === 'suppliers' ? (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Add Supplier Form */}
+                    {/* Add/Edit Supplier Form */}
                     <div className="glass-panel p-6 h-fit">
-                        <h2 className="text-lg font-bold text-white mb-4">Add New Supplier</h2>
-                        <form onSubmit={handleAddSupplier} className="space-y-4">
+                        <h2 className="text-lg font-bold text-white mb-4">
+                            {editingSupplierId ? 'Update Supplier' : 'Add New Supplier'}
+                        </h2>
+                        <form onSubmit={handleSaveSupplier} className="space-y-4">
                             <input
                                 type="text"
                                 placeholder="Supplier Name"
@@ -219,23 +239,49 @@ const VendorManager = () => {
                                 <option value="Chicken" className="bg-gray-800 text-white">Chicken</option>
                                 <option value="Grocery" className="bg-gray-800 text-white">Grocery</option>
                                 <option value="Vegetable" className="bg-gray-800 text-white">Vegetable</option>
+                                <option value="General" className="bg-gray-800 text-white">General</option>
                             </select>
-                            <button type="submit" className="w-full bg-zohra-blue p-2 rounded-lg text-white font-bold">Add Supplier</button>
+
+                            <div className="flex gap-2">
+                                <button type="submit" className="flex-1 bg-zohra-blue p-2 rounded-lg text-white font-bold">
+                                    {editingSupplierId ? 'Update Supplier' : 'Add Supplier'}
+                                </button>
+                                {editingSupplierId && (
+                                    <button
+                                        type="button"
+                                        onClick={handleCancelEdit}
+                                        className="flex-1 bg-gray-600 p-2 rounded-lg text-white font-bold"
+                                    >
+                                        Cancel
+                                    </button>
+                                )}
+                            </div>
                         </form>
                     </div>
 
                     {/* Supplier List */}
-                    <div className="glass-panel p-6">
-                        <h2 className="text-lg font-bold text-white mb-4">Existing Suppliers</h2>
-                        <div className="space-y-2">
+                    <div className="glass-panel p-6 flex flex-col h-[600px]">
+                        <h2 className="text-lg font-bold text-white mb-4">Existing Suppliers ({suppliers.length})</h2>
+                        <div className="space-y-2 overflow-y-auto pr-2 flex-1 custom-scrollbar">
                             {suppliers.map(s => (
-                                <div key={s.id} className="p-3 bg-white/5 rounded-lg flex justify-between items-center">
+                                <div key={s.id} className="p-3 bg-white/5 rounded-lg flex justify-between items-center group hover:bg-white/10 transition">
                                     <div>
                                         <p className="font-bold text-white">{s.name}</p>
-                                        <p className="text-sm text-gray-400">{s.vendor_type} • {s.phone}</p>
-                                        {s.contact_person && <p className="text-xs text-gray-500">Contact: {s.contact_person}</p>}
-                                        {s.gstin && <p className="text-xs text-gray-500">GSTIN: {s.gstin}</p>}
+                                        <p className="text-sm text-gray-400">{s.vendor_type} • {s.phone || 'No Phone'}</p>
+                                        {(s.contact_person || s.gstin) && (
+                                            <p className="text-xs text-gray-500 mt-1">
+                                                {s.contact_person && `Contact: ${s.contact_person} `}
+                                                {s.gstin && `• GST: ${s.gstin}`}
+                                            </p>
+                                        )}
                                     </div>
+                                    <button
+                                        onClick={() => handleEditSupplier(s)}
+                                        className="p-2 bg-blue-600/20 text-blue-400 rounded-lg opacity-50 hover:opacity-100 transition hover:bg-blue-600 hover:text-white"
+                                        title="Edit Supplier"
+                                    >
+                                        <FiEdit2 size={16} />
+                                    </button>
                                 </div>
                             ))}
                         </div>

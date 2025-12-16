@@ -32,16 +32,16 @@ export default function FinancialReports() {
         try {
             setLoading(true);
 
-            const [overviewRes, expenseRes, balanceSheetRes, spendingRes] = await Promise.all([
-                axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3002'}/api/reports/financial/overview`, { params: dateRange }),
-                axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3002'}/api/reports/financial/expense-breakdown`, { params: dateRange }),
-                axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3002'}/api/reports/financial/balance-sheet`, { params: { date: dateRange.endDate } }),
-                axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3002'}/api/reports/financial/spending-by-person`, { params: dateRange })
+            const [overviewRes, expenseRes, balanceRes, spendingRes] = await Promise.all([
+                api.get('reports/financial/overview', { params: dateRange }),
+                api.get('reports/financial/expense-breakdown', { params: dateRange }),
+                api.get('reports/financial/balance-sheet', { params: { date: dateRange.endDate } }),
+                api.get('reports/financial/spending-by-person', { params: dateRange })
             ]);
 
             setOverview(overviewRes.data);
             setExpenseBreakdown(expenseRes.data);
-            setBalanceSheet(balanceSheetRes.data);
+            setBalanceSheet(balanceRes.data);
             setSpendingByPerson(spendingRes.data); // [NEW]
         } catch (error) {
             console.error('Error fetching financial data:', error);

@@ -18,10 +18,7 @@ const ManagerFloat = () => {
         setLoading(true);
         setError('');
         try {
-            const token = localStorage.getItem('token');
-            const res = await axios.get(`${API_URL}/api/finance/reconciliation/float?date=${date}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await api.get(`finance/reconciliation/float?date=${date}`);
             setFloatData(res.data);
         } catch (err) {
             console.error(err);

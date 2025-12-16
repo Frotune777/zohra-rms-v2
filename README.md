@@ -2,168 +2,145 @@
 
 A comprehensive full-stack restaurant management system built with **React**, **Node.js**, and **PostgreSQL**. Al Zohra RMS provides complete solutions for POS operations, detailed financial tracking, employee management with payroll, and specialized inventory tracking for chicken stock.
 
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen)](https://nodejs.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)](https://www.postgresql.org/)
+
+---
+
 ## 🎯 Key Features
 
 ### 1. Point of Sale (POS)
-- **Real-time Menu**: Categorized view of all items (Biryani, Curry, Bread, etc.).
-- **Cart Management**: Add/remove items, adjust quantities, calculate totals.
-- **Order Processing**: Instant order creation and revenue recording.
-- **Responsive Design**: Optimized for touchscreens and desktops.
+- **Real-time Menu**: Categorized view of all items (Biryani, Curry, Bread, etc.)
+- **Cart Management**: Add/remove items, adjust quantities, calculate totals
+- **Order Processing**: Instant order creation and revenue recording
+- **Payment Tracking**: Cash, Card, and UPI payment modes
+- **Responsive Design**: Optimized for touchscreens and desktops
 
 ### 2. Chicken Tracker (Migrated & Enhanced)
-- **Daily Rates**: Track daily market rates for Tandoor, Boiler, and Egg.
-- **Bill Entry**: Record vendor bills with automatic calculations based on weight/quantity and daily rates.
-- **Vendor Management**: Manage suppliers and their specific markup rules.
-- **Variance Analysis**: Track expected vs. actual costs.
+- **Daily Rates**: Track daily market rates for Tandoor, Boiler, and Egg
+- **Bill Entry**: Record vendor bills with automatic calculations
+- **Vendor Management**: Manage suppliers and their specific markup rules
+- **Variance Analysis**: Track expected vs. actual costs
 
 ### 3. HR & Payroll System
-- **Employee Management**: 
-    - Detailed profiles (Salary, Position, Contact).
-    - **Govt ID Tracking**: Capture ID Type (Aadhar, PAN) and Number.
-    - **Role vs Designation**: Clear separation between System Access (Role) and Job Title (Designation).
-    - **History Tracking**: Logs changes to salary, role, and status over time.
-- **Advance Ledger**: 
-    - Double-entry ledger for salary advances.
-    - Track "Advance Given" and "Repayment" transactions.
-    - **Detailed Tracking**: Record **Payment Mode** (Cash/UPI) and **Paid By** (Manager Name).
-    - **Reporting**: View cumulative totals by Payer and Payment Mode.
-    - View running balances for each employee.
-- **Monthly Payroll**: 
-    - Calculate salary based on days worked.
-    - **Manual Adjustments**: Add bonuses or deductions with reasons.
-    - **Auto-Deduction**: Automatically deducts active advances from net pay.
-    - Generates financial ledger entries for salary expenses.
+- **Employee Management**: Detailed profiles with salary, position, and contact info
+- **Advance Ledger**: Double-entry ledger for salary advances with payment tracking
+- **Monthly Payroll**: Automated salary calculation with manual adjustments
+- **Auto-Deduction**: Automatically deducts active advances from net pay
 
 ### 4. Financial Management
-- **Daily Summary**: Aggregate view of Sales, Expenses, Vendor Payments, and **Salary Advances**.
-- **Payment Tracking**: Record vendor payments and other expenses.
-- **Payment Modes**: Track transactions via Cash, UPI, and Card.
-- **Profit & Loss**: Generate monthly P&L statements.
-- **Ledger System**: Double-entry accounting for all financial transactions.
+- **Daily Tracker**: Comprehensive daily financial summary with cash denomination calculator
+- **Vendor Payments**: Track and process vendor payments with reconciliation
+- **Expense Mapping**: Auto-categorize expenses based on keywords
+- **P&L Reports**: Generate monthly profit & loss statements
+- **Ledger System**: Double-entry accounting for all financial transactions
 
 ### 5. Inventory & Menu
-- **Inventory**: Track stock levels, unit costs, and total value.
-- **Menu Management**: Add/Edit/Delete menu items with categories and prices.
+- **Inventory Tracking**: Real-time stock levels with automatic deduction
+- **Recipe Management**: Link menu items to inventory ingredients
+- **Wastage Logging**: Track and account for inventory wastage
+- **Menu Management**: Add/Edit/Delete menu items with categories and prices
 
----
-
-## 🔄 Unit Workflows
-
-### 🛒 POS Workflow
-1.  **Open POS**: Navigate to the Dashboard -> POS.
-2.  **Select Items**: Tap on menu items to add them to the cart.
-3.  **Adjust Cart**: Use `+` / `-` to change quantities or `Trash` icon to remove.
-4.  **Checkout**: Click **"Place Order"**.
-5.  **Result**: Order is saved, revenue is recorded, and inventory is updated (if linked).
-
-### 🐔 Chicken Tracker Workflow
-1.  **Set Daily Rates**: 
-    - Go to **Chicken Tracker** -> **Daily Rates**.
-    - Enter today's rate for Tandoor, Boiler, and Egg.
-    - Click **Save Rates**.
-2.  **Enter Bill**:
-    - Go to **Chicken Tracker** -> **Bill Entry**.
-    - Select **Vendor** and **Item Type**.
-    - Enter **Weight/Quantity**.
-    - System auto-calculates **Final Rate** (Base Rate + Vendor Markup) and **Total Cost**.
-    - Click **Save Bill**.
-
-### 👥 HR & Payroll Workflow
-1.  **Register Employee**:
-    - Go to **Employees**.
-    - Click **"Register New Employee"**.
-    - Fill details (Name, Salary, Position) and **Save**.
-2.  **Give Advance**:
-    - Go to **Advances**.
-    - Click **"New Transaction"**.
-    - Select **Employee**, Type (**Advance**), and **Amount**.
-    - Click **Save**.
-3.  **Run Payroll**:
-    - Go to **Payroll**.
-    - Select **Month/Year**.
-    - Find Employee and click **"Process"**.
-    - Enter **Days Worked** and any **Manual Adjustments** (e.g., +500 Bonus).
-    - Review **Net Pay** (Base Salary + Adjustments - Active Advances).
-    - Click **Confirm & Process**.
-
-### 💰 Finance Workflow
-1.  **Record Expense/Payment**:
-    - Go to **Finance** -> **Payments**.
-    - Select **Category** (Vendor Payment, Utility, etc.).
-    - Enter **Amount**, **Payment Mode**, and **Description**.
-    - Click **Record Payment**.
-2.  **View Daily Summary**:
-    - Go to **Finance** -> **Daily Summary**.
-    - View aggregated **Total Sales**, **Total Expenses**, and **Net Cash Flow** for the day.
-
----
-
-## 🛠️ Tech Stack
-
-- **Frontend**: React 18, Vite, Tailwind CSS, Axios, React Router.
-- **Backend**: Node.js, Express.js.
-- **Database**: PostgreSQL 15.
-- **Authentication**: JWT (JSON Web Tokens), bcryptjs.
-- **Containerization**: Docker, Docker Compose.
+### 6. Comprehensive Reporting
+- **Financial Reports**: Revenue, expenses, balance sheet, spending by person
+- **HR Reports**: Payroll summaries, advances, attendance analytics
+- **Operations Reports**: Chicken analytics, vendor performance
+- **Inventory Reports**: Stock status, wastage analysis
+- **Export Options**: CSV, JSON, and PDF export for all reports
 
 ---
 
 ## 🚀 Quick Start
 
-### First Time Setup (Automated)
+### Prerequisites
+- **Docker** and **Docker Compose** (recommended)
+- **Node.js** 16+ (if running without Docker)
+- **PostgreSQL** 15+ (if running without Docker)
+- **Git**
+
+### Option 1: Docker (Recommended)
 
 ```bash
 # Clone the repository
 git clone <repository-url>
 cd zohra-rms-v2
 
-# Run automated setup (checks dependencies, installs packages, sets up database)
-./setup.sh
+# Start all services
+docker-compose up -d --build
 
-# Start the application
-./start.sh
+# Access the application
+# Frontend: http://localhost:3002
+# Backend API: http://localhost:5000
 ```
 
-That's it! The setup script will automatically:
-- ✅ Verify system requirements (Node.js 16+, Docker, Docker Compose)
-- ✅ Create environment configuration files
-- ✅ Install all dependencies
-- ✅ Setup PostgreSQL database
-- ✅ Run database migrations
-- ✅ Verify everything is working
+### Option 2: Manual Setup
 
-### Access the Application
+```bash
+# Clone the repository
+git clone <repository-url>
+cd zohra-rms-v2
 
-- **Frontend**: http://localhost:3001
-- **Backend API**: http://localhost:5000
-- **Database**: localhost:5432
+# Install backend dependencies
+cd server
+npm install
 
-### Documentation
-For detailed guides and architecture:
-- [User Guide](documentation/user_guide.md) - How to use the system
-- [Installation](documentation/INITIALIZATION.md) - Setup instructions
-- [Architecture Audit](documentation/arch_audit.md) - Technical architecture review
-- [Walkthrough](documentation/walkthrough.md) - Recent feature updates
+# Install frontend dependencies
+cd ../client
+npm install
 
-### Prerequisites
-- Docker & Docker Compose
-- Git
+# Setup database (see Database Setup section)
 
-1.  **Clone Repository**:
-    ```bash
-    git clone <repo-url>
-    cd al-zohra-rms-v2
-    ```
-2.  **Start Services**:
-    ```bash
-    docker-compose up -d --build
-    ```
-3.  **Access Application**:
-    - **Frontend**: `http://localhost:3000`
-    - **Backend**: `http://localhost:5000`
-    - **Database**: `localhost:5432`
+# Start backend (from server directory)
+npm run dev
 
-### Default Credentials
+# Start frontend (from client directory)
+npm run dev
+```
+
+---
+
+## 🔧 Configuration
+
+### Database Connection
+
+**Docker (default):**
+```
+Host: localhost
+Port: 5432
+Database: alzohra_db
+Username: admin
+Password: password
+```
+
+**Manual Setup:**
+Create a `.env` file in the `server` directory:
+```env
+DATABASE_URL=postgresql://admin:password@localhost:5432/alzohra_db
+PORT=5000
+JWT_SECRET=your-secret-key-here
+```
+
+### Database Access
+
+Use the included helper script:
+```bash
+# Show connection info
+./db-access.sh info
+
+# Open PostgreSQL shell
+./db-access.sh shell
+
+# List all tables
+./db-access.sh tables
+
+# Create backup
+./db-access.sh backup
+```
+
+---
+
+## 👥 Default Credentials
+
 | Role | Email | Password |
 |------|-------|----------|
 | **Owner** | `owner@alzohra.com` | `owner123` |
@@ -187,25 +164,138 @@ For detailed guides and architecture:
 
 ---
 
+## 🛠️ Tech Stack
 
+### Frontend
+- **React 18** - UI framework
+- **Vite** - Build tool and dev server
+- **Tailwind CSS** - Utility-first CSS framework
+- **React Router** - Client-side routing
+- **Recharts** - Data visualization
+- **React Hot Toast** - Notifications
+- **Axios** - HTTP client (centralized API utility)
+
+### Backend
+- **Node.js** - Runtime environment
+- **Express.js** - Web framework
+- **PostgreSQL 15** - Relational database
+- **JWT** - Authentication
+- **bcryptjs** - Password hashing
+
+### DevOps
+- **Docker** - Containerization
+- **Docker Compose** - Multi-container orchestration
+
+---
 
 ## 📂 Project Structure
 
 ```
-al-zohra-rms-v2/
+zohra-rms-v2/
 ├── client/                 # React Frontend
+│   ├── src/
+│   │   ├── components/    # Reusable UI components
+│   │   ├── pages/         # Page components
+│   │   ├── context/       # React context (Auth)
+│   │   ├── utils/         # Utilities (API client)
+│   │   └── App.jsx        # Main app component
+│   └── package.json
 ├── server/                 # Node.js Backend
 │   ├── src/
-│   │   ├── modules/       # Service-based Modules (Finance, POS, etc.)
+│   │   ├── modules/       # Feature modules
+│   │   │   ├── auth/
+│   │   │   ├── finance/
+│   │   │   ├── payroll/
+│   │   │   ├── inventory/
+│   │   │   ├── pos/
+│   │   │   ├── chicken/
+│   │   │   └── reports/
 │   │   ├── config/        # Configuration
-│   │   └── app.js         # App Entry Point
-├── documentation/          # User Guides & Technical Docs
+│   │   └── app.js         # Express app
+│   └── package.json
 ├── database/               # SQL Scripts
-└── docker-compose.yml     # Container Orchestration
+│   ├── schema.sql         # Database schema
+│   └── seed.sql           # Initial data
+├── documentation/          # Project documentation
+├── docker-compose.yml     # Container orchestration
+└── README.md              # This file
 ```
 
 ---
 
+## 📚 Documentation
+
+- **[User Guide](documentation/user_guide.md)** - How to use the system
+- **[API Reference](documentation/API_REFERENCE.md)** - Backend API documentation
+- **[Database Schema](documentation/DATABASE_SCHEMA.md)** - Database structure
+- **[Project Logic](documentation/PROJECT_LOGIC.md)** - Business logic and workflows
+- **[Development Guide](documentation/DEVELOPMENT.md)** - Developer setup and guidelines
+
+---
+
+## 🔄 Recent Updates
+
+### v2.1.0 (December 2024)
+- ✅ **Fixed all frontend axios errors** - Migrated 13 files to centralized API utility
+- ✅ **UI improvements** - Optimized Vendor Payments modal spacing
+- ✅ **Database access tools** - Added helper scripts for easy DB management
+- ✅ **Enhanced documentation** - Comprehensive guides and API reference
+
+### Previous Updates
+- Implemented comprehensive reporting system
+- Added expense auto-categorization
+- Enhanced payroll with component breakdown
+- Integrated chicken biller functionality
+- Added audit trails and financial period management
+
+---
+
+## 🧪 Testing
+
+```bash
+# Run backend tests
+cd server
+npm test
+
+# Run frontend tests
+cd client
+npm test
+
+# Run E2E tests
+npm run test:e2e
+```
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📝 License
+
+**Copyright © 2024 Al Zohra RMS. All Rights Reserved.**
+
+This software is proprietary and confidential. Unauthorized copying, distribution, modification, or use of this software, via any medium, is strictly prohibited without explicit written permission from the copyright holder.
+
+**This software is licensed for use exclusively by Al Zohra Restaurant and its authorized personnel.**
+
+---
+
+## 🆘 Support
+
+For issues and questions:
+- Create an issue in the GitHub repository
+- Check the [documentation](documentation/) folder
+- Review the [User Guide](documentation/user_guide.md)
+
+---
+
 **Version**: 2.1.0  
-**Last Updated**: December 13, 2025  
-**Status**: Production Ready
+**Last Updated**: December 16, 2024  
+**Status**: Production Ready ✅

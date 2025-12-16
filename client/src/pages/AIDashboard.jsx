@@ -22,12 +22,9 @@ const AIDashboard = () => {
 
     const fetchInitialData = async () => {
         try {
-            const token = localStorage.getItem('token');
-            const headers = { Authorization: token };
-
             const [ordersRes, itemsRes] = await Promise.all([
-                axios.get('ai/suggested-orders', { headers }),
-                axios.get('inventory', { headers })
+                api.get('ai/suggested-orders'),
+                api.get('inventory')
             ]);
 
             setSuggestedOrders(ordersRes.data);
@@ -44,10 +41,7 @@ const AIDashboard = () => {
 
     const fetchForecast = async (itemId) => {
         try {
-            const token = localStorage.getItem('token');
-            const res = await axios.get(`http://localhost:5000/api/ai/forecast/${itemId}`, {
-                headers: { Authorization: token }
-            });
+            const res = await api.get(`ai/forecast/${itemId}`);
 
             // Transform data for Recharts
             // dailyUsage is { "2023-10-01": 5, ... }

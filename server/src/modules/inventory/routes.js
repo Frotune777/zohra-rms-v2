@@ -18,6 +18,7 @@ router.get('/rates/status', verifyToken, requirePermission(PERMISSIONS.INVENTORY
 // Suppliers
 router.get('/suppliers', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getSuppliers);
 router.post('/suppliers', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.createSupplier);
+router.put('/suppliers/:id', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.updateSupplier);
 
 // Markup Rules
 router.get('/markups', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getMarkupRules);

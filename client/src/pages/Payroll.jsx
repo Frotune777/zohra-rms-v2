@@ -54,9 +54,8 @@ const Payroll = () => {
   const fetchPayrollData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('payroll/monthly', {
-        params: { month: selectedMonth, year: selectedYear },
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      const response = await api.get('payroll/monthly', {
+        params: { month: selectedMonth, year: selectedYear }
       });
       setPayrollData(response.data);
     } catch (err) {
@@ -94,10 +93,10 @@ const Payroll = () => {
 
     setLoading(true);
     try {
-      await axios.post('payroll/run', {
+      await api.post('payroll/run', {
         month: selectedMonth,
         year: selectedYear,
-        employeeId: selectedEmployee.employee_id || selectedEmployee.id, // Handle both raw employee and payroll record
+        employeeId: selectedEmployee.employee_id || selectedEmployee.id,
         daysWorked: parseInt(processForm.daysWorked),
         overtimeHours: parseFloat(processForm.overtimeHours) || 0,
         overtimeAmount: parseFloat(processForm.overtimeAmount) || 0,
@@ -106,8 +105,6 @@ const Payroll = () => {
         manualAdjustment: parseFloat(processForm.manualAdjustment) || 0,
         adjustmentReason: processForm.adjustmentReason,
         advanceDeduction: parseFloat(processForm.advanceDeduction) || 0
-      }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       toast.success('Payroll calculated');
       setShowProcessModal(false);
@@ -121,9 +118,7 @@ const Payroll = () => {
 
   const handleApprove = async (id) => {
     try {
-      await axios.post('payroll/approve', { id }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      });
+      await api.post('payroll/approve', { id });
       toast.success('Payroll approved');
       fetchPayrollData();
     } catch (err) {
@@ -152,13 +147,11 @@ const Payroll = () => {
     }
 
     try {
-      await axios.post('payroll/payout', {
+      await api.post('payroll/payout', {
         id: paymentData.id,
         payment_mode: finalMode,
         payment_date: new Date(),
         paid_by: paymentData.paidBy
-      }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       toast.success('Marked as Paid');
       setShowPaymentModal(false);
@@ -262,7 +255,7 @@ const Payroll = () => {
                   <button onClick={() => {
                     if (window.confirm('Run full payroll calculation?')) {
                       setLoading(true);
-                      axios.post('payroll/run', { month: selectedMonth, year: selectedYear }, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                      api.post('payroll/run', { month: selectedMonth, year: selectedYear })
                         .then(() => { toast.success('Calculated'); fetchPayrollData(); })
                         .catch((err) => toast.error(err.response?.data?.error || 'Failed to run payroll'))
                         .finally(() => setLoading(false));

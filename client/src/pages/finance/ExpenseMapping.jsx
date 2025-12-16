@@ -23,10 +23,9 @@ const ExpenseMapping = () => {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const token = localStorage.getItem('token');
             const [mapRes, catRes] = await Promise.all([
-                axios.get(`${API_URL}/api/finance/mappings`, { headers: { Authorization: `Bearer ${token}` } }),
-                axios.get(`${API_URL}/api/finance/tracker/categories`, { headers: { Authorization: `Bearer ${token}` } })
+                api.get('finance/mappings'),
+                api.get('finance/tracker/categories')
             ]);
             setMappings(mapRes.data);
             setCategories(catRes.data);
@@ -41,16 +40,11 @@ const ExpenseMapping = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('token');
             if (editingId) {
-                await axios.put(`${API_URL}/api/finance/mappings/${editingId}`, formData, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                await api.put(`finance/mappings/${editingId}`, formData);
                 toast.success('Mapping updated');
             } else {
-                await axios.post(`${API_URL}/api/finance/mappings`, formData, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                await api.post('finance/mappings', formData);
                 toast.success('Mapping created');
             }
             fetchData();
@@ -63,10 +57,7 @@ const ExpenseMapping = () => {
     const handleDelete = async (id) => {
         if (!window.confirm('Are you sure you want to delete this mapping?')) return;
         try {
-            const token = localStorage.getItem('token');
-            await axios.delete(`${API_URL}/api/finance/mappings/${id}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            await api.delete(`finance/mappings/${id}`);
             toast.success('Mapping deleted');
             fetchData();
         } catch (error) {
@@ -79,10 +70,7 @@ const ExpenseMapping = () => {
 
         setApplyingId(id);
         try {
-            const token = localStorage.getItem('token');
-            const res = await axios.post(`${API_URL}/api/finance/mappings/${id}/apply`, {}, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await api.post(`finance/mappings/${id}/apply`);
             toast.success(`Updated ${res.data.updatedCount} transactions`);
         } catch (error) {
             toast.error('Failed to apply mapping to history');

@@ -29,8 +29,8 @@ export default function OperationsReports() {
             setLoading(true);
 
             const [chickenRes, vendorRes] = await Promise.all([
-                axios.get('reports/operations/chicken-analytics', { params: dateRange }),
-                axios.get('reports/operations/vendor-performance', { params: dateRange })
+                api.get('reports/operations/chicken-analytics', { params: dateRange }),
+                api.get('reports/operations/vendor-performance', { params: dateRange })
             ]);
 
             setChickenData(chickenRes.data);

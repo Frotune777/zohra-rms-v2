@@ -46,10 +46,7 @@ const BillEntry = () => {
 
     const fetchSupplierItems = async (supplierId) => {
         try {
-            const token = localStorage.getItem('token');
-            const res = await axios.get(`http://localhost:5000/api/chicken/markups?supplierId=${supplierId}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await api.get(`chicken/markups?supplierId=${supplierId}`);
             setAvailableItems(res.data.map(r => r.item_name));
         } catch (err) {
             console.error(err);
@@ -58,13 +55,10 @@ const BillEntry = () => {
 
     const fetchEntries = async () => {
         try {
-            const token = localStorage.getItem('token');
-            let url = `http://localhost:5000/api/chicken/bills?date=${date}`;
+            let url = `chicken/bills?date=${date}`;
             if (formData.supplier_id) url += `&supplierId=${formData.supplier_id}`;
 
-            const res = await axios.get(url, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await api.get(url);
             setEntries(res.data);
         } catch (err) {
             console.error(err);
@@ -73,13 +67,10 @@ const BillEntry = () => {
 
     const fetchSummary = async () => {
         try {
-            const token = localStorage.getItem('token');
-            let url = `http://localhost:5000/api/chicken/bills/summary?date=${date}`;
+            let url = `chicken/bills/summary?date=${date}`;
             if (formData.supplier_id) url += `&supplierId=${formData.supplier_id}`;
 
-            const res = await axios.get(url, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await api.get(url);
             setSummary(res.data);
         } catch (err) {
             console.error(err);
@@ -89,12 +80,9 @@ const BillEntry = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('token');
-            await axios.post('chicken/bills', {
+            await api.post('chicken/bills', {
                 date,
                 ...formData
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
             });
             toast.success('Bill entry added');
             fetchEntries();

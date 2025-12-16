@@ -177,7 +177,7 @@ const Finance = () => {
         ? 'http://localhost:5000/api/finance/revenue'
         : 'http://localhost:5000/api/finance/expense';
 
-      await axios.post(endpoint, {
+      await api.post(endpoint, {
         description: formData.description,
         amount: parseFloat(formData.amount)
       });
@@ -197,7 +197,7 @@ const Finance = () => {
     if (!window.confirm('Delete this transaction? This action cannot be undone.')) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/finance/transaction/${id}`);
+      await api.delete(`finance/transaction/${id}`);
       setSuccessMessage('✓ Transaction deleted successfully');
       fetchFinanceData();
       fetchTransactions();

@@ -29,8 +29,8 @@ export default function InventoryReports() {
             setLoading(true);
 
             const [stockRes, wastageRes] = await Promise.all([
-                axios.get('reports/inventory/stock-status'),
-                axios.get('reports/inventory/wastage', { params: dateRange })
+                api.get('reports/inventory/stock-status'),
+                api.get('reports/inventory/wastage', { params: dateRange })
             ]);
 
             setStockData(stockRes.data);

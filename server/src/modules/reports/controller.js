@@ -245,6 +245,49 @@ async function getBalanceSheet(req, res) {
 /**
  * Get Payroll Summary
  */
+/**
+ * Get Daily Stats (Cash vs Bank)
+ */
+async function getDailyStats(req, res) {
+  try {
+    const { date } = req.query;
+    const queryDate = date || new Date().toISOString().split('T')[0];
+
+    // Sales by Payment Method
+    const salesQuery = `
+      SELECT 
+        payment_method,
+        COUNT(*) as count,
+        COALESCE(SUM(amount), 0) as total_amount
+      FROM payment_transactions
+      WHERE DATE(transaction_date) = $1
+      GROUP BY payment_method
+    `;
+    const salesRes = await db.query(salesQuery, [queryDate]);
+
+    // Total Revenue
+    const totalRevenue = salesRes.rows.reduce((sum, row) => sum + parseFloat(row.total_amount), 0);
+
+    // Cash in Hand (Cash Sales - Cash Expenses) -- Simplified
+    // Real logic would be: Opening Balance + Cash Sales - Cash Expenses (Petty Cash)
+    // Here we just return Cash Sales + Cash Payments Received
+    const cashSales = salesRes.rows.find(r => r.payment_method === 'Cash')?.total_amount || 0;
+
+    res.json({
+      date: queryDate,
+      totalRevenue,
+      salesBreakdown: salesRes.rows,
+      cashCollected: cashSales
+    });
+  } catch (error) {
+    console.error('Error fetching daily stats:', error);
+    res.status(500).json({ error: 'Failed to fetch daily stats' });
+  }
+}
+
+/**
+ * Get Payroll Summary
+ */
 async function getPayrollSummary(req, res) {
   try {
     const { startDate, endDate, month, year } = req.query;
@@ -255,31 +298,53 @@ async function getPayrollSummary(req, res) {
       // Monthly summary
       query = `
         SELECT 
-          COUNT(DISTINCT employee_id) as employee_count,
-          COALESCE(SUM(calculated_salary), 0) as total_gross_salary,
-          COALESCE(SUM(advance_deduction), 0) as total_advance_deductions,
-          COALESCE(SUM(net_pay), 0) as total_net_pay,
-          COALESCE(AVG(days_worked), 0) as avg_days_worked
-        FROM salary_history
-        WHERE month = $1 AND year = $2
+          COUNT(DISTINCT sh.employee_id) as employee_count,
+          COALESCE(SUM(sh.calculated_salary), 0) as total_gross_salary,
+          COALESCE(SUM(sh.advance_deduction), 0) as total_advance_deductions,
+          COALESCE(SUM(sh.net_pay), 0) as total_net_pay,
+          COALESCE(AVG(sh.days_worked), 0) as avg_days_worked
+        FROM salary_history sh
+        WHERE sh.month = $1 AND sh.year = $2
       `;
       params = [month, year];
     } else {
       // Date range summary
       query = `
         SELECT 
-          COUNT(DISTINCT employee_id) as employee_count,
-          COALESCE(SUM(calculated_salary), 0) as total_gross_salary,
-          COALESCE(SUM(advance_deduction), 0) as total_advance_deductions,
-          COALESCE(SUM(net_pay), 0) as total_net_pay,
-          COALESCE(AVG(days_worked), 0) as avg_days_worked
-        FROM salary_history
-        WHERE processed_at >= $1 AND processed_at <= $2
+          COUNT(DISTINCT sh.employee_id) as employee_count,
+          COALESCE(SUM(sh.calculated_salary), 0) as total_gross_salary,
+          COALESCE(SUM(sh.advance_deduction), 0) as total_advance_deductions,
+          COALESCE(SUM(sh.net_pay), 0) as total_net_pay,
+          COALESCE(AVG(sh.days_worked), 0) as avg_days_worked
+        FROM salary_history sh
+        WHERE sh.processed_at >= $1 AND sh.processed_at <= $2
       `;
       params = [startDate, endDate];
     }
 
     const summary = await db.query(query, params);
+
+    // Get Component-wise Breakdown (New P1 Feature)
+    let compQuery = `
+        SELECT 
+            sc.component_name, 
+            sc.type, 
+            SUM(sc.amount) as total_amount
+        FROM salary_history_components sc
+        JOIN salary_history sh ON sc.salary_history_id = sh.id
+        WHERE 1=1
+    `;
+    let compParams = [];
+    if (month && year) {
+      compQuery += ` AND sh.month = $1 AND sh.year = $2`;
+      compParams = [month, year];
+    } else {
+      compQuery += ` AND sh.processed_at >= $1 AND sh.processed_at <= $2`;
+      compParams = [startDate, endDate];
+    }
+    compQuery += ` GROUP BY sc.component_name, sc.type ORDER BY sc.type, total_amount DESC`;
+
+    const breakdown = await db.query(compQuery, compParams);
 
     // Get monthly trend
     const trendQuery = `
@@ -298,6 +363,7 @@ async function getPayrollSummary(req, res) {
 
     res.json({
       summary: summary.rows[0],
+      componentBreakdown: breakdown.rows,
       monthlyTrend: trend.rows
     });
   } catch (error) {
@@ -744,6 +810,7 @@ async function getDashboardKPIs(req, res) {
 module.exports = {
   // Financial
   getFinancialOverview,
+  getDailyStats,
   getExpenseBreakdown,
   getRevenueTrends,
   getBalanceSheet,

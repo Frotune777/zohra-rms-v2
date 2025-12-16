@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const AuthContext = createContext();
 
@@ -8,19 +8,14 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
 
-  // Set up axios default header with token
-  useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    }
-  }, [token]);
+  // Token is handled by api utility interceptor
 
   // Load user on mount or token change
   useEffect(() => {
     const loadUser = async () => {
       if (token) {
         try {
-          const response = await axios.get('http://localhost:5000/api/auth/me');
+          const response = await api.get('auth/me');
           setUser(response.data);
         } catch (err) {
           console.error('Failed to load user:', err);
@@ -36,22 +31,22 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await api.post('auth/login', {
         email,
         password
       });
-      
+
       const { token: newToken, user: userData } = response.data;
-      
+
       setToken(newToken);
       setUser(userData);
       localStorage.setItem('token', newToken);
-      
+
       return { success: true };
     } catch (err) {
-      return { 
-        success: false, 
-        error: err.response?.data?.error || 'Login failed' 
+      return {
+        success: false,
+        error: err.response?.data?.error || 'Login failed'
       };
     }
   };
@@ -60,7 +55,6 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setToken(null);
     localStorage.removeItem('token');
-    delete axios.defaults.headers.common['Authorization'];
   };
 
   const isAuthenticated = !!user;

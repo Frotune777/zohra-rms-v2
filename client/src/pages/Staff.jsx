@@ -27,7 +27,7 @@ const Staff = () => {
 
   const fetchEmployees = () => {
     setLoading(true);
-    axios.get('employees-payroll')
+    api.get('employees-payroll')
       .then(res => {
         setEmployees(res.data);
         setError('');
@@ -44,13 +44,16 @@ const Staff = () => {
   const handleAdvance = async (id, name) => {
     const amount = prompt(`Enter Advance Amount (₹) for ${name}:`);
     if (!amount || isNaN(amount) || parseFloat(amount) <= 0) return;
+    const reason = prompt(`Enter reason for advance for ${name}:`);
+    if (!reason) return;
 
     try {
       setError('');
       setSuccessMessage('');
-      await axios.post('employees/payroll/advance', {
-        employeeId: id,
-        amount: parseFloat(amount)
+      await api.post('employees/payroll/advance', {
+        employee_id: id,
+        amount: parseFloat(amount),
+        reason
       });
       setSuccessMessage(`✓ Advance of ₹${parseFloat(amount).toFixed(2)} given to ${name}`);
       fetchEmployees();
@@ -66,7 +69,7 @@ const Staff = () => {
     try {
       setError('');
       setSuccessMessage('');
-      const res = await axios.post('employees/payroll/run', { employeeId: id });
+      const res = await api.post('employees/payroll/run', { employeeId: id });
       const { netPay, advanceDeduction, baseSalary } = res.data;
 
       setSuccessMessage(
