@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { FiSearch } from 'react-icons/fi';
 import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
-import { FiAlertCircle, FiCheckCircle, FiClock, FiDownload, FiDollarSign, FiFileText, FiRefreshCw, FiPlus } from 'react-icons/fi';
+import { FiAlertCircle, FiCheckCircle, FiClock, FiDownload, FiDollarSign, FiFileText, FiRefreshCw, FiPlus, FiTrash2, FiRotateCcw } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
 const Payroll = () => {
   const { userRole } = useAuth();
   const [activeTab, setActiveTab] = useState('run'); // run, payouts, history
-  const [payoutSubTab, setPayoutSubTab] = useState('bank'); // bank, cash
+  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
   const [payrollData, setPayrollData] = useState([]);
 
@@ -44,6 +45,12 @@ const Payroll = () => {
 
   // Only manager and owner can access payroll
   const canManagePayroll = userRole === 'manager' || userRole === 'owner';
+  const isOwner = userRole === 'owner';
+
+  // Delete/Revert Modal State
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [confirmAction, setConfirmAction] = useState(null); // { type: 'delete'|'revert', id, targetStatus, employeeName }
+  const [confirmReason, setConfirmReason] = useState('');
 
   useEffect(() => {
     if (canManagePayroll) {
@@ -132,7 +139,8 @@ const Payroll = () => {
       name: employee.full_name,
       amount: employee.net_pay,
       mode: defaultMode || 'Cash',
-      customMode: ''
+      customMode: '',
+      paidBy: ''
     });
     setShowPaymentModal(true);
   };
@@ -177,6 +185,49 @@ const Payroll = () => {
     link.click();
   };
 
+  const handleDeletePayroll = (id, employeeName) => {
+    setConfirmAction({ type: 'delete', id, employeeName });
+    setConfirmReason('');
+    setShowConfirmModal(true);
+  };
+
+  const handleRevertPayroll = (id, targetStatus, employeeName) => {
+    setConfirmAction({ type: 'revert', id, targetStatus, employeeName });
+    setConfirmReason('');
+    setShowConfirmModal(true);
+  };
+
+  const executeConfirmAction = async () => {
+    if (!confirmReason.trim()) {
+      toast.error('Please provide a reason');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      if (confirmAction.type === 'delete') {
+        await api.delete(`payroll/${confirmAction.id}`, {
+          data: { reason: confirmReason }
+        });
+        toast.success('Payroll record deleted successfully');
+      } else if (confirmAction.type === 'revert') {
+        await api.post(`payroll/revert/${confirmAction.id}`, {
+          targetStatus: confirmAction.targetStatus,
+          reason: confirmReason
+        });
+        toast.success(`Payroll reverted to ${confirmAction.targetStatus}`);
+      }
+      setShowConfirmModal(false);
+      setConfirmAction(null);
+      setConfirmReason('');
+      fetchPayrollData();
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Operation failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!canManagePayroll) {
     return (
       <div className="h-full flex items-center justify-center p-4">
@@ -199,18 +250,22 @@ const Payroll = () => {
 
         <div className="flex items-center gap-4 glass-panel px-4 py-2 rounded-lg">
           <select
+            id="payroll-month"
+            name="month"
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
-            className="bg-transparent text-white font-bold outline-none"
+            className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
           >
             {Array.from({ length: 12 }, (_, i) => (
               <option key={i + 1} value={i + 1} className="bg-gray-800">{new Date(0, i).toLocaleString('default', { month: 'long' })}</option>
             ))}
           </select>
           <select
+            id="payroll-year"
+            name="year"
             value={selectedYear}
             onChange={(e) => setSelectedYear(parseInt(e.target.value))}
-            className="bg-transparent text-white font-bold outline-none"
+            className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
           >
             <option value={2024} className="bg-gray-800">2024</option>
             <option value={2025} className="bg-gray-800">2025</option>
@@ -251,7 +306,14 @@ const Payroll = () => {
             {activeTab === 'run' && (
               <div>
                 <div className="flex justify-between mb-4">
-                  <h2 className="text-xl font-bold text-white">Draft Calculations</h2>
+                  <div>
+                    <h2 className="text-xl font-bold text-white">Draft Calculations</h2>
+                    {payrollData.some(p => p.status === 'Pending') && (
+                      <p className="text-xs text-gray-400 mt-1">
+                        Last Calculated: {new Date(Math.max(...payrollData.filter(p => p.status === 'Pending').map(p => new Date(p.processed_at)))).toLocaleString()}
+                      </p>
+                    )}
+                  </div>
                   <button onClick={() => {
                     if (window.confirm('Run full payroll calculation?')) {
                       setLoading(true);
@@ -304,8 +366,11 @@ const Payroll = () => {
                           <td className="p-3 text-right font-bold text-green-400">₹{p.net_pay}</td>
                           <td className="p-3 text-center"><span className="bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded text-xs">Draft</span></td>
                           <td className="p-3 text-right flex justify-end gap-2">
-                            <button onClick={() => openProcessModal(p)} className="text-gray-300 hover:text-white"><FiClock /></button>
+                            <button onClick={() => openProcessModal(p)} className="text-gray-300 hover:text-white" title="Adjust"><FiClock /></button>
                             <button onClick={() => handleApprove(p.id)} className="text-zohra-blue hover:underline">Approve</button>
+                            {isOwner && (
+                              <button onClick={() => handleDeletePayroll(p.id, p.full_name)} className="text-red-400 hover:text-red-300" title="Delete"><FiTrash2 /></button>
+                            )}
                           </td>
                         </tr>
                       ))
@@ -317,81 +382,72 @@ const Payroll = () => {
 
             {activeTab === 'payouts' && (
               <div>
-                <div className="flex gap-4 mb-4 border-b border-white/10 pb-2">
-                  <button
-                    onClick={() => setPayoutSubTab('bank')}
-                    className={`px-3 py-1 rounded-full text-sm ${payoutSubTab === 'bank' ? 'bg-zohra-blue text-white' : 'bg-white/5 text-gray-400'}`}
-                  >
-                    Bank Transfers
-                  </button>
-                  <button
-                    onClick={() => setPayoutSubTab('cash')}
-                    className={`px-3 py-1 rounded-full text-sm ${payoutSubTab === 'cash' ? 'bg-zohra-blue text-white' : 'bg-white/5 text-gray-400'}`}
-                  >
-                    Cash Payouts
-                  </button>
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold text-white">Ready for Payout</h2>
+                  <div className="relative">
+                    <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <input
+                      type="text"
+                      id="payout-search"
+                      name="search"
+                      placeholder="Search Employee..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10 pr-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white outline-none focus:border-zohra-blue w-64"
+                    />
+                  </div>
                 </div>
 
-                {payoutSubTab === 'bank' && (
-                  <>
-                    <div className="flex justify-between mb-4">
-                      <h2 className="text-xl font-bold text-white">Bank Transfer List</h2>
-                      <button onClick={exportBankSheet} className="btn-secondary flex items-center gap-2">
-                        <FiDownload /> Export Bank Sheet
-                      </button>
-                    </div>
-                    <table className="w-full text-left text-sm">
-                      <thead className="text-gray-400 border-b border-white/10">
-                        <tr>
-                          <th className="p-3">Employee</th>
-                          <th className="p-3">Bank Details</th>
-                          <th className="p-3 text-right">Net Pay</th>
-                          <th className="p-3 text-right">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {payrollData.filter(p => p.status === 'Approved' && p.payout_method === 'Bank Transfer').map(p => (
-                          <tr key={p.id} className="border-b border-white/5 hover:bg-white/5">
-                            <td className="p-3 font-medium text-white">{p.full_name}</td>
-                            <td className="p-3 text-gray-400 text-xs">{p.bank_account_no} ({p.ifsc_code})</td>
-                            <td className="p-3 text-right font-bold text-white">₹{p.net_pay}</td>
-                            <td className="p-3 text-right">
-                              <button onClick={() => openPaymentModal(p, 'Bank Transfer')} className="btn-primary text-xs px-3 py-1">Mark Paid</button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </>
-                )}
-
-                {payoutSubTab === 'cash' && (
-                  <>
-                    <div className="flex justify-between mb-4">
-                      <h2 className="text-xl font-bold text-white">Cash Payout List</h2>
-                    </div>
-                    <table className="w-full text-left text-sm">
-                      <thead className="text-gray-400 border-b border-white/10">
-                        <tr>
-                          <th className="p-3">Employee</th>
-                          <th className="p-3 text-right">Net Pay</th>
-                          <th className="p-3 text-right">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {payrollData.filter(p => p.status === 'Approved' && p.payout_method === 'Cash').map(p => (
-                          <tr key={p.id} className="border-b border-white/5 hover:bg-white/5">
-                            <td className="p-3 font-medium text-white">{p.full_name}</td>
-                            <td className="p-3 text-right font-bold text-white">₹{p.net_pay}</td>
-                            <td className="p-3 text-right">
-                              <button onClick={() => openPaymentModal(p, 'Cash')} className="btn-primary text-xs px-3 py-1">Mark Paid</button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </>
-                )}
+                <div className="glass-panel overflow-hidden rounded-xl">
+                  <table className="w-full text-left text-sm">
+                    <thead className="text-gray-400 border-b border-white/10 bg-black/20">
+                      <tr>
+                        <th className="p-4">Employee</th>
+                        <th className="p-4 text-right">Net Pay</th>
+                        <th className="p-4 text-right">Outstanding Adv.</th>
+                        <th className="p-4 text-right">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {payrollData
+                        .filter(p => p.status === 'Approved' &&
+                          (searchTerm === '' || p.full_name.toLowerCase().includes(searchTerm.toLowerCase())))
+                        .length === 0 ? (
+                        <tr><td colSpan="4" className="p-8 text-center text-gray-500">No approved records ready for payout.</td></tr>
+                      ) : (
+                        payrollData
+                          .filter(p => p.status === 'Approved' &&
+                            (searchTerm === '' || p.full_name.toLowerCase().includes(searchTerm.toLowerCase())))
+                          .map(p => (
+                            <tr key={p.id} className="border-b border-white/5 hover:bg-white/5">
+                              <td className="p-4">
+                                <div className="font-medium text-white">{p.full_name}</div>
+                                <div className="text-xs text-gray-400">{p.position}</div>
+                              </td>
+                              <td className="p-4 text-right font-bold text-green-400 text-lg">₹{p.net_pay}</td>
+                              <td className={`p-4 text-right ${parseFloat(p.total_outstanding_advances || 0) > 0 ? 'text-red-400 font-medium' : 'text-gray-500'}`}>
+                                ₹{parseFloat(p.total_outstanding_advances || 0).toFixed(0)}
+                              </td>
+                              <td className="p-4 text-right flex justify-end gap-3 items-center">
+                                <button
+                                  onClick={() => openPaymentModal(p, 'Cash')}
+                                  className="btn-primary text-xs px-4 py-2 flex items-center gap-2"
+                                >
+                                  <FiDollarSign /> Mark Paid
+                                </button>
+                                {isOwner && (
+                                  <>
+                                    <button onClick={() => handleRevertPayroll(p.id, 'Pending', p.full_name)} className="text-yellow-400 hover:text-yellow-300 p-2 hover:bg-white/10 rounded" title="Revert to Draft"><FiRotateCcw /></button>
+                                    <button onClick={() => handleDeletePayroll(p.id, p.full_name)} className="text-red-400 hover:text-red-300 p-2 hover:bg-white/10 rounded" title="Delete"><FiTrash2 /></button>
+                                  </>
+                                )}
+                              </td>
+                            </tr>
+                          ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
 
@@ -415,7 +471,15 @@ const Payroll = () => {
                         <td className="p-3 text-gray-400">{new Date(p.payment_date).toLocaleDateString()}</td>
                         <td className="p-3 text-gray-400">{p.payment_mode}</td>
                         <td className="p-3 text-right font-bold text-green-400">₹{p.net_pay}</td>
-                        <td className="p-3 text-center"><span className="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Paid</span></td>
+                        <td className="p-3 text-center">
+                          <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Paid</span>
+                          {isOwner && (
+                            <div className="flex justify-center gap-2 mt-2">
+                              <button onClick={() => handleRevertPayroll(p.id, 'Approved', p.full_name)} className="text-yellow-400 hover:text-yellow-300 text-xs" title="Revert Payment"><FiRotateCcw /> Revert</button>
+                              <button onClick={() => handleDeletePayroll(p.id, p.full_name)} className="text-red-400 hover:text-red-300 text-xs" title="Delete"><FiTrash2 /> Delete</button>
+                            </div>
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -444,6 +508,8 @@ const Payroll = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Paid By</label>
                 <input
+                  id="payment-paid-by"
+                  name="paidBy"
                   type="text"
                   value={paymentData.paidBy}
                   onChange={(e) => setPaymentData({ ...paymentData, paidBy: e.target.value })}
@@ -455,6 +521,8 @@ const Payroll = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Payment Mode</label>
                 <select
+                  id="payment-mode"
+                  name="paymentMode"
                   value={paymentData.mode}
                   onChange={(e) => setPaymentData({ ...paymentData, mode: e.target.value })}
                   className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-zohra-blue"
@@ -471,6 +539,8 @@ const Payroll = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Specify Mode</label>
                   <input
+                    id="payment-custom-mode"
+                    name="customMode"
                     type="text"
                     value={paymentData.customMode}
                     onChange={(e) => setPaymentData({ ...paymentData, customMode: e.target.value })}
@@ -508,6 +578,8 @@ const Payroll = () => {
                 <label className="block text-sm font-medium text-gray-300 mb-1">Days Worked</label>
                 <div className="flex gap-2">
                   <input
+                    id="process-days-worked"
+                    name="daysWorked"
                     type="number"
                     value={processForm.daysWorked}
                     onChange={(e) => setProcessForm({ ...processForm, daysWorked: e.target.value })}
@@ -523,6 +595,8 @@ const Payroll = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">OT Hours</label>
                   <input
+                    id="process-overtime-hours"
+                    name="overtimeHours"
                     type="number"
                     step="0.5"
                     value={processForm.overtimeHours}
@@ -537,6 +611,8 @@ const Payroll = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Rate/Hr</label>
                   <input
+                    id="process-overtime-rate"
+                    name="overtimeRate"
                     type="number"
                     step="0.01"
                     value={processForm.overtimeRate}
@@ -551,6 +627,8 @@ const Payroll = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">OT Amount (₹)</label>
                   <input
+                    id="process-overtime-amount"
+                    name="overtimeAmount"
                     type="number"
                     value={processForm.overtimeAmount}
                     onChange={(e) => setProcessForm({ ...processForm, overtimeAmount: e.target.value })}
@@ -562,6 +640,8 @@ const Payroll = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Extra Days</label>
                   <input
+                    id="process-extra-days"
+                    name="extraDays"
                     type="number"
                     step="0.5"
                     value={processForm.extraDays}
@@ -576,6 +656,8 @@ const Payroll = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Rate/Day</label>
                   <input
+                    id="process-extra-day-rate"
+                    name="extraDayRate"
                     type="number"
                     step="0.01"
                     value={processForm.extraDayRate}
@@ -590,6 +672,8 @@ const Payroll = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Extra Amount (₹)</label>
                   <input
+                    id="process-extra-day-amount"
+                    name="extraDayAmount"
                     type="number"
                     value={processForm.extraDayAmount}
                     onChange={(e) => setProcessForm({ ...processForm, extraDayAmount: e.target.value })}
@@ -602,6 +686,8 @@ const Payroll = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Manual Adjustment (₹)</label>
                   <input
+                    id="process-manual-adjustment"
+                    name="manualAdjustment"
                     type="number"
                     step="0.01"
                     value={processForm.manualAdjustment}
@@ -613,6 +699,8 @@ const Payroll = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Advance Deduction (₹)</label>
                   <input
+                    id="process-advance-deduction"
+                    name="advanceDeduction"
                     type="number"
                     step="0.01"
                     value={processForm.advanceDeduction}
@@ -641,6 +729,76 @@ const Payroll = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete/Revert Confirmation Modal */}
+      {showConfirmModal && confirmAction && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+          <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full border border-white/10">
+            <h3 className="text-xl font-bold text-white mb-4">
+              {confirmAction.type === 'delete' ? 'Delete Payroll Record' : 'Revert Payroll Status'}
+            </h3>
+
+            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded">
+              <p className="text-red-400 text-sm font-medium">⚠️ Warning</p>
+              <p className="text-gray-300 text-sm mt-1">
+                {confirmAction.type === 'delete'
+                  ? 'This will permanently delete the payroll record and reverse all financial transactions.'
+                  : `This will revert the payroll status to ${confirmAction.targetStatus} and reverse associated transactions.`
+                }
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <p className="text-gray-400 text-sm mb-2">
+                <span className="font-medium text-white">Employee:</span> {confirmAction.employeeName}
+              </p>
+              <p className="text-gray-400 text-sm">
+                <span className="font-medium text-white">Action:</span> {confirmAction.type === 'delete' ? 'Delete' : `Revert to ${confirmAction.targetStatus}`}
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Reason (Required) <span className="text-red-400">*</span>
+              </label>
+              <textarea
+                id="confirm-reason"
+                name="reason"
+                value={confirmReason}
+                onChange={(e) => setConfirmReason(e.target.value)}
+                className="w-full bg-gray-700 border border-white/10 rounded p-2 text-white text-sm"
+                rows="3"
+                placeholder="Explain why this action is necessary..."
+                required
+              />
+            </div>
+
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => {
+                  setShowConfirmModal(false);
+                  setConfirmAction(null);
+                  setConfirmReason('');
+                }}
+                className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600"
+                disabled={loading}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={executeConfirmAction}
+                className={`px-4 py-2 rounded text-white ${confirmAction.type === 'delete'
+                  ? 'bg-red-600 hover:bg-red-700'
+                  : 'bg-yellow-600 hover:bg-yellow-700'
+                  }`}
+                disabled={loading || !confirmReason.trim()}
+              >
+                {loading ? 'Processing...' : 'Confirm'}
+              </button>
+            </div>
           </div>
         </div>
       )}

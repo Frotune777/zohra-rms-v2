@@ -12,4 +12,8 @@ router.get('/monthly', controller.getMonthlyPayroll);
 router.post('/approve', controller.approvePayroll);
 router.post('/payout', controller.markPaid);
 
+// Owner-only routes for revert/delete
+router.delete('/:id', checkRole(['owner']), controller.deletePayroll);
+router.post('/revert/:id', checkRole(['owner']), controller.revertPayroll);
+
 module.exports = router;
