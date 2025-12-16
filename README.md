@@ -279,7 +279,7 @@ npm run test:e2e
 
 ## 📝 License
 
-**Copyright © 2024 Al Zohra RMS. All Rights Reserved.**
+**Copyright © 2025 Al Zohra RMS. All Rights Reserved.**
 
 This software is proprietary and confidential. Unauthorized copying, distribution, modification, or use of this software, via any medium, is strictly prohibited without explicit written permission from the copyright holder.
 
@@ -297,5 +297,5 @@ For issues and questions:
 ---
 
 **Version**: 2.1.0  
-**Last Updated**: December 16, 2024  
+**Last Updated**: December 16, 2025  
 **Status**: Production Ready ✅

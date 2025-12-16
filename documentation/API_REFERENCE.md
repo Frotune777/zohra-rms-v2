@@ -568,4 +568,4 @@ All endpoints return errors in the following format:
 
 ---
 
-**Last Updated**: December 16, 2024
+**Last Updated**: December 16, 2025
