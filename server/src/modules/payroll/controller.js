@@ -219,7 +219,7 @@ exports.getMonthlyPayroll = async (req, res) => {
     const { month, year } = req.query;
     try {
         const result = await db.query(
-            `SELECT sh.*, e.full_name, e.position, e.base_salary, e.bank_account_no, e.ifsc_code, e.department, e.employee_code, e.payout_method,
+            `SELECT sh.*, e.full_name, e.position, e.base_salary,
              (SELECT COALESCE(SUM(amount - COALESCE(recovered_amount, 0)), 0) FROM salary_advances sa WHERE sa.employee_id = e.id AND sa.is_recovered = FALSE) as total_outstanding_advances
              FROM salary_history sh
              JOIN employees e ON sh.employee_id = e.id
