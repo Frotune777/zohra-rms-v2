@@ -180,7 +180,7 @@ exports.saveBulkAttendance = async (req, res) => {
 
 exports.getAllAdvances = async (req, res) => {
     const query = `
-        SELECT al.*, e.full_name as employee_name, e.employee_code, e.role, e.department
+        SELECT al.*, e.full_name as employee_name, e.employee_code, e.role
         FROM advance_ledger al
         JOIN employees e ON al.employee_id = e.id
         ORDER BY al.transaction_date DESC
@@ -196,7 +196,7 @@ exports.getAllAdvances = async (req, res) => {
 exports.getEmployeeAdvanceHistory = async (req, res) => {
     const { id } = req.params;
     const query = `
-        SELECT al.*, e.full_name as employee_name, e.employee_code, e.role, e.department
+        SELECT al.*, e.full_name as employee_name, e.employee_code, e.role
         FROM advance_ledger al
         JOIN employees e ON al.employee_id = e.id
         ORDER BY al.transaction_date DESC
@@ -271,7 +271,7 @@ exports.createTransaction = async (req, res) => {
 exports.getAdvanceRequests = async (req, res) => {
     try {
         const query = `
-            SELECT ar.*, ar.requested_amount as amount, e.full_name as employee_name, e.employee_code, e.role, e.department, u.full_name as requester_name
+            SELECT ar.*, ar.requested_amount as amount, e.full_name as employee_name, e.employee_code, e.role, u.full_name as requester_name
             FROM advance_requests ar
             JOIN employees e ON ar.employee_id = e.id
             LEFT JOIN users u ON ar.requested_by = u.id

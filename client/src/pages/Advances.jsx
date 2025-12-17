@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
-import { FiAlertCircle, FiCheckCircle, FiPlus, FiX, FiTrash2, FiArrowUpRight, FiArrowDownLeft } from 'react-icons/fi';
+import { FiAlertCircle, FiCheckCircle, FiPlus, FiX, FiTrash2, FiArrowUpRight, FiArrowDownLeft, FiClock } from 'react-icons/fi';
 
 const Advances = () => {
   const [transactions, setTransactions] = useState([]);

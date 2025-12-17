@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight, FiDownload, FiTrendingUp, FiTrendingDown, FiBarChart2, FiPieChart, FiPlus, FiX, FiTrash2, FiAlertCircle, FiCheckCircle, FiGrid, FiDollarSign } from 'react-icons/fi';
@@ -94,7 +94,7 @@ const Finance = () => {
   const fetchFinanceData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/finance/pnl', {
+      const response = await api.get('/finance/pnl', {
         params: { month: selectedMonth, year: selectedYear }
       });
       setData(response.data);
@@ -122,7 +122,7 @@ const Finance = () => {
         prevYear -= 1;
       }
 
-      const response = await axios.get('http://localhost:5000/api/finance/pnl', {
+      const response = await api.get('/finance/pnl', {
         params: { month: prevMonth, year: prevYear }
       });
       setPreviousData(response.data);
@@ -133,7 +133,7 @@ const Finance = () => {
 
   const fetchYearData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/finance/pnl/yearly', {
+      const response = await api.get('/finance/pnl/yearly', {
         params: { year: selectedYear }
       });
       setYearData(response.data);
@@ -148,7 +148,7 @@ const Finance = () => {
       const startDate = new Date(selectedYear, selectedMonth - 1, 1).toISOString().split('T')[0];
       const endDate = new Date(selectedYear, selectedMonth, 0).toISOString().split('T')[0];
 
-      const response = await axios.get('http://localhost:5000/api/finance/transactions', {
+      const response = await api.get('/finance/transactions', {
         params: { startDate, endDate }
       });
       setTransactions(response.data);
@@ -174,8 +174,8 @@ const Finance = () => {
 
     try {
       const endpoint = transactionType === 'revenue'
-        ? 'http://localhost:5000/api/finance/revenue'
-        : 'http://localhost:5000/api/finance/expense';
+        ? '/finance/revenue'
+        : '/finance/expense';
 
       await api.post(endpoint, {
         description: formData.description,

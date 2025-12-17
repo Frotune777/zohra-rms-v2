@@ -15,6 +15,7 @@ export default function VendorPayments() {
     const [selectedVendor, setSelectedVendor] = useState(null);
     const [vendorDetails, setVendorDetails] = useState(null);
     const [loadingDetails, setLoadingDetails] = useState(false);
+    const [activeFilter, setActiveFilter] = useState(null); // 'outstanding', 'withBalance', 'all', 'paymentsToday'
     const [formData, setFormData] = useState({
         vendorId: '',
         amount: '',
@@ -124,6 +125,25 @@ export default function VendorPayments() {
 
     const totalOutstanding = vendors.reduce((sum, v) => sum + parseFloat(v.outstanding_balance || 0), 0);
     const vendorsWithBalance = vendors.filter(v => parseFloat(v.outstanding_balance) > 0).length;
+    const paymentsToday = payments.filter(p => new Date(p.payment_date).toDateString() === new Date().toDateString()).length;
+
+    // Filter vendors based on active filter
+    const filteredVendors = activeFilter === 'withBalance'
+        ? vendors.filter(v => parseFloat(v.outstanding_balance) > 0)
+        : activeFilter === 'paymentsToday'
+            ? vendors.filter(v => payments.some(p => p.vendor_id === v.vendor_id && new Date(p.payment_date).toDateString() === new Date().toDateString()))
+            : vendors;
+
+    const handleCardClick = (filterType) => {
+        setActiveFilter(activeFilter === filterType ? null : filterType);
+    };
+
+    const getDaysOutstandingColor = (days) => {
+        if (!days || days < 0) return 'text-gray-400';
+        if (days <= 30) return 'text-green-400';
+        if (days <= 60) return 'text-yellow-400';
+        return 'text-red-400';
+    };
 
     if (loading) {
         return (
@@ -159,24 +179,42 @@ export default function VendorPayments() {
 
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                <div className="glass-panel p-4 rounded-lg">
+                <button
+                    onClick={() => handleCardClick('outstanding')}
+                    className={`glass-panel p-4 rounded-lg text-left transition-all hover:scale-105 hover:bg-white/10 cursor-pointer ${activeFilter === 'outstanding' ? 'ring-2 ring-red-400' : ''
+                        }`}
+                >
                     <p className="text-gray-400 text-sm uppercase mb-2">Total Outstanding</p>
                     <p className="text-2xl font-bold text-red-400">₹{totalOutstanding.toLocaleString('en-IN')}</p>
-                </div>
-                <div className="glass-panel p-4 rounded-lg">
+                    {activeFilter === 'outstanding' && <p className="text-xs text-gray-500 mt-1">Click to clear filter</p>}
+                </button>
+                <button
+                    onClick={() => handleCardClick('withBalance')}
+                    className={`glass-panel p-4 rounded-lg text-left transition-all hover:scale-105 hover:bg-white/10 cursor-pointer ${activeFilter === 'withBalance' ? 'ring-2 ring-zohra-blue' : ''
+                        }`}
+                >
                     <p className="text-gray-400 text-sm uppercase mb-2">Vendors with Balance</p>
                     <p className="text-2xl font-bold text-zohra-blue">{vendorsWithBalance}</p>
-                </div>
-                <div className="glass-panel p-4 rounded-lg">
+                    {activeFilter === 'withBalance' && <p className="text-xs text-gray-500 mt-1">Showing {filteredVendors.length} vendors</p>}
+                </button>
+                <button
+                    onClick={() => handleCardClick('all')}
+                    className={`glass-panel p-4 rounded-lg text-left transition-all hover:scale-105 hover:bg-white/10 cursor-pointer ${activeFilter === 'all' ? 'ring-2 ring-white' : ''
+                        }`}
+                >
                     <p className="text-gray-400 text-sm uppercase mb-2">Total Vendors</p>
                     <p className="text-2xl font-bold text-white">{vendors.length}</p>
-                </div>
-                <div className="glass-panel p-4 rounded-lg">
+                    {activeFilter === 'all' && <p className="text-xs text-gray-500 mt-1">Showing all vendors</p>}
+                </button>
+                <button
+                    onClick={() => handleCardClick('paymentsToday')}
+                    className={`glass-panel p-4 rounded-lg text-left transition-all hover:scale-105 hover:bg-white/10 cursor-pointer ${activeFilter === 'paymentsToday' ? 'ring-2 ring-green-400' : ''
+                        }`}
+                >
                     <p className="text-gray-400 text-sm uppercase mb-2">Payments Today</p>
-                    <p className="text-2xl font-bold text-green-400">
-                        {payments.filter(p => new Date(p.payment_date).toDateString() === new Date().toDateString()).length}
-                    </p>
-                </div>
+                    <p className="text-2xl font-bold text-green-400">{paymentsToday}</p>
+                    {activeFilter === 'paymentsToday' && <p className="text-xs text-gray-500 mt-1">Showing {filteredVendors.length} vendors</p>}
+                </button>
             </div>
 
             {/* Vendors Table */}
@@ -192,13 +230,14 @@ export default function VendorPayments() {
                                 <th className="p-4 font-semibold">Type</th>
                                 <th className="p-4 font-semibold">Category</th>
                                 <th className="p-4 font-semibold">Outstanding</th>
-                                <th className="p-4 font-semibold">Bills</th>
-                                <th className="p-4 font-semibold">Payments</th>
+                                <th className="p-4 font-semibold">Last Bill</th>
+                                <th className="p-4 font-semibold">Last Payment</th>
+                                <th className="p-4 font-semibold">Days Out</th>
                                 <th className="p-4 font-semibold">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {vendors.map((vendor) => (
+                            {filteredVendors.map((vendor) => (
                                 <tr key={vendor.vendor_id} className="border-b border-white/5 hover:bg-white/5 transition">
                                     <td className="p-4 font-semibold">{vendor.vendor_name}</td>
                                     <td className="p-4 text-sm text-gray-300">{vendor.vendor_type}</td>
@@ -206,8 +245,15 @@ export default function VendorPayments() {
                                     <td className={`p-4 font-bold ${parseFloat(vendor.outstanding_balance) > 0 ? 'text-red-400' : 'text-green-400'}`}>
                                         ₹{parseFloat(vendor.outstanding_balance).toLocaleString('en-IN')}
                                     </td>
-                                    <td className="p-4 text-sm">{vendor.total_bills || 0}</td>
-                                    <td className="p-4 text-sm text-green-400">{vendor.total_payments || 0}</td>
+                                    <td className="p-4 text-xs text-gray-400">
+                                        {vendor.oldest_bill_date ? new Date(vendor.oldest_bill_date).toLocaleDateString('en-IN') : '-'}
+                                    </td>
+                                    <td className="p-4 text-xs text-gray-400">
+                                        {vendor.last_payment_date ? new Date(vendor.last_payment_date).toLocaleDateString('en-IN') : '-'}
+                                    </td>
+                                    <td className={`p-4 text-sm font-semibold ${getDaysOutstandingColor(vendor.days_outstanding)}`}>
+                                        {vendor.days_outstanding !== null && vendor.days_outstanding >= 0 ? `${vendor.days_outstanding}d` : '-'}
+                                    </td>
                                     <td className="p-4">
                                         {parseFloat(vendor.outstanding_balance) > 0 && (
                                             <button

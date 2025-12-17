@@ -99,21 +99,15 @@ exports.processPayment = async (req, res) => {
             VALUES ($1, $2, 0, $3)
         `, [jeId, creditAccount, parseFloat(amount)]);
 
-        await client.query(`
-            INSERT INTO ledger_lines (journal_entry_id, account_code, debit, credit)
-            VALUES ($1, $2, 0, $3)
-        `, [jeId, creditAccount, parseFloat(amount)]);
-
         // 10. Single Source of Truth: Sync with Daily Tracker (Transactions Table)
         // Ensure this payment appears in the Daily Tracker as an outflow.
         await client.query(`
             INSERT INTO transactions 
-            (date, type, description, amount, status, payment_method, mode, vendor_id, paid_by, category_id)
-            VALUES (CURRENT_DATE, 'Payment', $1, $2, 'Paid', $3, $4, $5, $6, NULL)
+            (date, type, description, amount, status, payment_method, vendor_id, paid_by, category_id)
+            VALUES (CURRENT_DATE, 'Expense', $1, $2, 'Paid', $3, $4, $5, NULL)
         `, [
             `Vendor Payment to ${vendor.name} (${notes})`,
             parseFloat(amount),
-            paymentMode,
             paymentMode === 'Cash' ? 'Cash' : 'Bank',
             vendorId,
             paidBy

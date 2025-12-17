@@ -294,9 +294,16 @@ class InventoryService {
             );
             const billEntry = result.rows[0];
 
+            // Update Inventory Stock if item exists
+            const itemRes = await client.query('SELECT id FROM inventory_items WHERE LOWER(name) = LOWER($1)', [item_name]);
+            if (itemRes.rows.length > 0) {
+                const itemId = itemRes.rows[0].id;
+                await this.adjustStock(itemId, parseFloat(qty), 'PURCHASE', `Bill Entry #${billEntry.id}`, userId, client);
+            }
+
             const billAmount = parseFloat(qty) * parseFloat(vendor_rate);
             await client.query(
-                `INSERT INTO vendor_ledger (date, supplier_id, transaction_type, amount, details, created_by_user_id)
+                `INSERT INTO vendor_ledger (date, supplier_id, transaction_type, amount, details, created_by)
                  VALUES ($1, $2, 'Bill', $3, $4, $5)`,
                 [date, supplier_id, billAmount, `Bill for ${item_name} (${qty} x ${vendor_rate})`, userId]
             );
