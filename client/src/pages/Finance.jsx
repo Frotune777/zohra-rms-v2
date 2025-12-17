@@ -5,20 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight, FiDownload, FiTrendingUp, FiTrendingDown, FiBarChart2, FiPieChart, FiPlus, FiX, FiTrash2, FiAlertCircle, FiCheckCircle, FiGrid, FiDollarSign } from 'react-icons/fi';
 
 const FinanceCard = ({ title, value, color, change, trend, suffix = '' }) => (
-  <div className="glass-panel p-6 rounded-xl relative overflow-hidden group hover:bg-white/5 transition">
-    <div className="flex justify-between items-start mb-2">
-      <h3 className="text-gray-400 text-sm uppercase font-semibold">{title}</h3>
+  <div className="glass-panel p-3 md:p-4 lg:p-6 rounded-xl relative overflow-hidden group hover:bg-white/5 transition">
+    <div className="flex justify-between items-start mb-1 md:mb-2">
+      <h3 className="text-gray-400 text-xs md:text-sm uppercase font-semibold">{title}</h3>
       {trend !== undefined && (
-        trend >= 0 ? <FiTrendingUp className="text-green-400 group-hover:scale-110 transition" /> : <FiTrendingDown className="text-red-400 group-hover:scale-110 transition" />
+        trend >= 0 ? <FiTrendingUp className="text-green-400 group-hover:scale-110 transition text-sm md:text-base" /> : <FiTrendingDown className="text-red-400 group-hover:scale-110 transition text-sm md:text-base" />
       )}
     </div>
-    <p className={`text-3xl font-bold mt-2 ${color}`}>
+    <p className={`text-xl md:text-2xl lg:text-3xl font-bold mt-1 md:mt-2 ${color}`}>
       {value !== undefined ? (suffix === '%' ? value.toFixed(1) : `₹${value.toFixed(2)}`) : '-'}
       {suffix}
     </p>
     {change !== undefined && (
-      <p className={`text-xs mt-2 ${trend >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-        {trend >= 0 ? '↑' : '↓'} {Math.abs(change).toFixed(2)}% from last period
+      <p className={`text-xs mt-1 md:mt-2 ${trend >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+        {trend >= 0 ? '↑' : '↓'} {Math.abs(change).toFixed(2)}% from last
       </p>
     )}
   </div>
@@ -264,26 +264,26 @@ const Finance = () => {
   const previousMonthName = new Date(prevYear, prevMonthIndex).toLocaleDateString('en-IN', { month: 'short' });
 
   return (
-    <div className="p-8 h-full w-full overflow-auto flex flex-col bg-gradient-to-br from-midnight to-midnight/95">
+    <div className="p-4 md:p-6 lg:p-8 h-full w-full overflow-auto flex flex-col bg-gradient-to-br from-midnight to-midnight/95">
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 md:mb-6">
         <div>
-          <h2 className="text-3xl font-bold text-zohra-blue mb-2">Financial Dashboard</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-zohra-blue mb-1">Financial Dashboard</h2>
           <p className="text-xs text-gray-400">Complete financial overview and KPIs</p>
         </div>
 
         {/* Controls */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 glass-panel p-2 rounded-lg">
+        <div className="flex flex-wrap items-center gap-2 md:gap-3 w-full sm:w-auto">
+          <div className="flex gap-1 glass-panel p-1 rounded-lg">
             <button
               onClick={() => setViewMode('monthly')}
-              className={`px-4 py-2 rounded transition text-sm font-medium ${viewMode === 'monthly' ? 'bg-zohra-blue text-white' : 'text-gray-400 hover:text-white'}`}
+              className={`px-3 py-1.5 rounded transition text-xs md:text-sm font-medium ${viewMode === 'monthly' ? 'bg-zohra-blue text-white' : 'text-gray-400 hover:text-white'}`}
             >
               Monthly
             </button>
             <button
               onClick={() => setViewMode('yearly')}
-              className={`px-4 py-2 rounded transition text-sm font-medium ${viewMode === 'yearly' ? 'bg-zohra-blue text-white' : 'text-gray-400 hover:text-white'}`}
+              className={`px-3 py-1.5 rounded transition text-xs md:text-sm font-medium ${viewMode === 'yearly' ? 'bg-zohra-blue text-white' : 'text-gray-400 hover:text-white'}`}
             >
               Yearly
             </button>
@@ -291,35 +291,35 @@ const Finance = () => {
 
           <button
             onClick={handleExport}
-            className="flex items-center gap-2 btn-primary"
+            className="flex items-center gap-1 btn-primary"
             title="Export to CSV"
           >
-            <FiDownload size={16} />
-            Export
+            <FiDownload size={14} />
+            <span className="hidden sm:inline">Export</span>
           </button>
 
           {/* Quick Links */}
           <div className="flex gap-2">
             <button
               onClick={() => navigate('/finance/daily-tracker')}
-              className="flex items-center gap-2 bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg font-medium transition"
+              className="flex items-center gap-1 bg-purple-600 hover:bg-purple-500 text-white px-2 md:px-3 py-1.5 rounded-lg font-medium transition text-xs md:text-sm"
             >
-              <FiGrid size={16} />
-              Tracker
+              <FiGrid size={14} />
+              <span className="hidden sm:inline">Tracker</span>
             </button>
             <button
               onClick={() => navigate('/finance/float')}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg font-medium transition"
+              className="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white px-2 md:px-3 py-1.5 rounded-lg font-medium transition text-xs md:text-sm"
             >
-              <FiDollarSign size={16} />
-              Float
+              <FiDollarSign size={14} />
+              <span className="hidden sm:inline">Float</span>
             </button>
           </div>
         </div>
       </div>
 
       {/* Month/Year Navigation */}
-      <div className="glass-panel p-4 rounded-lg mb-8 flex items-center justify-between">
+      <div className="glass-panel p-3 md:p-4 rounded-lg mb-4 md:mb-6 flex items-center justify-between">
         <button
           onClick={() => handleMonthChange(-1)}
           className="p-2 hover:bg-white/10 rounded transition"
@@ -328,7 +328,7 @@ const Finance = () => {
         </button>
 
         <div className="text-center">
-          <p className="text-xl font-bold text-zohra-blue">{monthName}</p>
+          <p className="text-lg md:text-xl font-bold text-zohra-blue">{monthName}</p>
           <p className="text-xs text-gray-400">Period {selectedMonth}/{selectedYear}</p>
         </div>
 
@@ -346,7 +346,7 @@ const Finance = () => {
       </div>
 
       {/* Key Metrics & KPIs */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-6">
         <FinanceCard
           title="Revenue"
           value={data.revenue}
@@ -379,12 +379,12 @@ const Finance = () => {
       </div>
 
       {/* Main Report Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 overflow-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6 flex-1 overflow-auto">
         {/* P&L Statement */}
-        <div className="lg:col-span-2 glass-panel p-6 rounded-xl">
-          <h3 className="text-lg font-bold mb-6 text-white flex items-center gap-2">
-            <FiBarChart2 size={20} className="text-zohra-blue" />
-            Profit & Loss Statement
+        <div className="lg:col-span-2 glass-panel p-4 md:p-6 rounded-xl">
+          <h3 className="text-base md:text-lg font-bold mb-4 md:mb-6 text-white flex items-center gap-2">
+            <FiBarChart2 size={18} className="text-zohra-blue" />
+            P&L Statement
           </h3>
 
           <div className="space-y-4">
