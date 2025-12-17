@@ -154,111 +154,113 @@ export default function VendorPayments() {
     }
 
     return (
-        <div className="p-8 h-full w-full flex flex-col overflow-hidden bg-gradient-to-br from-midnight to-midnight/95">
+        <div className="p-4 md:p-6 lg:p-8 h-full w-full flex flex-col overflow-hidden bg-gradient-to-br from-midnight to-midnight/95">
             {/* Header */}
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 md:mb-6">
                 <div>
-                    <h2 className="text-3xl font-bold text-zohra-blue mb-2">Vendor Payments</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold text-zohra-blue mb-1">Vendor Payments</h2>
                     <p className="text-xs text-gray-400">Manage vendor payments and track outstanding balances</p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                     <button
                         onClick={() => navigate('/chicken/vendors')}
-                        className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition"
+                        className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition text-sm flex-1 sm:flex-none justify-center"
                     >
-                        <FiUsers /> Manage Vendors
+                        <FiUsers size={16} /> Vendors
                     </button>
                     <button
                         onClick={() => setShowPaymentModal(true)}
-                        className="flex items-center gap-2 btn-primary"
+                        className="flex items-center gap-2 btn-primary flex-1 sm:flex-none justify-center"
                     >
-                        <FiPlus /> Process Payment
+                        <FiPlus size={16} /> Payment
                     </button>
                 </div>
             </div>
 
             {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-6">
                 <button
                     onClick={() => handleCardClick('outstanding')}
-                    className={`glass-panel p-4 rounded-lg text-left transition-all hover:scale-105 hover:bg-white/10 cursor-pointer ${activeFilter === 'outstanding' ? 'ring-2 ring-red-400' : ''
+                    className={`glass-panel p-3 md:p-4 rounded-lg text-left transition-all hover:scale-105 hover:bg-white/10 cursor-pointer ${activeFilter === 'outstanding' ? 'ring-2 ring-red-400' : ''
                         }`}
                 >
-                    <p className="text-gray-400 text-sm uppercase mb-2">Total Outstanding</p>
-                    <p className="text-2xl font-bold text-red-400">₹{totalOutstanding.toLocaleString('en-IN')}</p>
-                    {activeFilter === 'outstanding' && <p className="text-xs text-gray-500 mt-1">Click to clear filter</p>}
+                    <p className="text-gray-400 text-xs uppercase mb-1">Outstanding</p>
+                    <p className="text-xl md:text-2xl font-bold text-red-400">₹{totalOutstanding.toLocaleString('en-IN')}</p>
+                    {activeFilter === 'outstanding' && <p className="text-xs text-gray-500 mt-1">Tap to clear</p>}
                 </button>
                 <button
                     onClick={() => handleCardClick('withBalance')}
-                    className={`glass-panel p-4 rounded-lg text-left transition-all hover:scale-105 hover:bg-white/10 cursor-pointer ${activeFilter === 'withBalance' ? 'ring-2 ring-zohra-blue' : ''
+                    className={`glass-panel p-3 md:p-4 rounded-lg text-left transition-all hover:scale-105 hover:bg-white/10 cursor-pointer ${activeFilter === 'withBalance' ? 'ring-2 ring-zohra-blue' : ''
                         }`}
                 >
-                    <p className="text-gray-400 text-sm uppercase mb-2">Vendors with Balance</p>
-                    <p className="text-2xl font-bold text-zohra-blue">{vendorsWithBalance}</p>
-                    {activeFilter === 'withBalance' && <p className="text-xs text-gray-500 mt-1">Showing {filteredVendors.length} vendors</p>}
+                    <p className="text-gray-400 text-xs uppercase mb-1">With Balance</p>
+                    <p className="text-xl md:text-2xl font-bold text-zohra-blue">{vendorsWithBalance}</p>
+                    {activeFilter === 'withBalance' && <p className="text-xs text-gray-500 mt-1">{filteredVendors.length} shown</p>}
                 </button>
                 <button
                     onClick={() => handleCardClick('all')}
-                    className={`glass-panel p-4 rounded-lg text-left transition-all hover:scale-105 hover:bg-white/10 cursor-pointer ${activeFilter === 'all' ? 'ring-2 ring-white' : ''
+                    className={`glass-panel p-3 md:p-4 rounded-lg text-left transition-all hover:scale-105 hover:bg-white/10 cursor-pointer ${activeFilter === 'all' ? 'ring-2 ring-white' : ''
                         }`}
                 >
-                    <p className="text-gray-400 text-sm uppercase mb-2">Total Vendors</p>
-                    <p className="text-2xl font-bold text-white">{vendors.length}</p>
-                    {activeFilter === 'all' && <p className="text-xs text-gray-500 mt-1">Showing all vendors</p>}
+                    <p className="text-gray-400 text-xs uppercase mb-1">Total</p>
+                    <p className="text-xl md:text-2xl font-bold text-white">{vendors.length}</p>
+                    {activeFilter === 'all' && <p className="text-xs text-gray-500 mt-1">All vendors</p>}
                 </button>
                 <button
                     onClick={() => handleCardClick('paymentsToday')}
-                    className={`glass-panel p-4 rounded-lg text-left transition-all hover:scale-105 hover:bg-white/10 cursor-pointer ${activeFilter === 'paymentsToday' ? 'ring-2 ring-green-400' : ''
+                    className={`glass-panel p-3 md:p-4 rounded-lg text-left transition-all hover:scale-105 hover:bg-white/10 cursor-pointer ${activeFilter === 'paymentsToday' ? 'ring-2 ring-green-400' : ''
                         }`}
                 >
-                    <p className="text-gray-400 text-sm uppercase mb-2">Payments Today</p>
-                    <p className="text-2xl font-bold text-green-400">{paymentsToday}</p>
-                    {activeFilter === 'paymentsToday' && <p className="text-xs text-gray-500 mt-1">Showing {filteredVendors.length} vendors</p>}
+                    <p className="text-gray-400 text-xs uppercase mb-1">Today</p>
+                    <p className="text-xl md:text-2xl font-bold text-green-400">{paymentsToday}</p>
+                    {activeFilter === 'paymentsToday' && <p className="text-xs text-gray-500 mt-1">{filteredVendors.length} shown</p>}
                 </button>
             </div>
 
             {/* Vendors Table */}
-            <div className="glass-panel rounded-xl overflow-hidden flex-1 flex flex-col mb-6">
-                <div className="p-4 border-b border-white/10">
+            <div className="glass-panel rounded-xl overflow-hidden flex-1 flex flex-col">
+                <div className="p-3 md:p-4 border-b border-white/10">
                     <h3 className="text-lg font-bold text-white">Vendor Outstanding Balances</h3>
                 </div>
                 <div className="overflow-auto flex-1">
-                    <table className="w-full text-left border-collapse">
+                    <table className="w-full text-left border-collapse text-sm">
                         <thead className="bg-white/5 text-gray-400 border-b border-white/10 sticky top-0">
                             <tr>
-                                <th className="p-4 font-semibold">Vendor</th>
-                                <th className="p-4 font-semibold">Type</th>
-                                <th className="p-4 font-semibold">Category</th>
-                                <th className="p-4 font-semibold">Outstanding</th>
-                                <th className="p-4 font-semibold">Last Bill</th>
-                                <th className="p-4 font-semibold">Last Payment</th>
-                                <th className="p-4 font-semibold">Days Out</th>
-                                <th className="p-4 font-semibold">Actions</th>
+                                <th className="p-2 md:p-3 font-semibold text-xs md:text-sm">Vendor</th>
+                                <th className="p-2 md:p-3 font-semibold text-xs md:text-sm hidden sm:table-cell">Type</th>
+                                <th className="p-2 md:p-3 font-semibold text-xs md:text-sm hidden md:table-cell">Category</th>
+                                <th className="p-2 md:p-3 font-semibold text-xs md:text-sm">Outstanding</th>
+                                <th className="p-2 md:p-3 font-semibold text-xs md:text-sm hidden lg:table-cell">Last Bill</th>
+                                <th className="p-2 md:p-3 font-semibold text-xs md:text-sm hidden lg:table-cell">Last Payment</th>
+                                <th className="p-2 md:p-3 font-semibold text-xs md:text-sm hidden md:table-cell">Days</th>
+                                <th className="p-2 md:p-3 font-semibold text-xs md:text-sm">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredVendors.map((vendor) => (
                                 <tr key={vendor.vendor_id} className="border-b border-white/5 hover:bg-white/5 transition">
-                                    <td className="p-4 font-semibold">{vendor.vendor_name}</td>
-                                    <td className="p-4 text-sm text-gray-300">{vendor.vendor_type}</td>
-                                    <td className="p-4 text-sm text-gray-300">{vendor.category_name || '-'}</td>
-                                    <td className={`p-4 font-bold ${parseFloat(vendor.outstanding_balance) > 0 ? 'text-red-400' : 'text-green-400'}`}>
+                                    <td className="p-2 md:p-3 font-semibold text-xs md:text-sm">{vendor.vendor_name}</td>
+                                    <td className="p-2 md:p-3 text-xs text-gray-300 hidden sm:table-cell">{vendor.vendor_type}</td>
+                                    <td className="p-2 md:p-3 text-xs text-gray-300 hidden md:table-cell">{vendor.category_name || '-'}</td>
+                                    <td className={`p-2 md:p-3 font-bold text-xs md:text-sm ${parseFloat(vendor.outstanding_balance) > 0 ? 'text-red-400' : 'text-green-400'
+                                        }`}>
                                         ₹{parseFloat(vendor.outstanding_balance).toLocaleString('en-IN')}
                                     </td>
-                                    <td className="p-4 text-xs text-gray-400">
+                                    <td className="p-2 md:p-3 text-xs text-gray-400 hidden lg:table-cell">
                                         {vendor.oldest_bill_date ? new Date(vendor.oldest_bill_date).toLocaleDateString('en-IN') : '-'}
                                     </td>
-                                    <td className="p-4 text-xs text-gray-400">
+                                    <td className="p-2 md:p-3 text-xs text-gray-400 hidden lg:table-cell">
                                         {vendor.last_payment_date ? new Date(vendor.last_payment_date).toLocaleDateString('en-IN') : '-'}
                                     </td>
-                                    <td className={`p-4 text-sm font-semibold ${getDaysOutstandingColor(vendor.days_outstanding)}`}>
+                                    <td className={`p-2 md:p-3 text-xs md:text-sm font-semibold hidden md:table-cell ${getDaysOutstandingColor(vendor.days_outstanding)
+                                        }`}>
                                         {vendor.days_outstanding !== null && vendor.days_outstanding >= 0 ? `${vendor.days_outstanding}d` : '-'}
                                     </td>
-                                    <td className="p-4">
+                                    <td className="p-2 md:p-3">
                                         {parseFloat(vendor.outstanding_balance) > 0 && (
                                             <button
                                                 onClick={() => openPaymentModal(vendor)}
-                                                className="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm transition"
+                                                className="px-2 md:px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-xs md:text-sm transition min-touch"
                                             >
                                                 Pay
                                             </button>
@@ -274,8 +276,8 @@ export default function VendorPayments() {
             {/* Payment Modal */}
             {
                 showPaymentModal && (
-                    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-                        <div className="glass-panel p-4 rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-2 md:p-4">
+                        <div className="glass-panel p-4 md:p-6 rounded-xl w-full max-w-2xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto">
                             <div className="flex justify-between items-center mb-3">
                                 <h3 className="text-xl font-bold">Process Vendor Payment</h3>
                                 <button onClick={() => setShowPaymentModal(false)} className="text-gray-400 hover:text-white">

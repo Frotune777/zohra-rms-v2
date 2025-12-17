@@ -4,17 +4,17 @@
 
 @layer components {
   .glass-panel { @apply bg-glass backdrop-blur-md border border-white/10 rounded-xl shadow-xl; }
-  .btn-primary { @apply px-4 py-2 rounded-lg bg-zohra-blue text-white font-bold hover:bg-blue-600 transition; }
-  .btn-secondary { @apply px-4 py-2 rounded-lg bg-white/10 text-white font-bold hover:bg-white/20 transition; }
+  .btn-primary { @apply px-3 py-2 rounded-lg bg-zohra-blue text-white font-semibold hover:bg-blue-600 transition text-sm; }
+  .btn-secondary { @apply px-3 py-2 rounded-lg bg-white/10 text-white font-semibold hover:bg-white/20 transition text-sm; }
   
   /* Reports Styles */
   .reports-dashboard {
-    @apply p-6 overflow-y-auto h-full;
+    @apply p-4 md:p-6 overflow-y-auto h-full;
   }
   
   .reports-hero {
-    @apply mb-8 p-8 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-2xl;
-    @apply flex flex-col md:flex-row justify-between items-start md:items-center gap-6;
+    @apply mb-6 p-6 md:p-8 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-2xl;
+    @apply flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-6;
   }
   
   .hero-content {
@@ -22,28 +22,28 @@
   }
   
   .hero-title {
-    @apply text-3xl md:text-4xl font-bold mb-2 flex items-center;
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold mb-2 flex items-center;
   }
   
   .hero-description {
-    @apply text-blue-100 text-lg;
+    @apply text-blue-100 text-sm md:text-base lg:text-lg;
   }
   
   .kpi-grid {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8;
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8;
   }
   
   .stats-card {
-    @apply glass-panel p-6 rounded-xl hover:shadow-2xl transition-all duration-300 hover:scale-105;
+    @apply glass-panel p-4 md:p-6 rounded-xl hover:shadow-2xl transition-all duration-300 hover:scale-105;
     background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
   }
   
   .stats-card-header {
-    @apply flex items-center justify-between mb-4;
+    @apply flex items-center justify-between mb-3 md:mb-4;
   }
   
   .stats-card-title {
-    @apply text-gray-400 text-sm font-semibold flex items-center gap-2;
+    @apply text-gray-400 text-xs md:text-sm font-semibold flex items-center gap-2;
   }
   
   .stats-icon {
@@ -55,15 +55,15 @@
   }
   
   .stats-value {
-    @apply text-3xl font-bold text-white;
+    @apply text-2xl md:text-3xl font-bold text-white;
   }
   
   .stats-change {
-    @apply flex items-center text-sm font-semibold;
+    @apply flex items-center text-xs md:text-sm font-semibold;
   }
   
   .stats-sparkline {
-    @apply mt-4 text-blue-400 opacity-50;
+    @apply mt-3 md:mt-4 text-blue-400 opacity-50;
   }
   
   .sparkline-svg {
@@ -71,48 +71,48 @@
   }
   
   .report-sections {
-    @apply mb-8;
+    @apply mb-6 md:mb-8;
   }
   
   .section-title {
-    @apply text-2xl font-bold mb-6 text-white flex items-center;
+    @apply text-xl md:text-2xl font-bold mb-4 md:mb-6 text-white flex items-center;
   }
   
   .report-cards-grid {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6;
   }
   
   .report-card {
-    @apply glass-panel p-6 rounded-xl cursor-pointer transition-all duration-300;
+    @apply glass-panel p-4 md:p-6 rounded-xl cursor-pointer transition-all duration-300;
     @apply hover:shadow-2xl hover:scale-105 hover:border-blue-500/50;
   }
   
   .report-card-icon {
-    @apply w-16 h-16 rounded-xl flex items-center justify-center mb-4 text-white;
+    @apply w-12 h-12 md:w-16 md:h-16 rounded-xl flex items-center justify-center mb-3 md:mb-4 text-white;
   }
   
   .report-card-title {
-    @apply text-xl font-bold mb-2 text-white;
+    @apply text-lg md:text-xl font-bold mb-2 text-white;
   }
   
   .report-card-description {
-    @apply text-gray-400 text-sm mb-4;
+    @apply text-gray-400 text-xs md:text-sm mb-3 md:mb-4;
   }
   
   .report-card-btn {
-    @apply text-blue-400 font-semibold hover:text-blue-300 transition;
+    @apply text-blue-400 font-semibold hover:text-blue-300 transition text-sm;
   }
   
   .alerts-section {
-    @apply glass-panel p-6 rounded-xl;
+    @apply glass-panel p-4 md:p-6 rounded-xl;
   }
   
   .alerts-grid {
-    @apply space-y-3;
+    @apply space-y-2 md:space-y-3;
   }
   
   .alert {
-    @apply flex items-center gap-4 p-4 rounded-lg;
+    @apply flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-lg text-sm;
   }
   
   .alert-warning {
@@ -124,15 +124,15 @@
   }
   
   .alert-icon {
-    @apply text-2xl;
+    @apply text-xl md:text-2xl;
   }
   
   .report-layout {
-    @apply p-6 overflow-y-auto h-full;
+    @apply p-4 md:p-6 overflow-y-auto h-full;
   }
   
   .report-header {
-    @apply mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4;
+    @apply mb-6 md:mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 md:gap-4;
   }
   
   .report-title-section {
@@ -140,39 +140,39 @@
   }
   
   .report-title {
-    @apply text-3xl font-bold text-white mb-2;
+    @apply text-2xl md:text-3xl font-bold text-white mb-2;
   }
   
   .report-description {
-    @apply text-gray-400;
+    @apply text-gray-400 text-sm md:text-base;
   }
   
   .report-controls {
-    @apply flex flex-wrap gap-4;
+    @apply flex flex-wrap gap-2 md:gap-4;
   }
   
   .report-content {
-    @apply space-y-6;
+    @apply space-y-4 md:space-y-6;
   }
   
   .report-chart-card {
-    @apply glass-panel p-6 rounded-xl;
+    @apply glass-panel p-4 md:p-6 rounded-xl;
   }
   
   .chart-title {
-    @apply text-xl font-bold text-white mb-6;
+    @apply text-lg md:text-xl font-bold text-white mb-4 md:mb-6;
   }
   
   .report-table-card {
-    @apply glass-panel p-6 rounded-xl;
+    @apply glass-panel p-4 md:p-6 rounded-xl overflow-x-auto;
   }
   
   .table-title {
-    @apply text-xl font-bold text-white mb-4;
+    @apply text-lg md:text-xl font-bold text-white mb-3 md:mb-4;
   }
   
   .report-table {
-    @apply w-full text-left;
+    @apply w-full text-left text-sm;
   }
   
   .report-table thead {
@@ -180,11 +180,11 @@
   }
   
   .report-table th {
-    @apply px-4 py-3 text-sm font-semibold text-gray-400 uppercase tracking-wider;
+    @apply px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm font-semibold text-gray-400 uppercase tracking-wider;
   }
   
   .report-table td {
-    @apply px-4 py-4 text-white;
+    @apply px-3 md:px-4 py-3 md:py-4 text-white text-sm;
   }
   
   .report-table tbody tr {
@@ -192,7 +192,7 @@
   }
   
   .date-range-picker {
-    @apply space-y-4;
+    @apply space-y-3 md:space-y-4;
   }
   
   .preset-buttons {
@@ -200,7 +200,7 @@
   }
   
   .preset-btn {
-    @apply px-4 py-2 rounded-lg bg-white/10 text-white text-sm font-semibold;
+    @apply px-3 py-2 rounded-lg bg-white/10 text-white text-xs md:text-sm font-semibold;
     @apply hover:bg-white/20 transition border border-white/10;
   }
   
@@ -209,7 +209,7 @@
   }
   
   .custom-date-inputs {
-    @apply flex gap-4 p-4 glass-panel rounded-lg;
+    @apply flex flex-col sm:flex-row gap-3 md:gap-4 p-3 md:p-4 glass-panel rounded-lg;
   }
   
   .date-input-group {
@@ -217,11 +217,11 @@
   }
   
   .date-input-group label {
-    @apply block text-sm font-semibold text-gray-400 mb-2;
+    @apply block text-xs md:text-sm font-semibold text-gray-400 mb-2;
   }
   
   .date-input {
-    @apply w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white;
+    @apply w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm;
     @apply focus:outline-none focus:border-blue-500 transition;
   }
   
@@ -230,7 +230,7 @@
   }
   
   .export-btn {
-    @apply px-4 py-2 rounded-lg bg-green-600 text-white font-semibold;
+    @apply px-3 md:px-4 py-2 rounded-lg bg-green-600 text-white font-semibold text-sm;
     @apply hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed;
   }
   
@@ -240,12 +240,12 @@
   }
   
   .export-menu-item {
-    @apply w-full px-4 py-3 text-left text-white hover:bg-white/10 transition;
+    @apply w-full px-4 py-3 text-left text-white hover:bg-white/10 transition text-sm;
     @apply flex items-center border-b border-white/5 last:border-b-0;
   }
   
   .report-card-info {
-    @apply glass-panel p-6 rounded-xl;
+    @apply glass-panel p-4 md:p-6 rounded-xl;
   }
   
   .info-card {
@@ -253,12 +253,31 @@
   }
   
   .info-label {
-    @apply text-gray-400 text-sm mb-2;
+    @apply text-gray-400 text-xs md:text-sm mb-2;
   }
   
   .info-value {
-    @apply text-2xl font-bold text-white;
+    @apply text-xl md:text-2xl font-bold text-white;
   }
+}
+
+@layer utilities {
+  /* Compact spacing utilities */
+  .p-compact { @apply p-3 md:p-4 lg:p-6; }
+  .px-compact { @apply px-3 md:px-4 lg:px-6; }
+  .py-compact { @apply py-3 md:py-4 lg:py-6; }
+  .gap-compact { @apply gap-3 md:gap-4 lg:gap-6; }
+  
+  /* Touch-friendly minimum sizes */
+  .min-touch { @apply min-h-[44px] min-w-[44px]; }
+  
+  /* Responsive text sizes */
+  .text-responsive-xs { @apply text-xs md:text-sm; }
+  .text-responsive-sm { @apply text-sm md:text-base; }
+  .text-responsive-base { @apply text-base md:text-lg; }
+  .text-responsive-lg { @apply text-lg md:text-xl; }
+  .text-responsive-xl { @apply text-xl md:text-2xl lg:text-3xl; }
+  .text-responsive-2xl { @apply text-2xl md:text-3xl lg:text-4xl; }
 }
 
 html, body, #root { @apply h-full w-full; }
