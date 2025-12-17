@@ -277,27 +277,27 @@ export default function VendorPayments() {
             {
                 showPaymentModal && (
                     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-2 md:p-4">
-                        <div className="glass-panel p-4 md:p-6 rounded-xl w-full max-w-2xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto">
-                            <div className="flex justify-between items-center mb-3">
-                                <h3 className="text-xl font-bold">Process Vendor Payment</h3>
+                        <div className="glass-panel p-3 md:p-4 rounded-xl w-full max-w-xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto">
+                            <div className="flex justify-between items-center mb-2 md:mb-3">
+                                <h3 className="text-lg md:text-xl font-bold">Process Payment</h3>
                                 <button onClick={() => setShowPaymentModal(false)} className="text-gray-400 hover:text-white">
-                                    <FiX size={24} />
+                                    <FiX size={20} />
                                 </button>
                             </div>
 
                             {loadingDetails && (
-                                <div className="mb-4 p-4 bg-white/5 rounded-lg flex items-center justify-center">
-                                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mr-3"></div>
-                                    <span className="text-gray-400">Loading vendor details...</span>
+                                <div className="mb-3 p-3 bg-white/5 rounded-lg flex items-center justify-center">
+                                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600 mr-2"></div>
+                                    <span className="text-gray-400 text-sm">Loading details...</span>
                                 </div>
                             )}
 
                             {vendorDetails && !loadingDetails && (
-                                <div className="mb-3 space-y-2">
+                                <div className="mb-2 md:mb-3 space-y-2">
                                     {/* Current Balance Card */}
-                                    <div className="p-3 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/50 rounded-lg">
-                                        <p className="text-sm text-gray-300">Outstanding Balance</p>
-                                        <p className="text-3xl font-bold text-red-400">
+                                    <div className="p-2 md:p-3 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/50 rounded-lg">
+                                        <p className="text-xs md:text-sm text-gray-300">Outstanding Balance</p>
+                                        <p className="text-2xl md:text-3xl font-bold text-red-400">
                                             ₹{parseFloat(vendorDetails.outstanding_balance).toLocaleString('en-IN')}
                                         </p>
                                         <p className="text-xs text-gray-400 mt-1">
@@ -358,7 +358,7 @@ export default function VendorPayments() {
                                 </div>
                             )}
 
-                            <form onSubmit={handlePaymentSubmit} className="space-y-3">
+                            <form onSubmit={handlePaymentSubmit} className="space-y-2 md:space-y-3">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-300 mb-2">Vendor *</label>
                                     <select

@@ -32,8 +32,8 @@ export default ({ children }) => {
 
   return (
     <div className="flex h-full w-full">
-      {/* Mobile Header */}
-      <header className="md:hidden fixed top-0 left-0 right-0 z-40 glass-panel px-4 py-3 flex items-center justify-between">
+      {/* Header with Hamburger - Always visible */}
+      <header className="fixed top-0 left-0 right-0 z-40 glass-panel px-4 py-3 flex items-center justify-between">
         <button
           onClick={() => setIsMobileMenuOpen(true)}
           className="p-2 hover:bg-white/10 rounded-lg transition"
@@ -48,16 +48,15 @@ export default ({ children }) => {
       {/* Mobile Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/60 z-40 md:hidden"
+          className="fixed inset-0 bg-black/60 z-40"
           onClick={closeMobileMenu}
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar - Toggleable on all devices */}
       <aside className={`
         fixed inset-y-0 left-0 z-50 w-64 glass-panel flex flex-col
         transform transition-transform duration-300 ease-in-out
-        md:relative md:translate-x-0 md:m-2 md:rounded-xl
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         {/* Sidebar Header */}
@@ -66,7 +65,7 @@ export default ({ children }) => {
             <h1 className="text-xl font-bold text-zohra-blue">Al Zohra</h1>
             <button
               onClick={closeMobileMenu}
-              className="md:hidden p-1 hover:bg-white/10 rounded transition"
+              className="p-1 hover:bg-white/10 rounded transition"
             >
               <FiX className="text-xl text-gray-400" />
             </button>
@@ -125,7 +124,7 @@ export default ({ children }) => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col overflow-hidden mt-14 md:mt-0">
+      <main className="flex-1 flex flex-col overflow-hidden mt-14">
         {children}
       </main>
     </div>
