@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../utils/api';
 import { toast } from 'react-hot-toast';
 import { FiCalendar, FiSave } from 'react-icons/fi';
+import RatesCalendar from '../../components/RatesCalendar';
 
 const DailyRates = () => {
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
@@ -78,72 +79,83 @@ const DailyRates = () => {
                 )}
             </div>
 
-            <div className="glass-panel p-6 max-w-xl mx-auto">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                        <label className="block text-gray-400 mb-2">Date</label>
-                        <div className="relative">
-                            <FiCalendar className="absolute left-3 top-3 text-gray-500" />
-                            <input
-                                type="date"
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-white focus:outline-none focus:border-zohra-blue"
-                                required
-                            />
-                        </div>
-                    </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Calendar */}
+                <div>
+                    <RatesCalendar
+                        onDateSelect={setDate}
+                        selectedDate={date}
+                    />
+                </div>
 
-                    <div className="grid grid-cols-1 gap-6">
+                {/* Form */}
+                <div className="glass-panel p-6">
+                    <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label className="block text-gray-400 mb-2">Tandoor Rate (₹)</label>
-                            <input
-                                type="number"
-                                step="0.01"
-                                value={rates.tandoor_rate}
-                                onChange={(e) => setRates({ ...rates, tandoor_rate: e.target.value })}
-                                className="w-full bg-white/5 border border-white/10 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-zohra-blue"
-                                placeholder="0.00"
-                                required
-                            />
+                            <label className="block text-gray-400 mb-2">Date</label>
+                            <div className="relative">
+                                <FiCalendar className="absolute left-3 top-3 text-gray-500" />
+                                <input
+                                    type="date"
+                                    value={date}
+                                    onChange={(e) => setDate(e.target.value)}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-white focus:outline-none focus:border-zohra-blue"
+                                    required
+                                />
+                            </div>
                         </div>
 
-                        <div>
-                            <label className="block text-gray-400 mb-2">Boiler Rate (₹)</label>
-                            <input
-                                type="number"
-                                step="0.01"
-                                value={rates.boiler_rate}
-                                onChange={(e) => setRates({ ...rates, boiler_rate: e.target.value })}
-                                className="w-full bg-white/5 border border-white/10 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-zohra-blue"
-                                placeholder="0.00"
-                                required
-                            />
+                        <div className="grid grid-cols-1 gap-6">
+                            <div>
+                                <label className="block text-gray-400 mb-2">Tandoor Rate (₹)</label>
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    value={rates.tandoor_rate}
+                                    onChange={(e) => setRates({ ...rates, tandoor_rate: e.target.value })}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-zohra-blue"
+                                    placeholder="0.00"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-400 mb-2">Boiler Rate (₹)</label>
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    value={rates.boiler_rate}
+                                    onChange={(e) => setRates({ ...rates, boiler_rate: e.target.value })}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-zohra-blue"
+                                    placeholder="0.00"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-400 mb-2">Egg Rate (₹)</label>
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    value={rates.egg_rate}
+                                    onChange={(e) => setRates({ ...rates, egg_rate: e.target.value })}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-zohra-blue"
+                                    placeholder="0.00"
+                                    required
+                                />
+                            </div>
                         </div>
 
-                        <div>
-                            <label className="block text-gray-400 mb-2">Egg Rate (₹)</label>
-                            <input
-                                type="number"
-                                step="0.01"
-                                value={rates.egg_rate}
-                                onChange={(e) => setRates({ ...rates, egg_rate: e.target.value })}
-                                className="w-full bg-white/5 border border-white/10 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-zohra-blue"
-                                placeholder="0.00"
-                                required
-                            />
-                        </div>
-                    </div>
-
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full bg-zohra-blue hover:bg-blue-600 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2"
-                    >
-                        <FiSave />
-                        {loading ? 'Saving...' : 'Save Rates'}
-                    </button>
-                </form>
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="w-full bg-zohra-blue hover:bg-blue-600 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2"
+                        >
+                            <FiSave />
+                            {loading ? 'Saving...' : 'Save Rates'}
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     );

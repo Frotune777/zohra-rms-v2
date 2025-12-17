@@ -51,7 +51,7 @@ services:
     container_name: alzohra-client
     restart: unless-stopped
     environment:
-      VITE_API_URL: ${VITE_API_URL:-http://localhost:5000}
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:5000/api}
     ports:
       - "${CLIENT_PORT:-3002}:3002"
     depends_on:

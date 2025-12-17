@@ -90,6 +90,19 @@ exports.getRateStatus = async (req, res) => {
     }
 };
 
+exports.getAllRatesCalendar = async (req, res) => {
+    const { startDate, endDate } = req.query;
+    if (!startDate || !endDate) {
+        return res.status(400).json({ error: 'startDate and endDate are required' });
+    }
+    try {
+        const result = await InventoryService.getAllRatesCalendar(startDate, endDate);
+        res.json(result);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 exports.getSuppliers = async (req, res) => {
     try {
         const result = await InventoryService.getSuppliers();

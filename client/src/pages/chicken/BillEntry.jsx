@@ -80,11 +80,22 @@ const BillEntry = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await api.post('chicken/bills', {
+            const response = await api.post('chicken/bills', {
                 date,
                 ...formData
             });
-            toast.success('Bill entry added');
+
+            // Check if stock was updated
+            if (response.data.stock_updated) {
+                toast.success(`✓ Bill entry added and inventory stock updated (+${formData.qty})`);
+            } else {
+                toast.success('✓ Bill entry added');
+                toast('⚠️ Item not found in inventory - stock not updated. Add it in Inventory Management.', {
+                    duration: 5000,
+                    icon: '⚠️',
+                });
+            }
+
             fetchEntries();
             fetchSummary();
             setFormData({ ...formData, item_name: '', qty: '', vendor_rate: '' });
@@ -94,38 +105,92 @@ const BillEntry = () => {
     };
 
     return (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold text-white mb-6">Daily Bill Entry</h1>
+        <div className="p-4 sm:p-6 lg:p-8 h-full w-full flex flex-col overflow-hidden">
+            <h1 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Daily Bill Entry</h1>
 
             {/* Summary Cards */}
             {summary && summary.summary.total_entries > 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                    <div className="glass-panel p-4">
-                        <p className="text-gray-400 text-sm mb-1">Total Amount</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    {/* Total Amount Card */}
+                    <div
+                        className="glass-panel p-4 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20 hover:border-blue-500/30 border border-transparent"
+                        onClick={() => {
+                            toast.success(`Total: ₹${summary.summary.total_amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`);
+                        }}
+                    >
+                        <p className="text-gray-400 text-sm mb-1 flex items-center gap-2">
+                            <span className="text-blue-400">💰</span>
+                            Total Amount
+                        </p>
                         <p className="text-2xl font-bold text-white">₹{summary.summary.total_amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</p>
                         <p className="text-xs text-gray-500 mt-1">{summary.summary.total_entries} entries</p>
+                        <div className="mt-2 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     </div>
-                    <div className="glass-panel p-4">
-                        <p className="text-gray-400 text-sm mb-1">Expected Amount</p>
+
+                    {/* Expected Amount Card */}
+                    <div
+                        className="glass-panel p-4 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-green-500/20 hover:border-green-500/30 border border-transparent"
+                        onClick={() => {
+                            const diff = summary.summary.total_amount - summary.summary.total_expected;
+                            toast.success(`Expected: ₹${summary.summary.total_expected.toLocaleString('en-IN', { minimumFractionDigits: 2 })}\nDifference: ₹${diff.toFixed(2)}`);
+                        }}
+                    >
+                        <p className="text-gray-400 text-sm mb-1 flex items-center gap-2">
+                            <span className="text-green-400">📊</span>
+                            Expected Amount
+                        </p>
                         <p className="text-2xl font-bold text-white">₹{summary.summary.total_expected.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</p>
+                        <p className="text-xs text-gray-500 mt-1">Based on rates</p>
                     </div>
-                    <div className="glass-panel p-4">
-                        <p className="text-gray-400 text-sm mb-1">Variance</p>
+
+                    {/* Variance Card */}
+                    <div
+                        className={`glass-panel p-4 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl border border-transparent ${summary.summary.total_variance > 0
+                            ? 'hover:shadow-red-500/20 hover:border-red-500/30'
+                            : 'hover:shadow-green-500/20 hover:border-green-500/30'
+                            }`}
+                        onClick={() => {
+                            const msg = summary.summary.total_variance > 0
+                                ? `⚠️ Over budget by ₹${Math.abs(summary.summary.total_variance).toFixed(2)} (${summary.summary.variance_percentage}%)`
+                                : `✅ Under budget by ₹${Math.abs(summary.summary.total_variance).toFixed(2)} (${summary.summary.variance_percentage}%)`;
+                            toast(msg, {
+                                icon: summary.summary.total_variance > 0 ? '⚠️' : '✅',
+                                duration: 4000,
+                            });
+                        }}
+                    >
+                        <p className="text-gray-400 text-sm mb-1 flex items-center gap-2">
+                            <span className={summary.summary.total_variance > 0 ? 'text-red-400' : 'text-green-400'}>
+                                {summary.summary.total_variance > 0 ? '📈' : '📉'}
+                            </span>
+                            Variance
+                        </p>
                         <p className={`text-2xl font-bold ${summary.summary.total_variance > 0 ? 'text-red-400' : 'text-green-400'}`}>
                             {summary.summary.total_variance > 0 ? '+' : ''}₹{summary.summary.total_variance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                         </p>
                         <p className="text-xs text-gray-500 mt-1">{summary.summary.variance_percentage}%</p>
                     </div>
-                    <div className="glass-panel p-4">
-                        <p className="text-gray-400 text-sm mb-1">Status</p>
+
+                    {/* Status Card */}
+                    <div
+                        className="glass-panel p-4 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/20 hover:border-purple-500/30 border border-transparent"
+                        onClick={() => {
+                            toast.success(`✅ ${summary.summary.approved_count} Approved\n⏳ ${summary.summary.pending_count} Pending`);
+                        }}
+                    >
+                        <p className="text-gray-400 text-sm mb-1 flex items-center gap-2">
+                            <span className="text-purple-400">📋</span>
+                            Status
+                        </p>
                         <div className="flex gap-2 mt-2">
-                            <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs">
-                                {summary.summary.approved_count} Approved
+                            <span className="px-3 py-1.5 bg-green-500/20 text-green-400 rounded-lg text-sm font-semibold transition-all hover:bg-green-500/30">
+                                ✓ {summary.summary.approved_count}
                             </span>
-                            <span className="px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded text-xs">
-                                {summary.summary.pending_count} Pending
+                            <span className="px-3 py-1.5 bg-yellow-500/20 text-yellow-400 rounded-lg text-sm font-semibold transition-all hover:bg-yellow-500/30">
+                                ⏳ {summary.summary.pending_count}
                             </span>
                         </div>
+                        <p className="text-xs text-gray-500 mt-2">Click for details</p>
                     </div>
                 </div>
             )}

@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FiCoffee, FiDollarSign, FiUsers, FiLogOut, FiUser, FiGift, FiMenu, FiTrendingUp, FiHome, FiBarChart2, FiActivity, FiGrid, FiX } from 'react-icons/fi';
+import {
+  FiCoffee, FiDollarSign, FiUsers, FiLogOut, FiUser, FiGift, FiMenu,
+  FiTrendingUp, FiHome, FiBarChart2, FiActivity, FiGrid, FiX,
+  FiChevronDown, FiChevronRight, FiPackage, FiCalendar, FiCreditCard
+} from 'react-icons/fi';
 
 const SidebarItem = ({ icon: Icon, label, to, active, onClick }) => (
   <Link
@@ -14,6 +18,39 @@ const SidebarItem = ({ icon: Icon, label, to, active, onClick }) => (
     <span className="truncate">{label}</span>
   </Link>
 );
+
+const CollapsibleMenuGroup = ({ icon: Icon, label, children, defaultOpen = true }) => {
+  const [isOpen, setIsOpen] = useState(() => {
+    // Load state from localStorage
+    const saved = localStorage.getItem(`menu-group-${label}`);
+    return saved !== null ? JSON.parse(saved) : defaultOpen;
+  });
+
+  const toggleOpen = () => {
+    const newState = !isOpen;
+    setIsOpen(newState);
+    localStorage.setItem(`menu-group-${label}`, JSON.stringify(newState));
+  };
+
+  return (
+    <div className="mb-2">
+      <button
+        onClick={toggleOpen}
+        className="flex items-center gap-2 w-full px-3 py-2 rounded-lg hover:bg-white/5 text-gray-300 transition-all text-sm font-semibold"
+      >
+        <Icon className="text-lg flex-shrink-0" />
+        <span className="flex-1 text-left truncate">{label}</span>
+        {isOpen ? <FiChevronDown className="flex-shrink-0" /> : <FiChevronRight className="flex-shrink-0" />}
+      </button>
+      <div
+        className={`ml-4 mt-1 space-y-1 overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
 
 export default ({ children }) => {
   const loc = useLocation();
@@ -75,42 +112,49 @@ export default ({ children }) => {
 
         {/* Navigation */}
         <nav className="space-y-1 flex-1 overflow-y-auto p-3">
+          {/* Top Level Items */}
           <SidebarItem to="/dashboard" icon={FiHome} label="Dashboard" active={loc.pathname === '/dashboard'} onClick={closeMobileMenu} />
           <SidebarItem to="/" icon={FiCoffee} label="POS" active={loc.pathname === '/'} onClick={closeMobileMenu} />
-          <SidebarItem to="/employees" icon={FiUsers} label="Employees" active={loc.pathname === '/employees'} onClick={closeMobileMenu} />
           <SidebarItem to="/menu" icon={FiMenu} label="Menu" active={loc.pathname === '/menu'} onClick={closeMobileMenu} />
-          {canAccessPayroll && (
-            <SidebarItem to="/payroll" icon={FiUser} label="Payroll" active={loc.pathname === '/payroll'} onClick={closeMobileMenu} />
-          )}
-          <SidebarItem to="/advances" icon={FiGift} label="Advances" active={loc.pathname === '/advances'} onClick={closeMobileMenu} />
-          {canAccessPayroll && (
-            <SidebarItem to="/advances/approvals" icon={FiGift} label="Approvals" active={loc.pathname === '/advances/approvals'} onClick={closeMobileMenu} />
-          )}
-          <SidebarItem to="/attendance/bulk" icon={FiUsers} label="Attendance" active={loc.pathname === '/attendance/bulk'} onClick={closeMobileMenu} />
-          <SidebarItem to="/attendance/leaves" icon={FiUsers} label="Leaves" active={loc.pathname === '/attendance/leaves'} onClick={closeMobileMenu} />
 
-          <div className="my-2 border-t border-white/10 pt-2">
-            <p className="text-xs text-gray-500 px-2 mb-1 uppercase font-semibold">Inventory</p>
-            <SidebarItem to="/inventory" icon={FiDollarSign} label="Stock" active={loc.pathname === '/inventory'} onClick={closeMobileMenu} />
+          <div className="my-2 border-t border-white/10 pt-2" />
+
+          {/* HR & Payroll Group */}
+          <CollapsibleMenuGroup icon={FiUsers} label="HR & Payroll" defaultOpen={true}>
+            <SidebarItem to="/employees" icon={FiUser} label="Employees" active={loc.pathname === '/employees'} onClick={closeMobileMenu} />
+            {canAccessPayroll && (
+              <SidebarItem to="/payroll" icon={FiDollarSign} label="Payroll" active={loc.pathname === '/payroll'} onClick={closeMobileMenu} />
+            )}
+            <SidebarItem to="/advances" icon={FiGift} label="Advances" active={loc.pathname === '/advances'} onClick={closeMobileMenu} />
+            {canAccessPayroll && (
+              <SidebarItem to="/advances/approvals" icon={FiGift} label="Approvals" active={loc.pathname === '/advances/approvals'} onClick={closeMobileMenu} />
+            )}
+            <SidebarItem to="/attendance/bulk" icon={FiCalendar} label="Attendance" active={loc.pathname === '/attendance/bulk'} onClick={closeMobileMenu} />
+            <SidebarItem to="/attendance/leaves" icon={FiCalendar} label="Leaves" active={loc.pathname === '/attendance/leaves'} onClick={closeMobileMenu} />
+          </CollapsibleMenuGroup>
+
+          {/* Inventory & Procurement Group */}
+          <CollapsibleMenuGroup icon={FiPackage} label="Inventory & Procurement" defaultOpen={true}>
+            <SidebarItem to="/inventory" icon={FiPackage} label="Stock Management" active={loc.pathname === '/inventory'} onClick={closeMobileMenu} />
             <SidebarItem to="/chicken/bills" icon={FiCoffee} label="Chicken Bills" active={loc.pathname === '/chicken/bills'} onClick={closeMobileMenu} />
             <SidebarItem to="/chicken/rates" icon={FiDollarSign} label="Daily Rates" active={loc.pathname === '/chicken/rates'} onClick={closeMobileMenu} />
             <SidebarItem to="/chicken/vendors" icon={FiUsers} label="Vendors" active={loc.pathname === '/chicken/vendors'} onClick={closeMobileMenu} />
-            <SidebarItem to="/vendor-payments" icon={FiDollarSign} label="Payments" active={loc.pathname === '/vendor-payments'} onClick={closeMobileMenu} />
-          </div>
+            <SidebarItem to="/vendor-payments" icon={FiCreditCard} label="Vendor Payments" active={loc.pathname === '/vendor-payments'} onClick={closeMobileMenu} />
+          </CollapsibleMenuGroup>
 
-          <div className="my-2 border-t border-white/10 pt-2">
-            <p className="text-xs text-gray-500 px-2 mb-1 uppercase font-semibold">Finance</p>
+          {/* Finance Group */}
+          <CollapsibleMenuGroup icon={FiDollarSign} label="Finance" defaultOpen={true}>
             <SidebarItem to="/finance" icon={FiDollarSign} label="Ledger" active={loc.pathname === '/finance'} onClick={closeMobileMenu} />
-            <SidebarItem to="/finance/summary" icon={FiDollarSign} label="Summary" active={loc.pathname === '/finance/summary'} onClick={closeMobileMenu} />
-            <SidebarItem to="/finance/daily-tracker" icon={FiGrid} label="Tracker" active={loc.pathname === '/finance/daily-tracker'} onClick={closeMobileMenu} />
-          </div>
+            <SidebarItem to="/finance/summary" icon={FiBarChart2} label="Summary" active={loc.pathname === '/finance/summary'} onClick={closeMobileMenu} />
+            <SidebarItem to="/finance/daily-tracker" icon={FiGrid} label="Daily Tracker" active={loc.pathname === '/finance/daily-tracker'} onClick={closeMobileMenu} />
+          </CollapsibleMenuGroup>
 
-          <div className="my-2 border-t border-white/10 pt-2">
-            <p className="text-xs text-gray-500 px-2 mb-1 uppercase font-semibold">Analytics</p>
+          {/* Analytics & Reports Group */}
+          <CollapsibleMenuGroup icon={FiBarChart2} label="Analytics & Reports" defaultOpen={false}>
             <SidebarItem to="/reports" icon={FiBarChart2} label="Reports" active={loc.pathname.startsWith('/reports')} onClick={closeMobileMenu} />
             <SidebarItem to="/ai-dashboard" icon={FiTrendingUp} label="AI Insights" active={loc.pathname === '/ai-dashboard'} onClick={closeMobileMenu} />
             <SidebarItem to="/development-status" icon={FiActivity} label="Dev Status" active={loc.pathname === '/development-status'} onClick={closeMobileMenu} />
-          </div>
+          </CollapsibleMenuGroup>
         </nav>
 
         {/* Logout Button */}

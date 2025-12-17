@@ -174,21 +174,45 @@ class InventoryService {
 
     async saveDailyRates(data) {
         const { date, tandoor_rate, boiler_rate, egg_rate } = data;
+
+        // Determine status based on whether all rates are filled
+        const hasAllRates = tandoor_rate > 0 && boiler_rate > 0 && egg_rate > 0;
+        const status = hasAllRates ? 'confirmed' : 'pending';
+
         const result = await db.query(
-            `INSERT INTO daily_rates (date, tandoor_rate, boiler_rate, egg_rate)
-             VALUES ($1, $2, $3, $4)
+            `INSERT INTO daily_rates (date, tandoor_rate, boiler_rate, egg_rate, status)
+             VALUES ($1, $2, $3, $4, $5)
              ON CONFLICT (date) DO UPDATE 
              SET tandoor_rate = EXCLUDED.tandoor_rate,
                  boiler_rate = EXCLUDED.boiler_rate,
-                 egg_rate = EXCLUDED.egg_rate
+                 egg_rate = EXCLUDED.egg_rate,
+                 status = EXCLUDED.status
              RETURNING *`,
-            [date, tandoor_rate, boiler_rate, egg_rate]
+            [date, tandoor_rate, boiler_rate, egg_rate, status]
         );
         return result.rows[0];
     }
 
     async getRateStatus() {
         const result = await db.query('SELECT date FROM daily_rates ORDER BY date DESC LIMIT 10');
+        return result.rows;
+    }
+
+    async getAllRatesCalendar(startDate, endDate) {
+        // Get all dates with rates and their status within the date range
+        const result = await db.query(
+            `SELECT 
+                TO_CHAR(date, 'YYYY-MM-DD') as date, 
+                tandoor_rate, 
+                boiler_rate, 
+                egg_rate,
+                COALESCE(status, 'pending') as status,
+                updated_by
+            FROM daily_rates 
+            WHERE date >= $1 AND date <= $2
+            ORDER BY date ASC`,
+            [startDate, endDate]
+        );
         return result.rows;
     }
 
@@ -295,10 +319,17 @@ class InventoryService {
             const billEntry = result.rows[0];
 
             // Update Inventory Stock if item exists
+            let stockUpdated = false;
+            let inventoryItemId = null;
             const itemRes = await client.query('SELECT id FROM inventory_items WHERE LOWER(name) = LOWER($1)', [item_name]);
             if (itemRes.rows.length > 0) {
                 const itemId = itemRes.rows[0].id;
+                inventoryItemId = itemId;
                 await this.adjustStock(itemId, parseFloat(qty), 'PURCHASE', `Bill Entry #${billEntry.id}`, userId, client);
+                stockUpdated = true;
+                console.log(`✓ Stock updated for "${item_name}" (ID: ${itemId}): +${qty}`);
+            } else {
+                console.log(`⚠ Warning: Item "${item_name}" not found in inventory. Stock not updated.`);
             }
 
             const billAmount = parseFloat(qty) * parseFloat(vendor_rate);
@@ -309,7 +340,13 @@ class InventoryService {
             );
 
             await client.query('COMMIT');
-            return billEntry;
+
+            // Return bill entry with stock update status
+            return {
+                ...billEntry,
+                stock_updated: stockUpdated,
+                inventory_item_id: inventoryItemId
+            };
         } catch (e) {
             await client.query('ROLLBACK');
             throw e;

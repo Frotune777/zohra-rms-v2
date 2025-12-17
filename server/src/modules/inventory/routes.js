@@ -14,6 +14,7 @@ router.delete('/:id', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE
 router.get('/rates', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getDailyRates);
 router.post('/rates', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.saveDailyRates);
 router.get('/rates/status', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getRateStatus);
+router.get('/rates/calendar', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getAllRatesCalendar);
 
 // Suppliers
 router.get('/suppliers', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getSuppliers);

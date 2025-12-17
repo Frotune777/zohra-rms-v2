@@ -178,7 +178,7 @@ NODE_ENV=development
 JWT_SECRET=your-secret-key-change-this-in-production
 
 # Client
-VITE_API_URL=http://localhost:5000
+VITE_API_URL=http://localhost:5000/api
 
 # Docker Ports
 CLIENT_PORT=3002
@@ -421,6 +421,19 @@ docker-compose restart postgres
 - Check if backend is running: `docker-compose ps`
 - Check backend logs: `docker-compose logs server`
 - Verify database is healthy: `docker-compose ps postgres`
+
+**Problem: "404 Not Found on /auth/login"**
+- **Cause**: Incorrect `VITE_API_URL` configuration
+- **Solution**: Ensure `VITE_API_URL` includes the `/api` prefix
+  ```bash
+  # Correct value in .env:
+  VITE_API_URL=http://localhost:5000/api
+  
+  # After fixing, rebuild the client:
+  docker-compose build client
+  docker-compose up -d client
+  ```
+
 
 ---
 
