@@ -37,11 +37,11 @@ const MasterDashboard = () => {
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
     return (
-        <div className="p-6 h-full w-full overflow-y-auto bg-gradient-to-br from-midnight to-gray-900 text-white">
-            <h1 className="text-3xl font-bold mb-6 text-zohra-blue">Business Overview</h1>
+        <div className="p-4 md:p-6 h-full w-full overflow-y-auto bg-gradient-to-br from-midnight to-gray-900 text-white">
+            <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-zohra-blue">Business Overview</h1>
 
             {/* KPI Cards Row 1 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-6">
                 <KPICard
                     title="Today's Sales"
                     value={`₹${stats.todaySales.toFixed(0)}`}
@@ -74,7 +74,7 @@ const MasterDashboard = () => {
             </div>
 
             {/* KPI Cards Row 2 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-6">
                 <KPICard
                     title="Kitchen Stock Value"
                     value={`₹${stats.stockValue.toFixed(0)}`}
@@ -106,12 +106,12 @@ const MasterDashboard = () => {
             </div>
 
             {/* Charts & Lists */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
 
                 {/* Sales Trend Chart */}
-                <div className="lg:col-span-2 glass-panel p-6 rounded-xl">
-                    <h3 className="text-xl font-bold mb-4">Sales Trend (Last 7 Days)</h3>
-                    <div className="h-64">
+                <div className="lg:col-span-2 glass-panel p-4 md:p-6 rounded-xl">
+                    <h3 className="text-lg md:text-xl font-bold mb-3 md:mb-4">Sales Trend (Last 7 Days)</h3>
+                    <div className="h-48 md:h-64">
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart data={stats.salesTrend}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#333" />
@@ -128,8 +128,8 @@ const MasterDashboard = () => {
                 </div>
 
                 {/* Low Stock Alerts */}
-                <div className="glass-panel p-6 rounded-xl">
-                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                <div className="glass-panel p-4 md:p-6 rounded-xl">
+                    <h3 className="text-lg md:text-xl font-bold mb-3 md:mb-4 flex items-center gap-2">
                         <FiAlertTriangle className="text-yellow-500" /> Low Stock Alerts
                     </h3>
                     <div className="space-y-3">
@@ -152,13 +152,13 @@ const MasterDashboard = () => {
 };
 
 const KPICard = ({ title, value, subValue, icon, color, bg }) => (
-    <div className="glass-panel p-4 rounded-xl flex items-center justify-between hover:scale-[1.02] transition-transform">
+    <div className="glass-panel p-3 md:p-4 rounded-xl flex items-center justify-between hover:scale-[1.02] transition-transform">
         <div>
-            <p className="text-gray-400 text-sm mb-1">{title}</p>
-            <h2 className="text-2xl font-bold text-white">{value}</h2>
+            <p className="text-gray-400 text-xs md:text-sm mb-1">{title}</p>
+            <h2 className="text-xl md:text-2xl font-bold text-white">{value}</h2>
             {subValue && <p className={`text-xs ${color} mt-1`}>{subValue}</p>}
         </div>
-        <div className={`p-3 rounded-full ${bg} ${color} text-xl`}>
+        <div className={`p-2 md:p-3 rounded-full ${bg} ${color} text-lg md:text-xl`}>
             {icon}
         </div>
     </div>

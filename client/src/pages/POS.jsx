@@ -99,15 +99,15 @@ const POS = () => {
   return (
     <div className="flex h-screen w-full bg-gray-100 text-gray-800 font-sans overflow-hidden">
 
-      {/* LEFT SIDEBAR - CATEGORIES */}
-      <div className="w-48 bg-gray-800 flex flex-col text-gray-300">
-        <div className="p-4 border-b border-gray-700 font-bold text-white">Categories</div>
+      {/* LEFT SIDEBAR - CATEGORIES - Hidden on mobile */}
+      <div className="hidden md:flex w-40 lg:w-48 bg-gray-800 flex-col text-gray-300">
+        <div className="p-2 md:p-4 border-b border-gray-700 font-bold text-white text-sm md:text-base">Categories</div>
         <div className="flex-1 overflow-y-auto">
           {categories.map(cat => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`w-full text-left p-4 hover:bg-gray-700 transition-colors border-l-4 ${selectedCategory === cat ? 'border-green-500 bg-gray-700 text-white' : 'border-transparent'}`}
+              className={`w-full text-left p-2 md:p-4 hover:bg-gray-700 transition-colors border-l-4 text-xs md:text-sm ${selectedCategory === cat ? 'border-green-500 bg-gray-700 text-white' : 'border-transparent'}`}
             >
               {cat}
             </button>
@@ -137,7 +137,7 @@ const POS = () => {
 
         {/* Grid */}
         <div className="flex-1 p-2 overflow-y-auto">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
             {filteredMenu.map(item => (
               <button
                 key={item.id}
@@ -152,8 +152,8 @@ const POS = () => {
         </div>
       </div>
 
-      {/* RIGHT SIDEBAR - CART/BILLING */}
-      <div className="w-96 bg-white shadow-xl flex flex-col border-l border-gray-300">
+      {/* RIGHT SIDEBAR - CART/BILLING - Responsive width */}
+      <div className="w-full sm:w-80 md:w-96 bg-white shadow-xl flex flex-col border-l border-gray-300">
 
         {/* Order Type Tabs */}
         <div className="flex text-sm font-bold text-white">
