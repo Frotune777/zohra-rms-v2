@@ -53,17 +53,61 @@ A comprehensive full-stack restaurant management system built with **React**, **
 ## 🚀 Quick Start
 
 ### Prerequisites
-- **Docker** and **Docker Compose** (recommended)
-- **Node.js** 16+ (if running without Docker)
+- **Docker** and **Docker Compose** (recommended) - [Install Docker](https://docs.docker.com/get-docker/)
+- **Node.js** 20+ (if running without Docker)
 - **PostgreSQL** 15+ (if running without Docker)
 - **Git**
 
-### Option 1: Docker (Recommended)
+### Option 1: Docker (Recommended) - One Command Start!
 
 ```bash
 # Clone the repository
 git clone <repository-url>
 cd zohra-rms-v2
+
+# Start everything with one command!
+./start.sh
+
+# That's it! The application will be available at:
+# Frontend: http://localhost:3002
+# Backend API: http://localhost:5000
+```
+
+**What `start.sh` does:**
+- ✅ Checks if Docker is running
+- ✅ Creates `.env` from `.env.example` if needed
+- ✅ Builds and starts all containers
+- ✅ Shows service status and access URLs
+
+**Useful commands:**
+```bash
+# Stop all services
+./stop.sh
+
+# View logs
+docker-compose logs -f
+
+# View specific service logs
+docker-compose logs -f client
+docker-compose logs -f server
+docker-compose logs -f postgres
+
+# Restart services
+docker-compose restart
+
+# Check service health
+docker-compose ps
+```
+
+### Option 2: Manual Docker Commands
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd zohra-rms-v2
+
+# Copy environment file
+cp .env.example .env
 
 # Start all services
 docker-compose up -d --build
@@ -73,7 +117,7 @@ docker-compose up -d --build
 # Backend API: http://localhost:5000
 ```
 
-### Option 2: Manual Setup
+### Option 3: Manual Setup (Without Docker)
 
 ```bash
 # Clone the repository
@@ -101,6 +145,47 @@ npm run dev
 
 ## 🔧 Configuration
 
+### Environment Variables
+
+The application uses environment variables for configuration. A template file `.env.example` is provided.
+
+**For Docker (automatic):**
+```bash
+# The start.sh script automatically creates .env from .env.example
+./start.sh
+```
+
+**For manual setup:**
+```bash
+# Copy the example file
+cp .env.example .env
+
+# Edit .env with your values
+nano .env
+```
+
+**Available variables:**
+```env
+# Database
+POSTGRES_USER=admin
+POSTGRES_PASSWORD=password
+POSTGRES_DB=alzohra_db
+DATABASE_URL=postgresql://admin:password@postgres:5432/alzohra_db
+
+# Server
+PORT=5000
+NODE_ENV=development
+JWT_SECRET=your-secret-key-change-this-in-production
+
+# Client
+VITE_API_URL=http://localhost:5000
+
+# Docker Ports
+CLIENT_PORT=3002
+SERVER_PORT=5000
+DB_PORT=5432
+```
+
 ### Database Connection
 
 **Docker (default):**
@@ -110,14 +195,6 @@ Port: 5432
 Database: alzohra_db
 Username: admin
 Password: password
-```
-
-**Manual Setup:**
-Create a `.env` file in the `server` directory:
-```env
-DATABASE_URL=postgresql://admin:password@localhost:5432/alzohra_db
-PORT=5000
-JWT_SECRET=your-secret-key-here
 ```
 
 ### Database Access
@@ -287,15 +364,76 @@ This software is proprietary and confidential. Unauthorized copying, distributio
 
 ---
 
+## 🔧 Troubleshooting
+
+### Docker Issues
+
+**Problem: "Cannot connect to Docker daemon"**
+```bash
+# Solution: Start Docker Desktop or Docker service
+# On Linux:
+sudo systemctl start docker
+
+# On macOS/Windows: Start Docker Desktop application
+```
+
+**Problem: "Port already in use"**
+```bash
+# Solution: Change ports in .env file
+# Edit .env and modify:
+CLIENT_PORT=3003  # instead of 3002
+SERVER_PORT=5001  # instead of 5000
+DB_PORT=5433      # instead of 5432
+```
+
+**Problem: "Services not starting"**
+```bash
+# Check service logs
+docker-compose logs
+
+# Restart services
+docker-compose restart
+
+# Rebuild from scratch
+docker-compose down -v
+docker-compose up -d --build
+```
+
+**Problem: "Database connection failed"**
+```bash
+# Wait for database to be ready (healthcheck)
+docker-compose ps
+
+# Check database logs
+docker-compose logs postgres
+
+# Restart database
+docker-compose restart postgres
+```
+
+### Application Issues
+
+**Problem: "401 Unauthorized errors"**
+- Solution: Re-login to the application
+- The JWT token may have expired
+
+**Problem: "Cannot load data"**
+- Check if backend is running: `docker-compose ps`
+- Check backend logs: `docker-compose logs server`
+- Verify database is healthy: `docker-compose ps postgres`
+
+---
+
 ## 🆘 Support
 
 For issues and questions:
 - Create an issue in the GitHub repository
 - Check the [documentation](documentation/) folder
 - Review the [User Guide](documentation/user_guide.md)
+- Check the Troubleshooting section above
 
 ---
 
-**Version**: 2.1.0  
-**Last Updated**: December 16, 2025  
+**Version**: 2.2.0  
+**Last Updated**: December 17, 2025  
 **Status**: Production Ready ✅
