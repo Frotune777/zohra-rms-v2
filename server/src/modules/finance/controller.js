@@ -247,3 +247,119 @@ exports.getSpendingByPerson = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+// ==========================================
+// NEW ENDPOINTS - Accounting System Refactor
+// ==========================================
+
+/**
+ * Get Daily Balance for a specific date
+ */
+exports.getDailyBalance = async (req, res) => {
+    const { date } = req.params;
+    try {
+        const ClosureService = require('./ClosureService');
+        const summary = await ClosureService.getDailyBalanceSummary(date);
+        res.json(summary);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+/**
+ * Close Daily Balance
+ */
+exports.closeDailyBalance = async (req, res) => {
+    const { date,type, actualClosingBalance } = req.body;
+    
+    if (!date || !type || actualClosingBalance === undefined) {
+        return res.status(400).json({ 
+            error: 'Date, type, and actualClosingBalance are required' 
+        });
+    }
+    
+    try {
+        const ClosureService = require('./ClosureService');
+        const result = await ClosureService.closeDailyBalance(
+            date, 
+            type, 
+            actualClosingBalance, 
+            req.user.id
+        );
+        res.json(result);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+/**
+ * Reopen Daily Balance (Owner Only)
+ */
+exports.reopenDailyBalance = async (req, res) => {
+    const { date, type, reason } = req.body;
+    
+    if (!date || !type || !reason) {
+        return res.status(400).json({ 
+            error: 'Date, type, and reason are required' 
+        });
+    }
+    
+    try {
+        const ClosureService = require('./ClosureService');
+        const result = await ClosureService.reopenDay(
+            date, 
+            type, 
+            req.user.id, 
+            reason
+        );
+        res.json(result);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+/**
+ * Get all payment modes
+ */
+exports.getPaymentModes = async (req, res) => {
+    try {
+        const PaymentModeService = require('./PaymentModeService');
+        const modes = await PaymentModeService.getAllPaymentModes();
+        res.json(modes);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+/**
+ * Get Journal Entry by ID
+ */
+exports.getJournalEntry = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const JournalService = require('./JournalService');
+        const entry = await JournalService.getJournalEntry(id);
+        res.json(entry);
+    } catch (err) {
+        res.status(404).json({ error: err.message });
+    }
+};
+
+/**
+ * Get Account Balance
+ */
+exports.getAccountBalance = async (req, res) => {
+    const { code } = req.params;
+    const { asOfDate } = req.query;
+    
+    try {
+        const JournalService = require('./JournalService');
+        const balance = await JournalService.getAccountBalance(
+            parseInt(code), 
+            asOfDate || null
+        );
+        res.json({ account_code: code, balance: balance });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};

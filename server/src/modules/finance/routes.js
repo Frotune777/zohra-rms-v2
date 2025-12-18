@@ -34,4 +34,21 @@ router.put('/mappings/:id', verifyToken, requirePermission(PERMISSIONS.FINANCE_W
 router.delete('/mappings/:id', verifyToken, requirePermission(PERMISSIONS.FINANCE_WRITE), financeController.deleteExpenseMapping);
 router.post('/mappings/:id/apply', verifyToken, requirePermission(PERMISSIONS.FINANCE_WRITE), financeController.applyMappingHistory);
 
+// ==========================================
+// NEW ENDPOINTS - Accounting System Refactor
+// ==========================================
+
+// Daily Closure Endpoints
+router.get('/daily-balance/:date', verifyToken, requirePermission(PERMISSIONS.FINANCE_READ), financeController.getDailyBalance);
+router.post('/daily-balance/close', verifyToken, requirePermission(PERMISSIONS.FINANCE_WRITE), financeController.closeDailyBalance);
+router.post('/daily-balance/reopen', verifyToken, requirePermission(PERMISSIONS.ADMIN), financeController.reopenDailyBalance); // Owner only
+
+// Payment Modes Configuration
+router.get('/payment-modes', verifyToken, requirePermission(PERMISSIONS.FINANCE_READ), financeController.getPaymentModes);
+
+// Journal Entry Queries
+router.get('/journal/:id', verifyToken, requirePermission(PERMISSIONS.FINANCE_READ), financeController.getJournalEntry);
+router.get('/account-balance/:code', verifyToken, requirePermission(PERMISSIONS.FINANCE_READ), financeController.getAccountBalance);
+
 module.exports = router;
+

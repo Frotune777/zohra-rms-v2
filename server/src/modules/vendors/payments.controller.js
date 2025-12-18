@@ -73,7 +73,18 @@ exports.processPayment = async (req, res) => {
             VALUES ($1, CURRENT_DATE, 'Payment', $2, $3, $4, $5, $6)
         `, [vendorId, parseFloat(amount), notes, paymentMode, reference, payment.id]);
 
-        // 7. Create journal entry
+        // 7. Get payment mode account (REFACTORED: Use dynamic lookup instead of hardcoding)
+        const PaymentModeService = require('../finance/PaymentModeService');
+        let creditAccount;
+        try {
+            creditAccount = await PaymentModeService.getAccountCode(paymentMode);
+        } catch (err) {
+            // Fallback to hardcoded for backward compatibility during transition
+            creditAccount = paymentMode === 'Cash' ? 1000 :
+                paymentMode === 'UPI' ? 1020 : 1010;
+        }
+
+        // 8. Create journal entry
         const jeRes = await client.query(`
             INSERT INTO journal_entries (transaction_date, description)
             VALUES (CURRENT_DATE, $1) RETURNING id
@@ -84,34 +95,21 @@ exports.processPayment = async (req, res) => {
         // Update payment with journal entry ID
         await client.query('UPDATE vendor_payments SET journal_entry_id = $1 WHERE id = $2', [jeId, payment.id]);
 
-        // 8. Debit: Vendor Payable (2000)
+        // 9. Debit: Vendor Payable (2000)
         await client.query(`
             INSERT INTO ledger_lines (journal_entry_id, account_code, debit, credit)
             VALUES ($1, 2000, $2, 0)
         `, [jeId, parseFloat(amount)]);
 
-        // 9. Credit: Cash/Bank/UPI based on payment mode
-        const creditAccount = paymentMode === 'Cash' ? 1000 :
-            paymentMode === 'UPI' ? 1020 : 1010;
-
+        // 10. Credit: Cash/Bank/UPI based on payment mode
         await client.query(`
             INSERT INTO ledger_lines (journal_entry_id, account_code, debit, credit)
             VALUES ($1, $2, 0, $3)
         `, [jeId, creditAccount, parseFloat(amount)]);
 
-        // 10. Single Source of Truth: Sync with Daily Tracker (Transactions Table)
-        // Ensure this payment appears in the Daily Tracker as an outflow.
-        await client.query(`
-            INSERT INTO transactions 
-            (date, type, description, amount, status, payment_method, vendor_id, paid_by, category_id)
-            VALUES (CURRENT_DATE, 'Expense', $1, $2, 'Paid', $3, $4, $5, NULL)
-        `, [
-            `Vendor Payment to ${vendor.name} (${notes})`,
-            parseFloat(amount),
-            paymentMode === 'Cash' ? 'Cash' : 'Bank',
-            vendorId,
-            paidBy
-        ]);
+        // NOTE: REMOVED transactions table insert - no more duplication!
+        // Journal entries are now the single source of truth
+
 
         await client.query('COMMIT');
 

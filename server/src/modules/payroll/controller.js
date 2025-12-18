@@ -255,6 +255,10 @@ exports.markPaid = async (req, res) => {
     try {
         await client.query('BEGIN');
 
+        // Load required services
+        const JournalService = require('../finance/JournalService');
+        const PaymentModeService = require('../finance/PaymentModeService');
+
         // 1. Update Salary History
         const result = await client.query(
             `UPDATE salary_history 
@@ -271,14 +275,14 @@ exports.markPaid = async (req, res) => {
         const record = result.rows[0];
         console.log(`[Payroll] Record updated: ${record.id}, advance_deduction=${record.advance_deduction}`);
 
-        // 2. Mark Advances as Recovered (Partial or Full)
+        let repaymentJeId = null;
+
+        // 2. Mark Advances as Recovered (Partial or Full) AND Create Repayment Journal Entry
         if (record.advance_deduction > 0) {
             let remainingDeduction = parseFloat(record.advance_deduction);
             console.log(`[Payroll] Recovering advance: ${remainingDeduction}`);
 
             // Get all unrecovered advances ordered by date (FIFO)
-            // Fix: Check column names - based on previous fixes, we might need to use proper columns
-            // Let's debug query first
             const advancesQuery = `SELECT id, amount, recovered_amount FROM salary_advances 
                  WHERE employee_id = $1 AND is_recovered = FALSE 
                  ORDER BY created_at ASC`;
@@ -319,41 +323,72 @@ exports.markPaid = async (req, res) => {
             // Actually record.advance_deduction is the total deduction amount
             const finalBalance = currentLedgerBalance - parseFloat(record.advance_deduction);
 
-            // 3. Insert Repayment Record
+            // 3. Create Journal Entry for Repayment (NEW!)
+            // When we deduct from salary, we're recovering the advance
+            // Since employee receives less cash, and we reduce the receivable:
+            // Dr: Salary Expense account (already debited in step 4)
+            // Cr: Advance Receivable (reduce the asset as we recover)
+            // BUT actually, the net salary payment includes this deduction
+            // The correct entry is:
+            // We gave employee less cash => already in net_pay
+            // We need to clear the receivable:
+            // Dr: Nothing additional (included in salary expense)
+            // Cr: Advance Receivable (to clear the asset)
+            // 
+            // Actually, proper accounting for advance recovery from salary is:
+            // Original salary expense Dr 10000, Cr Cash 10000
+            // But we're paying net 8000 (after 2000 advance deduction)
+            // So: Dr Salary Expense 10000, Cr Advance Receivable 2000, Cr Cash 8000
+            // 
+            // But our current code debits only net_pay to Salary Expense
+            // We need to adjust this logic
+
+            const repaymentJournal = {
+                date: payment_date || new Date(),
+                description: `Advance Recovery - Payroll ${record.full_name}`,
+                reference_id: record.id,
+                reference_type: 'AdvanceRepayment',
+                lines: [
+                    { account_code: 6100, debit: parseFloat(record.advance_deduction), credit: 0 }, // Dr: Salary Expense (for the deduction amount)
+                    { account_code: 1100, debit: 0, credit: parseFloat(record.advance_deduction) } // Cr: Advance Receivable (clear the asset)
+                ]
+            };
+
+            const repaymentJe = await JournalService.createJournalEntry(repaymentJournal, client);
+            repaymentJeId = repaymentJe.id;
+
+            // 4. Insert Repayment Record in advance_ledger
             console.log(`[Payroll] Inserting ledger entry. PrevBal=${currentLedgerBalance}, Ded=${record.advance_deduction}, NewBal=${finalBalance}`);
             await client.query(`
-                INSERT INTO advance_ledger (employee_id, transaction_type, amount, transaction_date, notes, balance_after)
-                VALUES ($1, 'Repayment', $2, $3, $4, $5)
-            `, [record.employee_id, record.advance_deduction, payment_date || new Date(), `Payroll Deduction (ID: ${record.id})`, finalBalance]);
+                INSERT INTO advance_ledger (employee_id, transaction_type, amount, transaction_date, notes, balance_after, journal_entry_id)
+                VALUES ($1, 'Repayment', $2, $3, $4, $5, $6)
+            `, [record.employee_id, record.advance_deduction, payment_date || new Date(), `Payroll Deduction (ID: ${record.id})`, finalBalance, repaymentJeId]);
         }
 
-        // 3. Add to General Ledger (Expense)
+        // 5. Add to General Ledger (Salary Expense)
+        // Get payment mode account
+        const cashAccount = await PaymentModeService.getAccountCode(payment_mode || 'cash');
 
-        // Using existing schema: journal_entries(transaction_date, description), ledger_lines(account_code)
-        const journalRes = await client.query(
-            `INSERT INTO journal_entries (transaction_date, description)
-             VALUES ($1, $2) RETURNING id`,
-            [payment_date || new Date(), `Payroll Payout - ${record.full_name || 'Employee'}`]
-        );
-        const journalId = journalRes.rows[0].id;
+        // Create journal for net salary payment
+        const salaryJournal = {
+            date: payment_date || new Date(),
+            description: `Payroll Payout - ${record.full_name || 'Employee'}`,
+            reference_id: record.id,
+            reference_type: 'SalaryPayment',
+            lines: [
+                { account_code: 6100, debit: parseFloat(record.net_pay), credit: 0 }, // Dr: Salaries Expense (net pay)
+                { account_code: cashAccount, debit: 0, credit: parseFloat(record.net_pay) } // Cr: Cash/Bank (what we actually paid)
+            ]
+        };
 
-        // Debit: Salaries Expense (6000)
-        await client.query(
-            `INSERT INTO ledger_lines (journal_entry_id, account_code, debit, credit)
-             VALUES ($1, 6000, $2, 0)`,
-            [journalId, record.net_pay]
-        );
-
-        // Credit: Cash (1000) or Bank (1010)
-        const creditAccountCode = payment_mode === 'Cash' ? 1000 : 1010;
-        await client.query(
-            `INSERT INTO ledger_lines (journal_entry_id, account_code, debit, credit)
-             VALUES ($1, $2, 0, $3)`,
-            [journalId, creditAccountCode, record.net_pay]
-        );
+        await JournalService.createJournalEntry(salaryJournal, client);
 
         await client.query('COMMIT');
-        res.json(result.rows[0]);
+        res.json({
+            success: true,
+            record: result.rows[0],
+            repayment_journal_id: repaymentJeId
+        });
     } catch (err) {
         await client.query('ROLLBACK');
         res.status(500).json({ error: err.message });
@@ -361,6 +396,7 @@ exports.markPaid = async (req, res) => {
         client.release();
     }
 };
+
 
 // Delete Payroll (Owner Only)
 exports.deletePayroll = async (req, res) => {

@@ -294,6 +294,10 @@ exports.approveAdvance = async (req, res) => {
     try {
         await client.query('BEGIN');
 
+        // Load required services
+        const JournalService = require('../finance/JournalService');
+        const PaymentModeService = require('../finance/PaymentModeService');
+
         // 1. Get request details
         const reqRes = await client.query('SELECT * FROM advance_requests WHERE id = $1 FOR UPDATE', [id]);
         if (reqRes.rows.length === 0) throw new Error('Request not found');
@@ -301,7 +305,7 @@ exports.approveAdvance = async (req, res) => {
 
         if (request.status !== 'Pending') throw new Error('Request already processed');
 
-        // 2. Calculate Balance Logic (reused from old createTransaction)
+        // 2. Calculate Balance Logic
         const balRes = await client.query(`
             SELECT 
                 COALESCE(SUM(CASE WHEN transaction_type = 'Advance' THEN amount ELSE 0 END), 0) - 
@@ -321,11 +325,32 @@ exports.approveAdvance = async (req, res) => {
             newBalance -= parseFloat(request.requested_amount);
         }
 
-        // 3. Insert into Ledger
-        await client.query(`
+        // 3. Get payment mode account mapping
+        const cashAccount = await PaymentModeService.getAccountCode(request.payment_mode || 'cash');
+
+        // 4. Create Journal Entry (REFACTORED)
+        const journalEntry = {
+            date: new Date(),
+            description: `Salary ${request.type} - ${request.reason}`,
+            reference_id: id,
+            reference_type: `Advance${request.type}`,
+            lines: request.type === 'Advance' ? [
+                { account_code: 1100, debit: parseFloat(request.requested_amount), credit: 0 }, // Dr: Advance Receivable
+                { account_code: cashAccount, debit: 0, credit: parseFloat(request.requested_amount) } // Cr: Cash/Bank
+            ] : [
+                { account_code: cashAccount, debit: parseFloat(request.requested_amount), credit: 0 }, // Dr: Cash/Bank
+                { account_code: 1100, debit: 0, credit: parseFloat(request.requested_amount) } // Cr: Advance Receivable
+            ]
+        };
+
+        const je = await JournalService.createJournalEntry(journalEntry, client);
+
+        // 5. Insert into Ledger (with journal entry reference)
+        const ledgerRes = await client.query(`
             INSERT INTO advance_ledger 
-            (employee_id, transaction_type, amount, balance_after, notes, payment_mode, paid_by, advance_request_id, approved_by, approved_at)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW())
+            (employee_id, transaction_type, amount, balance_after, notes, payment_mode, paid_by, advance_request_id, approved_by, approved_at, journal_entry_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), $10)
+            RETURNING *
         `, [
             request.employee_id,
             request.type,
@@ -335,30 +360,24 @@ exports.approveAdvance = async (req, res) => {
             request.payment_mode,
             request.paid_by,
             id,
-            userId
+            userId,
+            je.id
         ]);
 
-        // 4. Update Request Status
+        // 6. Update Request Status
         await client.query(`
             UPDATE advance_requests 
             SET status = 'Approved', approved_by = $1, approved_at = NOW() 
             WHERE id = $2
         `, [userId, id]);
 
-        // 5. Journal Entries
-        const jeRes = await client.query("INSERT INTO journal_entries (description, transaction_date) VALUES ($1, NOW()) RETURNING id", [`Salary ${request.type} - Approved Advance`]);
-        const jeId = jeRes.rows[0].id;
-
-        if (request.type === 'Advance') {
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 1100, $2)", [jeId, request.requested_amount]); // Receivables
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 1000, $2)", [jeId, request.requested_amount]); // Cash/Bank
-        } else {
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 1000, $2)", [jeId, request.requested_amount]);
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 1100, $2)", [jeId, request.requested_amount]);
-        }
-
         await client.query('COMMIT');
-        res.json({ success: true, message: 'Approved successfully' });
+        res.json({
+            success: true,
+            message: 'Approved successfully',
+            journal_entry_id: je.id,
+            ledger_entry: ledgerRes.rows[0]
+        });
     } catch (err) {
         await client.query('ROLLBACK');
         res.status(500).json({ error: err.message });
@@ -366,6 +385,7 @@ exports.approveAdvance = async (req, res) => {
         client.release();
     }
 };
+
 
 exports.rejectAdvance = async (req, res) => {
     const { id } = req.params;

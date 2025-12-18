@@ -227,59 +227,192 @@ class FinanceService {
         }
     }
 
+    /**
+     * Add Revenue (REFACTORED for Double-Entry)
+     * 
+     * Creates journal entry for revenue/sales with:
+     * - Payment mode → Account resolution
+     * - Balanced journal entry
+     * 
+     * @param {Object} data - Revenue data
+     * @returns {Promise<Object>} Result with journal_entry_id
+     */
     async addRevenue(data) {
-        const { description, amount } = data;
-        if (!amount) throw new Error('Amount is required'); // This might map to 500 in Controller unless handled. Use specific error?
-        // To pass "return 400" test, Controller should handle this message or generic validation.
-        // Actually, let's throw a custom object or just rely on Controller not handling it yet but eventually fixing Controller.
-        // Actually, if I throw new Error('Amount is required'), the test expected 400 but got 500.
-        // I should stick to the simple Error for now, and update Controller to return 400 for missing fields if I can.
-        // OR better: FinanceService.addRevenue IS called by Controller.
-        // If I validate here, the error bubbles up.
+        const {
+            description,
+            amount,
+            payment_mode = 'cash',
+            date
+        } = data;
+
+        // Load required services
+        const JournalService = require('./JournalService');
+        const PaymentModeService = require('./PaymentModeService');
+
+        // 1. Validate required fields
+        if (!amount || parseFloat(amount) <= 0) {
+            throw new Error('Amount is required and must be positive');
+        }
+
+        if (!description) {
+            throw new Error('Description is required');
+        }
+
+        const transactionDate = date || new Date().toISOString().split('T')[0];
 
         const client = await db.pool.connect();
+
         try {
             await client.query('BEGIN');
-            const jeRes = await client.query(
-                "INSERT INTO journal_entries (description) VALUES ($1) RETURNING id",
-                [description]
-            );
-            const jeId = jeRes.rows[0].id;
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 1100, $2)", [jeId, parseFloat(amount)]); // Cash/Bank (Debit)
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 4000, $2)", [jeId, parseFloat(amount)]); // Sales (Credit)
+
+            // 2. Get payment mode account mapping
+            const cashAccount = await PaymentModeService.getAccountCode(payment_mode);
+
+            // 3. Create journal entry
+            const journalEntry = {
+                date: transactionDate,
+                description: description,
+                reference_type: 'Revenue',
+                lines: [
+                    { account_code: cashAccount, debit: parseFloat(amount), credit: 0 }, // Cash/Bank increased
+                    { account_code: 4000, debit: 0, credit: parseFloat(amount) } // Sales Revenue
+                ]
+            };
+
+            const je = await JournalService.createJournalEntry(journalEntry, client);
+
             await client.query('COMMIT');
-            return { success: true, jeId };
-        } catch (e) {
+
+            return {
+                success: true,
+                journal_entry_id: je.id
+            };
+
+        } catch (err) {
             await client.query('ROLLBACK');
-            throw e;
+            throw err;
         } finally {
             client.release();
         }
     }
 
+
+    /**
+     * Add Expense (REFACTORED for Double-Entry)
+     * 
+     * Creates journal entry for expense with:
+     * - Day closure validation
+     * - Category → Account mapping
+     * - Payment mode → Account resolution
+     * - Balanced journal entry
+     * 
+     * @param {Object} data - Expense data
+     * @returns {Promise<Object>} Result with journal_entry_id
+     */
     async addExpense(data) {
-        const { description, amount } = data;
-        if (!amount) throw new Error('Amount is required');
+        const {
+            date,
+            description,
+            amount,
+            category_id,
+            payment_mode,
+            paid_by,
+            vendor_id
+        } = data;
+
+        // Load required services
+        const JournalService = require('./JournalService');
+        const ClosureService = require('./ClosureService');
+        const PaymentModeService = require('./PaymentModeService');
+
+        // 1. Validate required fields
+        if (!amount || parseFloat(amount) <= 0) {
+            throw new Error('Amount is required and must be positive');
+        }
+
+        if (!description) {
+            throw new Error('Description is required');
+        }
+
+        if (!category_id) {
+            throw new Error('Category is required');
+        }
+
+        if (!payment_mode) {
+            throw new Error('Payment mode is required');
+        }
+
+        const transactionDate = date || new Date().toISOString().split('T')[0];
 
         const client = await db.pool.connect();
+
         try {
             await client.query('BEGIN');
-            const jeRes = await client.query(
-                "INSERT INTO journal_entries (description) VALUES ($1) RETURNING id",
-                [description]
-            );
-            const jeId = jeRes.rows[0].id;
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 6000, $2)", [jeId, parseFloat(amount)]); // Expense (Debit)
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 1100, $2)", [jeId, parseFloat(amount)]); // Cash/Bank (Credit)
+
+            // 2. Check if day is closed (only for cash transactions)
+            const paymentModeLower = payment_mode.toLowerCase();
+            if (paymentModeLower === 'cash' || paymentModeLower === 'manager_float') {
+                const isClosed = await ClosureService.isDayClosed(transactionDate, 'Counter');
+                if (isClosed) {
+                    throw new Error(`Cannot add expense: ${transactionDate} is closed`);
+                }
+            }
+
+            // 3. Get category account mapping
+            const categoryRes = await client.query(`
+                SELECT account_code, name FROM transaction_categories WHERE id = $1
+            `, [category_id]);
+
+            if (categoryRes.rows.length === 0) {
+                throw new Error('Category not found');
+            }
+
+            if (!categoryRes.rows[0].account_code) {
+                throw new Error(`Category "${categoryRes.rows[0].name}" not mapped to GL account`);
+            }
+
+            const expenseAccount = categoryRes.rows[0].account_code;
+
+            // 4. Get payment mode account mapping
+            const cashAccount = await PaymentModeService.getAccountCode(payment_mode);
+
+            // 5. Create journal entry
+            const journalEntry = {
+                date: transactionDate,
+                description: description,
+                reference_type: 'Expense',
+                lines: [
+                    { account_code: expenseAccount, debit: parseFloat(amount), credit: 0 },
+                    { account_code: cashAccount, debit: 0, credit: parseFloat(amount) }
+                ]
+            };
+
+            const je = await JournalService.createJournalEntry(journalEntry, client);
+
+            // 6. BACKWARD COMPATIBILITY: Also create in transactions table during transition
+            // TODO: Remove this after migration period
+            await client.query(`
+                INSERT INTO transactions 
+                (date, type, amount, payment_method, description, category_id, vendor_id, paid_by, status)
+                VALUES ($1, 'Expense', $2, $3, $4, $5, $6, $7, 'Paid')
+            `, [transactionDate, parseFloat(amount), payment_mode, description, category_id, vendor_id, paid_by]);
+
             await client.query('COMMIT');
-            return { success: true, jeId };
-        } catch (e) {
+
+            return {
+                success: true,
+                journal_entry_id: je.id,
+                message: 'Expense recorded successfully'
+            };
+
+        } catch (err) {
             await client.query('ROLLBACK');
-            throw e;
+            throw err;
         } finally {
             client.release();
         }
     }
+
 
     async recordPayment(data) {
         const { supplierId, amount, paymentMode, details } = data;
