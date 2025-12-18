@@ -355,6 +355,15 @@ class InventoryService {
         }
     }
 
+    async updateBillStatus(id, status, userId) {
+        const result = await db.query(
+            `UPDATE bill_entries SET status = $1, updated_at = NOW() WHERE id = $2 RETURNING *`,
+            [status, id]
+        );
+        if (result.rowCount === 0) throw new Error('Bill entry not found');
+        return result.rows[0];
+    }
+
     async getBillEntries(query) {
         const { date, supplierId } = query;
         let sql = `

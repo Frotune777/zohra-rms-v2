@@ -1,4 +1,5 @@
 const db = require('../../config/db');
+const JournalService = require('../finance/JournalService');
 
 exports.getWastageLogs = async (req, res) => {
     try {
@@ -38,13 +39,21 @@ exports.logWastage = async (req, res) => {
         // 3. Reduce Inventory
         await client.query("UPDATE inventory_items SET stock_qty = stock_qty - $1 WHERE id = $2", [qty, inventory_item_id]);
 
-        // 4. Financial Entry (Debit Wastage Expense, Credit Inventory Asset)
-        // Need a Wastage Expense Account (e.g., 6100). For now using 6000 (General Expense)
-        const jeRes = await client.query("INSERT INTO journal_entries (description) VALUES ($1) RETURNING id", [`Wastage: ${reason}`]);
-        const jeId = jeRes.rows[0].id;
+        // 4. Financial Journaling (REFACTORED for Double-Entry)
+        const journalEntry = {
+            date: new Date(),
+            description: `Wastage Logging: ${reason}`,
+            reference_id: result.rows[0].id,
+            reference_type: 'Wastage',
+            lines: [
+                { account_code: 6000, debit: parseFloat(cost.toFixed(2)), credit: 0 }, // Dr: General Expense (Wastage)
+                { account_code: 1200, debit: 0, credit: parseFloat(cost.toFixed(2)) }  // Cr: Inventory Asset
+            ]
+        };
 
-        await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 6000, $2)", [jeId, cost]);
-        await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 1200, $2)", [jeId, cost]); // 1200 = Inventory Asset
+        if (cost > 0) {
+            await JournalService.createJournalEntry(journalEntry, client);
+        }
 
         await client.query('COMMIT');
         res.json(result.rows[0]);

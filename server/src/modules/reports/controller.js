@@ -1,5 +1,17 @@
 const db = require('../../config/db');
 
+// Helper to ensure valid dates
+const getsatfeDateRange = (startDate, endDate) => {
+  const now = new Date();
+  const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+  const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
+
+  return [
+    startDate || firstDay,
+    endDate || lastDay
+  ];
+};
+
 // ==================== FINANCIAL REPORTS ====================
 
 /**
@@ -8,7 +20,7 @@ const db = require('../../config/db');
  */
 async function getFinancialOverview(req, res) {
   try {
-    const { startDate, endDate } = req.query;
+    const [startDate, endDate] = getsatfeDateRange(req.query.startDate, req.query.endDate);
 
     // Revenue and Expenses Summary
     const summaryQuery = `
@@ -75,7 +87,7 @@ async function getFinancialOverview(req, res) {
  */
 async function getExpenseBreakdown(req, res) {
   try {
-    const { startDate, endDate } = req.query;
+    const [startDate, endDate] = getsatfeDateRange(req.query.startDate, req.query.endDate);
 
     const query = `
       SELECT 
@@ -106,7 +118,8 @@ async function getExpenseBreakdown(req, res) {
  */
 async function getRevenueTrends(req, res) {
   try {
-    const { startDate, endDate, groupBy = 'day' } = req.query;
+    const { groupBy = 'day' } = req.query;
+    const [startDate, endDate] = getsatfeDateRange(req.query.startDate, req.query.endDate);
 
     let dateFormat;
     switch (groupBy) {
@@ -309,6 +322,7 @@ async function getPayrollSummary(req, res) {
       params = [month, year];
     } else {
       // Date range summary
+      const [start, end] = getsatfeDateRange(startDate, endDate);
       query = `
         SELECT 
           COUNT(DISTINCT sh.employee_id) as employee_count,
@@ -319,7 +333,7 @@ async function getPayrollSummary(req, res) {
         FROM salary_history sh
         WHERE sh.processed_at >= $1 AND sh.processed_at <= $2
       `;
-      params = [startDate, endDate];
+      params = [start, end];
     }
 
     const summary = await db.query(query, params);
@@ -377,7 +391,7 @@ async function getPayrollSummary(req, res) {
  */
 async function getAdvanceTracking(req, res) {
   try {
-    const { startDate, endDate } = req.query;
+    const [startDate, endDate] = getsatfeDateRange(req.query.startDate, req.query.endDate);
 
     // Get all advances with employee details
     const advancesQuery = `
@@ -385,17 +399,17 @@ async function getAdvanceTracking(req, res) {
         e.id as employee_id,
         e.full_name,
         e.position,
-        COALESCE(SUM(CASE WHEN al.transaction_type = 'advance' THEN al.amount ELSE 0 END), 0) as total_advances,
-        COALESCE(SUM(CASE WHEN al.transaction_type = 'recovery' THEN al.amount ELSE 0 END), 0) as total_recovered,
-        COALESCE(SUM(CASE WHEN al.transaction_type = 'advance' THEN al.amount ELSE 0 END), 0) - 
-        COALESCE(SUM(CASE WHEN al.transaction_type = 'recovery' THEN al.amount ELSE 0 END), 0) as outstanding_balance
+        COALESCE(SUM(CASE WHEN LOWER(al.transaction_type) = 'advance' THEN al.amount ELSE 0 END), 0) as total_advances,
+        COALESCE(SUM(CASE WHEN LOWER(al.transaction_type) IN ('repayment', 'recovery') THEN al.amount ELSE 0 END), 0) as total_recovered,
+        COALESCE(SUM(CASE WHEN LOWER(al.transaction_type) = 'advance' THEN al.amount ELSE 0 END), 0) - 
+        COALESCE(SUM(CASE WHEN LOWER(al.transaction_type) IN ('repayment', 'recovery') THEN al.amount ELSE 0 END), 0) as outstanding_balance
       FROM employees e
       LEFT JOIN advance_ledger al ON e.id = al.employee_id
         AND al.transaction_date >= $1 
         AND al.transaction_date <= $2
       WHERE e.status = 'active'
       GROUP BY e.id, e.full_name, e.position
-      HAVING COALESCE(SUM(CASE WHEN al.transaction_type = 'advance' THEN al.amount ELSE 0 END), 0) > 0
+      HAVING COALESCE(SUM(CASE WHEN LOWER(al.transaction_type) = 'advance' THEN al.amount ELSE 0 END), 0) > 0
       ORDER BY outstanding_balance DESC
     `;
 

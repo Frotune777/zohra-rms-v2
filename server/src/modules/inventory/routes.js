@@ -30,6 +30,7 @@ router.delete('/markups/:id', verifyToken, requirePermission(PERMISSIONS.INVENTO
 // Bill Entries
 router.get('/bills', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getBillEntries);
 router.post('/bills', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.createBillEntry);
+router.patch('/bills/:id/status', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.updateBillStatus);
 router.get('/bills/summary', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getBillSummary);
 
 // Ledger

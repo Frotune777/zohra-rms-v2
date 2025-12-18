@@ -411,7 +411,6 @@ exports.runPayroll = async (req, res) => {
         await client.query('BEGIN');
 
         const empRes = await client.query("SELECT * FROM employees WHERE id = $1", [employeeId]);
-        console.log('DEBUG: runPayroll empRes rows:', empRes.rows);
         const employee = empRes.rows[0];
         const baseSalary = parseFloat(employee.base_salary);
 
@@ -424,7 +423,7 @@ exports.runPayroll = async (req, res) => {
         const adjustment = parseFloat(manualAdjustment || 0);
         const netPay = earnedSalary + adjustment;
 
-        await client.query(
+        const historyRes = await client.query(
             `INSERT INTO salary_history 
             (employee_id, month, year, days_worked, total_days_in_month, calculated_salary, manual_adjustment, adjustment_reason, net_pay)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
@@ -432,15 +431,41 @@ exports.runPayroll = async (req, res) => {
             days_worked = EXCLUDED.days_worked,
             calculated_salary = EXCLUDED.calculated_salary,
             manual_adjustment = EXCLUDED.manual_adjustment,
-            net_pay = EXCLUDED.net_pay`,
+            net_pay = EXCLUDED.net_pay
+            RETURNING id`,
             [employeeId, month, year, worked, daysInMonth, earnedSalary, adjustment, adjustmentReason, netPay]
         );
+        const salaryHistoryId = historyRes.rows[0].id;
 
-        const jeRes = await client.query("INSERT INTO journal_entries (description) VALUES ($1) RETURNING id", [`Payroll ${month}/${year}: ${employee.full_name}`]);
-        const jeId = jeRes.rows[0].id;
+        // Save components for reporting
+        await client.query("DELETE FROM salary_history_components WHERE salary_history_id = $1", [salaryHistoryId]);
+        await client.query(
+            "INSERT INTO salary_history_components (salary_history_id, component_name, amount, type) VALUES ($1, 'Base Salary', $2, 'Earning')",
+            [salaryHistoryId, earnedSalary]
+        );
+        if (adjustment !== 0) {
+            await client.query(
+                "INSERT INTO salary_history_components (salary_history_id, component_name, amount, type) VALUES ($1, $2, $3, $4)",
+                [salaryHistoryId, adjustmentReason || 'Adjustment', Math.abs(adjustment), adjustment > 0 ? 'Earning' : 'Deduction']
+            );
+        }
 
-        await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 6000, $2)", [jeId, netPay]);
-        await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 1000, $2)", [jeId, netPay]);
+        // 5. Financial Journaling (REFACTORED for Double-Entry)
+        const JournalService = require('../finance/JournalService');
+        const journalEntry = {
+            date: new Date(),
+            description: `Payroll ${month}/${year}: ${employee.full_name}`,
+            reference_id: salaryHistoryId,
+            reference_type: 'Payroll',
+            lines: [
+                { account_code: 6000, debit: parseFloat(netPay.toFixed(2)), credit: 0 }, // Dr: Salaries Expense
+                { account_code: 1000, debit: 0, credit: parseFloat(netPay.toFixed(2)) }  // Cr: Cash
+            ]
+        };
+
+        if (netPay > 0) {
+            await JournalService.createJournalEntry(journalEntry, client);
+        }
 
         await client.query('COMMIT');
         res.json({ success: true, netPay, earnedSalary });

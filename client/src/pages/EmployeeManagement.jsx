@@ -202,7 +202,7 @@ const EmployeeManagement = () => {
   };
 
   return (
-    <div className="h-full w-full flex flex-col overflow-hidden p-6">
+    <div className="min-h-full w-full flex flex-col p-4 md:p-6 overflow-y-auto md:overflow-hidden lg:h-full">
       <PageHeader
         title="Employee Management"
         showBack={true}

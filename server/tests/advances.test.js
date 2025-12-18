@@ -32,6 +32,8 @@ describe('Advances and Payroll Module', () => {
         req = global.testUtils.mockRequest();
         res = global.testUtils.mockResponse();
         jest.clearAllMocks();
+        // Default mock implementation to prevent "Cannot read property of undefined"
+        db.query.mockResolvedValue(mockQueryResult([]));
     });
 
     describe('getAllAdvances', () => {
@@ -118,11 +120,7 @@ describe('Advances and Payroll Module', () => {
             // Mock BEGIN, balance query, INSERT, journal entries, COMMIT
             db.query
                 .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
-                .mockResolvedValueOnce(mockQueryResult([{ balance: 0 }])) // Get balance
-                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // INSERT advance
-                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // INSERT journal entry
-                .mockResolvedValueOnce(mockQueryResult([])) // INSERT ledger line 1
-                .mockResolvedValueOnce(mockQueryResult([])) // INSERT ledger line 2
+                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // INSERT advance_requests
                 .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
             await createTransaction(req, res);
@@ -130,7 +128,7 @@ describe('Advances and Payroll Module', () => {
             expect(res.json).toHaveBeenCalledWith(
                 expect.objectContaining({
                     success: true,
-                    newBalance: 5000,
+                    message: expect.stringContaining('approval')
                 })
             );
         });
@@ -147,11 +145,7 @@ describe('Advances and Payroll Module', () => {
 
             db.query
                 .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
-                .mockResolvedValueOnce(mockQueryResult([{ balance: 5000 }])) // SELECT Balance
-                .mockResolvedValueOnce(mockQueryResult([])) // INSERT advance_ledger (Repayment)
-                .mockResolvedValueOnce(mockQueryResult([{ id: 102 }])) // INSERT Journal
-                .mockResolvedValueOnce(mockQueryResult([])) // Ledger 1
-                .mockResolvedValueOnce(mockQueryResult([])) // Ledger 2
+                .mockResolvedValueOnce(mockQueryResult([{ id: 102 }])) // INSERT advance_requests
                 .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
             await createTransaction(req, res);
@@ -202,7 +196,12 @@ describe('Advances and Payroll Module', () => {
             db.query
                 .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
                 .mockResolvedValueOnce(mockQueryResult([employee])) // SELECT Employee
-                .mockResolvedValueOnce(mockQueryResult([{ net_pay: 29032, id: 1 }])) // INSERT Salary History
+                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // INSERT Salary History
+                .mockResolvedValueOnce(mockQueryResult([])) // DELETE components
+                .mockResolvedValueOnce(mockQueryResult([])) // INSERT component 1
+                .mockResolvedValueOnce(mockQueryResult([{ code: 6000 }])) // SELECT account code 6000
+                .mockResolvedValueOnce(mockQueryResult([{ code: 1000 }])) // SELECT account code 1000
+                .mockResolvedValueOnce(mockQueryResult([{ status: 'Open' }])) // SELECT period status
                 .mockResolvedValueOnce(mockQueryResult([{ id: 201 }])) // INSERT Journal
                 .mockResolvedValueOnce(mockQueryResult([])) // Ledger 1
                 .mockResolvedValueOnce(mockQueryResult([])) // Ledger 2
@@ -239,7 +238,13 @@ describe('Advances and Payroll Module', () => {
             db.query
                 .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
                 .mockResolvedValueOnce(mockQueryResult([employee])) // SELECT Employee
-                .mockResolvedValueOnce(mockQueryResult([{ net_pay: 31032, id: 1 }])) // INSERT Salary History
+                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // INSERT Salary History
+                .mockResolvedValueOnce(mockQueryResult([])) // DELETE components
+                .mockResolvedValueOnce(mockQueryResult([])) // INSERT component 1
+                .mockResolvedValueOnce(mockQueryResult([])) // INSERT component 2
+                .mockResolvedValueOnce(mockQueryResult([{ code: 6000 }])) // SELECT account code 6000
+                .mockResolvedValueOnce(mockQueryResult([{ code: 1000 }])) // SELECT account code 1000
+                .mockResolvedValueOnce(mockQueryResult([{ status: 'Open' }])) // SELECT period status
                 .mockResolvedValueOnce(mockQueryResult([{ id: 202 }])) // INSERT Journal
                 .mockResolvedValueOnce(mockQueryResult([])) // Ledger 1
                 .mockResolvedValueOnce(mockQueryResult([])) // Ledger 2
@@ -272,7 +277,12 @@ describe('Advances and Payroll Module', () => {
             db.query
                 .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
                 .mockResolvedValueOnce(mockQueryResult([employee])) // SELECT Employee
-                .mockResolvedValueOnce(mockQueryResult([{ net_pay: 14516, id: 1 }])) // INSERT Salary History
+                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // INSERT Salary History
+                .mockResolvedValueOnce(mockQueryResult([])) // DELETE components
+                .mockResolvedValueOnce(mockQueryResult([])) // INSERT component 1
+                .mockResolvedValueOnce(mockQueryResult([{ code: 6000 }])) // SELECT account code 6000
+                .mockResolvedValueOnce(mockQueryResult([{ code: 1000 }])) // SELECT account code 1000
+                .mockResolvedValueOnce(mockQueryResult([{ status: 'Open' }])) // SELECT period status
                 .mockResolvedValueOnce(mockQueryResult([{ id: 203 }])) // INSERT Journal
                 .mockResolvedValueOnce(mockQueryResult([])) // Ledger 1
                 .mockResolvedValueOnce(mockQueryResult([])) // Ledger 2

@@ -120,30 +120,53 @@ const ChickenDashboard = () => {
                                     <th className="p-3">Vendor</th>
                                     <th className="p-3">Item</th>
                                     <th className="p-3">Qty</th>
+                                    <th className="p-3">Rate Var</th>
                                     <th className="p-3">Amount</th>
                                     <th className="p-3">Status</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-white/5">
                                 {recentBills.length > 0 ? (
-                                    recentBills.map((bill, idx) => (
-                                        <tr key={idx} className="text-sm hover:bg-white/5 transition">
-                                            <td className="p-3 text-white">{new Date(bill.date).toLocaleDateString()}</td>
-                                            <td className="p-3 text-gray-300">{bill.supplier_name}</td>
-                                            <td className="p-3 text-gray-300 capitalize">{bill.item_type}</td>
-                                            <td className="p-3 text-gray-300">{bill.qty} kg</td>
-                                            <td className="p-3 text-white font-bold">₹{bill.qty * bill.vendor_rate}</td>
-                                            <td className="p-3">
-                                                <span className={`px-2 py-0.5 rounded-full text-[10px] uppercase font-bold ${bill.status === 'Approved' ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'
-                                                    }`}>
-                                                    {bill.status}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    ))
+                                    recentBills.map((bill, idx) => {
+                                        const rateVar = parseFloat(bill.vendor_rate || 0) - parseFloat(bill.expected_rate || 0);
+                                        return (
+                                            <tr key={idx} className="text-sm hover:bg-white/5 transition">
+                                                <td className="p-3 text-white">{new Date(bill.date).toLocaleDateString()}</td>
+                                                <td className="p-3 text-gray-300">{bill.supplier_name}</td>
+                                                <td className="p-3 text-gray-300 capitalize">{bill.item_type || bill.item_name}</td>
+                                                <td className="p-3 text-gray-300">{bill.qty} kg</td>
+                                                <td className={`p-3 font-medium ${rateVar > 0 ? 'text-red-400' : 'text-green-400'}`}>
+                                                    {rateVar > 0 ? '+' : ''}{rateVar.toFixed(2)}
+                                                </td>
+                                                <td className="p-3 text-white font-bold">₹{bill.qty * bill.vendor_rate}</td>
+                                                <td className="p-3">
+                                                    {bill.status === 'Pending' ? (
+                                                        <button
+                                                            onClick={async () => {
+                                                                try {
+                                                                    await api.patch(`chicken/bills/${bill.id}/status`, { status: 'Approved' });
+                                                                    toast.success('✓ Bill approved');
+                                                                    fetchData();
+                                                                } catch (error) {
+                                                                    toast.error('Failed to approve bill');
+                                                                }
+                                                            }}
+                                                            className="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 rounded-full text-[10px] uppercase font-bold hover:bg-yellow-500/30 transition"
+                                                        >
+                                                            Approve
+                                                        </button>
+                                                    ) : (
+                                                        <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded-full text-[10px] uppercase font-bold">
+                                                            {bill.status}
+                                                        </span>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })
                                 ) : (
                                     <tr>
-                                        <td colSpan="6" className="p-8 text-center text-gray-500">No recent bills found.</td>
+                                        <td colSpan="7" className="p-8 text-center text-gray-500">No recent bills found.</td>
                                     </tr>
                                 )}
                             </tbody>

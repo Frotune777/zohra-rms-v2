@@ -191,6 +191,22 @@ exports.createBillEntry = async (req, res) => {
     }
 };
 
+exports.updateBillStatus = async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    if (!status) return res.status(400).json({ error: 'Status is required' });
+
+    try {
+        const result = await InventoryService.updateBillStatus(id, status, req.user ? req.user.id : null);
+        res.json(result);
+    } catch (err) {
+        if (err.message === 'Bill entry not found') {
+            return res.status(404).json({ error: 'Bill entry not found' });
+        }
+        res.status(500).json({ error: err.message });
+    }
+};
+
 exports.getBillEntries = async (req, res) => {
     try {
         const result = await InventoryService.getBillEntries(req.query);

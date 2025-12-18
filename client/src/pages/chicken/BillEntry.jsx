@@ -105,6 +105,17 @@ const BillEntry = () => {
         }
     };
 
+    const handleApprove = async (id) => {
+        try {
+            await api.patch(`chicken/bills/${id}/status`, { status: 'Approved' });
+            toast.success('✓ Bill approved successfully');
+            fetchEntries();
+            fetchSummary();
+        } catch (err) {
+            toast.error(err.response?.data?.error || 'Failed to approve bill');
+        }
+    };
+
     return (
         <div className="p-4 sm:p-6 lg:p-8 h-full w-full flex flex-col overflow-hidden">
             <PageHeader title="Daily Bill Entry" showBack={true} showHome={true} backTo="/chicken" />
@@ -297,25 +308,47 @@ const BillEntry = () => {
                                 <th className="p-3 text-right">Qty</th>
                                 <th className="p-3 text-right">Rate</th>
                                 <th className="p-3 text-right">Expected</th>
-                                <th className="p-3 text-right">Variance</th>
+                                <th className="p-3 text-right">Rate Var</th>
+                                <th className="p-3 text-right">Total Var</th>
+                                <th className="p-3 text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {entries.map(entry => (
-                                <tr key={entry.id} className="border-b border-white/5 hover:bg-white/5">
-                                    <td className="p-3 text-white">{entry.supplier_name}</td>
-                                    <td className="p-3 text-white">{entry.item_name}</td>
-                                    <td className="p-3 text-right text-white">{entry.qty}</td>
-                                    <td className="p-3 text-right text-white">₹{entry.vendor_rate}</td>
-                                    <td className="p-3 text-right text-gray-400">₹{entry.expected_rate}</td>
-                                    <td className={`p-3 text-right font-bold ${parseFloat(entry.variance) > 0 ? 'text-red-400' : 'text-green-400'}`}>
-                                        {parseFloat(entry.variance) > 0 ? '+' : ''}{parseFloat(entry.variance).toFixed(2)}
-                                    </td>
-                                </tr>
-                            ))}
+                            {entries.map(entry => {
+                                const rateVariance = parseFloat(entry.vendor_rate) - parseFloat(entry.expected_rate);
+                                return (
+                                    <tr key={entry.id} className="border-b border-white/5 hover:bg-white/5">
+                                        <td className="p-3 text-white">{entry.supplier_name}</td>
+                                        <td className="p-3 text-white">{entry.item_name}</td>
+                                        <td className="p-3 text-right text-white">{entry.qty}</td>
+                                        <td className="p-3 text-right text-white">₹{entry.vendor_rate}</td>
+                                        <td className="p-3 text-right text-gray-400">₹{entry.expected_rate}</td>
+                                        <td className={`p-3 text-right font-medium ${rateVariance > 0 ? 'text-red-400' : 'text-green-400'}`}>
+                                            {rateVariance > 0 ? '+' : ''}{rateVariance.toFixed(2)}
+                                        </td>
+                                        <td className={`p-3 text-right font-bold ${parseFloat(entry.variance) > 0 ? 'text-red-400' : 'text-green-400'}`}>
+                                            {parseFloat(entry.variance) > 0 ? '+' : ''}{parseFloat(entry.variance).toFixed(2)}
+                                        </td>
+                                        <td className="p-3 text-center">
+                                            {entry.status === 'Pending' ? (
+                                                <button
+                                                    onClick={() => handleApprove(entry.id)}
+                                                    className="px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded text-[10px] uppercase font-bold hover:bg-yellow-500/30 transition"
+                                                >
+                                                    Approve
+                                                </button>
+                                            ) : (
+                                                <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded text-[10px] uppercase font-bold">
+                                                    {entry.status}
+                                                </span>
+                                            )}
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                             {entries.length === 0 && (
                                 <tr>
-                                    <td colSpan="6" className="p-8 text-center text-gray-500">No entries found for this date.</td>
+                                    <td colSpan="8" className="p-8 text-center text-gray-500">No entries found for this date.</td>
                                 </tr>
                             )}
                         </tbody>

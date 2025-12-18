@@ -272,9 +272,9 @@ describe('POS Module', () => {
 
             await createOrder(req, res);
 
-            // We can check if pos_transactions insert had correct total
+            // We can check if orders insert had correct total
             expect(q).toHaveBeenCalledWith(
-                expect.stringContaining('INSERT INTO pos_transactions'),
+                expect.stringContaining('INSERT INTO orders'),
                 expect.arrayContaining([500]) // 250 * 2
             );
         });

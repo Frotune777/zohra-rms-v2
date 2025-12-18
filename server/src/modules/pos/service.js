@@ -1,5 +1,7 @@
 const db = require('../../config/db');
 const InventoryService = require('../inventory/service');
+const JournalService = require('../finance/JournalService');
+const PaymentModeService = require('../finance/PaymentModeService');
 
 class PosService {
     async getMenu() {
@@ -152,35 +154,45 @@ class PosService {
                 [orderId, totalAmount, paymentMethod || 'Cash', null]
             );
 
-            // 5. Financial Journaling (Phase 1 P0)
-            const jeRes = await client.query("INSERT INTO journal_entries (description, transaction_date) VALUES ($1, NOW()) RETURNING id", [`POS Order #${orderId}`]);
-            const jeId = jeRes.rows[0].id;
-
-            // Debit Cash/Bank (1000/1010)
-            const debitAccount = (paymentMethod === 'Card' || paymentMethod === 'UPI') ? 1010 : 1000;
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit, credit) VALUES ($1, $2, $3, 0)", [jeId, debitAccount, totalAmount]);
-
-            // Credit Revenue (4000) - Net of Tax?
-            // Usually Revenue is Net. Tax Liability is Credited separately.
+            // 5. Financial Journaling (REFACTORED for Double-Entry)
+            const cashAccount = await PaymentModeService.getAccountCode(paymentMethod || 'Cash');
             const netRevenue = totalAmount - totalTax;
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit, credit) VALUES ($1, 4000, 0, $2)", [jeId, netRevenue]);
 
-            // Credit Tax Payable (2100 - assuming code exists, else use temp/generic Liability)
+            const journalEntry = {
+                date: new Date(),
+                description: `POS Order #${orderNumber}`,
+                reference_id: orderId,
+                reference_type: 'POSOrder',
+                lines: [
+                    { account_code: cashAccount, debit: parseFloat(totalAmount.toFixed(2)), credit: 0 },
+                    { account_code: 4000, debit: 0, credit: parseFloat(netRevenue.toFixed(2)) }
+                ]
+            };
+
+            // Add tax line if applicable
             if (totalTax > 0) {
-                // Check if 2100 exists or use 2000 (Current Liabilities)
-                // For now, assuming tax is liability.
-                // Ideally lookup code. Using 2000 for safety if 2100 not in seeds.
-                await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit, credit) VALUES ($1, 2000, 0, $2)", [jeId, totalTax]);
+                journalEntry.lines.push({
+                    account_code: 2000, // Current Liabilities / Tax Payable
+                    debit: 0,
+                    credit: parseFloat(totalTax.toFixed(2))
+                });
             }
+
+            const je = await JournalService.createJournalEntry(journalEntry, client);
 
             // COGS Journal
             if (totalCOGS > 0) {
-                const cogsJeRes = await client.query("INSERT INTO journal_entries (description, transaction_date) VALUES ($1, NOW()) RETURNING id", [`COGS Order #${orderId}`]);
-                const cogsJeId = cogsJeRes.rows[0].id;
-
-                // Dr COGS (5000) / Cr Inventory Asset (1200)
-                await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit, credit) VALUES ($1, 5000, $2, 0)", [cogsJeId, totalCOGS]);
-                await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit, credit) VALUES ($1, 1200, 0, $2)", [cogsJeId, totalCOGS]);
+                const cogsEntry = {
+                    date: new Date(),
+                    description: `COGS Order #${orderNumber}`,
+                    reference_id: orderId,
+                    reference_type: 'COGS',
+                    lines: [
+                        { account_code: 5000, debit: parseFloat(totalCOGS.toFixed(2)), credit: 0 }, // Dr COGS
+                        { account_code: 1200, debit: 0, credit: parseFloat(totalCOGS.toFixed(2)) }  // Cr Inventory Asset
+                    ]
+                };
+                await JournalService.createJournalEntry(cogsEntry, client);
             }
 
             await client.query('COMMIT');

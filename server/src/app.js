@@ -1,16 +1,45 @@
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
+const logger = require('./utils/logger');
 require('dotenv').config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// Security & Performance Middleware
+app.use(helmet());
+app.use(compression());
+app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));
+
+// Rate Limiting
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 500, // Increased from 100 to 500 for better UI responsiveness and dashboard polling
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Too many requests, please try again later.' }
+});
+app.use('/api/', limiter);
+
+// CORS Configuration - In production, this should be restricted to the client URL
+const corsOptions = {
+    origin: process.env.CLIENT_URL || 'http://localhost:3002',
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 // Basic Health Check
 app.get('/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date() });
+    res.json({
+        status: 'ok',
+        timestamp: new Date(),
+        uptime: process.uptime()
+    });
 });
 
 // We will mount modules here later
@@ -56,11 +85,14 @@ app.use('/api/vendors', vendorRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({
+    logger.error(`${err.message}\n${err.stack}`);
+
+    res.status(err.status || 500).json({
         success: false,
         error: {
-            message: err.message || 'Internal Server Error',
+            message: process.env.NODE_ENV === 'production'
+                ? 'Internal Server Error'
+                : err.message,
             code: err.code
         }
     });
