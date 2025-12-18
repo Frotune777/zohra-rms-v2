@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../utils/api';
+import PageHeader from '../../components/PageHeader';
 import { toast } from 'react-hot-toast';
 import { FiCalendar, FiSave } from 'react-icons/fi';
 import RatesCalendar from '../../components/RatesCalendar';
@@ -60,24 +61,7 @@ const DailyRates = () => {
 
     return (
         <div className="p-6">
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold text-white">Daily Market Rates</h1>
-                {rateStatus && rateStatus.exists && (
-                    <div className="flex items-center gap-3">
-                        <span className={`px-3 py-1 rounded-full text-sm font-semibold ${rateStatus.status === 'confirmed'
-                            ? 'bg-green-500/20 text-green-400 border border-green-500'
-                            : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500'
-                            }`}>
-                            {rateStatus.status === 'confirmed' ? '✓ Confirmed' : '⏳ Pending'}
-                        </span>
-                        {rateStatus.updated_by_name && (
-                            <span className="text-sm text-gray-400">
-                                Last updated by {rateStatus.updated_by_name}
-                            </span>
-                        )}
-                    </div>
-                )}
-            </div>
+            <PageHeader title="Daily Market Rates" showBack={true} showHome={true} backTo="/chicken" />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Calendar */}

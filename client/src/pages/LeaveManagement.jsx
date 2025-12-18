@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
+import PageHeader from '../components/PageHeader';
 import { useAuth } from '../context/AuthContext';
 import { FiCalendar, FiCheckCircle, FiXCircle, FiClock, FiPlus, FiUser } from 'react-icons/fi';
 
@@ -118,19 +119,19 @@ const LeaveManagement = () => {
 
     return (
         <div className="p-8 h-full w-full flex flex-col overflow-hidden bg-gradient-to-br from-midnight to-midnight/95">
-            {/* Header */}
-            <div className="flex justify-between items-center mb-6">
-                <div>
-                    <h2 className="text-3xl font-bold text-zohra-blue mb-2">Leave Management</h2>
-                    <p className="text-xs text-gray-400">Manage employee leave requests and approvals</p>
-                </div>
-                <button
-                    onClick={() => setShowForm(!showForm)}
-                    className="flex items-center gap-2 btn-primary"
-                >
-                    <FiPlus /> New Leave Request
-                </button>
-            </div>
+            <PageHeader
+                title="Leave Management"
+                showBack={true}
+                showHome={true}
+                actions={
+                    <button
+                        onClick={() => setShowForm(!showForm)}
+                        className="flex items-center gap-2 btn-primary"
+                    >
+                        <FiPlus /> New Leave Request
+                    </button>
+                }
+            />
 
             {/* Filter Tabs */}
             <div className="flex gap-2 mb-6">

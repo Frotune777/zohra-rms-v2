@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
+import PageHeader from '../components/PageHeader';
 import { useAuth } from '../context/AuthContext';
 import { FiCheck, FiX, FiAlertCircle, FiClock } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
@@ -56,12 +57,7 @@ const AdvanceApprovals = () => {
 
     return (
         <div className="p-8 h-full w-full flex flex-col overflow-hidden bg-gradient-to-br from-midnight to-midnight/95">
-            <div className="flex justify-between items-center mb-8">
-                <div>
-                    <h2 className="text-3xl font-bold text-zohra-blue mb-2">Advance Approvals</h2>
-                    <p className="text-xs text-gray-400">Review pending advance and repayment requests</p>
-                </div>
-            </div>
+            <PageHeader title="Advance Approvals" showBack={true} showHome={true} />
 
             {error && (
                 <div className="flex items-center gap-2 p-4 bg-red-500/20 border border-red-500 rounded-lg mb-4">
@@ -112,8 +108,8 @@ const AdvanceApprovals = () => {
                                         <td className="p-4 text-sm text-gray-400 italic">{req.reason || '-'}</td>
                                         <td className="p-4">
                                             <span className={`flex items-center gap-1 px-2 py-1 rounded w-fit text-xs ${req.status === 'Pending' ? 'bg-yellow-500/20 text-yellow-500' :
-                                                    req.status === 'Approved' ? 'bg-green-500/20 text-green-500' :
-                                                        'bg-red-500/20 text-red-500'
+                                                req.status === 'Approved' ? 'bg-green-500/20 text-green-500' :
+                                                    'bg-red-500/20 text-red-500'
                                                 }`}>
                                                 {req.status === 'Pending' && <FiClock />}
                                                 {req.status}

@@ -14,6 +14,7 @@ Authorization: Bearer <your-jwt-token>
 ## Table of Contents
 - [Authentication](#authentication)
 - [Finance](#finance)
+- [Accounting](#accounting)
 - [Payroll](#payroll)
 - [Inventory](#inventory)
 - [POS](#pos)
@@ -175,6 +176,145 @@ Create expense mapping.
   "item_keyword": "Uber",
   "category_id": 5
 }
+```
+
+---
+
+## Accounting
+
+### GET `/finance/closure/status/:date`
+Get day closure status for a specific date.
+
+**Parameters:**
+- `date` (string): Date in YYYY-MM-DD format
+
+**Response:**
+```json
+{
+  "date": "2024-12-16",
+  "status": "Open",
+  "can_edit": true,
+  "period_locked": false
+}
+```
+
+### POST `/finance/closure/open`
+Open a new business day.
+
+**Request:**
+```json
+{
+  "date": "2024-12-16",
+  "opening_cash": 5000,
+  "opening_notes": "Starting balance from previous day"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Day opened successfully",
+  "closure_id": 123
+}
+```
+
+### POST `/finance/closure/close`
+Close a business day with cash reconciliation.
+
+**Request:**
+```json
+{
+  "date": "2024-12-16",
+  "expected_cash": 15000,
+  "actual_cash": 14950,
+  "closing_notes": "Minor shortage due to change given"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "variance": -50,
+  "journal_entry_id": "uuid-here",
+  "message": "Day closed with variance of -50"
+}
+```
+
+### POST `/finance/closure/reopen`
+Reopen a previously closed day (requires authorization).
+
+**Request:**
+```json
+{
+  "date": "2024-12-16",
+  "reason": "Correction needed for missing transaction"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Day reopened successfully"
+}
+```
+
+### GET `/finance/payment-modes`
+Get all configured payment modes.
+
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "name": "Cash",
+    "account_code": "1010",
+    "is_active": true
+  },
+  {
+    "id": 2,
+    "name": "UPI",
+    "account_code": "1020",
+    "is_active": true
+  }
+]
+```
+
+### GET `/finance/journal-entries`
+Query journal entries with filters.
+
+**Query Parameters:**
+- `startDate` (string): Start date in YYYY-MM-DD format
+- `endDate` (string): End date in YYYY-MM-DD format
+- `account_code` (string): Optional filter by account code
+
+**Response:**
+```json
+[
+  {
+    "id": "uuid-here",
+    "transaction_date": "2024-12-16",
+    "description": "Daily sales - Cash",
+    "total_debit": 10000,
+    "total_credit": 10000,
+    "lines": [
+      {
+        "account_code": "1010",
+        "account_name": "Cash in Hand",
+        "debit": 10000,
+        "credit": 0
+      },
+      {
+        "account_code": "4010",
+        "account_name": "Sales Revenue",
+        "debit": 0,
+        "credit": 10000
+      }
+    ]
+  }
+]
 ```
 
 ---
@@ -568,4 +708,4 @@ All endpoints return errors in the following format:
 
 ---
 
-**Last Updated**: December 16, 2025
+**Last Updated**: December 18, 2025

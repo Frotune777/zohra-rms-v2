@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
+import PageHeader from '../components/PageHeader';
 import { useAuth } from '../context/AuthContext';
 import { FiPlus, FiTrash2, FiEdit2, FiX, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
 
@@ -116,29 +117,23 @@ const Inventory = () => {
 
   return (
     <div className="p-8 h-full w-full flex flex-col overflow-hidden bg-gradient-to-br from-midnight to-midnight/95">
-      {/* DEBUG INFO */}
-      <div className="text-xs text-gray-500 mb-4 p-2 bg-white/5 rounded">
-        Debug: Role={userRole}, CanManage={canManageInventory ? 'YES' : 'NO'}
-      </div>
-
-      {/* Header */}
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h2 className="text-3xl font-bold text-zohra-blue mb-2">Inventory Management</h2>
-          <p className="text-xs text-gray-400">Manage and track inventory items</p>
-        </div>
-        {/* Always show button for testing - canManageInventory: {canManageInventory.toString()} */}
-        <button
-          onClick={() => {
-            console.log('Button clicked! showForm:', showForm, 'canManageInventory:', canManageInventory);
-            setShowForm(!showForm);
-          }}
-          className="flex items-center gap-2 btn-primary"
-          title={`Role: ${userRole}, Can Manage: ${canManageInventory}`}
-        >
-          <FiPlus /> Add Item {!canManageInventory && '(No Permission)'}
-        </button>
-      </div>
+      <PageHeader
+        title="Inventory Management"
+        showBack={true}
+        showHome={true}
+        actions={
+          <button
+            onClick={() => {
+              console.log('Button clicked! showForm:', showForm, 'canManageInventory:', canManageInventory);
+              setShowForm(!showForm);
+            }}
+            className="flex items-center gap-2 btn-primary"
+            title={`Role: ${userRole}, Can Manage: ${canManageInventory}`}
+          >
+            <FiPlus /> Add Item {!canManageInventory && '(No Permission)'}
+          </button>
+        }
+      />
 
       {/* Messages */}
       {error && (

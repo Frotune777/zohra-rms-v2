@@ -1,25 +1,26 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import api from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
+import PaymentModeSelect from '../../components/finance/PaymentModeSelect';
 import {
     FiCalendar, FiPlus, FiTrash2, FiSave, FiAlertCircle,
     FiCheckCircle, FiDollarSign, FiRefreshCw, FiTrendingUp,
-    FiTrendingDown, FiArchive
+    FiTrendingDown, FiArchive, FiLock
 } from 'react-icons/fi';
 
 const DailyTracker = () => {
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [summary, setSummary] = useState(null);
+    const [dayStatus, setDayStatus] = useState('Open');
     const [transactions, setTransactions] = useState([]);
     const [suppliers, setSuppliers] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [mappings, setMappings] = useState([]); // [NEW] Store mappings
+    const [mappings, setMappings] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [showCashModal, setShowCashModal] = useState(false);
     const { userRole } = useAuth();
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002';
 
     // Tab State: 'sales' | 'expenses'
     const [activeTab, setActiveTab] = useState('sales');
@@ -31,8 +32,8 @@ const DailyTracker = () => {
         id: `temp-${Date.now()}-${Math.random()}`,
         description: '',
         amount: '',
-        payment_method: 'Cash', // Default
-        mode: 'Cash', // Default for backend
+        payment_method: 'Cash', // Name of the payment mode
+        mode: 'Cash', // Kept for backward compatibility if needed by some backend logic
         category_id: '',
         vendor_id: '',
         status: 'Paid',
@@ -51,22 +52,10 @@ const DailyTracker = () => {
         fetchData();
         fetchSuppliers();
         fetchCategories();
-        fetchMappings(); // [NEW]
+        fetchMappings();
     }, [date]);
 
     useEffect(() => {
-        // When tab changes, reset grid to empty rows or relevant view?
-        // Actually, we want to see TODAY's transactions in the grid?
-        // Or is the grid ONLY for New Entry?
-        // User wants "multiple rows entry". Similar to Excel.
-        // It's best if the grid SHOWS existing transactions AND allows adding more.
-        // So we merge `transactions` (fetched) with `rows` (new).
-        // For simplicity, let's keep "History" separate or use a single "Editable Table".
-        // Editable Table is risky for existing data if not careful (accidental edits).
-        // Let's go with: "New Entry Grid" (Batch Entry) + "Today's Log" (Read-only/Delete only).
-        // The user said "data entry... multiple rows entry should be allowed".
-
-        // Initialize with one empty row
         setRows([createEmptyRow(activeTab)]);
         setError('');
     }, [activeTab]);
@@ -74,13 +63,15 @@ const DailyTracker = () => {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const [summaryRes, txRes] = await Promise.all([
+            const [summaryRes, txRes, statusRes] = await Promise.all([
                 api.get(`/finance/daily-summary/${date}`),
-                api.get(`/finance/tracker/transactions?date=${date}`)
+                api.get(`/finance/tracker/transactions?date=${date}`),
+                api.get(`/finance/daily-balance/${date}`)
             ]);
 
             setSummary(summaryRes.data);
             setTransactions(txRes.data);
+            setDayStatus(statusRes.data.status || 'Open');
             setError('');
         } catch (err) {
             console.error(err);
@@ -104,7 +95,6 @@ const DailyTracker = () => {
         } catch (err) { console.error(err); }
     };
 
-    // [NEW] Fetch Mappings
     const fetchMappings = async () => {
         try {
             const res = await api.get('/finance/mappings');
@@ -113,10 +103,12 @@ const DailyTracker = () => {
     };
 
     const handleAddRow = () => {
+        if (dayStatus === 'Closed') return;
         setRows([...rows, createEmptyRow(activeTab)]);
     };
 
     const handleRowChange = (index, field, value) => {
+        if (dayStatus === 'Closed') return;
         const newRows = [...rows];
         newRows[index][field] = value;
 
@@ -125,7 +117,6 @@ const DailyTracker = () => {
             const desc = value.toLowerCase();
             let suggestedCategory = null;
 
-            // Auto-categorization rules
             if (desc.includes('grocery') || desc.includes('vegetables') || desc.includes('chicken') || desc.includes('meat')) {
                 suggestedCategory = categories.find(c => c.name === 'Grocery');
             } else if (desc.includes('salary') || desc.includes('wages') || desc.includes('payroll')) {
@@ -149,7 +140,6 @@ const DailyTracker = () => {
         if (field === 'vendor_id' && value && !newRows[index].category_id) {
             const selectedVendor = suppliers.find(s => s.id === parseInt(value));
             if (selectedVendor) {
-                // If vendor type is known, suggest category
                 if (selectedVendor.vendor_type === 'Chicken') {
                     const groceryCategory = categories.find(c => c.name === 'Grocery');
                     if (groceryCategory) {
@@ -159,14 +149,11 @@ const DailyTracker = () => {
             }
         }
 
-        // Auto-set Mode based on Payment Method
+        // Auto-set Mode based on Payment Method (Dynamic)
         if (field === 'payment_method') {
-            if (value === 'Bank Transfer' || value === 'UPI' || value === 'Card') {
-                newRows[index].mode = 'Bank';
-            } else if (value === 'Cash') {
-                newRows[index].mode = 'Cash';
-            } else if (value === 'Manager Float') {
-                // Find the mapping for Manager Float
+            newRows[index].mode = value; // Sync mode with method
+
+            if (value === 'Manager Float') {
                 const matchedMapping = mappings.find(m => m.name === 'Manager Float');
                 if (matchedMapping) {
                     newRows[index].category_id = matchedMapping.category_id;
@@ -174,29 +161,17 @@ const DailyTracker = () => {
             }
         }
 
-        // Special handling for Transfer to Manager (Sales Tab)
-        if (activeTab === 'sales' && field === 'transfer_to_manager') {
-            if (value === true) {
-                newRows[index].mode = 'Bank_Cash';
-                newRows[index].payment_method = 'Cash';
-                newRows[index].description = 'Transfer to Manager';
-            } else {
-                newRows[index].mode = 'Cash';
-                newRows[index].description = '';
-            }
-        }
-
         setRows(newRows);
     };
 
     const handleRemoveRow = (index) => {
-        if (rows.length === 1) return; // Keep at least one
+        if (dayStatus === 'Closed') return;
+        if (rows.length === 1) return;
         const newRows = [...rows];
         newRows.splice(index, 1);
         setRows(newRows);
     };
 
-    // Calculate Total Cash from Denominations
     const calculateCashTotal = () => {
         return Object.entries(cashDenominations).reduce((total, [denom, count]) => {
             return total + (parseInt(denom) * (parseInt(count) || 0));
@@ -204,19 +179,19 @@ const DailyTracker = () => {
     };
 
     const handleCashSave = async () => {
+        if (dayStatus === 'Closed') return;
         const total = calculateCashTotal();
         if (total <= 0) {
             alert("Total amount must be greater than 0");
             return;
         }
 
-        // Auto-fill form and submit
         const payload = {
             type: 'Sales',
             description: 'Cash Closing (Counter)',
             amount: total,
             payment_method: 'Cash',
-            mode: 'Cash', // Default
+            mode: 'Cash',
             category_id: null,
             status: 'Paid',
             date: date,
@@ -232,26 +207,28 @@ const DailyTracker = () => {
             setTimeout(() => setSuccess(''), 3000);
         } catch (err) {
             console.error(err);
-            setError('Failed to save cash sale.');
+            setError(err.response?.data?.error || 'Failed to save cash sale.');
         }
     };
 
     const handleSaveAll = async () => {
-        // Filter out empty rows
+        if (dayStatus === 'Closed') {
+            setError('This day is closed. No further entries allowed.');
+            return;
+        }
+
         const rowsToSave = rows.filter(r => r.description && r.amount);
         if (rowsToSave.length === 0) {
             setError("No valid rows to save.");
             return;
         }
 
-        // VALIDATION: Enforce Vendor for Expenses
         if (activeTab === 'expenses') {
             const missingVendor = rowsToSave.find(r => r.type === 'Expense' && !r.vendor_id);
             if (missingVendor) {
                 setError(`Vendor is required for expense: "${missingVendor.description}"`);
                 return;
             }
-            // Also validate category?
             const missingCat = rowsToSave.find(r => r.type === 'Expense' && !r.category_id);
             if (missingCat) {
                 setError(`Category is required for expense: "${missingCat.description}"`);
@@ -261,7 +238,6 @@ const DailyTracker = () => {
 
         setLoading(true);
         try {
-            // Sequential or Parallel? Parallel is faster.
             await Promise.all(rowsToSave.map(row => {
                 const payload = {
                     date,
@@ -270,10 +246,9 @@ const DailyTracker = () => {
                     amount: parseFloat(row.amount),
                     status: row.status,
                     payment_method: row.payment_method,
-                    mode: row.mode,
+                    payment_mode: row.payment_method, // Using payment_mode for refactored backend
                     category_id: row.category_id || null,
                     vendor_id: row.vendor_id || null,
-                    // If expense and status=Paid, assuming paid immediately
                     paid_by: row.status === 'Paid' ? 'Biller' : null,
                     paid_date: date
                 };
@@ -281,18 +256,17 @@ const DailyTracker = () => {
             }));
 
             setSuccess(`Saved ${rowsToSave.length} transactions!`);
-            setRows([createEmptyRow(activeTab)]); // Reset grid
+            setRows([createEmptyRow(activeTab)]);
             fetchData();
             setTimeout(() => setSuccess(''), 3000);
         } catch (err) {
             console.error(err);
-            setError('Failed to save some transactions.');
+            setError(err.response?.data?.error || 'Failed to save some transactions.');
         } finally {
             setLoading(false);
         }
     };
 
-    // Filter categories based on active tab
     const filteredCategories = categories.filter(c =>
         activeTab === 'sales' ? c.type === 'Income' : c.type === 'Expense'
     );
@@ -304,6 +278,8 @@ const DailyTracker = () => {
         </div>
     );
 
+    const isClosed = dayStatus === 'Closed';
+
     return (
         <div className="p-4 md:p-6 h-full overflow-auto bg-gradient-to-br from-gray-900 to-gray-800 text-white font-sans flex flex-col">
             {/* Top Bar */}
@@ -312,9 +288,14 @@ const DailyTracker = () => {
                     <h2 className="text-2xl font-bold text-blue-400 flex items-center gap-2">
                         <FiDollarSign /> Daily Financial Tracker
                     </h2>
+                    {isClosed && (
+                        <div className="flex items-center gap-1 text-xs text-red-400 font-bold mt-1 bg-red-400/10 px-2 py-0.5 rounded w-fit border border-red-400/20">
+                            <FiLock /> DAY CLOSED
+                        </div>
+                    )}
                 </div>
                 <div className="flex items-center gap-4">
-                    {activeTab === 'sales' && (
+                    {activeTab === 'sales' && !isClosed && (
                         <button onClick={() => setShowCashModal(true)} className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition">
                             <FiDollarSign /> Cash Calculator
                         </button>
@@ -360,19 +341,22 @@ const DailyTracker = () => {
             </div>
 
             {/* BATCH ENTRY GRID */}
-            <div className="bg-gray-800/50 backdrop-blur-md p-4 rounded-xl border border-white/10 mb-6 flex-1 flex flex-col">
+            <div className={`bg-gray-800/50 backdrop-blur-md p-4 rounded-xl border border-white/10 mb-6 flex-1 flex flex-col ${isClosed ? 'opacity-60 cursor-not-allowed' : ''}`}>
                 <div className="flex justify-between items-center mb-4">
                     <h3 className="font-bold text-white flex items-center gap-2">
                         <FiPlus className="text-blue-400" /> Batch Entry ({activeTab === 'sales' ? 'Sales' : 'Expenses'})
+                        {isClosed && <span className="text-[10px] text-red-400 uppercase tracking-tighter ml-2">[Read Only]</span>}
                     </h3>
-                    <div className="flex gap-2">
-                        <button onClick={handleAddRow} className="bg-blue-600/30 text-blue-200 hover:bg-blue-600 hover:text-white px-3 py-1.5 rounded text-xs transition border border-blue-500/50">
-                            + Add Row
-                        </button>
-                        <button onClick={handleSaveAll} disabled={loading} className="bg-green-600 hover:bg-green-700 text-white px-4 py-1.5 rounded text-xs font-bold transition flex items-center gap-2">
-                            {loading ? <FiRefreshCw className="animate-spin" /> : <FiSave />} Save All
-                        </button>
-                    </div>
+                    {!isClosed && (
+                        <div className="flex gap-2">
+                            <button onClick={handleAddRow} className="bg-blue-600/30 text-blue-200 hover:bg-blue-600 hover:text-white px-3 py-1.5 rounded text-xs transition border border-blue-500/50">
+                                + Add Row
+                            </button>
+                            <button onClick={handleSaveAll} disabled={loading} className="bg-green-600 hover:bg-green-700 text-white px-4 py-1.5 rounded text-xs font-bold transition flex items-center gap-2">
+                                {loading ? <FiRefreshCw className="animate-spin" /> : <FiSave />} Save All
+                            </button>
+                        </div>
+                    )}
                 </div>
 
                 <div className="overflow-auto border border-white/10 rounded-lg flex-1 min-h-[300px]">
@@ -383,14 +367,14 @@ const DailyTracker = () => {
                                 <th className="p-3">Description *</th>
                                 <th className="p-3 w-32">Amount *</th>
                                 <th className="p-3 w-40">Category</th>
-                                <th className="p-3 w-40">Method</th>
+                                <th className="p-3 w-48">Method *</th>
                                 {activeTab === 'expenses' && <th className="p-3 w-48">Vendor</th>}
                                 {activeTab === 'expenses' && <th className="p-3 w-32">Status</th>}
                                 <th className="p-3 w-10"></th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
-                            {rows.map((row, idx) => (
+                            {!isClosed && rows.map((row, idx) => (
                                 <tr key={row.id} className="hover:bg-white/5 transition">
                                     {activeTab === 'sales' && (
                                         <td className="p-3 text-center">
@@ -434,19 +418,10 @@ const DailyTracker = () => {
                                         </select>
                                     </td>
                                     <td className="p-2">
-                                        <select
+                                        <PaymentModeSelect
                                             value={row.payment_method}
-                                            onChange={(e) => handleRowChange(idx, 'payment_method', e.target.value)}
-                                            disabled={row.mode === 'Bank_Cash'} // Locked to 'Cash' if transfer
-                                            className="w-full bg-gray-900 border border-white/10 rounded px-2 py-1 text-xs text-gray-300 focus:border-blue-500 outline-none"
-                                        >
-                                            <option value="Cash">Cash</option>
-                                            <option value="Card">Card</option>
-                                            <option value="UPI">UPI</option>
-                                            <option value="Online Swiggy">Swiggy</option>
-                                            <option value="Online Zomato">Zomato</option>
-                                            <option value="Bank Transfer">Bank Transfer</option>
-                                        </select>
+                                            onChange={(val) => handleRowChange(idx, 'payment_method', val)}
+                                        />
                                     </td>
                                     {activeTab === 'expenses' && (
                                         <>
@@ -481,6 +456,13 @@ const DailyTracker = () => {
                                     </td>
                                 </tr>
                             ))}
+                            {isClosed && (
+                                <tr>
+                                    <td colSpan={activeTab === 'expenses' ? 8 : 6} className="p-12 text-center text-gray-500 italic">
+                                        This day is closed. Entries are locked.
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>
@@ -521,8 +503,6 @@ const DailyTracker = () => {
                                         {parseFloat(txn.amount).toFixed(2)}
                                     </td>
                                     <td className="p-2 text-center">
-                                        {/* Only allow Biller to delete today? Or manager only? Allowing for now */}
-                                        {/* Ideally we should allow edit, but for MVP just delete and re-add in grid */}
                                     </td>
                                 </tr>
                             ))}

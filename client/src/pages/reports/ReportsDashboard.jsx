@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
+import PageHeader from '../../components/PageHeader';
 import {
     FiDollarSign,
     FiUsers,
@@ -85,13 +86,11 @@ export default function ReportsDashboard() {
 
     return (
         <div className="reports-dashboard">
+            <PageHeader title="Business Intelligence & Reports" showBack={true} showHome={false} />
+
             {/* Hero Section */}
             <div className="reports-hero">
                 <div className="hero-content">
-                    <h1 className="hero-title">
-                        <FiBarChart2 className="inline mr-3" />
-                        Business Intelligence & Reports
-                    </h1>
                     <p className="hero-description">
                         Comprehensive analytics and insights across all business operations
                     </p>

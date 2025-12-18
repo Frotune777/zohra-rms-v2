@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import api from '../utils/api';
+import PageHeader from '../components/PageHeader';
 import { useAuth } from '../context/AuthContext';
 import { FiAlertCircle, FiCheckCircle, FiClock, FiDownload, FiDollarSign, FiFileText, FiRefreshCw, FiPlus, FiTrash2, FiRotateCcw } from 'react-icons/fi';
 import toast from 'react-hot-toast';
@@ -242,36 +243,36 @@ const Payroll = () => {
 
   return (
     <div className="p-6 h-full flex flex-col relative">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-          <FiDollarSign className="text-zohra-blue" />
-          Payroll Automation
-        </h1>
-
-        <div className="flex items-center gap-4 glass-panel px-4 py-2 rounded-lg">
-          <select
-            id="payroll-month"
-            name="month"
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
-            className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
-          >
-            {Array.from({ length: 12 }, (_, i) => (
-              <option key={i + 1} value={i + 1} className="bg-gray-800">{new Date(0, i).toLocaleString('default', { month: 'long' })}</option>
-            ))}
-          </select>
-          <select
-            id="payroll-year"
-            name="year"
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(parseInt(e.target.value))}
-            className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
-          >
-            <option value={2024} className="bg-gray-800">2024</option>
-            <option value={2025} className="bg-gray-800">2025</option>
-          </select>
-        </div>
-      </div>
+      <PageHeader
+        title="Payroll Automation"
+        showBack={true}
+        showHome={true}
+        actions={
+          <div className="flex items-center gap-4 glass-panel px-4 py-2 rounded-lg">
+            <select
+              id="payroll-month"
+              name="month"
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
+              className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
+            >
+              {Array.from({ length: 12 }, (_, i) => (
+                <option key={i + 1} value={i + 1} className="bg-gray-800">{new Date(0, i).toLocaleString('default', { month: 'long' })}</option>
+              ))}
+            </select>
+            <select
+              id="payroll-year"
+              name="year"
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(parseInt(e.target.value))}
+              className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
+            >
+              <option value={2024} className="bg-gray-800">2024</option>
+              <option value={2025} className="bg-gray-800">2025</option>
+            </select>
+          </div>
+        }
+      />
 
       {/* Tabs */}
       <div className="flex gap-4 mb-6 border-b border-white/10">

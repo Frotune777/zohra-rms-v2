@@ -138,8 +138,55 @@ Financial ledger for vendor payments and bills.
 - **Columns**: `id`, `table_name`, `record_id`, `action`, `old_data` (JSON), `new_data` (JSON), `changed_at`.
 
 ### `financial_periods`
-Tracks accounting periods.
-- **Columns**: `id`, `name` (Jan 2025), `start_date`, `end_date`, `status` (Open/Closed), `locked_by` (FK).
+Tracks accounting periods with locking capability.
+- **Columns**: `id`, `name` (Jan 2025), `start_date`, `end_date`, `status` (Open/Closed), `locked_by` (FK), `locked_at`.
+- **Enhancements**: Auto-generated periods, database-level locking enforcement.
+
+## 7. Accounting System (Phase 7)
+
+### `payment_modes`
+Configures payment methods and their GL account routing.
+- **Columns**: `id`, `name`, `account_code` (FK), `is_active`, `description`.
+- **Relationships**:
+    - Links to `chart_of_accounts` for account routing.
+    - Referenced by transactions for payment method tracking.
+
+### `daily_closures`
+Tracks daily business day opening and closing.
+- **Columns**: `id`, `date`, `status` (Open/Closed/Reopened), `opening_cash`, `expected_cash`, `actual_cash`, `variance`, `journal_entry_id` (FK), `opened_by`, `closed_by`, `opening_notes`, `closing_notes`.
+- **Relationships**:
+    - Links to `journal_entries` for variance posting.
+    - Enforces day-level transaction locking.
+
+### Enhanced `categories`
+Expense categories with GL account mapping.
+- **New Columns**: `account_code` (FK) - Links expense categories to chart of accounts.
+- **Purpose**: Auto-routes expenses to correct GL accounts.
+
+### Enhanced `advance_ledger`
+Advance ledger with journal entry tracking.
+- **New Columns**: `journal_entry_id` (FK) - Links advance transactions to journal entries.
+- **Purpose**: Ensures all advance transactions are properly journalized.
+
+## 8. Database Functions
+
+### `get_period_status(date)`
+Returns the status of the financial period for a given date.
+- **Returns**: 'Open', 'Closed', or 'Not Found'
+- **Usage**: Validates if transactions can be posted to a period.
+
+### `validate_day_closure(date)`
+Validates if a day can be edited based on closure status.
+- **Returns**: Boolean
+- **Usage**: Enforces day closure constraints.
+
+## 9. Database Triggers
+
+### `enforce_period_lock`
+Prevents insertion/update of journal entries in locked periods.
+- **Table**: `journal_entries`
+- **Event**: BEFORE INSERT OR UPDATE
+- **Action**: Raises exception if period is locked.
 
 ## Standalone Tables & Reference Data
 
@@ -148,6 +195,7 @@ Tracks accounting periods.
 3.  **`daily_rates`**: Time-series data table.
 4.  **`salary_components`**: Reference dictionary.
 5.  **`shifts`**: Reference dictionary.
+6.  **`payment_modes`**: Reference dictionary for payment methods.
 
 ## Summary of Improvements
 
@@ -155,3 +203,9 @@ Tracks accounting periods.
 - **Audit Trails**: Added `created_by`, `updated_by`, `updated_at` to master tables.
 - **HR Compliance**: Added `employee_documents`, `shifts`, and granular `salary_components`.
 - **Operations**: Added `customers` and `supplier_items` masters.
+- **Accounting System (Phase 7)**:
+  - **Complete Double-Entry**: All transactions create balanced journal entries
+  - **Day Closure**: Daily cash reconciliation with variance tracking
+  - **Period Locking**: Database-enforced protection against editing closed periods
+  - **Payment Mode Routing**: Configurable GL account mapping for payment methods
+  - **Zero Duplication**: Single source of truth via journal entries

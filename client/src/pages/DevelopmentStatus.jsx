@@ -1,4 +1,5 @@
 import React from 'react';
+import PageHeader from '../components/PageHeader';
 import { FiCheckCircle, FiCircle, FiClock, FiActivity, FiServer, FiDatabase, FiLayout } from 'react-icons/fi';
 
 const DevelopmentStatus = () => {
@@ -95,10 +96,7 @@ const DevelopmentStatus = () => {
 
     return (
         <div className="p-6 max-w-7xl mx-auto">
-            <h1 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                <FiActivity className="text-zohra-blue" />
-                System Development Status
-            </h1>
+            <PageHeader title="System Development Status" showBack={true} showHome={true} />
 
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                 {/* Modules Status Column (Span 2) */}

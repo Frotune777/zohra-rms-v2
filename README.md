@@ -33,7 +33,11 @@ A comprehensive full-stack restaurant management system built with **React**, **
 - **Vendor Payments**: Track and process vendor payments with reconciliation
 - **Expense Mapping**: Auto-categorize expenses based on keywords
 - **P&L Reports**: Generate monthly profit & loss statements
-- **Ledger System**: Double-entry accounting for all financial transactions
+- **Double-Entry Accounting**: Complete journal-driven accounting system
+- **Day Closure**: Daily cash reconciliation with variance tracking
+- **Period Locking**: Prevent editing of closed financial periods
+- **Payment Modes**: Configurable payment methods (Cash, UPI, Card, Bank Transfer)
+- **Journal Entries**: Automatic balanced journal entries for all transactions
 
 ### 5. Inventory & Menu
 - **Inventory Tracking**: Real-time stock levels with automatic deduction
@@ -307,23 +311,26 @@ zohra-rms-v2/
 - **[Database Schema](documentation/DATABASE_SCHEMA.md)** - Database structure
 - **[Project Logic](documentation/PROJECT_LOGIC.md)** - Business logic and workflows
 - **[Development Guide](documentation/DEVELOPMENT.md)** - Developer setup and guidelines
+- **[Accounting System Refactor](docs/accounting-refactor-v1.0/README.md)** - Complete accounting system documentation
 
 ---
 
 ## 🔄 Recent Updates
+
+### v2.3.0 (December 2025) - Accounting System Refactor ✅
+- ✅ **Complete Double-Entry Accounting** - All transactions create balanced journal entries
+- ✅ **Day Closure System** - Daily cash reconciliation with variance tracking
+- ✅ **Period Locking** - Database-enforced financial period protection
+- ✅ **Payment Mode Configuration** - Flexible payment method routing to GL accounts
+- ✅ **Zero Data Duplication** - Single source of truth via journal entries
+- ✅ **5 New Migrations** - Enhanced schema with accounting compliance
+- ✅ **3 Core Services** - JournalService, ClosureService, PaymentModeService
 
 ### v2.1.0 (December 2024)
 - ✅ **Fixed all frontend axios errors** - Migrated 13 files to centralized API utility
 - ✅ **UI improvements** - Optimized Vendor Payments modal spacing
 - ✅ **Database access tools** - Added helper scripts for easy DB management
 - ✅ **Enhanced documentation** - Comprehensive guides and API reference
-
-### Previous Updates
-- Implemented comprehensive reporting system
-- Added expense auto-categorization
-- Enhanced payroll with component breakdown
-- Integrated chicken biller functionality
-- Added audit trails and financial period management
 
 ---
 
@@ -447,6 +454,6 @@ For issues and questions:
 
 ---
 
-**Version**: 2.2.0  
-**Last Updated**: December 17, 2025  
+**Version**: 2.3.0  
+**Last Updated**: December 18, 2025  
 **Status**: Production Ready ✅

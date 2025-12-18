@@ -135,6 +135,7 @@ export default ({ children }) => {
 
           {/* Inventory & Procurement Group */}
           <CollapsibleMenuGroup icon={FiPackage} label="Inventory & Procurement" defaultOpen={true}>
+            <SidebarItem to="/chicken" icon={FiActivity} label="Chicken Dashboard" active={loc.pathname === '/chicken'} onClick={closeMobileMenu} />
             <SidebarItem to="/inventory" icon={FiPackage} label="Stock Management" active={loc.pathname === '/inventory'} onClick={closeMobileMenu} />
             <SidebarItem to="/chicken/bills" icon={FiCoffee} label="Chicken Bills" active={loc.pathname === '/chicken/bills'} onClick={closeMobileMenu} />
             <SidebarItem to="/chicken/rates" icon={FiDollarSign} label="Daily Rates" active={loc.pathname === '/chicken/rates'} onClick={closeMobileMenu} />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
+import PageHeader from '../components/PageHeader';
 import { toast } from 'react-hot-toast';
 import { FiSave, FiCalendar, FiCheckCircle, FiAlertCircle, FiClock, FiChevronLeft, FiChevronRight, FiRefreshCw, FiDatabase, FiAlertTriangle } from 'react-icons/fi';
 
@@ -287,44 +288,39 @@ const BulkAttendance = () => {
                 </div>
             )}
 
-            {/* Header */}
-            <div className="flex justify-between items-center mb-6">
-                <div>
-                    <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-                        <FiCalendar className="text-zohra-blue" />
-                        Bulk Attendance
-                    </h1>
-                    <div className="flex items-center gap-2 mt-2">
+            <PageHeader
+                title="Bulk Attendance"
+                showBack={true}
+                showHome={true}
+                actions={
+                    <div className="flex items-center gap-3">
                         <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${statusMessage.bgColor}`}>
                             <StatusIcon className={statusMessage.color} size={16} />
                             <span className={statusMessage.color}>{statusMessage.text}</span>
                         </div>
+                        <button
+                            onClick={() => markAll('Present')}
+                            className="px-4 py-2 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500/30 text-sm font-medium transition"
+                        >
+                            All Present
+                        </button>
+                        <button
+                            onClick={() => markAll('Absent')}
+                            className="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 text-sm font-medium transition"
+                        >
+                            All Absent
+                        </button>
+                        <button
+                            onClick={handleSubmit}
+                            disabled={saving || !unsavedChanges}
+                            className="btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <FiSave />
+                            {saving ? 'Saving...' : 'Save All'}
+                        </button>
                     </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                    <button
-                        onClick={() => markAll('Present')}
-                        className="px-4 py-2 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500/30 text-sm font-medium transition"
-                    >
-                        All Present
-                    </button>
-                    <button
-                        onClick={() => markAll('Absent')}
-                        className="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 text-sm font-medium transition"
-                    >
-                        All Absent
-                    </button>
-                    <button
-                        onClick={handleSubmit}
-                        disabled={saving || !unsavedChanges}
-                        className="btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                        <FiSave />
-                        {saving ? 'Saving...' : 'Save All'}
-                    </button>
-                </div>
-            </div>
+                }
+            />
 
             {/* Date Navigator & Stats */}
             <div className="glass-panel p-4 rounded-xl mb-6">
@@ -500,13 +496,13 @@ const BulkAttendance = () => {
                                                                     checked={attendance[emp.id] === status}
                                                                     onChange={() => handleStatusChange(emp.id, status)}
                                                                     className={`w-4 h-4 rounded border-gray-600 bg-white/5 focus:ring-offset-0 focus:ring-1 ${status === 'Present' ? 'text-green-500 focus:ring-green-500' :
-                                                                            status === 'Absent' ? 'text-red-500 focus:ring-red-500' :
-                                                                                'text-yellow-500 focus:ring-yellow-500'
+                                                                        status === 'Absent' ? 'text-red-500 focus:ring-red-500' :
+                                                                            'text-yellow-500 focus:ring-yellow-500'
                                                                         }`}
                                                                 />
                                                                 <span className={`text-sm ${status === 'Present' ? 'text-green-400' :
-                                                                        status === 'Absent' ? 'text-red-400' :
-                                                                            'text-yellow-400'
+                                                                    status === 'Absent' ? 'text-red-400' :
+                                                                        'text-yellow-400'
                                                                     } ${attendance[emp.id] === status ? 'font-semibold' : ''}`}>
                                                                     {status}
                                                                 </span>

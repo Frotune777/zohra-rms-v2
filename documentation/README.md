@@ -35,6 +35,14 @@ This folder contains comprehensive documentation for the Al Zohra Restaurant Man
 - Architecture decisions
 - Database schema design
 
+### 5. [Accounting System Refactor](../docs/accounting-refactor-v1.0/README.md)
+**Phase 7 - Accounting System** - Complete double-entry accounting system:
+- Findings and audit report
+- Implementation plan and summary
+- Technical walkthrough
+- Deployment guide
+- Quick start reference
+
 ---
 
 ## 📖 Module-Specific Documentation
@@ -102,10 +110,10 @@ This folder contains comprehensive documentation for the Al Zohra Restaurant Man
 - ✅ HR & Payroll (with advance ledger)
 - ✅ Vendor Payment System
 - ✅ Financial Management
+- ✅ Accounting System Refactor (Phase 7)
 - ✅ Additional features (PO, KDS, Wastage, AI, Reports)
 
 ### In Progress 🚧
-- 🚧 ChickenDashboard analytics component
 - 🚧 Advanced reporting features
 - 🚧 API documentation (Swagger)
 
@@ -138,6 +146,6 @@ This folder contains comprehensive documentation for the Al Zohra Restaurant Man
 
 ---
 
-**Last Updated:** December 9, 2025  
-**Version:** 2.0.0  
+**Last Updated:** December 18, 2025  
+**Version:** 2.3.0  
 **Status:** Production Ready

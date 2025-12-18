@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { FiDollarSign } from 'react-icons/fi';
 import api from '../../utils/api';
+import PageHeader from '../../components/PageHeader';
 import { validatePositiveNumber, validateRequired } from '../../utils/validation';
 import { Input, Select, Textarea, Button } from '../../components/forms';
 
@@ -81,10 +82,7 @@ const PaymentEntry = () => {
 
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                <FiDollarSign className="text-green-400" />
-                Vendor Payment Entry
-            </h1>
+            <PageHeader title="Vendor Payment Entry" showBack={true} showHome={true} backTo="/finance" />
 
             <div className="glass-panel p-6 max-w-2xl rounded-xl">
                 <form onSubmit={handleSubmit} className="space-y-6">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
+import PageHeader from '../components/PageHeader';
 import { useAuth } from '../context/AuthContext';
 import { FiPlus, FiTrash2, FiX, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
 
@@ -107,18 +108,21 @@ const MenuManagement = () => {
 
   return (
     <div className="h-full w-full flex flex-col overflow-hidden p-6">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-zohra-blue">Menu Management</h1>
-        {canManageMenu && (
-          <button
-            onClick={() => setShowForm(!showForm)}
-            className="flex items-center gap-2 btn-primary"
-          >
-            <FiPlus /> Add Menu Item
-          </button>
-        )}
-      </div>
+      <PageHeader
+        title="Menu Management"
+        showBack={true}
+        showHome={true}
+        actions={
+          canManageMenu && (
+            <button
+              onClick={() => setShowForm(!showForm)}
+              className="flex items-center gap-2 btn-primary"
+            >
+              <FiPlus /> Add Menu Item
+            </button>
+          )
+        }
+      />
 
       {/* Messages */}
       {error && (

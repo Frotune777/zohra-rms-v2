@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
+import PageHeader from '../components/PageHeader';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight, FiDownload, FiTrendingUp, FiTrendingDown, FiBarChart2, FiPieChart, FiPlus, FiX, FiTrash2, FiAlertCircle, FiCheckCircle, FiGrid, FiDollarSign } from 'react-icons/fi';
@@ -265,58 +266,53 @@ const Finance = () => {
 
   return (
     <div className="p-4 md:p-6 lg:p-8 h-full w-full overflow-auto flex flex-col bg-gradient-to-br from-midnight to-midnight/95">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 md:mb-6">
-        <div>
-          <h2 className="text-2xl md:text-3xl font-bold text-zohra-blue mb-1">Financial Dashboard</h2>
-          <p className="text-xs text-gray-400">Complete financial overview and KPIs</p>
-        </div>
-
-        {/* Controls */}
-        <div className="flex flex-wrap items-center gap-2 md:gap-3 w-full sm:w-auto">
-          <div className="flex gap-1 glass-panel p-1 rounded-lg">
+      <PageHeader
+        title="Financial Dashboard"
+        showBack={true}
+        showHome={true}
+        actions={
+          <div className="flex flex-wrap items-center gap-2 md:gap-3">
+            <div className="flex gap-1 glass-panel p-1 rounded-lg">
+              <button
+                onClick={() => setViewMode('monthly')}
+                className={`px-3 py-1.5 rounded transition text-xs md:text-sm font-medium ${viewMode === 'monthly' ? 'bg-zohra-blue text-white' : 'text-gray-400 hover:text-white'}`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setViewMode('yearly')}
+                className={`px-3 py-1.5 rounded transition text-xs md:text-sm font-medium ${viewMode === 'yearly' ? 'bg-zohra-blue text-white' : 'text-gray-400 hover:text-white'}`}
+              >
+                Yearly
+              </button>
+            </div>
             <button
-              onClick={() => setViewMode('monthly')}
-              className={`px-3 py-1.5 rounded transition text-xs md:text-sm font-medium ${viewMode === 'monthly' ? 'bg-zohra-blue text-white' : 'text-gray-400 hover:text-white'}`}
+              onClick={handleExport}
+              className="flex items-center gap-1 btn-primary"
+              title="Export to CSV"
             >
-              Monthly
+              <FiDownload size={14} />
+              <span className="hidden sm:inline">Export</span>
             </button>
-            <button
-              onClick={() => setViewMode('yearly')}
-              className={`px-3 py-1.5 rounded transition text-xs md:text-sm font-medium ${viewMode === 'yearly' ? 'bg-zohra-blue text-white' : 'text-gray-400 hover:text-white'}`}
-            >
-              Yearly
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={() => navigate('/finance/daily-tracker')}
+                className="flex items-center gap-1 bg-purple-600 hover:bg-purple-500 text-white px-2 md:px-3 py-1.5 rounded-lg font-medium transition text-xs md:text-sm"
+              >
+                <FiGrid size={14} />
+                <span className="hidden sm:inline">Tracker</span>
+              </button>
+              <button
+                onClick={() => navigate('/finance/float')}
+                className="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white px-2 md:px-3 py-1.5 rounded-lg font-medium transition text-xs md:text-sm"
+              >
+                <FiDollarSign size={14} />
+                <span className="hidden sm:inline">Float</span>
+              </button>
+            </div>
           </div>
-
-          <button
-            onClick={handleExport}
-            className="flex items-center gap-1 btn-primary"
-            title="Export to CSV"
-          >
-            <FiDownload size={14} />
-            <span className="hidden sm:inline">Export</span>
-          </button>
-
-          {/* Quick Links */}
-          <div className="flex gap-2">
-            <button
-              onClick={() => navigate('/finance/daily-tracker')}
-              className="flex items-center gap-1 bg-purple-600 hover:bg-purple-500 text-white px-2 md:px-3 py-1.5 rounded-lg font-medium transition text-xs md:text-sm"
-            >
-              <FiGrid size={14} />
-              <span className="hidden sm:inline">Tracker</span>
-            </button>
-            <button
-              onClick={() => navigate('/finance/float')}
-              className="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white px-2 md:px-3 py-1.5 rounded-lg font-medium transition text-xs md:text-sm"
-            >
-              <FiDollarSign size={14} />
-              <span className="hidden sm:inline">Float</span>
-            </button>
-          </div>
-        </div>
-      </div>
+        }
+      />
 
       {/* Month/Year Navigation */}
       <div className="glass-panel p-3 md:p-4 rounded-lg mb-4 md:mb-6 flex items-center justify-between">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
+import PageHeader from '../components/PageHeader';
 import { useAuth } from '../context/AuthContext';
 import { FiPlus, FiEdit2, FiTrash2, FiX, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
 
@@ -202,18 +203,21 @@ const EmployeeManagement = () => {
 
   return (
     <div className="h-full w-full flex flex-col overflow-hidden p-6">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-zohra-blue">Employee Management</h1>
-        {canRegister && (
-          <button
-            onClick={() => setShowForm(!showForm)}
-            className="flex items-center gap-2 btn-primary"
-          >
-            <FiPlus /> Register New Employee
-          </button>
-        )}
-      </div>
+      <PageHeader
+        title="Employee Management"
+        showBack={true}
+        showHome={true}
+        actions={
+          canRegister && (
+            <button
+              onClick={() => setShowForm(!showForm)}
+              className="flex items-center gap-2 btn-primary"
+            >
+              <FiPlus /> Register New Employee
+            </button>
+          )
+        }
+      />
 
       {/* Messages */}
       {error && (

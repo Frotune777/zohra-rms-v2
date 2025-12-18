@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../utils/api';
-import { FiCalendar, FiRefreshCw, FiSave, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
+import { FiCalendar, FiRefreshCw, FiSave, FiAlertCircle, FiCheckCircle, FiLock, FiUnlock, FiPlus } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
+import DayClosureModal from '../../components/finance/DayClosureModal';
 
 const DailySummary = () => {
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [summary, setSummary] = useState(null);
-    const [reconciliation, setReconciliation] = useState(null);
-    const [actualClosing, setActualClosing] = useState('');
+    const [dailyBalance, setDailyBalance] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [submitting, setSubmitting] = useState(false);
+    const [showClosureModal, setShowClosureModal] = useState(false);
     const [message, setMessage] = useState({ type: '', text: '' });
-
-    // Defaulting API URL
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002';
+    const { userRole } = useAuth();
 
     useEffect(() => {
         fetchData();
@@ -23,18 +21,13 @@ const DailySummary = () => {
         setLoading(true);
         setMessage({ type: '', text: '' });
         try {
-            const [summaryRes, reconRes] = await Promise.all([
+            const [summaryRes, balanceRes] = await Promise.all([
                 api.get(`/finance/daily-summary?date=${date}`),
-                api.get(`/finance/reconciliation?date=${date}`)
+                api.get(`/finance/daily-balance/${date}?type=Counter`)
             ]);
 
             setSummary(summaryRes.data);
-            setReconciliation(reconRes.data);
-            if (reconRes.data.actual_closing !== null) {
-                setActualClosing(reconRes.data.actual_closing);
-            } else {
-                setActualClosing('');
-            }
+            setDailyBalance(balanceRes.data);
         } catch (err) {
             console.error(err);
             setMessage({ type: 'error', text: 'Failed to load daily data.' });
@@ -43,27 +36,21 @@ const DailySummary = () => {
         }
     };
 
-    const handleUpdateClosing = async () => {
-        if (actualClosing === '' || isNaN(actualClosing)) {
-            setMessage({ type: 'error', text: 'Please enter a valid closing balance.' });
-            return;
-        }
+    const handleReopen = async () => {
+        const reason = window.prompt("Reason for reopening the day:");
+        if (!reason) return;
 
-        setSubmitting(true);
         try {
-            await api.post(`/finance/reconciliation/${date}`, {
-                actual_closing_balance: parseFloat(actualClosing),
-                status: 'Closed',
-                type: 'Counter'
+            await api.post('/finance/daily-balance/reopen', {
+                date,
+                type: 'Counter',
+                reason
             });
-
-            setMessage({ type: 'success', text: 'Reconciliation saved successfully!' });
-            fetchData(); // Refresh to calculate difference
+            setMessage({ type: 'success', text: 'Day reopened successfully!' });
+            fetchData();
         } catch (err) {
             console.error(err);
-            setMessage({ type: 'error', text: 'Failed to save reconciliation.' });
-        } finally {
-            setSubmitting(false);
+            setMessage({ type: 'error', text: err.response?.data?.error || 'Failed to reopen' });
         }
     };
 
@@ -101,6 +88,24 @@ const DailySummary = () => {
                     >
                         <FiRefreshCw className={loading ? 'animate-spin' : ''} />
                     </button>
+
+                    {dailyBalance?.status === 'Closed' ? (
+                        userRole === 'admin' && (
+                            <button
+                                onClick={handleReopen}
+                                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 transition"
+                            >
+                                <FiUnlock /> Reopen Day
+                            </button>
+                        )
+                    ) : (
+                        <button
+                            onClick={() => setShowClosureModal(true)}
+                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 transition"
+                        >
+                            <FiLock /> Close Day
+                        </button>
+                    )}
                 </div>
             </div>
 
@@ -111,112 +116,119 @@ const DailySummary = () => {
                 </div>
             )}
 
-            {loading && !summary ? (
+            {loading && !summary && !dailyBalance ? (
                 <div className="text-center text-gray-500 mt-12 animate-pulse">Loading daily data...</div>
             ) : (
                 <div className="space-y-8 animate-in fade-in duration-500">
 
-                    {/* 1. Cash Reconciliation Flow */}
+                    {/* 1. Cash Reconciliation Flow (New Logic) */}
                     <div className="bg-gray-800/50 backdrop-blur-sm border border-white/10 rounded-xl p-6 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
-                        <h2 className="text-lg font-bold text-white mb-6 border-b border-white/10 pb-2">Counter Cash Flow</h2>
+                        <div className={`absolute top-0 left-0 w-1 h-full ${dailyBalance?.status === 'Closed' ? 'bg-green-500' : 'bg-blue-500'}`}></div>
+                        <h2 className="text-lg font-bold text-white mb-6 border-b border-white/10 pb-2 flex justify-between items-center">
+                            <span>Counter Cash Flow</span>
+                            <span className={`text-[10px] px-2 py-0.5 rounded uppercase font-bold ${dailyBalance?.status === 'Closed' ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400'}`}>
+                                {dailyBalance?.status || 'Open'}
+                            </span>
+                        </h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
                             {/* Opening */}
                             <div className="bg-blue-500/10 p-4 rounded-lg border border-blue-500/20 text-center">
                                 <p className="text-xs text-blue-300 uppercase font-bold mb-1">Opening Cash</p>
-                                <p className="text-xl font-bold text-white font-mono">₹{reconciliation?.opening_balance?.toLocaleString() || 0}</p>
+                                <p className="text-xl font-bold text-white font-mono">₹{parseFloat(dailyBalance?.opening_balance || 0).toLocaleString()}</p>
                             </div>
 
                             <div className="text-center text-gray-500 font-bold">+</div>
 
                             {/* Inflow */}
                             <div className="bg-green-500/10 p-4 rounded-lg border border-green-500/20 text-center">
-                                <p className="text-xs text-green-300 uppercase font-bold mb-1">Total Sales (Cash)</p>
-                                <p className="text-xl font-bold text-white font-mono">₹{reconciliation?.cash_inflow?.toLocaleString() || 0}</p>
+                                <p className="text-xs text-green-300 uppercase font-bold mb-1">Cash Movement (Dr)</p>
+                                <p className="text-xl font-bold text-white font-mono">₹{parseFloat(dailyBalance?.expected_closing_calculated - dailyBalance?.opening_balance + (dailyBalance?.total_credit || 0) || 0).toLocaleString()}</p>
+                                <p className="text-[10px] text-gray-500 mt-1">Total Cash Received</p>
                             </div>
 
                             <div className="text-center text-gray-500 font-bold">-</div>
 
                             {/* Outflow */}
                             <div className="bg-red-500/10 p-4 rounded-lg border border-red-500/20 text-center">
-                                <p className="text-xs text-red-300 uppercase font-bold mb-1">Cash Expenses</p>
-                                <p className="text-xl font-bold text-white font-mono">₹{reconciliation?.cash_outflow?.toLocaleString() || 0}</p>
+                                <p className="text-xs text-red-300 uppercase font-bold mb-1">Cash Movement (Cr)</p>
+                                <p className="text-xl font-bold text-white font-mono">₹{parseFloat(dailyBalance?.total_credit || 0).toLocaleString()}</p>
+                                <p className="text-[10px] text-gray-500 mt-1">Total Cash Paid</p>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-center mt-4">
-                            {/* Transfer Out */}
-                            <div className="bg-orange-500/10 p-4 rounded-lg border border-orange-500/20 text-center md:col-start-3">
-                                <p className="text-xs text-orange-300 uppercase font-bold mb-1">Transfer to Mgr</p>
-                                <p className="text-xl font-bold text-white font-mono">₹{reconciliation?.transfer_out?.toLocaleString() || 0}</p>
+                        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-center mt-6 pt-6 border-t border-white/5">
+                            <div className="md:col-span-3 text-right">
+                                <p className="text-sm text-gray-400 uppercase font-bold">Theoretical System Balance</p>
                             </div>
-
                             <div className="text-center text-gray-500 font-bold">=</div>
-
-                            {/* Theoretical */}
                             <div className="bg-purple-500/10 p-4 rounded-lg border border-purple-500/20 text-center">
-                                <p className="text-xs text-purple-300 uppercase font-bold mb-1">Theoretical Cash</p>
-                                <p className="text-2xl font-bold text-white font-mono">₹{reconciliation?.theoretical_closing?.toLocaleString() || 0}</p>
+                                <p className="text-2xl font-bold text-white font-mono">₹{parseFloat(dailyBalance?.closing_balance || 0).toFixed(2)}</p>
                             </div>
                         </div>
                     </div>
 
-                    {/* 2. Physical Verification */}
-                    <div className="bg-gray-800/50 backdrop-blur-sm border border-white/10 rounded-xl p-6 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-green-500"></div>
-                        <h2 className="text-lg font-bold text-white mb-6 border-b border-white/10 pb-2 flex justify-between items-center">
-                            <span>Physical Verification</span>
-                            <span className={`text-xs px-2 py-1 rounded bg-gray-700 ${reconciliation?.status === 'Closed' ? 'text-green-400' : 'text-yellow-400'}`}>
-                                Status: {reconciliation?.status || 'Open'}
-                            </span>
-                        </h2>
+                    {/* 2. Physical Verification Summary */}
+                    {dailyBalance?.status === 'Closed' && (
+                        <div className="bg-gray-800/50 backdrop-blur-sm border border-white/10 rounded-xl p-6 relative overflow-hidden">
+                            <div className="absolute top-0 left-0 w-1 h-full bg-green-500"></div>
+                            <h2 className="text-lg font-bold text-white mb-6 border-b border-white/10 pb-2">Day Closure Details</h2>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div>
-                                <label className="block text-sm text-gray-400 mb-2">Enter Actual Closing Balance (Cash in Drawer)</label>
-                                <div className="flex gap-2">
-                                    <input
-                                        type="number"
-                                        value={actualClosing}
-                                        onChange={(e) => setActualClosing(e.target.value)}
-                                        placeholder="0.00"
-                                        className="bg-gray-900 border border-white/20 rounded-lg p-3 text-white text-xl font-mono w-full focus:border-green-500 outline-none"
-                                    />
-                                    <button
-                                        onClick={handleUpdateClosing}
-                                        disabled={submitting}
-                                        className="bg-green-600 hover:bg-green-700 text-white px-6 rounded-lg font-bold flex items-center gap-2 transition disabled:opacity-50"
-                                    >
-                                        {submitting ? <FiRefreshCw className="animate-spin" /> : <FiSave />} Save
-                                    </button>
-                                </div>
-                                <p className="text-xs text-gray-500 mt-2">Update this value after counting physical cash.</p>
-                            </div>
-
-                            <div className="flex flex-col justify-center">
-                                <div className={`p-4 rounded-lg border ${(reconciliation?.difference || 0) === 0 ? 'bg-green-500/20 border-green-500' :
-                                    (reconciliation?.difference || 0) > 0 ? 'bg-blue-500/20 border-blue-500' : 'bg-red-500/20 border-red-500'
-                                    }`}>
-                                    <div className="flex justify-between items-center mb-1">
-                                        <span className="text-sm font-bold uppercase tracking-wider opacity-80">Variance (Excess/Shortage)</span>
-                                        {(reconciliation?.difference || 0) === 0 && <FiCheckCircle className="text-green-400" />}
-                                        {(reconciliation?.difference || 0) !== 0 && <FiAlertCircle className="text-yellow-400" />}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400 text-sm">Actual Balance Counted:</span>
+                                        <span className="text-lg font-bold font-mono">₹{parseFloat(dailyBalance?.actual_closing_balance || 0).toLocaleString()}</span>
                                     </div>
-                                    <p className="text-3xl font-bold font-mono">
-                                        {((reconciliation?.difference || 0) > 0 ? '+' : '')}
-                                        ₹{parseFloat(reconciliation?.difference || 0).toLocaleString()}
-                                    </p>
-                                    <p className="text-xs mt-1 opacity-70">
-                                        {(reconciliation?.difference || 0) === 0 ? 'Perfect match!' :
-                                            (reconciliation?.difference || 0) < 0 ? 'Cash Shortage (Money missing)' : 'Cash Overage (Extra money)'}
-                                    </p>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400 text-sm">Variance:</span>
+                                        <span className={`text-lg font-bold font-mono ${dailyBalance?.variance === 0 ? 'text-green-400' : dailyBalance?.variance > 0 ? 'text-blue-400' : 'text-red-400'}`}>
+                                            {dailyBalance?.variance > 0 ? '+' : ''}₹{parseFloat(dailyBalance?.variance || 0).toLocaleString()}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4 md:border-l md:border-white/10 md:pl-6 col-span-2">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400 text-sm">Closed By:</span>
+                                        <span className="text-white font-bold">{dailyBalance?.closed_by_name || 'System'}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-400 text-sm">Closed At:</span>
+                                        <span className="text-white font-mono text-sm">{dailyBalance?.closed_at ? new Date(dailyBalance.closed_at).toLocaleString() : '-'}</span>
+                                    </div>
+                                    {dailyBalance?.variance_je_id && (
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-gray-400 text-sm">Variance Journal:</span>
+                                            <span className="text-blue-400 font-mono text-sm underline cursor-help" title="JE Reference">#{dailyBalance.variance_je_id}</span>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    )}
 
-                    {/* 3. Overall Performance (Existing P&L Summary) */}
+                    {!dailyBalance?.status || dailyBalance?.status === 'Open' ? (
+                        <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div className="flex items-center gap-3">
+                                <div className="bg-blue-500/20 p-3 rounded-full text-blue-400 text-xl">
+                                    <FiAlertCircle />
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-white">Day is currently open</h4>
+                                    <p className="text-sm text-gray-400">Please count physical cash and close the day to post variances.</p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setShowClosureModal(true)}
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-bold shadow-lg transition"
+                            >
+                                Start Closure Process
+                            </button>
+                        </div>
+                    ) : null}
+
+                    {/* 3. Overall Performance Statistics */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 opacity-80 hover:opacity-100 transition">
                         <StatCard label="Total Revenue" value={summary?.sales} color="text-green-400" />
                         <StatCard label="Total Expenses" value={summary?.expenses} color="text-red-400" />
@@ -225,6 +237,17 @@ const DailySummary = () => {
                     </div>
 
                 </div>
+            )}
+
+            {showClosureModal && (
+                <DayClosureModal
+                    date={date}
+                    onClose={() => setShowClosureModal(false)}
+                    onSuccess={(data) => {
+                        setMessage({ type: 'success', text: `Closed day with ₹${data.variance} variance.` });
+                        fetchData();
+                    }}
+                />
             )}
         </div>
     );

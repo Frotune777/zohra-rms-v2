@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
+import PageHeader from '../components/PageHeader';
 import {
     FiTrendingUp, FiTrendingDown, FiDollarSign, FiShoppingBag,
     FiUsers, FiAlertTriangle, FiActivity, FiBox
@@ -38,7 +39,11 @@ const MasterDashboard = () => {
 
     return (
         <div className="p-4 md:p-6 h-full w-full overflow-y-auto bg-gradient-to-br from-midnight to-gray-900 text-white">
-            <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-zohra-blue">Business Overview</h1>
+            <PageHeader
+                title="Business Overview"
+                showBack={true}
+                showHome={false}
+            />
 
             {/* KPI Cards Row 1 */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-6">

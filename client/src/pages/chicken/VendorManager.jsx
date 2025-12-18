@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../utils/api';
+import PageHeader from '../../components/PageHeader';
 import { toast } from 'react-hot-toast';
 import { FiPlus, FiTrash2, FiEdit2, FiSave } from 'react-icons/fi';
 
@@ -162,7 +163,7 @@ const VendorManager = () => {
 
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-bold text-white mb-6">Vendor Management</h1>
+            <PageHeader title="Vendor Management" showBack={true} showHome={true} backTo="/chicken" />
 
             <div className="flex gap-4 mb-6">
                 <button

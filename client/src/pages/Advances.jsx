@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
+import PageHeader from '../components/PageHeader';
 import { useAuth } from '../context/AuthContext';
 import { FiAlertCircle, FiCheckCircle, FiPlus, FiX, FiTrash2, FiArrowUpRight, FiArrowDownLeft, FiClock } from 'react-icons/fi';
 
@@ -119,38 +120,38 @@ const Advances = () => {
 
   return (
     <div className="p-8 h-full w-full flex flex-col overflow-hidden bg-gradient-to-br from-midnight to-midnight/95">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h2 className="text-3xl font-bold text-zohra-blue mb-2">Advance Ledger</h2>
-          <p className="text-xs text-gray-400">Track employee advances and repayments</p>
-        </div>
-        <div className="flex items-center gap-4">
-          <select
-            value={selectedEmployee}
-            onChange={(e) => setSelectedEmployee(e.target.value)}
-            className="bg-white/5 border border-white/10 rounded-lg p-2 text-white text-sm focus:outline-none focus:border-zohra-blue"
-          >
-            <option value="" className="bg-gray-800">All Employees</option>
-            {employees.map(emp => (
-              <option key={emp.id} value={emp.id} className="bg-gray-800">{emp.full_name}</option>
-            ))}
-          </select>
-          {canManageAdvances && (
-            <div className="flex gap-2">
-              <a href="/advances/approvals" className="flex items-center gap-2 btn-secondary text-sm">
-                <FiClock /> Review Requests
-              </a>
-              <button
-                onClick={() => setShowForm(!showForm)}
-                className="flex items-center gap-2 btn-primary"
-              >
-                <FiPlus /> New Transaction
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
+      <PageHeader
+        title="Advance Ledger"
+        showBack={true}
+        showHome={true}
+        actions={
+          <div className="flex items-center gap-4">
+            <select
+              value={selectedEmployee}
+              onChange={(e) => setSelectedEmployee(e.target.value)}
+              className="bg-white/5 border border-white/10 rounded-lg p-2 text-white text-sm focus:outline-none focus:border-zohra-blue"
+            >
+              <option value="" className="bg-gray-800">All Employees</option>
+              {employees.map(emp => (
+                <option key={emp.id} value={emp.id} className="bg-gray-800">{emp.full_name}</option>
+              ))}
+            </select>
+            {canManageAdvances && (
+              <div className="flex gap-2">
+                <a href="/advances/approvals" className="flex items-center gap-2 btn-secondary text-sm">
+                  <FiClock /> Review Requests
+                </a>
+                <button
+                  onClick={() => setShowForm(!showForm)}
+                  className="flex items-center gap-2 btn-primary"
+                >
+                  <FiPlus /> New Transaction
+                </button>
+              </div>
+            )}
+          </div>
+        }
+      />
 
       {/* Messages */}
       {error && (

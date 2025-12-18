@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../utils/api';
-import { FiPlus, FiTrash2, FiEdit2, FiSave, FiX, FiRefreshCw, FiList, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
+import { FiPlus, FiTrash2, FiEdit2, FiSave, FiX, FiRefreshCw, FiList, FiAlertCircle, FiCheckCircle, FiLink } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
 const ExpenseMapping = () => {
@@ -13,8 +13,6 @@ const ExpenseMapping = () => {
 
     // Applying history state
     const [applyingId, setApplyingId] = useState(null);
-
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002';
 
     useEffect(() => {
         fetchData();
@@ -91,6 +89,12 @@ const ExpenseMapping = () => {
         setShowForm(false);
     };
 
+    // Helper to find category GL account
+    const getAccountForCategory = (categoryId) => {
+        const cat = categories.find(c => c.id === categoryId);
+        return cat?.account_code || null;
+    };
+
     return (
         <div className="p-6 max-w-6xl mx-auto h-full flex flex-col">
             <div className="flex justify-between items-center mb-6">
@@ -98,7 +102,7 @@ const ExpenseMapping = () => {
                     <h1 className="text-2xl font-bold text-white flex items-center gap-2">
                         <FiList className="text-purple-400" /> Expense Auto-Categorization
                     </h1>
-                    <p className="text-gray-400 text-sm mt-1">Manage rules to automatically categorize expenses based on keywords.</p>
+                    <p className="text-gray-400 text-sm mt-1">Manage rules to automatically categorize expenses and link them to GL accounts.</p>
                 </div>
                 <button
                     onClick={() => setShowForm(true)}
@@ -113,7 +117,7 @@ const ExpenseMapping = () => {
                 <div className="mb-8 glass-panel p-6 rounded-xl border border-purple-500/30">
                     <h3 className="text-lg font-bold text-white mb-4">{editingId ? 'Edit Rule' : 'New Auto-Categorization Rule'}</h3>
                     <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
-                        <div>
+                        <div className="md:col-span-1">
                             <label className="block text-sm font-medium text-gray-400 mb-1">Concept / Keyword (Item Name)</label>
                             <input
                                 type="text"
@@ -124,7 +128,7 @@ const ExpenseMapping = () => {
                                 required
                             />
                         </div>
-                        <div>
+                        <div className="md:col-span-1">
                             <label className="block text-sm font-medium text-gray-400 mb-1">Map to Category</label>
                             <select
                                 value={formData.category_id}
@@ -134,9 +138,14 @@ const ExpenseMapping = () => {
                             >
                                 <option value="">Select Category</option>
                                 {categories.map(c => (
-                                    <option key={c.id} value={c.id}>{c.name}</option>
+                                    <option key={c.id} value={c.id}>{c.name} ({c.type})</option>
                                 ))}
                             </select>
+                            {formData.category_id && (
+                                <p className="text-[10px] text-gray-500 mt-1 flex items-center gap-1">
+                                    <FiLink /> GL Account: <span className="text-purple-400 font-bold">{getAccountForCategory(parseInt(formData.category_id)) || 'NONE'}</span>
+                                </p>
+                            )}
                         </div>
                         <div className="flex gap-2">
                             <button type="button" onClick={handleCancel} className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex-1">Cancel</button>
@@ -156,45 +165,61 @@ const ExpenseMapping = () => {
                             <tr>
                                 <th className="p-4 font-semibold border-b border-white/10">Keyword / Description</th>
                                 <th className="p-4 font-semibold border-b border-white/10">Mapped Category</th>
+                                <th className="p-4 font-semibold border-b border-white/10">GL Account</th>
                                 <th className="p-4 font-semibold border-b border-white/10 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
-                            {mappings.map(map => (
-                                <tr key={map.id} className="hover:bg-white/5 transition">
-                                    <td className="p-4 text-white font-medium">{map.item_keyword}</td>
-                                    <td className="p-4 text-purple-300">
-                                        <span className="bg-purple-500/10 border border-purple-500/20 px-2 py-1 rounded text-sm">
-                                            {map.category_name || 'Unknown'}
-                                        </span>
-                                    </td>
-                                    <td className="p-4 flex items-center justify-end gap-2">
-                                        <button
-                                            onClick={() => handleApplyHistory(map.id, map.item_keyword)}
-                                            disabled={applyingId === map.id}
-                                            className="text-blue-400 hover:text-blue-300 p-2 rounded hover:bg-white/5 disabled:opacity-50"
-                                            title="Apply to Historical Data"
-                                        >
-                                            {applyingId === map.id ? <FiRefreshCw className="animate-spin" /> : <FiRefreshCw />}
-                                        </button>
-                                        <button
-                                            onClick={() => handleEdit(map)}
-                                            className="text-gray-400 hover:text-white p-2 rounded hover:bg-white/5"
-                                        >
-                                            <FiEdit2 />
-                                        </button>
-                                        <button
-                                            onClick={() => handleDelete(map.id)}
-                                            className="text-red-400 hover:text-red-300 p-2 rounded hover:bg-white/5"
-                                        >
-                                            <FiTrash2 />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                            {mappings.map(map => {
+                                const accountCode = getAccountForCategory(map.category_id);
+                                return (
+                                    <tr key={map.id} className="hover:bg-white/5 transition">
+                                        <td className="p-4 text-white font-medium">{map.item_keyword}</td>
+                                        <td className="p-4">
+                                            <span className="bg-purple-500/10 border border-purple-500/20 px-2 py-1 rounded text-xs text-purple-300">
+                                                {map.category_name || 'Unknown'}
+                                            </span>
+                                        </td>
+                                        <td className="p-4 font-mono text-xs">
+                                            {accountCode ? (
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-blue-400 font-bold">{accountCode}</span>
+                                                    <FiCheckCircle className="text-green-500" />
+                                                </div>
+                                            ) : (
+                                                <div className="flex items-center gap-2 text-red-400 italic">
+                                                    <FiAlertCircle /> Unmapped
+                                                </div>
+                                            )}
+                                        </td>
+                                        <td className="p-4 flex items-center justify-end gap-2">
+                                            <button
+                                                onClick={() => handleApplyHistory(map.id, map.item_keyword)}
+                                                disabled={applyingId === map.id}
+                                                className="text-blue-400 hover:text-blue-300 p-2 rounded hover:bg-white/5 disabled:opacity-50"
+                                                title="Apply to Historical Data"
+                                            >
+                                                {applyingId === map.id ? <FiRefreshCw className="animate-spin" /> : <FiRefreshCw />}
+                                            </button>
+                                            <button
+                                                onClick={() => handleEdit(map)}
+                                                className="text-gray-400 hover:text-white p-2 rounded hover:bg-white/5"
+                                            >
+                                                <FiEdit2 />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(map.id)}
+                                                className="text-red-400 hover:text-red-300 p-2 rounded hover:bg-white/5"
+                                            >
+                                                <FiTrash2 />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                             {mappings.length === 0 && !loading && (
                                 <tr>
-                                    <td colSpan="3" className="p-8 text-center text-gray-500">
+                                    <td colSpan="4" className="p-8 text-center text-gray-500">
                                         No categorization rules defined yet.
                                     </td>
                                 </tr>

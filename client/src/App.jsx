@@ -15,6 +15,7 @@ import MenuManagement from './pages/MenuManagement';
 import DailyRates from './pages/chicken/DailyRates';
 import BillEntry from './pages/chicken/BillEntry';
 import VendorManager from './pages/chicken/VendorManager';
+import ChickenDashboard from './pages/chicken/ChickenDashboard';
 import BulkAttendance from './pages/BulkAttendance';
 import PaymentEntry from './pages/finance/PaymentEntry';
 import DailySummary from './pages/finance/DailySummary';
@@ -65,6 +66,7 @@ function AppRoutes() {
                 <Route path="ai-dashboard" element={<AIDashboard />} />
 
                 {/* Chicken Tracker Routes */}
+                <Route path="chicken" element={<ChickenDashboard />} />
                 <Route path="chicken/rates" element={<DailyRates />} />
                 <Route path="chicken/bills" element={<BillEntry />} />
                 <Route path="chicken/vendors" element={<VendorManager />} />

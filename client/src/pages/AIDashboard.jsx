@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
+import PageHeader from '../components/PageHeader';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { FiTrendingUp, FiShoppingCart, FiAlertCircle } from 'react-icons/fi';
 
@@ -63,10 +64,7 @@ const AIDashboard = () => {
 
     return (
         <div className="p-6 h-full overflow-y-auto">
-            <h1 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                <FiTrendingUp className="text-zohra-blue" />
-                AI Insights & Automation
-            </h1>
+            <PageHeader title="AI Insights & Automation" showBack={true} showHome={true} />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 {/* Smart Procurement Section */}

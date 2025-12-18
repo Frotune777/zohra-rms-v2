@@ -84,7 +84,7 @@ exports.addRevenue = async (req, res) => {
         const result = await FinanceService.addRevenue(req.body);
         res.json(result);
     } catch (err) {
-        if (err.message === 'Amount is required') {
+        if (err.message.includes('Amount is required')) {
             return res.status(400).json({ error: err.message });
         }
         res.status(500).json({ error: err.message });
@@ -96,7 +96,7 @@ exports.addExpense = async (req, res) => {
         const result = await FinanceService.addExpense(req.body);
         res.json(result);
     } catch (err) {
-        if (err.message === 'Amount is required') {
+        if (err.message.includes('Amount is required')) {
             return res.status(400).json({ error: err.message });
         }
         res.status(500).json({ error: err.message });
@@ -270,20 +270,20 @@ exports.getDailyBalance = async (req, res) => {
  * Close Daily Balance
  */
 exports.closeDailyBalance = async (req, res) => {
-    const { date,type, actualClosingBalance } = req.body;
-    
+    const { date, type, actualClosingBalance } = req.body;
+
     if (!date || !type || actualClosingBalance === undefined) {
-        return res.status(400).json({ 
-            error: 'Date, type, and actualClosingBalance are required' 
+        return res.status(400).json({
+            error: 'Date, type, and actualClosingBalance are required'
         });
     }
-    
+
     try {
         const ClosureService = require('./ClosureService');
         const result = await ClosureService.closeDailyBalance(
-            date, 
-            type, 
-            actualClosingBalance, 
+            date,
+            type,
+            actualClosingBalance,
             req.user.id
         );
         res.json(result);
@@ -297,19 +297,19 @@ exports.closeDailyBalance = async (req, res) => {
  */
 exports.reopenDailyBalance = async (req, res) => {
     const { date, type, reason } = req.body;
-    
+
     if (!date || !type || !reason) {
-        return res.status(400).json({ 
-            error: 'Date, type, and reason are required' 
+        return res.status(400).json({
+            error: 'Date, type, and reason are required'
         });
     }
-    
+
     try {
         const ClosureService = require('./ClosureService');
         const result = await ClosureService.reopenDay(
-            date, 
-            type, 
-            req.user.id, 
+            date,
+            type,
+            req.user.id,
             reason
         );
         res.json(result);
@@ -351,11 +351,11 @@ exports.getJournalEntry = async (req, res) => {
 exports.getAccountBalance = async (req, res) => {
     const { code } = req.params;
     const { asOfDate } = req.query;
-    
+
     try {
         const JournalService = require('./JournalService');
         const balance = await JournalService.getAccountBalance(
-            parseInt(code), 
+            parseInt(code),
             asOfDate || null
         );
         res.json({ account_code: code, balance: balance });

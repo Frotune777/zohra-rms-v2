@@ -61,7 +61,7 @@ class PaymentModeService {
         const result = await db.query(`
             SELECT pm.*, ca.name as account_name, ca.type as account_type
             FROM payment_modes pm
-            JOIN chart_of_accounts ca ON pm.account_code = ca.code
+            LEFT JOIN chart_of_accounts ca ON pm.account_code::integer = ca.code
             WHERE pm.is_active = TRUE
             ORDER BY pm.display_name
         `);

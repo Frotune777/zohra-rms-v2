@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 import { FiDollarSign, FiTrendingUp, FiUsers, FiAlertCircle, FiPlus, FiX, FiCheckCircle } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import api from '../utils/api';
@@ -155,27 +156,27 @@ export default function VendorPayments() {
 
     return (
         <div className="p-4 md:p-6 lg:p-8 h-full w-full flex flex-col overflow-hidden bg-gradient-to-br from-midnight to-midnight/95">
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 md:mb-6">
-                <div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-zohra-blue mb-1">Vendor Payments</h2>
-                    <p className="text-xs text-gray-400">Manage vendor payments and track outstanding balances</p>
-                </div>
-                <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-                    <button
-                        onClick={() => navigate('/chicken/vendors')}
-                        className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition text-sm flex-1 sm:flex-none justify-center"
-                    >
-                        <FiUsers size={16} /> Vendors
-                    </button>
-                    <button
-                        onClick={() => setShowPaymentModal(true)}
-                        className="flex items-center gap-2 btn-primary flex-1 sm:flex-none justify-center"
-                    >
-                        <FiPlus size={16} /> Payment
-                    </button>
-                </div>
-            </div>
+            <PageHeader
+                title="Vendor Payments"
+                showBack={true}
+                showHome={true}
+                actions={
+                    <div className="flex flex-wrap gap-2">
+                        <button
+                            onClick={() => navigate('/chicken/vendors')}
+                            className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition text-sm"
+                        >
+                            <FiUsers size={16} /> Vendors
+                        </button>
+                        <button
+                            onClick={() => setShowPaymentModal(true)}
+                            className="flex items-center gap-2 btn-primary"
+                        >
+                            <FiPlus size={16} /> Payment
+                        </button>
+                    </div>
+                }
+            />
 
             {/* Summary Cards */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-6">

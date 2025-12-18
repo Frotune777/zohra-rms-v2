@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../utils/api';
+import PageHeader from '../../components/PageHeader';
 import { toast } from 'react-hot-toast';
 import { FiPlus, FiCalendar } from 'react-icons/fi';
 
@@ -106,7 +107,7 @@ const BillEntry = () => {
 
     return (
         <div className="p-4 sm:p-6 lg:p-8 h-full w-full flex flex-col overflow-hidden">
-            <h1 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Daily Bill Entry</h1>
+            <PageHeader title="Daily Bill Entry" showBack={true} showHome={true} backTo="/chicken" />
 
             {/* Summary Cards */}
             {summary && summary.summary.total_entries > 0 && (
