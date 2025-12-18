@@ -117,11 +117,10 @@ describe('Advances and Payroll Module', () => {
                 type: 'Advance',
                 amount: 5000,
             };
-            // Mock BEGIN, balance query, INSERT, journal entries, COMMIT
+            req.user = { id: 1 }; // Added for service
+            // Mock sequence for createRequest
             db.query
-                .mockResolvedValueOnce(mockQueryResult([])) // BEGIN
-                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // INSERT advance_requests
-                .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
+                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])); // INSERT advance_requests
 
             await createTransaction(req, res);
 
@@ -207,6 +206,7 @@ describe('Advances and Payroll Module', () => {
                 .mockResolvedValueOnce(mockQueryResult([])) // Ledger 2
                 .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
+            req.user = { id: 1 };
             await runPayroll(req, res);
 
             // December has 31 days, so 30/31 * 30000 = 29032.26

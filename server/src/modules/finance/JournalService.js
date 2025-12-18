@@ -8,26 +8,22 @@
  */
 
 const db = require('../../config/db');
+const JournalEntry = require('./entities/JournalEntry');
 
 class JournalService {
     /**
      * Create Journal Entry with Balanced Lines
-     * This is the ONLY way to create journal entries in the system
      * 
-     * @param {Object} entry - Journal entry details
-     * @param {Date} entry.date - Transaction date
-     * @param {String} entry.description - Human-readable description
-     * @param {Number} entry.reference_id - Optional ID linking to source record
-     * @param {String} entry.reference_type - Type of source (Expense, Sale, Payment, etc)
-     * @param {Array} entry.lines - Array of ledger lines
-     * @param {Number} entry.lines[].account_code - GL account code
-     * @param {Number} entry.lines[].debit - Debit amount (0 if credit)
-     * @param {Number} entry.lines[].credit - Credit amount (0 if debit)
+     * @param {Object|JournalEntry} entryData - Journal entry details or domain object
      * @param {Object} client - Optional DB client for transaction management
      * @returns {Promise<Object>} Created journal entry with ID
-     * @throws {Error} If entry is unbalanced, period is locked, or validation fails
      */
-    async createJournalEntry(entry, client = null) {
+    async createJournalEntry(entryData, client = null) {
+        // Enforce Domain Rule: Must be a JournalEntry domain object
+        const entry = entryData instanceof JournalEntry
+            ? entryData
+            : new JournalEntry(entryData);
+
         const shouldManageTransaction = !client;
         const dbClient = client || await db.pool.connect();
 
@@ -36,39 +32,10 @@ class JournalService {
                 await dbClient.query('BEGIN');
             }
 
-            // 1. Validate entry structure
-            if (!entry.date) {
-                throw new Error('Journal entry date is required');
-            }
-
-            if (!entry.description) {
-                throw new Error('Journal entry description is required');
-            }
-
-            if (!entry.lines || entry.lines.length < 2) {
-                throw new Error('Journal entry must have at least 2 lines');
-            }
-
-            // 2. Validate balanced entry (CRITICAL)
-            const totalDebit = entry.lines.reduce((sum, line) => {
-                return sum + parseFloat(line.debit || 0);
-            }, 0);
-
-            const totalCredit = entry.lines.reduce((sum, line) => {
-                return sum + parseFloat(line.credit || 0);
-            }, 0);
-
-            if (Math.abs(totalDebit - totalCredit) > 0.01) {
-                throw new Error(
-                    `Unbalanced entry: Dr ${totalDebit.toFixed(2)} != Cr ${totalCredit.toFixed(2)} ` +
-                    `(Imbalance: ${(totalDebit - totalCredit).toFixed(2)})`
-                );
-            }
-
-            // 3. Validate all account codes exist
+            // 1. Validate all account codes exist (Database level validation)
             for (const line of entry.lines) {
                 const accountCheck = await dbClient.query(
-                    'SELECT code, name FROM chart_of_accounts WHERE code = $1',
+                    'SELECT code FROM chart_of_accounts WHERE code = $1',
                     [line.account_code]
                 );
 
@@ -77,45 +44,26 @@ class JournalService {
                 }
             }
 
-            // 4. Check period locking (enforced at DB level via trigger, but check here for better error message)
-            const periodCheck = await dbClient.query(
-                'SELECT get_period_status($1) as status',
-                [entry.date]
-            );
-
-            const periodStatus = periodCheck.rows[0]?.status;
-            if (periodStatus && periodStatus !== 'Open') {
-                throw new Error(`Cannot create journal entry: Financial period for ${entry.date} is ${periodStatus}`);
-            }
-
-            // 5. Insert journal entry header
+            // 2. Insert journal entry header
             const jeRes = await dbClient.query(`
                 INSERT INTO journal_entries (transaction_date, description, reference_id, reference_type)
                 VALUES ($1, $2, $3, $4) 
-                RETURNING id
+                RETURNING id, created_at
             `, [
                 entry.date,
                 entry.description,
-                entry.reference_id || null,
-                entry.reference_type || null
+                entry.reference_id,
+                entry.reference_type
             ]);
 
             const jeId = jeRes.rows[0].id;
 
-            // 6. Insert ledger lines
+            // 3. Insert ledger lines
             for (const line of entry.lines) {
-                const debit = parseFloat(line.debit || 0);
-                const credit = parseFloat(line.credit || 0);
-
-                // Skip zero lines (but allow if explicitly set)
-                if (debit === 0 && credit === 0) {
-                    continue;
-                }
-
                 await dbClient.query(`
                     INSERT INTO ledger_lines (journal_entry_id, account_code, debit, credit)
                     VALUES ($1, $2, $3, $4)
-                `, [jeId, line.account_code, debit, credit]);
+                `, [jeId, line.account_code, line.debit, line.credit]);
             }
 
             if (shouldManageTransaction) {
@@ -126,8 +74,8 @@ class JournalService {
                 id: jeId,
                 date: entry.date,
                 description: entry.description,
-                total_debit: totalDebit,
-                total_credit: totalCredit
+                total_amount: entry.totalAmount,
+                created_at: jeRes.rows[0].created_at
             };
 
         } catch (err) {

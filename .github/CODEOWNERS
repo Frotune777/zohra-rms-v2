@@ -1,0 +1,6 @@
+# CODEOWNERS for Al Zohra RMS Documentation
+# Enforce review for all machine-readable documentation
+
+/docs/llm/ **
+/SYSTEM_SNAPSHOT.md **
+/docs/architecture/ARCHITECTURE_CONTRACT.md **
