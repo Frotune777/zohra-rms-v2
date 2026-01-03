@@ -6,7 +6,7 @@ class InventoryService {
         if (!rawRates || !rule) return 0.0;
 
         const { tandoor_rate, boiler_rate, egg_rate } = rawRates;
-        const { base_rate_type, op1, val1, op2, val2 } = rule;
+        const { base_rate_type, op1, val1, op2, val2, threshold_val, threshold_op, threshold_markup_op, threshold_markup_val } = rule;
 
         let rate = 0.0;
         if (base_rate_type === 'TandoorRate') rate = parseFloat(tandoor_rate);
@@ -14,7 +14,7 @@ class InventoryService {
         else if (base_rate_type === 'EggRate') rate = parseFloat(egg_rate);
 
         const applyOp = (currentVal, op, operand) => {
-            if (operand === null || operand === undefined) return currentVal;
+            if (operand === null || operand === undefined || op === '' || op === null) return currentVal;
             const val = parseFloat(operand);
             if (op === '+') return currentVal + val;
             if (op === '-') return currentVal - val;
@@ -26,6 +26,26 @@ class InventoryService {
         rate = applyOp(rate, op1, val1);
         if (op2 && val2 !== null) {
             rate = applyOp(rate, op2, val2);
+        }
+
+        // Apply optional conditional markup (if threshold is met)
+        if (threshold_val !== null && threshold_markup_op && threshold_markup_val !== null) {
+            let baseForThreshold = 0;
+            if (base_rate_type === 'TandoorRate') baseForThreshold = parseFloat(tandoor_rate);
+            else if (base_rate_type === 'BoilerRate') baseForThreshold = parseFloat(boiler_rate);
+            else if (base_rate_type === 'EggRate') baseForThreshold = parseFloat(egg_rate);
+
+            let thresholdMet = false;
+            const thresh = parseFloat(threshold_val);
+            if (threshold_op === '>') thresholdMet = baseForThreshold > thresh;
+            else if (threshold_op === '<') thresholdMet = baseForThreshold < thresh;
+            else if (threshold_op === '>=') thresholdMet = baseForThreshold >= thresh;
+            else if (threshold_op === '<=') thresholdMet = baseForThreshold <= thresh;
+            else if (threshold_op === '==') thresholdMet = baseForThreshold === thresh;
+
+            if (thresholdMet) {
+                rate = applyOp(rate, threshold_markup_op, threshold_markup_val);
+            }
         }
 
         return Math.max(0.0, parseFloat(rate.toFixed(2)));
@@ -206,8 +226,7 @@ class InventoryService {
                 tandoor_rate, 
                 boiler_rate, 
                 egg_rate,
-                COALESCE(status, 'pending') as status,
-                updated_by
+                COALESCE(status, 'pending') as status
             FROM daily_rates 
             WHERE date >= $1 AND date <= $2
             ORDER BY date ASC`,
@@ -225,12 +244,36 @@ class InventoryService {
 
     async createSupplier(data) {
         const { name, phone, payment_type, vendor_type, markup_required, contact_person, email, address, gstin } = data;
-        const result = await db.query(
-            `INSERT INTO suppliers (name, phone, payment_type, vendor_type, markup_required, contact_person, email, address, gstin)
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
-            [name, phone, payment_type, vendor_type, markup_required, contact_person, email, address, gstin]
-        );
-        return result.rows[0];
+
+        const client = await db.pool.connect();
+        try {
+            await client.query('BEGIN');
+
+            // 1. Ledger Code for Vendor Payables (Range 2001+)
+            const codeRes = await client.query('SELECT MAX(code) as max_code FROM chart_of_accounts WHERE code >= 2001 AND code < 3000');
+            let nextCode = (codeRes.rows[0].max_code || 2000) + 1;
+
+            // 2. Create Account
+            await client.query(
+                "INSERT INTO chart_of_accounts (code, name, type) VALUES ($1, $2, 'Liability')",
+                [nextCode, 'Payable - ' + name]
+            );
+
+            // 3. Create Supplier
+            const result = await client.query(
+                `INSERT INTO suppliers (name, phone, payment_type, vendor_type, markup_required, contact_person, email, address, gstin, ledger_account_code)
+                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+                [name, phone, payment_type, vendor_type, markup_required, contact_person, email, address, gstin, nextCode]
+            );
+
+            await client.query('COMMIT');
+            return result.rows[0];
+        } catch (e) {
+            await client.query('ROLLBACK');
+            throw e;
+        } finally {
+            client.release();
+        }
     }
 
     async updateSupplier(id, data) {
@@ -253,28 +296,59 @@ class InventoryService {
     }
 
     async saveMarkupRule(data) {
-        const { supplier_id, item_name, base_rate_type, op1, val1, op2, val2 } = data;
+        const {
+            supplier_id, item_name, base_rate_type,
+            op1, val1, op2, val2,
+            threshold_val, threshold_op, threshold_markup_op, threshold_markup_val
+        } = data;
         const result = await db.query(
-            `INSERT INTO markup_rules (supplier_id, item_name, base_rate_type, op1, val1, op2, val2)
-             VALUES ($1, $2, $3, $4, $5, $6, $7)
+            `INSERT INTO markup_rules (
+                supplier_id, item_name, base_rate_type, 
+                op1, val1, op2, val2,
+                threshold_val, threshold_op, threshold_markup_op, threshold_markup_val
+            )
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
              ON CONFLICT (supplier_id, item_name) DO UPDATE
              SET base_rate_type = EXCLUDED.base_rate_type,
                  op1 = EXCLUDED.op1, val1 = EXCLUDED.val1,
-                 op2 = EXCLUDED.op2, val2 = EXCLUDED.val2
+                 op2 = EXCLUDED.op2, val2 = EXCLUDED.val2,
+                 threshold_val = EXCLUDED.threshold_val,
+                 threshold_op = EXCLUDED.threshold_op,
+                 threshold_markup_op = EXCLUDED.threshold_markup_op,
+                 threshold_markup_val = EXCLUDED.threshold_markup_val,
+                 updated_at = NOW()
              RETURNING *`,
-            [supplier_id, item_name, base_rate_type, op1, val1, op2, val2]
+            [
+                supplier_id, item_name, base_rate_type,
+                op1, val1, op2, val2,
+                threshold_val, threshold_op, threshold_markup_op, threshold_markup_val
+            ]
         );
         return result.rows[0];
     }
 
     async updateMarkupRule(id, data) {
-        const { item_name, base_rate_type, op1, val1, op2, val2 } = data;
+        const {
+            item_name, base_rate_type,
+            op1, val1, op2, val2,
+            threshold_val, threshold_op, threshold_markup_op, threshold_markup_val
+        } = data;
         const result = await db.query(
             `UPDATE markup_rules 
-             SET item_name = $1, base_rate_type = $2, op1 = $3, val1 = $4, op2 = $5, val2 = $6, updated_at = NOW()
-             WHERE id = $7
+             SET item_name = $1, base_rate_type = $2, 
+                 op1 = $3, val1 = $4, op2 = $5, val2 = $6,
+                 threshold_val = $7, threshold_op = $8,
+                 threshold_markup_op = $9, threshold_markup_val = $10,
+                 updated_at = NOW()
+             WHERE id = $11
              RETURNING *`,
-            [item_name, base_rate_type, op1, val1, op2 || null, val2 || null, id]
+            [
+                item_name, base_rate_type,
+                op1, val1, op2 || null, val2 || null,
+                threshold_val, threshold_op,
+                threshold_markup_op, threshold_markup_val,
+                id
+            ]
         );
         if (result.rowCount === 0) throw new Error('Markup rule not found');
         return result.rows[0];

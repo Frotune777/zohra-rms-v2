@@ -97,6 +97,7 @@ exports.getAllRatesCalendar = async (req, res) => {
     }
     try {
         const result = await InventoryService.getAllRatesCalendar(startDate, endDate);
+        console.log('Calendar Data:', JSON.stringify(result[0] || 'No Data'));
         res.json(result);
     } catch (err) {
         res.status(500).json({ error: err.message });

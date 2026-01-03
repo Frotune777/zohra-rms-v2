@@ -73,8 +73,8 @@ cd zohra-rms-v2
 ./start.sh
 
 # That's it! The application will be available at:
-# Frontend: http://localhost:3002
-# Backend API: http://localhost:5000
+# Frontend: http://localhost:3003
+# Backend API: http://localhost:5001
 ```
 
 **What `start.sh` does:**
@@ -117,8 +117,8 @@ cp .env.example .env
 docker-compose up -d --build
 
 # Access the application
-# Frontend: http://localhost:3002
-# Backend API: http://localhost:5000
+# Frontend: http://localhost:3003
+# Backend API: http://localhost:5001
 ```
 
 ### Option 3: Manual Setup (Without Docker)
@@ -182,7 +182,7 @@ NODE_ENV=development
 JWT_SECRET=your-secret-key-change-this-in-production
 
 # Client
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5001/api
 
 # Docker Ports
 CLIENT_PORT=3002
@@ -434,7 +434,7 @@ docker-compose restart postgres
 - **Solution**: Ensure `VITE_API_URL` includes the `/api` prefix
   ```bash
   # Correct value in .env:
-  VITE_API_URL=http://localhost:5000/api
+  VITE_API_URL=http://localhost:5001/api
   
   # After fixing, rebuild the client:
   docker-compose build client

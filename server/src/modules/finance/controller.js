@@ -363,3 +363,35 @@ exports.getAccountBalance = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+/**
+ * Transfer: Safe -> User
+ */
+exports.transferSafeToUser = async (req, res) => {
+    const { toUserId, amount, description } = req.body;
+    try {
+        const TransferService = require('./TransferService');
+        const result = await TransferService.transferSafeToUser(toUserId, parseFloat(amount), description, req.user.id);
+        res.json(result);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+/**
+ * Transfer: User -> Safe
+ */
+exports.transferUserToSafe = async (req, res) => {
+    const { fromUserId, amount, description } = req.body;
+    try {
+        const TransferService = require('./TransferService');
+        // If fromUserId not provided, assume current user? 
+        // Let's enforce it or default to req.user.id
+        const targetUser = fromUserId || req.user.id;
+
+        const result = await TransferService.transferUserToSafe(targetUser, parseFloat(amount), description, req.user.id);
+        res.json(result);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};

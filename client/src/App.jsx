@@ -22,6 +22,7 @@ import DailySummary from './pages/finance/DailySummary';
 import DailyTracker from './pages/finance/DailyTracker';
 import ManagerFloat from './pages/finance/ManagerFloat';
 import ExpenseMapping from './pages/finance/ExpenseMapping';
+import MoneyTransfer from './pages/finance/MoneyTransfer';
 import ReportsDashboard from './pages/reports/ReportsDashboard';
 import FinancialReports from './pages/reports/FinancialReports';
 import HRReports from './pages/reports/HRReports';
@@ -60,6 +61,7 @@ function AppRoutes() {
                 <Route path="finance/daily-tracker" element={<DailyTracker />} />
                 <Route path="finance/float" element={<ManagerFloat />} />
                 <Route path="finance/mappings" element={<ExpenseMapping />} />
+                <Route path="finance/transfer" element={<MoneyTransfer />} />
                 <Route path="attendance/bulk" element={<BulkAttendance />} />
                 <Route path="attendance/leaves" element={<LeaveManagement />} />
                 <Route path="advances/approvals" element={<AdvanceApprovals />} />

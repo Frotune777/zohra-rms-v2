@@ -3,7 +3,7 @@ import api from '../utils/api';
 import PageHeader from '../components/PageHeader';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { FiChevronLeft, FiChevronRight, FiDownload, FiTrendingUp, FiTrendingDown, FiBarChart2, FiPieChart, FiPlus, FiX, FiTrash2, FiAlertCircle, FiCheckCircle, FiGrid, FiDollarSign } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight, FiDownload, FiTrendingUp, FiTrendingDown, FiBarChart2, FiPieChart, FiPlus, FiX, FiTrash2, FiAlertCircle, FiCheckCircle, FiGrid, FiDollarSign, FiRepeat } from 'react-icons/fi';
 
 const FinanceCard = ({ title, value, color, change, trend, suffix = '' }) => (
   <div className="glass-panel p-3 md:p-4 lg:p-6 rounded-xl relative overflow-hidden group hover:bg-white/5 transition">
@@ -295,6 +295,13 @@ const Finance = () => {
               <span className="hidden sm:inline">Export</span>
             </button>
             <div className="flex gap-2">
+              <button
+                onClick={() => navigate('/finance/transfer')}
+                className="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-500 text-white px-2 md:px-3 py-1.5 rounded-lg font-medium transition text-xs md:text-sm"
+              >
+                <FiRepeat size={14} />
+                <span className="hidden sm:inline">Transfer</span>
+              </button>
               <button
                 onClick={() => navigate('/finance/daily-tracker')}
                 className="flex items-center gap-1 bg-purple-600 hover:bg-purple-500 text-white px-2 md:px-3 py-1.5 rounded-lg font-medium transition text-xs md:text-sm"

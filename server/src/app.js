@@ -26,7 +26,22 @@ app.use('/api/', limiter);
 
 // CORS Configuration - In production, this should be restricted to the client URL
 const corsOptions = {
-    origin: process.env.CLIENT_URL || 'http://localhost:3002',
+    origin: function (origin, callback) {
+        const allowedOrigins = [
+            process.env.CLIENT_URL || 'http://localhost:3002',
+            'http://localhost:3003',
+            'http://127.0.0.1:3003',
+            'http://localhost:3002'
+        ];
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            console.log('CORS Blocked Origin:', origin);
+            callback(null, true); // Temporarily allow all for debugging
+            // callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
     optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));

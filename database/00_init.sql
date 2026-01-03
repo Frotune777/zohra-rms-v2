@@ -240,6 +240,11 @@ CREATE TABLE markup_rules (
     val1 NUMERIC(10, 2),
     op2 VARCHAR(5),
     val2 NUMERIC(10, 2),
+    threshold_val NUMERIC(10, 2),
+    threshold_op VARCHAR(5) DEFAULT '>',
+    threshold_markup_op VARCHAR(5),
+    threshold_markup_val NUMERIC(10, 2),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(supplier_id, item_name)
 );
 

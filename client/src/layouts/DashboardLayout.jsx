@@ -114,8 +114,8 @@ export default ({ children }) => {
         <nav className="space-y-1 flex-1 overflow-y-auto p-3">
           {/* Top Level Items */}
           <SidebarItem to="/dashboard" icon={FiHome} label="Dashboard" active={loc.pathname === '/dashboard'} onClick={closeMobileMenu} />
-          <SidebarItem to="/" icon={FiCoffee} label="POS" active={loc.pathname === '/'} onClick={closeMobileMenu} />
-          <SidebarItem to="/menu" icon={FiMenu} label="Menu" active={loc.pathname === '/menu'} onClick={closeMobileMenu} />
+          {/* <SidebarItem to="/" icon={FiCoffee} label="POS" active={loc.pathname === '/'} onClick={closeMobileMenu} /> */}
+          {/* <SidebarItem to="/menu" icon={FiMenu} label="Menu" active={loc.pathname === '/menu'} onClick={closeMobileMenu} /> */}
 
           <div className="my-2 border-t border-white/10 pt-2" />
 
