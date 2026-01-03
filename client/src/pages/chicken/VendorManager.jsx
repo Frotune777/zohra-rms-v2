@@ -155,8 +155,8 @@ const VendorManager = () => {
         <button
             onClick={() => setActiveTab(id)}
             className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-t-lg transition-colors ${activeTab === id
-                    ? 'bg-zohra-blue text-white border-b-2 border-zohra-blue'
-                    : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+                ? 'bg-zohra-blue text-white border-b-2 border-zohra-blue'
+                : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
                 }`}
         >
             <Icon size={16} />
@@ -323,14 +323,17 @@ const VendorManager = () => {
                                             onChange={e => setNewRule({ ...newRule, item_name: e.target.value })}
                                             className="w-full bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm" required />
 
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <select value={newRule.base_rate_type} onChange={e => setNewRule({ ...newRule, base_rate_type: e.target.value })}
-                                                className="bg-white/5 border border-white/10 rounded-md p-2 text-white text-xs">
-                                                <option value="TandoorRate" className="text-black">Tandoor Rate</option>
-                                                <option value="BoilerRate" className="text-black">Boiler Rate</option>
-                                                <option value="EggRate" className="text-black">Egg Rate</option>
-                                            </select>
-                                            <div className="flex gap-1">
+                                        <div className="grid grid-cols-12 gap-2 items-center">
+                                            <div className="col-span-4">
+                                                <select value={newRule.base_rate_type} onChange={e => setNewRule({ ...newRule, base_rate_type: e.target.value })}
+                                                    className="w-full bg-white/5 border border-white/10 rounded-md p-2 text-white text-xs">
+                                                    <option value="TandoorRate" className="text-black">Tandoor Rate</option>
+                                                    <option value="BoilerRate" className="text-black">Boiler Rate</option>
+                                                    <option value="EggRate" className="text-black">Egg Rate</option>
+                                                </select>
+                                            </div>
+                                            {/* Op1 / Val1 */}
+                                            <div className="col-span-4 flex gap-1">
                                                 <select value={newRule.op1} onChange={e => setNewRule({ ...newRule, op1: e.target.value })}
                                                     className="bg-white/5 border border-white/10 rounded-md p-1 text-white text-xs w-10">
                                                     <option value="+" className="text-black">+</option>
@@ -338,7 +341,19 @@ const VendorManager = () => {
                                                     <option value="*" className="text-black">*</option>
                                                 </select>
                                                 <input type="number" value={newRule.val1} onChange={e => setNewRule({ ...newRule, val1: e.target.value })}
-                                                    className="flex-1 bg-white/5 border border-white/10 rounded-md p-1 text-white text-xs" />
+                                                    className="flex-1 bg-white/5 border border-white/10 rounded-md p-1 text-white text-xs min-w-0" placeholder="0" />
+                                            </div>
+                                            {/* Op2 / Val2 */}
+                                            <div className="col-span-4 flex gap-1">
+                                                <select value={newRule.op2} onChange={e => setNewRule({ ...newRule, op2: e.target.value })}
+                                                    className="bg-white/5 border border-white/10 rounded-md p-1 text-white text-xs w-10">
+                                                    <option value="" className="text-black"></option>
+                                                    <option value="+" className="text-black">+</option>
+                                                    <option value="-" className="text-black">-</option>
+                                                    <option value="*" className="text-black">*</option>
+                                                </select>
+                                                <input type="number" value={newRule.val2} onChange={e => setNewRule({ ...newRule, val2: e.target.value })}
+                                                    className="flex-1 bg-white/5 border border-white/10 rounded-md p-1 text-white text-xs min-w-0" placeholder="Optional" />
                                             </div>
                                         </div>
 
@@ -381,15 +396,62 @@ const VendorManager = () => {
                                 {rules.map(r => (
                                     <div key={r.id} className="p-3 bg-white/5 rounded-md border border-white/10 group hover:bg-white/10 transition">
                                         {editingRule?.id === r.id ? (
-                                            <form onSubmit={handleUpdateRule} className="space-y-2">
-                                                {/* Edit Mode */}
-                                                <div className="flex gap-2">
-                                                    <input type="text" value={editingRule.item_name} onChange={e => setEditingRule({ ...editingRule, item_name: e.target.value })}
-                                                        className="flex-1 bg-black/20 border border-white/20 rounded p-1 text-xs text-white" />
+                                            <form onSubmit={handleUpdateRule} className="space-y-3 p-1 bg-white/5 rounded">
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <span className="text-xs font-bold text-zohra-blue">Editing Rule</span>
+                                                    <div className="flex gap-2">
+                                                        <button type="submit" className="text-xs bg-green-600 px-3 py-1 rounded text-white transform hover:scale-105 transition">Save</button>
+                                                        <button type="button" onClick={() => setEditingRule(null)} className="text-xs bg-gray-600 px-3 py-1 rounded text-white hover:bg-gray-500">Cancel</button>
+                                                    </div>
                                                 </div>
-                                                <div className="flex justify-end gap-2">
-                                                    <button type="submit" className="text-xs bg-green-600 px-2 py-1 rounded text-white">Save</button>
-                                                    <button type="button" onClick={() => setEditingRule(null)} className="text-xs bg-gray-600 px-2 py-1 rounded text-white">Cancel</button>
+
+                                                <input type="text" value={editingRule.item_name} onChange={e => setEditingRule({ ...editingRule, item_name: e.target.value })}
+                                                    className="w-full bg-black/20 border border-white/20 rounded p-2 text-xs text-white mb-2" placeholder="Item Name" />
+
+                                                <div className="grid grid-cols-12 gap-2 items-center">
+                                                    <div className="col-span-4">
+                                                        <select value={editingRule.base_rate_type} onChange={e => setEditingRule({ ...editingRule, base_rate_type: e.target.value })}
+                                                            className="w-full bg-black/20 border border-white/20 rounded p-1 text-white text-xs">
+                                                            <option value="TandoorRate" className="text-black">Tandoor Rate</option>
+                                                            <option value="BoilerRate" className="text-black">Boiler Rate</option>
+                                                            <option value="EggRate" className="text-black">Egg Rate</option>
+                                                        </select>
+                                                    </div>
+                                                    <div className="col-span-4 flex gap-1">
+                                                        <select value={editingRule.op1} onChange={e => setEditingRule({ ...editingRule, op1: e.target.value })}
+                                                            className="bg-black/20 border border-white/20 rounded p-1 text-white text-xs w-10">
+                                                            <option value="+" className="text-black">+</option>
+                                                            <option value="-" className="text-black">-</option>
+                                                            <option value="*" className="text-black">*</option>
+                                                        </select>
+                                                        <input type="number" value={editingRule.val1} onChange={e => setEditingRule({ ...editingRule, val1: e.target.value })}
+                                                            className="flex-1 bg-black/20 border border-white/20 rounded p-1 text-white text-xs min-w-0" />
+                                                    </div>
+                                                    <div className="col-span-4 flex gap-1">
+                                                        <select value={editingRule.op2 || ''} onChange={e => setEditingRule({ ...editingRule, op2: e.target.value })}
+                                                            className="bg-black/20 border border-white/20 rounded p-1 text-white text-xs w-10">
+                                                            <option value="" className="text-black"></option>
+                                                            <option value="+" className="text-black">+</option>
+                                                            <option value="-" className="text-black">-</option>
+                                                            <option value="*" className="text-black">*</option>
+                                                        </select>
+                                                        <input type="number" value={editingRule.val2 || 0} onChange={e => setEditingRule({ ...editingRule, val2: e.target.value })}
+                                                            className="flex-1 bg-black/20 border border-white/20 rounded p-1 text-white text-xs min-w-0" placeholder="Opt" />
+                                                    </div>
+                                                </div>
+
+                                                <div className="border-t border-white/10 pt-2 flex gap-2 items-center">
+                                                    <span className="text-[10px] text-gray-400">If &gt;</span>
+                                                    <input type="number" value={editingRule.threshold_val || ''} onChange={e => setEditingRule({ ...editingRule, threshold_val: e.target.value })}
+                                                        className="w-16 bg-black/20 border border-white/20 rounded p-1 text-white text-xs" placeholder="Thresh" />
+                                                    <select value={editingRule.threshold_markup_op || ''} onChange={e => setEditingRule({ ...editingRule, threshold_markup_op: e.target.value })}
+                                                        className="bg-black/20 border border-white/20 rounded p-1 text-white text-xs w-10">
+                                                        <option value="" className="text-black"></option>
+                                                        <option value="+" className="text-black">+</option>
+                                                        <option value="-" className="text-black">-</option>
+                                                    </select>
+                                                    <input type="number" value={editingRule.threshold_markup_val || ''} onChange={e => setEditingRule({ ...editingRule, threshold_markup_val: e.target.value })}
+                                                        className="w-16 bg-black/20 border border-white/20 rounded p-1 text-white text-xs" placeholder="Val" />
                                                 </div>
                                             </form>
                                         ) : (
@@ -398,6 +460,7 @@ const VendorManager = () => {
                                                     <p className="font-bold text-white text-sm">{r.item_name}</p>
                                                     <p className="text-xs text-gray-400">
                                                         {r.base_rate_type} {r.op1} {r.val1}
+                                                        {r.op2 && r.val2 ? ` ${r.op2} ${r.val2}` : ''}
                                                     </p>
                                                     {r.threshold_val && (
                                                         <p className="text-[10px] text-zohra-blue mt-0.5">

@@ -19,26 +19,28 @@ class ClosureService {
      * @param {Number} userId - User performing closure
      * @returns {Promise<Object>} Closure result with variance info
      */
-    async closeDailyBalance(date, type, actualClosingBalance, userId) {
+    async closeDailyBalance(date, type, actualClosingBalance, userId, accountCode) {
         const client = await db.pool.connect();
 
         try {
             await client.query('BEGIN');
 
+            const targetAccount = accountCode || (type === 'Counter' ? 1000 : 1030);
+
             // 1. Get existing balance record
             const balanceRes = await client.query(`
                 SELECT * FROM daily_balances 
-                WHERE date = $1 AND type = $2
-            `, [date, type]);
+                WHERE date = $1 AND account_code = $2
+            `, [date, targetAccount]);
 
             if (balanceRes.rows.length === 0) {
-                throw new Error(`Daily balance record not found for ${date} (${type})`);
+                throw new Error(`Daily balance record not initialized for ${date} (Account: ${targetAccount})`);
             }
 
             const balance = balanceRes.rows[0];
 
             if (balance.status === 'Closed') {
-                throw new Error(`Day ${date} (${type}) already closed`);
+                throw new Error(`Day ${date} already closed for this account`);
             }
 
             const expectedClosing = parseFloat(balance.closing_balance);
@@ -52,20 +54,17 @@ class ClosureService {
                 const isShortage = variance < 0;
                 const absVariance = Math.abs(variance);
 
-                // Determine cash account based on type
-                const cashAccount = type === 'Counter' ? 1000 : 1030; // 1000=Cash, 1030=Manager Float
-
                 const journalEntry = {
                     date: date,
                     description: isShortage
-                        ? `Cash Shortage - ${type}`
-                        : `Cash Excess - ${type}`,
+                        ? `Cash Shortage - ${type || targetAccount}`
+                        : `Cash Excess - ${type || targetAccount}`,
                     reference_type: 'CashVariance',
                     lines: isShortage ? [
                         { account_code: 7000, debit: absVariance, credit: 0 }, // Cash Shortage Expense
-                        { account_code: cashAccount, debit: 0, credit: absVariance } // Reduce Cash
+                        { account_code: targetAccount, debit: 0, credit: absVariance } // Reduce Cash
                     ] : [
-                        { account_code: cashAccount, debit: absVariance, credit: 0 }, // Increase Cash
+                        { account_code: targetAccount, debit: absVariance, credit: 0 }, // Increase Cash
                         { account_code: 7100, debit: 0, credit: absVariance } // Cash Excess Income
                     ]
                 };
@@ -82,8 +81,8 @@ class ClosureService {
                     closed_by = $2,
                     closed_at = NOW(),
                     variance_je_id = $3
-                WHERE date = $4 AND type = $5
-            `, [actualClosing, userId, varianceJeId, date, type]);
+                WHERE date = $4 AND account_code = $5
+            `, [actualClosing, userId, varianceJeId, date, targetAccount]);
 
             // 4. Set next day's opening balance
             const nextDay = new Date(date);
@@ -91,18 +90,18 @@ class ClosureService {
             const nextDayStr = nextDay.toISOString().split('T')[0];
 
             await client.query(`
-                INSERT INTO daily_balances (date, type, opening_balance, closing_balance, status)
-                VALUES ($1, $2, $3, $3, 'Open')
-                ON CONFLICT (date, type) 
-                DO UPDATE SET opening_balance = $3
-            `, [nextDayStr, type, actualClosing]);
+                INSERT INTO daily_balances (date, type, account_code, opening_balance, closing_balance, status)
+                VALUES ($1, $2, $3, $4, $4, 'Open')
+                ON CONFLICT (date, account_code) 
+                DO UPDATE SET opening_balance = $4
+            `, [nextDayStr, type || 'Custom', targetAccount, actualClosing]);
 
             await client.query('COMMIT');
 
             return {
                 success: true,
                 date: date,
-                type: type,
+                account_code: targetAccount,
                 expected_closing: expectedClosing,
                 actual_closing: actualClosing,
                 variance: variance,
@@ -223,26 +222,30 @@ class ClosureService {
      * @param {String} type - 'Counter' or 'Float'
      * @returns {Promise<Object>} Daily balance summary
      */
-    async getDailyBalanceSummary(date, type = 'Counter') {
+    async getDailyBalanceSummary(date, type = 'Counter', accountCode = null) {
+
+        const targetAccount = accountCode || (type === 'Counter' ? 1000 : 1030);
+
         const balanceRes = await db.query(`
             SELECT db.*,
                    u.full_name as closed_by_name
             FROM daily_balances db
             LEFT JOIN users u ON db.closed_by = u.id
-            WHERE db.date = $1 AND db.type = $2
-        `, [date, type]);
+            WHERE db.date = $1 AND db.account_code = $2
+        `, [date, targetAccount]);
 
         if (balanceRes.rows.length === 0) {
             // Create if doesn't exist
             await db.query(`
-                INSERT INTO daily_balances (date, type, opening_balance, closing_balance, status)
-                VALUES ($1, $2, 0, 0, 'Open')
-                ON CONFLICT (date, type) DO NOTHING
-            `, [date, type]);
+                INSERT INTO daily_balances (date, type, account_code, opening_balance, closing_balance, status)
+                VALUES ($1, $2, $3, 0, 0, 'Open')
+                ON CONFLICT (date, account_code) DO NOTHING
+            `, [date, type, targetAccount]);
 
             return {
                 date: date,
                 type: type,
+                account_code: targetAccount,
                 status: 'Open',
                 opening_balance: 0,
                 closing_balance: 0,
@@ -254,10 +257,18 @@ class ClosureService {
         const balance = balanceRes.rows[0];
 
         // Calculate expected closing from transactions
-        const expectedRes = await this.calculateExpectedClosing(date, type);
+        const expectedRes = await this.calculateExpectedClosing(date, targetAccount);
+
+        // Update the closing_balance in DB with calculated value (snapshots the expected)
+        await db.query(`
+            UPDATE daily_balances 
+            SET closing_balance = $1 
+            WHERE id = $2 AND status = 'Open'
+        `, [expectedRes.closing_balance, balance.id]);
 
         return {
             ...balance,
+            closing_balance: expectedRes.closing_balance, // override with fresh calc
             expected_closing_calculated: expectedRes.closing_balance,
             variance: balance.actual_closing_balance
                 ? parseFloat(balance.actual_closing_balance) - parseFloat(balance.closing_balance)
@@ -272,9 +283,7 @@ class ClosureService {
      * @param {String} type - 'Counter' or 'Float'
      * @returns {Promise<Object>} Calculated balances
      */
-    async calculateExpectedClosing(date, type = 'Counter') {
-        const cashAccount = type === 'Counter' ? 1000 : 1030;
-
+    async calculateExpectedClosing(date, accountCode = 1000) {
         // Get opening balance (closing of previous day)
         const prevDay = new Date(date);
         prevDay.setDate(prevDay.getDate() - 1);
@@ -283,26 +292,40 @@ class ClosureService {
         const prevBalanceRes = await db.query(`
             SELECT actual_closing_balance
             FROM daily_balances
-            WHERE date = $1 AND type = $2
-        `, [prevDayStr, type]);
+            WHERE date = $1 AND account_code = $2
+        `, [prevDayStr, accountCode]);
 
         const openingBalance = parseFloat(prevBalanceRes.rows[0]?.actual_closing_balance || 0);
 
-        // Calculate movements for the day from journal entries
+        // Calculate movements from ledger
         const movementsRes = await db.query(`
             SELECT 
                 COALESCE(SUM(ll.debit), 0) as total_debit,
-                COALESCE(SUM(ll.credit), 0) as total_credit
+                COALESCE(SUM(ll.credit), 0) as total_credit,
+                ca.type as account_type
             FROM ledger_lines ll
             JOIN journal_entries je ON ll.journal_entry_id = je.id
+            JOIN chart_of_accounts ca ON ll.account_code = ca.code
             WHERE ll.account_code = $1
               AND je.transaction_date = $2
-        `, [cashAccount, date]);
+            GROUP BY ca.type
+        `, [accountCode, date]);
 
         const totalDebit = parseFloat(movementsRes.rows[0]?.total_debit || 0);
         const totalCredit = parseFloat(movementsRes.rows[0]?.total_credit || 0);
+        const accountType = movementsRes.rows[0]?.account_type || 'Asset';
 
-        const closingBalance = openingBalance + totalDebit - totalCredit;
+        // Balance Formula:
+        // Asset (Cash): Opening + Debit - Credit
+        // Liability (Payable): Opening + Credit - Debit
+        // Equity: Opening + Credit - Debit
+
+        let closingBalance = 0;
+        if (['Asset', 'Expense'].includes(accountType)) {
+            closingBalance = openingBalance + totalDebit - totalCredit;
+        } else {
+            closingBalance = openingBalance + totalCredit - totalDebit;
+        }
 
         return {
             opening_balance: openingBalance,

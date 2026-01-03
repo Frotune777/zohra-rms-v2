@@ -1,5 +1,7 @@
 const db = require('../../config/db');
 const JournalService = require('./JournalService');
+const PaymentModeService = require('./PaymentModeService');
+const AdvanceService = require('../employees/AdvanceService');
 
 class TransferService {
 
@@ -15,39 +17,116 @@ class TransferService {
     }
 
     /**
-     * Transfer from Main Safe (1000) to User
+     * Transfer from Safe/Bank (Source) to User (Wallet)
+     * @param {Number} toUserId 
+     * @param {Number} amount 
+     * @param {String} description 
+     * @param {Number} performedByUserId 
+     * @param {String} mode - 'Cash', 'Bank Transfer', etc.
      */
-    async transferSafeToUser(toUserId, amount, description, performedByUserId) {
+    async transferSafeToUser(toUserId, amount, description, performedByUserId, mode = 'Cash') {
         const toCode = await this.getLedgerCodeForUser(toUserId);
-        // From Main Safe (1000)
-        return await this.executeTransfer(1000, toCode, amount, description || 'Transfer from Main Safe', performedByUserId);
+
+        // Resolve Source Account based on Mode (e.g., Cash=1000, Bank=1020)
+        const sourceAccount = await PaymentModeService.getAccountCode(mode);
+
+        return await this.executeTransfer(sourceAccount, toCode, amount, description || `Transfer via ${mode}`, performedByUserId);
     }
 
     /**
-     * Transfer from User to Main Safe (1000)
+     * Transfer from Safe/Bank to Employee (treated as Advance)
+     * @param {Number} employeeId 
+     * @param {Number} amount 
+     * @param {String} description 
+     * @param {Number} performedByUserId 
+     * @param {String} mode 
      */
-    async transferUserToSafe(fromUserId, amount, description, performedByUserId) {
-        const fromCode = await this.getLedgerCodeForUser(fromUserId);
-        // To Main Safe (1000)
-        return await this.executeTransfer(fromCode, 1000, amount, description || 'Return to Main Safe', performedByUserId);
+    async transferSafeToEmployee(employeeId, amount, description, performedByUserId, mode = 'Cash') {
+        // Create an Advance Request
+        const request = await AdvanceService.createRequest({
+            employeeId,
+            type: 'Advance',
+            amount,
+            notes: description || `Direct Transfer via ${mode}`,
+            paymentMode: mode,
+            paidBy: performedByUserId // technically "requested by" but used for tracking
+        }, performedByUserId);
+
+        // Auto-Approve it to complete the transfer immediately
+        const client = await db.pool.connect();
+        try {
+            await client.query('BEGIN');
+            const result = await AdvanceService.approveRequest(request.id, performedByUserId, client);
+            await client.query('COMMIT');
+            return result;
+        } catch (err) {
+            await client.query('ROLLBACK');
+            throw err;
+        } finally {
+            client.release();
+        }
     }
 
     /**
-     * Core Transfer Execution
+     * Transfer from User (Wallet) to Safe/Bank
+     * @param {Number} fromUserId 
+     * @param {Number} amount 
+     * @param {String} description 
+     * @param {Number} performedByUserId 
+     * @param {String} mode 
+     */
+    async transferUserToSafe(fromUserId, amount, description, performedByUserId, mode = 'Cash') {
+        const fromCode = await this.getLedgerCodeForUser(fromUserId);
+
+        // Resolve Destination Account based on Mode
+        const destAccount = await PaymentModeService.getAccountCode(mode);
+
+        return await this.executeTransfer(fromCode, destAccount, amount, description || `Return via ${mode}`, performedByUserId);
+    }
+
+    /**
+     * Transfer from Employee to Safe/Bank (Repayment)
+     */
+    async transferEmployeeToSafe(employeeId, amount, description, performedByUserId, mode = 'Cash') {
+        // Create Repayment Request
+        const request = await AdvanceService.createRequest({
+            employeeId,
+            type: 'Repayment',
+            amount,
+            notes: description || `Direct Repayment via ${mode}`,
+            paymentMode: mode,
+            paidBy: performedByUserId
+        }, performedByUserId);
+
+        // Auto-Approve
+        const client = await db.pool.connect();
+        try {
+            await client.query('BEGIN');
+            const result = await AdvanceService.approveRequest(request.id, performedByUserId, client);
+            await client.query('COMMIT');
+            return result;
+        } catch (err) {
+            await client.query('ROLLBACK');
+            throw err;
+        } finally {
+            client.release();
+        }
+    }
+
+    /**
+     * Core Transfer Execution (Generic Journal Entry)
      */
     async executeTransfer(fromCode, toCode, amount, description, performedByUserId) {
         if (amount <= 0) throw new Error("Amount must be positive");
 
-        // Create Journal Entry structure
-        // Note: JournalService expects an object that constructor of JournalEntry accepts
         const entry = {
             date: new Date(),
             description: description,
-            reference_id: performedByUserId, // Tracking who initiated
+            reference_id: performedByUserId,
             reference_type: 'Transfer',
             lines: [
-                { account_code: toCode, debit: amount, credit: 0 },   // Receiver (Asset Increase = Dr)
-                { account_code: fromCode, debit: 0, credit: amount }  // Sender (Asset Decrease = Cr)
+                { account_code: toCode, debit: amount, credit: 0 },   // Receiver (Dr)
+                { account_code: fromCode, debit: 0, credit: amount }  // Sender (Cr)
             ]
         };
 

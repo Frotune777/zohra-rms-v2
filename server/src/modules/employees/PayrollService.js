@@ -52,17 +52,75 @@ class PayrollService {
             );
         }
 
+        // 2.5 Check for Unsettled Wallet Balance (Float Sweep)
+        let floatDeduction = 0;
+        const userRes = await client.query('SELECT id, ledger_account_code FROM users WHERE employee_id = $1', [employeeId]);
+        if (userRes.rows.length > 0) {
+            const user = userRes.rows[0];
+            if (user.ledger_account_code) {
+                // Check balance
+                const balRes = await client.query(`
+                    SELECT COALESCE(SUM(debit), 0) - COALESCE(SUM(credit), 0) as balance 
+                    FROM ledger_lines WHERE account_code = $1
+                `, [user.ledger_account_code]);
+
+                const currentBalance = parseFloat(balRes.rows[0].balance || 0);
+
+                // If they hold cash (Positive Asset Balance), deduct it
+                if (currentBalance > 0) {
+                    floatDeduction = currentBalance;
+
+                    // Add Float Deduction Component
+                    await client.query(
+                        "INSERT INTO salary_history_components (salary_history_id, component_name, amount, type) VALUES ($1, 'Unsettled Float Sweep', $2, 'Deduction')",
+                        [salaryHistoryId, floatDeduction]
+                    );
+
+                    // Update Net Pay in history
+                    // Original netPay passed adjustment, we need to subtract floatDeduction
+                    const finalNetPay = netPay - floatDeduction;
+
+                    await client.query(
+                        "UPDATE salary_history SET net_pay = $1 WHERE id = $2",
+                        [finalNetPay, salaryHistoryId]
+                    );
+                }
+            }
+        }
+
         // 3. Financial Journaling (Using Domain Entity)
-        if (netPay > 0) {
+        // Redefine netPay locally for journal
+        const finalNetPay = netPay - floatDeduction;
+
+        if (finalNetPay > 0 || floatDeduction > 0) {
+            const journalLines = [
+                { account_code: 6000, debit: parseFloat(netPay.toFixed(2)), credit: 0 } // Dr: Salaries Expense (Full Amount)
+            ];
+
+            if (floatDeduction > 0) {
+                // Cr: Reduce Employee Wallet (Asset)
+                journalLines.push({
+                    account_code: userRes.rows[0].ledger_account_code,
+                    debit: 0,
+                    credit: parseFloat(floatDeduction.toFixed(2))
+                });
+            }
+
+            if (finalNetPay > 0) {
+                // Cr: Cash/Bank (Net Pay)
+                journalLines.push({
+                    account_code: 1000,
+                    debit: 0,
+                    credit: parseFloat(finalNetPay.toFixed(2))
+                });
+            }
+
             const payrollJournal = new JournalEntry({
                 date: new Date(),
                 description: `Payroll ${month}/${year}: ${employee.full_name}`,
                 reference_id: salaryHistoryId,
                 reference_type: 'Payroll',
-                lines: [
-                    { account_code: 6000, debit: parseFloat(netPay.toFixed(2)), credit: 0 }, // Dr: Salaries Expense
-                    { account_code: 1000, debit: 0, credit: parseFloat(netPay.toFixed(2)) }  // Cr: Cash
-                ]
+                lines: journalLines
             });
 
             await JournalService.createJournalEntry(payrollJournal, client);

@@ -367,11 +367,24 @@ exports.getAccountBalance = async (req, res) => {
 /**
  * Transfer: Safe -> User
  */
+/**
+ * Transfer: Safe -> User
+ */
 exports.transferSafeToUser = async (req, res) => {
-    const { toUserId, amount, description } = req.body;
+    const { toUserId, amount, description, mode, targetType } = req.body;
+    // targetType: 'user' | 'employee'
+    // toUserId: ID of the user OR employee
+
     try {
         const TransferService = require('./TransferService');
-        const result = await TransferService.transferSafeToUser(toUserId, parseFloat(amount), description, req.user.id);
+
+        let result;
+        if (targetType === 'employee') {
+            result = await TransferService.transferSafeToEmployee(toUserId, parseFloat(amount), description, req.user.id, mode);
+        } else {
+            result = await TransferService.transferSafeToUser(toUserId, parseFloat(amount), description, req.user.id, mode);
+        }
+
         res.json(result);
     } catch (err) {
         res.status(400).json({ error: err.message });
@@ -382,14 +395,20 @@ exports.transferSafeToUser = async (req, res) => {
  * Transfer: User -> Safe
  */
 exports.transferUserToSafe = async (req, res) => {
-    const { fromUserId, amount, description } = req.body;
+    const { fromUserId, amount, description, mode, targetType } = req.body;
+
     try {
         const TransferService = require('./TransferService');
-        // If fromUserId not provided, assume current user? 
-        // Let's enforce it or default to req.user.id
-        const targetUser = fromUserId || req.user.id;
+        // If fromUserId not provided, assume current user (unless it's an employee transfer initiated by admin)
+        const targetId = fromUserId || req.user.id;
 
-        const result = await TransferService.transferUserToSafe(targetUser, parseFloat(amount), description, req.user.id);
+        let result;
+        if (targetType === 'employee') {
+            result = await TransferService.transferEmployeeToSafe(targetId, parseFloat(amount), description, req.user.id, mode);
+        } else {
+            result = await TransferService.transferUserToSafe(targetId, parseFloat(amount), description, req.user.id, mode);
+        }
+
         res.json(result);
     } catch (err) {
         res.status(400).json({ error: err.message });
