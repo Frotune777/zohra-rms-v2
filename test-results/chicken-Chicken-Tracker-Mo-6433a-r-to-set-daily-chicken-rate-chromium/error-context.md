@@ -1,0 +1,200 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "Open menu" [ref=e5] [cursor=pointer]:
+      - img [ref=e6]
+    - heading "Al Zohra RMS" [level=1] [ref=e7]
+  - complementary [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - heading "Al Zohra" [level=1] [ref=e11]
+        - button [ref=e12] [cursor=pointer]:
+          - img [ref=e13]
+      - paragraph [ref=e16]: manager • Manager User
+    - navigation [ref=e17]:
+      - link "Dashboard" [ref=e18] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e19]
+        - generic [ref=e22]: Dashboard
+      - generic [ref=e24]:
+        - button "HR & Payroll" [ref=e25] [cursor=pointer]:
+          - img [ref=e26]
+          - generic [ref=e31]: HR & Payroll
+          - img [ref=e32]
+        - generic [ref=e34]:
+          - link "Employees" [ref=e35] [cursor=pointer]:
+            - /url: /employees
+            - img [ref=e36]
+            - generic [ref=e39]: Employees
+          - link "Payroll" [ref=e40] [cursor=pointer]:
+            - /url: /payroll
+            - img [ref=e41]
+            - generic [ref=e43]: Payroll
+          - link "Advances" [ref=e44] [cursor=pointer]:
+            - /url: /advances
+            - img [ref=e45]
+            - generic [ref=e50]: Advances
+          - link "Approvals" [ref=e51] [cursor=pointer]:
+            - /url: /advances/approvals
+            - img [ref=e52]
+            - generic [ref=e57]: Approvals
+          - link "Attendance" [ref=e58] [cursor=pointer]:
+            - /url: /attendance/bulk
+            - img [ref=e59]
+            - generic [ref=e61]: Attendance
+          - link "Leaves" [ref=e62] [cursor=pointer]:
+            - /url: /attendance/leaves
+            - img [ref=e63]
+            - generic [ref=e65]: Leaves
+      - generic [ref=e66]:
+        - button "Inventory & Procurement" [ref=e67] [cursor=pointer]:
+          - img [ref=e68]
+          - generic [ref=e72]: Inventory & Procurement
+          - img [ref=e73]
+        - generic [ref=e75]:
+          - link "Chicken Dashboard" [ref=e76] [cursor=pointer]:
+            - /url: /chicken
+            - img [ref=e77]
+            - generic [ref=e79]: Chicken Dashboard
+          - link "Stock Management" [ref=e80] [cursor=pointer]:
+            - /url: /inventory
+            - img [ref=e81]
+            - generic [ref=e85]: Stock Management
+          - link "Chicken Bills" [ref=e86] [cursor=pointer]:
+            - /url: /chicken/bills
+            - img [ref=e87]
+            - generic [ref=e90]: Chicken Bills
+          - link "Daily Rates" [ref=e91] [cursor=pointer]:
+            - /url: /chicken/rates
+            - img [ref=e92]
+            - generic [ref=e94]: Daily Rates
+          - link "Vendors" [ref=e95] [cursor=pointer]:
+            - /url: /chicken/vendors
+            - img [ref=e96]
+            - generic [ref=e101]: Vendors
+          - link "Vendor Payments" [ref=e102] [cursor=pointer]:
+            - /url: /vendor-payments
+            - img [ref=e103]
+            - generic [ref=e105]: Vendor Payments
+      - generic [ref=e106]:
+        - button "Finance" [ref=e107] [cursor=pointer]:
+          - img [ref=e108]
+          - generic [ref=e110]: Finance
+          - img [ref=e111]
+        - generic [ref=e113]:
+          - link "Ledger" [ref=e114] [cursor=pointer]:
+            - /url: /finance
+            - img [ref=e115]
+            - generic [ref=e117]: Ledger
+          - link "Summary" [ref=e118] [cursor=pointer]:
+            - /url: /finance/summary
+            - img [ref=e119]
+            - generic [ref=e120]: Summary
+          - link "Daily Tracker" [ref=e121] [cursor=pointer]:
+            - /url: /finance/daily-tracker
+            - img [ref=e122]
+            - generic [ref=e127]: Daily Tracker
+      - generic [ref=e128]:
+        - button "Analytics & Reports" [ref=e129] [cursor=pointer]:
+          - img [ref=e130]
+          - generic [ref=e131]: Analytics & Reports
+          - img [ref=e132]
+        - generic:
+          - link "Reports" [ref=e134] [cursor=pointer]:
+            - /url: /reports
+            - img [ref=e135]
+            - generic [ref=e136]: Reports
+          - link "AI Insights" [ref=e137] [cursor=pointer]:
+            - /url: /ai-dashboard
+            - img [ref=e138]
+            - generic [ref=e141]: AI Insights
+          - link "Dev Status" [ref=e142] [cursor=pointer]:
+            - /url: /development-status
+            - img [ref=e143]
+            - generic [ref=e145]: Dev Status
+    - button "Logout" [ref=e146] [cursor=pointer]:
+      - img [ref=e147]
+      - generic [ref=e150]: Logout
+  - main [ref=e151]:
+    - generic [ref=e152]:
+      - generic [ref=e155]:
+        - generic [ref=e156]:
+          - button "Go Back" [ref=e157] [cursor=pointer]:
+            - img [ref=e158]
+          - button "Go to Dashboard" [ref=e160] [cursor=pointer]:
+            - img [ref=e161]
+        - heading "Daily Market Rates" [level=1] [ref=e164]
+      - generic [ref=e165]:
+        - generic [ref=e167]:
+          - generic [ref=e168]:
+            - button [ref=e169] [cursor=pointer]:
+              - img [ref=e170]
+            - heading "January 2026" [level=3] [ref=e172]
+            - button [ref=e173] [cursor=pointer]:
+              - img [ref=e174]
+          - generic [ref=e176]:
+            - generic [ref=e179]: Confirmed
+            - generic [ref=e182]: Pending
+            - generic [ref=e185]: No Data
+          - generic [ref=e186]:
+            - generic [ref=e187]: Sun
+            - generic [ref=e188]: Mon
+            - generic [ref=e189]: Tue
+            - generic [ref=e190]: Wed
+            - generic [ref=e191]: Thu
+            - generic [ref=e192]: Fri
+            - generic [ref=e193]: Sat
+          - generic [ref=e194]:
+            - button "1" [ref=e195] [cursor=pointer]
+            - button "2" [ref=e196] [cursor=pointer]
+            - button "3" [ref=e197] [cursor=pointer]
+            - button "4" [ref=e198] [cursor=pointer]
+            - button "5" [ref=e199] [cursor=pointer]
+            - button "6" [ref=e200] [cursor=pointer]
+            - button "7" [ref=e201] [cursor=pointer]
+            - button "8" [ref=e202] [cursor=pointer]
+            - button "9" [ref=e203] [cursor=pointer]
+            - button "10" [ref=e204] [cursor=pointer]
+            - button "11" [ref=e205] [cursor=pointer]
+            - button "12" [ref=e206] [cursor=pointer]
+            - button "13" [ref=e207] [cursor=pointer]
+            - button "14" [ref=e208] [cursor=pointer]
+            - button "15" [ref=e209] [cursor=pointer]
+            - button "16" [ref=e210] [cursor=pointer]
+            - button "17" [ref=e211] [cursor=pointer]
+            - button "18" [ref=e212] [cursor=pointer]
+            - button "19" [ref=e213] [cursor=pointer]
+            - button "20" [ref=e214] [cursor=pointer]
+            - button "21" [ref=e215] [cursor=pointer]
+            - button "22" [ref=e216] [cursor=pointer]
+            - button "23" [ref=e217] [cursor=pointer]
+            - button "24" [ref=e218] [cursor=pointer]
+            - button "25" [ref=e219] [cursor=pointer]
+            - button "26" [ref=e220] [cursor=pointer]
+            - button "27" [ref=e221] [cursor=pointer]
+            - button "28" [ref=e222] [cursor=pointer]
+            - button "29" [ref=e223] [cursor=pointer]
+            - button "30" [ref=e224] [cursor=pointer]
+            - button "31" [ref=e225] [cursor=pointer]
+        - generic [ref=e227]:
+          - generic [ref=e228]:
+            - generic [ref=e229]: Date
+            - generic [ref=e230]:
+              - img [ref=e231]
+              - textbox [ref=e233]: 2026-01-04
+          - generic [ref=e234]:
+            - generic [ref=e235]:
+              - generic [ref=e236]: Tandoor Rate (₹)
+              - spinbutton [ref=e237]: "160.00"
+            - generic [ref=e238]:
+              - generic [ref=e239]: Boiler Rate (₹)
+              - spinbutton [ref=e240]: "125.50"
+            - generic [ref=e241]:
+              - generic [ref=e242]: Egg Rate (₹)
+              - spinbutton [ref=e243]: "685.00"
+          - button "Save Rates" [ref=e244] [cursor=pointer]:
+            - img [ref=e245]
+            - text: Save Rates
+```

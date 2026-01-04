@@ -4,7 +4,7 @@ import api from '../../utils/api';
 import PageHeader from '../../components/PageHeader';
 import {
     FiTrendingUp, FiActivity, FiDollarSign, FiShoppingBag,
-    FiCalendar, FiPlus, FiArrowRight, FiInfo
+    FiCalendar, FiPlus, FiArrowRight, FiInfo, FiCheck
 } from 'react-icons/fi';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
@@ -141,20 +141,24 @@ const ChickenDashboard = () => {
                                                 <td className="p-3 text-white font-bold">₹{bill.qty * bill.vendor_rate}</td>
                                                 <td className="p-3">
                                                     {bill.status === 'Pending' ? (
-                                                        <button
-                                                            onClick={async () => {
-                                                                try {
-                                                                    await api.patch(`chicken/bills/${bill.id}/status`, { status: 'Approved' });
-                                                                    toast.success('✓ Bill approved');
-                                                                    fetchData();
-                                                                } catch (error) {
-                                                                    toast.error('Failed to approve bill');
-                                                                }
-                                                            }}
-                                                            className="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 rounded-full text-[10px] uppercase font-bold hover:bg-yellow-500/30 transition"
-                                                        >
-                                                            Approve
-                                                        </button>
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="text-yellow-400 text-xs">Pending</span>
+                                                            <button
+                                                                onClick={async () => {
+                                                                    try {
+                                                                        await api.patch(`chicken/bills/${bill.id}/status`, { status: 'Approved' });
+                                                                        toast.success('✓ Bill approved');
+                                                                        fetchData();
+                                                                    } catch (error) {
+                                                                        toast.error('Failed to approve bill');
+                                                                    }
+                                                                }}
+                                                                className="p-1 bg-green-500/20 text-green-400 rounded hover:bg-green-500/30 transition"
+                                                                title="Approve Bill"
+                                                            >
+                                                                <FiCheck size={14} />
+                                                            </button>
+                                                        </div>
                                                     ) : (
                                                         <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded-full text-[10px] uppercase font-bold">
                                                             {bill.status}

@@ -188,11 +188,17 @@ class InventoryService {
     // --- Daily Rates ---
 
     async getDailyRates(date) {
-        const result = await db.query('SELECT * FROM daily_rates WHERE date = $1', [date]);
+        const result = await db.query(
+            `SELECT dr.*, u.full_name as updated_by_name 
+             FROM daily_rates dr
+             LEFT JOIN users u ON dr.updated_by = u.id
+             WHERE dr.date = $1`,
+            [date]
+        );
         return result.rows[0] || null;
     }
 
-    async saveDailyRates(data) {
+    async saveDailyRates(data, userId = null) {
         const { date, tandoor_rate, boiler_rate, egg_rate } = data;
 
         // Determine status based on whether all rates are filled
@@ -200,15 +206,17 @@ class InventoryService {
         const status = hasAllRates ? 'confirmed' : 'pending';
 
         const result = await db.query(
-            `INSERT INTO daily_rates (date, tandoor_rate, boiler_rate, egg_rate, status)
-             VALUES ($1, $2, $3, $4, $5)
+            `INSERT INTO daily_rates (date, tandoor_rate, boiler_rate, egg_rate, status, updated_by, updated_at)
+             VALUES ($1, $2, $3, $4, $5, $6, NOW())
              ON CONFLICT (date) DO UPDATE 
              SET tandoor_rate = EXCLUDED.tandoor_rate,
                  boiler_rate = EXCLUDED.boiler_rate,
                  egg_rate = EXCLUDED.egg_rate,
-                 status = EXCLUDED.status
+                 status = EXCLUDED.status,
+                 updated_by = EXCLUDED.updated_by,
+                 updated_at = NOW()
              RETURNING *`,
-            [date, tandoor_rate, boiler_rate, egg_rate, status]
+            [date, tandoor_rate, boiler_rate, egg_rate, status, userId]
         );
         return result.rows[0];
     }
@@ -315,13 +323,13 @@ class InventoryService {
                  threshold_val = EXCLUDED.threshold_val,
                  threshold_op = EXCLUDED.threshold_op,
                  threshold_markup_op = EXCLUDED.threshold_markup_op,
-                 threshold_markup_val = EXCLUDED.threshold_markup_val,
-                 updated_at = NOW()
+                 threshold_markup_val = EXCLUDED.threshold_markup_val
              RETURNING *`,
             [
                 supplier_id, item_name, base_rate_type,
-                op1, val1, op2, val2,
-                threshold_val, threshold_op, threshold_markup_op, threshold_markup_val
+                op1, val1, op2 || null, val2 || null,
+                threshold_val || null, threshold_op || null,
+                threshold_markup_op || null, threshold_markup_val || null
             ]
         );
         return result.rows[0];
@@ -338,15 +346,14 @@ class InventoryService {
              SET item_name = $1, base_rate_type = $2, 
                  op1 = $3, val1 = $4, op2 = $5, val2 = $6,
                  threshold_val = $7, threshold_op = $8,
-                 threshold_markup_op = $9, threshold_markup_val = $10,
-                 updated_at = NOW()
+                 threshold_markup_op = $9, threshold_markup_val = $10
              WHERE id = $11
              RETURNING *`,
             [
                 item_name, base_rate_type,
                 op1, val1, op2 || null, val2 || null,
-                threshold_val, threshold_op,
-                threshold_markup_op, threshold_markup_val,
+                threshold_val || null, threshold_op || null,
+                threshold_markup_op || null, threshold_markup_val || null,
                 id
             ]
         );
@@ -408,9 +415,9 @@ class InventoryService {
 
             const billAmount = parseFloat(qty) * parseFloat(vendor_rate);
             await client.query(
-                `INSERT INTO vendor_ledger (date, supplier_id, transaction_type, amount, details, created_by)
-                 VALUES ($1, $2, 'Bill', $3, $4, $5)`,
-                [date, supplier_id, billAmount, `Bill for ${item_name} (${qty} x ${vendor_rate})`, userId]
+                `INSERT INTO vendor_ledger (date, supplier_id, transaction_type, amount, details)
+                 VALUES ($1, $2, 'Bill', $3, $4)`,
+                [date, supplier_id, billAmount, `Bill for ${item_name} (${qty} x ${vendor_rate})`]
             );
 
             await client.query('COMMIT');
@@ -439,7 +446,7 @@ class InventoryService {
     }
 
     async getBillEntries(query) {
-        const { date, supplierId } = query;
+        const { date, supplierId, status } = query;
         let sql = `
             SELECT b.*, s.name as supplier_name 
             FROM bill_entries b
@@ -456,6 +463,10 @@ class InventoryService {
         if (supplierId) {
             sql += ` AND b.supplier_id = $${pIdx++}`;
             params.push(supplierId);
+        }
+        if (status) {
+            sql += ` AND b.status = $${pIdx++}`;
+            params.push(status);
         }
 
         sql += ' ORDER BY b.created_at DESC';

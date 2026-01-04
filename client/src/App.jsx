@@ -34,6 +34,9 @@ import MasterDashboard from './pages/MasterDashboard';
 import DevelopmentStatus from './pages/DevelopmentStatus';
 import LeaveManagement from './pages/LeaveManagement';
 import AdvanceApprovals from './pages/AdvanceApprovals';
+import ConfigManager from './pages/config/ConfigManager';
+import ApprovalsDashboard from './pages/ApprovalsDashboard';
+
 
 function AppRoutes() {
   const { isAuthenticated } = useAuth();
@@ -79,6 +82,12 @@ function AppRoutes() {
                 <Route path="reports/hr" element={<HRReports />} />
                 <Route path="reports/operations" element={<OperationsReports />} />
                 <Route path="reports/inventory" element={<InventoryReports />} />
+
+                {/* Configuration Management */}
+                <Route path="config" element={<ConfigManager />} />
+
+                {/* Approvals Dashboard */}
+                <Route path="approvals" element={<ApprovalsDashboard />} />
 
                 <Route path="development-status" element={<DevelopmentStatus />} />
               </Routes>

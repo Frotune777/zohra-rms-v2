@@ -71,6 +71,7 @@ const aiRoutes = require('./modules/ai/routes');
 const reportsRoutes = require('./modules/reports/routes');
 const payrollRoutes = require('./modules/payroll/routes');
 const vendorRoutes = require('./modules/vendors/routes');
+const configRoutes = require('./modules/config/routes');
 
 
 app.use('/api/auth', authRoutes);
@@ -96,6 +97,8 @@ app.use('/api/attendance', attendanceRoutes);
 app.use('/api/leaves', leavesRoutes);
 app.use('/api/advance-requests', advanceRequestsRoutes);
 app.use('/api/vendors', vendorRoutes);
+app.use('/api/config', configRoutes);
+
 
 
 // Global Error Handler

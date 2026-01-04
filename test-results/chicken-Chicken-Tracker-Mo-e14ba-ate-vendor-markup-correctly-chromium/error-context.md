@@ -1,0 +1,176 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "Open menu" [ref=e5] [cursor=pointer]:
+      - img [ref=e6]
+    - heading "Al Zohra RMS" [level=1] [ref=e7]
+  - complementary [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - heading "Al Zohra" [level=1] [ref=e11]
+        - button [ref=e12] [cursor=pointer]:
+          - img [ref=e13]
+      - paragraph [ref=e16]: manager • Manager User
+    - navigation [ref=e17]:
+      - link "Dashboard" [ref=e18] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e19]
+        - generic [ref=e22]: Dashboard
+      - generic [ref=e24]:
+        - button "HR & Payroll" [ref=e25] [cursor=pointer]:
+          - img [ref=e26]
+          - generic [ref=e31]: HR & Payroll
+          - img [ref=e32]
+        - generic [ref=e34]:
+          - link "Employees" [ref=e35] [cursor=pointer]:
+            - /url: /employees
+            - img [ref=e36]
+            - generic [ref=e39]: Employees
+          - link "Payroll" [ref=e40] [cursor=pointer]:
+            - /url: /payroll
+            - img [ref=e41]
+            - generic [ref=e43]: Payroll
+          - link "Advances" [ref=e44] [cursor=pointer]:
+            - /url: /advances
+            - img [ref=e45]
+            - generic [ref=e50]: Advances
+          - link "Approvals" [ref=e51] [cursor=pointer]:
+            - /url: /advances/approvals
+            - img [ref=e52]
+            - generic [ref=e57]: Approvals
+          - link "Attendance" [ref=e58] [cursor=pointer]:
+            - /url: /attendance/bulk
+            - img [ref=e59]
+            - generic [ref=e61]: Attendance
+          - link "Leaves" [ref=e62] [cursor=pointer]:
+            - /url: /attendance/leaves
+            - img [ref=e63]
+            - generic [ref=e65]: Leaves
+      - generic [ref=e66]:
+        - button "Inventory & Procurement" [ref=e67] [cursor=pointer]:
+          - img [ref=e68]
+          - generic [ref=e72]: Inventory & Procurement
+          - img [ref=e73]
+        - generic [ref=e75]:
+          - link "Chicken Dashboard" [ref=e76] [cursor=pointer]:
+            - /url: /chicken
+            - img [ref=e77]
+            - generic [ref=e79]: Chicken Dashboard
+          - link "Stock Management" [ref=e80] [cursor=pointer]:
+            - /url: /inventory
+            - img [ref=e81]
+            - generic [ref=e85]: Stock Management
+          - link "Chicken Bills" [ref=e86] [cursor=pointer]:
+            - /url: /chicken/bills
+            - img [ref=e87]
+            - generic [ref=e90]: Chicken Bills
+          - link "Daily Rates" [ref=e91] [cursor=pointer]:
+            - /url: /chicken/rates
+            - img [ref=e92]
+            - generic [ref=e94]: Daily Rates
+          - link "Vendors" [ref=e95] [cursor=pointer]:
+            - /url: /chicken/vendors
+            - img [ref=e96]
+            - generic [ref=e101]: Vendors
+          - link "Vendor Payments" [ref=e102] [cursor=pointer]:
+            - /url: /vendor-payments
+            - img [ref=e103]
+            - generic [ref=e105]: Vendor Payments
+      - generic [ref=e106]:
+        - button "Finance" [ref=e107] [cursor=pointer]:
+          - img [ref=e108]
+          - generic [ref=e110]: Finance
+          - img [ref=e111]
+        - generic [ref=e113]:
+          - link "Ledger" [ref=e114] [cursor=pointer]:
+            - /url: /finance
+            - img [ref=e115]
+            - generic [ref=e117]: Ledger
+          - link "Summary" [ref=e118] [cursor=pointer]:
+            - /url: /finance/summary
+            - img [ref=e119]
+            - generic [ref=e120]: Summary
+          - link "Daily Tracker" [ref=e121] [cursor=pointer]:
+            - /url: /finance/daily-tracker
+            - img [ref=e122]
+            - generic [ref=e127]: Daily Tracker
+      - generic [ref=e128]:
+        - button "Analytics & Reports" [ref=e129] [cursor=pointer]:
+          - img [ref=e130]
+          - generic [ref=e131]: Analytics & Reports
+          - img [ref=e132]
+        - generic:
+          - link "Reports" [ref=e134] [cursor=pointer]:
+            - /url: /reports
+            - img [ref=e135]
+            - generic [ref=e136]: Reports
+          - link "AI Insights" [ref=e137] [cursor=pointer]:
+            - /url: /ai-dashboard
+            - img [ref=e138]
+            - generic [ref=e141]: AI Insights
+          - link "Dev Status" [ref=e142] [cursor=pointer]:
+            - /url: /development-status
+            - img [ref=e143]
+            - generic [ref=e145]: Dev Status
+    - button "Logout" [ref=e146] [cursor=pointer]:
+      - img [ref=e147]
+      - generic [ref=e150]: Logout
+  - main [ref=e151]:
+    - generic [ref=e152]:
+      - generic [ref=e155]:
+        - generic [ref=e156]:
+          - button "Go Back" [ref=e157] [cursor=pointer]:
+            - img [ref=e158]
+          - button "Go to Dashboard" [ref=e160] [cursor=pointer]:
+            - img [ref=e161]
+        - heading "Daily Bill Entry" [level=1] [ref=e164]
+      - generic [ref=e165]:
+        - generic [ref=e166]:
+          - heading "New Entry" [level=2] [ref=e167]
+          - generic [ref=e168]:
+            - generic [ref=e169]:
+              - generic [ref=e170]: Date
+              - textbox [ref=e171]: 2026-01-04
+            - generic [ref=e172]:
+              - generic [ref=e173]: Supplier
+              - combobox [ref=e174]:
+                - option "Select Supplier"
+                - option "Golden"
+                - option "Test Vendor" [selected]
+            - generic [ref=e176]:
+              - generic [ref=e177]: Item
+              - combobox [ref=e178]:
+                - option "Select Item"
+                - option "Broiler Chicken" [selected]
+            - generic [ref=e179]:
+              - generic [ref=e180]:
+                - generic [ref=e181]: Quantity
+                - spinbutton [ref=e182]: "100"
+              - generic [ref=e183]:
+                - generic [ref=e184]: Vendor Rate
+                - spinbutton [ref=e185]: "120"
+            - generic [ref=e187]:
+              - generic [ref=e188]: "Calculated Total:"
+              - generic [ref=e189]: ₹12000.00
+            - button "Add Entry" [active] [ref=e190] [cursor=pointer]:
+              - img [ref=e191]
+              - text: Add Entry
+        - generic [ref=e192]:
+          - heading "Entries for 2026-01-04" [level=2] [ref=e193]
+          - table [ref=e194]:
+            - rowgroup [ref=e195]:
+              - row "Supplier Item Qty Rate Expected Rate Var Total Var Status" [ref=e196]:
+                - columnheader "Supplier" [ref=e197]
+                - columnheader "Item" [ref=e198]
+                - columnheader "Qty" [ref=e199]
+                - columnheader "Rate" [ref=e200]
+                - columnheader "Expected" [ref=e201]
+                - columnheader "Rate Var" [ref=e202]
+                - columnheader "Total Var" [ref=e203]
+                - columnheader "Status" [ref=e204]
+            - rowgroup [ref=e205]:
+              - row "No entries found for this date." [ref=e206]:
+                - cell "No entries found for this date." [ref=e207]
+```

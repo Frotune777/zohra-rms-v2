@@ -50,16 +50,24 @@ const VendorManager = () => {
     const fetchRates = async () => {
         try {
             const res = await api.get(`chicken/rates?date=${date}`);
-            setDailyRates(res.data ? {
-                tandoor_rate: res.data.tandoor_rate,
-                boiler_rate: res.data.boiler_rate,
-                egg_rate: res.data.egg_rate
-            } : { tandoor_rate: '', boiler_rate: '', egg_rate: '' });
-
-            const statusRes = await api.get(`chicken/rates/status?date=${date}`);
-            setRateStatus(statusRes.data);
+            if (res.data) {
+                setDailyRates({
+                    tandoor_rate: res.data.tandoor_rate,
+                    boiler_rate: res.data.boiler_rate,
+                    egg_rate: res.data.egg_rate
+                });
+                // Set rate status from the same response
+                setRateStatus({
+                    updated_by: res.data.updated_by_name,
+                    updated_at: res.data.updated_at
+                });
+            } else {
+                setDailyRates({ tandoor_rate: '', boiler_rate: '', egg_rate: '' });
+                setRateStatus(null);
+            }
         } catch (err) {
             console.error(err);
+            toast.error('Failed to fetch rates');
         }
     };
 

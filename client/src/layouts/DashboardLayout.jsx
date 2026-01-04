@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import {
   FiCoffee, FiDollarSign, FiUsers, FiLogOut, FiUser, FiGift, FiMenu,
   FiTrendingUp, FiHome, FiBarChart2, FiActivity, FiGrid, FiX,
-  FiChevronDown, FiChevronRight, FiPackage, FiCalendar, FiCreditCard
+  FiChevronDown, FiChevronRight, FiPackage, FiCalendar, FiCreditCard, FiCheckSquare
 } from 'react-icons/fi';
 
 const SidebarItem = ({ icon: Icon, label, to, active, onClick }) => (
@@ -114,6 +114,9 @@ export default ({ children }) => {
         <nav className="space-y-1 flex-1 overflow-y-auto p-3">
           {/* Top Level Items */}
           <SidebarItem to="/dashboard" icon={FiHome} label="Dashboard" active={loc.pathname === '/dashboard'} onClick={closeMobileMenu} />
+          {canAccessPayroll && (
+            <SidebarItem to="/approvals" icon={FiCheckSquare} label="Pending Approvals" active={loc.pathname === '/approvals'} onClick={closeMobileMenu} />
+          )}
           {/* <SidebarItem to="/" icon={FiCoffee} label="POS" active={loc.pathname === '/'} onClick={closeMobileMenu} /> */}
           {/* <SidebarItem to="/menu" icon={FiMenu} label="Menu" active={loc.pathname === '/menu'} onClick={closeMobileMenu} /> */}
 
@@ -126,9 +129,6 @@ export default ({ children }) => {
               <SidebarItem to="/payroll" icon={FiDollarSign} label="Payroll" active={loc.pathname === '/payroll'} onClick={closeMobileMenu} />
             )}
             <SidebarItem to="/advances" icon={FiGift} label="Advances" active={loc.pathname === '/advances'} onClick={closeMobileMenu} />
-            {canAccessPayroll && (
-              <SidebarItem to="/advances/approvals" icon={FiGift} label="Approvals" active={loc.pathname === '/advances/approvals'} onClick={closeMobileMenu} />
-            )}
             <SidebarItem to="/attendance/bulk" icon={FiCalendar} label="Attendance" active={loc.pathname === '/attendance/bulk'} onClick={closeMobileMenu} />
             <SidebarItem to="/attendance/leaves" icon={FiCalendar} label="Leaves" active={loc.pathname === '/attendance/leaves'} onClick={closeMobileMenu} />
           </CollapsibleMenuGroup>
@@ -144,18 +144,22 @@ export default ({ children }) => {
           </CollapsibleMenuGroup>
 
           {/* Finance Group */}
-          <CollapsibleMenuGroup icon={FiDollarSign} label="Finance" defaultOpen={true}>
-            <SidebarItem to="/finance" icon={FiDollarSign} label="Ledger" active={loc.pathname === '/finance'} onClick={closeMobileMenu} />
-            <SidebarItem to="/finance/summary" icon={FiBarChart2} label="Summary" active={loc.pathname === '/finance/summary'} onClick={closeMobileMenu} />
-            <SidebarItem to="/finance/daily-tracker" icon={FiGrid} label="Daily Tracker" active={loc.pathname === '/finance/daily-tracker'} onClick={closeMobileMenu} />
-          </CollapsibleMenuGroup>
+          {canAccessPayroll && (
+            <CollapsibleMenuGroup icon={FiDollarSign} label="Finance" defaultOpen={true}>
+              <SidebarItem to="/finance" icon={FiDollarSign} label="Ledger" active={loc.pathname === '/finance'} onClick={closeMobileMenu} />
+              <SidebarItem to="/finance/summary" icon={FiBarChart2} label="Summary" active={loc.pathname === '/finance/summary'} onClick={closeMobileMenu} />
+              <SidebarItem to="/finance/daily-tracker" icon={FiGrid} label="Daily Tracker" active={loc.pathname === '/finance/daily-tracker'} onClick={closeMobileMenu} />
+            </CollapsibleMenuGroup>
+          )}
 
           {/* Analytics & Reports Group */}
-          <CollapsibleMenuGroup icon={FiBarChart2} label="Analytics & Reports" defaultOpen={false}>
-            <SidebarItem to="/reports" icon={FiBarChart2} label="Reports" active={loc.pathname.startsWith('/reports')} onClick={closeMobileMenu} />
-            <SidebarItem to="/ai-dashboard" icon={FiTrendingUp} label="AI Insights" active={loc.pathname === '/ai-dashboard'} onClick={closeMobileMenu} />
-            <SidebarItem to="/development-status" icon={FiActivity} label="Dev Status" active={loc.pathname === '/development-status'} onClick={closeMobileMenu} />
-          </CollapsibleMenuGroup>
+          {canAccessPayroll && (
+            <CollapsibleMenuGroup icon={FiBarChart2} label="Analytics & Reports" defaultOpen={false}>
+              <SidebarItem to="/reports" icon={FiBarChart2} label="Reports" active={loc.pathname.startsWith('/reports')} onClick={closeMobileMenu} />
+              <SidebarItem to="/ai-dashboard" icon={FiTrendingUp} label="AI Insights" active={loc.pathname === '/ai-dashboard'} onClick={closeMobileMenu} />
+              <SidebarItem to="/development-status" icon={FiActivity} label="Dev Status" active={loc.pathname === '/development-status'} onClick={closeMobileMenu} />
+            </CollapsibleMenuGroup>
+          )}
         </nav>
 
         {/* Logout Button */}

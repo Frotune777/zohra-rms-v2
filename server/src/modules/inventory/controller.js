@@ -68,13 +68,15 @@ exports.getDailyRates = async (req, res) => {
         const result = await InventoryService.getDailyRates(date);
         res.json(result);
     } catch (err) {
+        console.error('getDailyRates error:', err.message, err.stack);
         res.status(500).json({ error: err.message });
     }
 };
 
 exports.saveDailyRates = async (req, res) => {
     try {
-        const result = await InventoryService.saveDailyRates(req.body);
+        const userId = req.user?.id || null;
+        const result = await InventoryService.saveDailyRates(req.body, userId);
         res.json(result);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -160,6 +162,7 @@ exports.updateMarkupRule = async (req, res) => {
         const result = await InventoryService.updateMarkupRule(id, req.body);
         res.json(result);
     } catch (err) {
+        console.error('updateMarkupRule error:', err.message, err.stack);
         if (err.message === 'Markup rule not found') {
             return res.status(404).json({ error: 'Markup rule not found' });
         }
@@ -185,6 +188,7 @@ exports.createBillEntry = async (req, res) => {
         const result = await InventoryService.createBillEntry(req.body, req.user ? req.user.id : null);
         res.json(result);
     } catch (err) {
+        console.error('createBillEntry error:', err.message, err.stack);
         if (err.message === 'Daily rates not set for this date') {
             return res.status(400).json({ error: err.message });
         }
