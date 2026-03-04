@@ -33,8 +33,8 @@ const EmployeeManagement = () => {
   const [selectedEmployeeName, setSelectedEmployeeName] = useState('');
   const { userRole } = useAuth();
 
-  // Only owner can register new employees
-  const canRegister = userRole === 'owner';
+  // Both owner and manager can register/manage employees
+  const canRegister = userRole === 'owner' || userRole === 'manager';
 
   useEffect(() => {
     fetchEmployees();
@@ -202,7 +202,7 @@ const EmployeeManagement = () => {
   };
 
   return (
-    <div className="min-h-full w-full flex flex-col p-4 md:p-6 overflow-y-auto md:overflow-hidden lg:h-full">
+    <div className="min-h-full w-full flex flex-col p-4 md:p-6 overflow-y-auto lg:h-full">
       <PageHeader
         title="Employee Management"
         showBack={true}
@@ -526,7 +526,11 @@ const EmployeeManagement = () => {
               </tr>
             ) : (
               employees.map((emp) => (
-                <tr key={emp.id} className="border-b border-white/5 hover:bg-white/5 transition">
+                <tr 
+                  key={emp.id} 
+                  className="border-b border-white/5 hover:bg-white/10 transition cursor-pointer group"
+                  onClick={() => handleEdit(emp)}
+                >
                   <td className="p-4 font-mono text-gray-400 text-xs">{emp.employee_code || '-'}</td>
                   <td className="p-4 font-semibold">
                     <div>{emp.full_name}</div>
@@ -554,21 +558,30 @@ const EmployeeManagement = () => {
                     <td className="p-4">
                       <div className="flex gap-2">
                         <button
-                          onClick={() => handleViewHistory(emp)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleViewHistory(emp);
+                          }}
                           className="p-2 hover:bg-white/10 rounded transition text-purple-400"
                           title="View History"
                         >
                           <FiAlertCircle />
                         </button>
                         <button
-                          onClick={() => handleEdit(emp)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEdit(emp);
+                          }}
                           className="p-2 hover:bg-white/10 rounded transition text-blue-400"
                           title="Edit"
                         >
                           <FiEdit2 />
                         </button>
                         <button
-                          onClick={() => handleDelete(emp.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(emp.id);
+                          }}
                           className="p-2 hover:bg-white/10 rounded transition text-red-400"
                           title="Delete"
                         >

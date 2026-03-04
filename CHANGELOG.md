@@ -14,6 +14,10 @@ All notable changes to this project will be documented in this file.
 - **System Stability**:
     - Cache-control headers for all API routes to prevent stale data issues.
     - Improved environment variable loading and error handling for database connection logs.
+- **Employee Management UI**:
+    - Fixed accessibility issues where the "Register New Employee" button was unreachable.
+    - Enabled full management capabilities for the 'manager' role.
+    - Added intuitive row-click interaction to the employee list.
 
 ### Fixed
 - Resolved Docker daemon connectivity issues and configuration mismatches.

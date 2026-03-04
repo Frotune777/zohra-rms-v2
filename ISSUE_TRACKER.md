@@ -13,7 +13,7 @@
 **Severity:** Medium  
 **Module:** Employee Management  
 **Test Case:** TS-001, TC 1.1  
-**Status:** Open  
+**Status:** Fixed  
 **Priority:** P2
 
 #### Description
@@ -52,10 +52,10 @@ The "Register New Employee" button on the Employee Management page is not access
 4. Add responsive design considerations
 
 #### Fix Details
-[To be filled when fix is implemented]
+Removed `md:overflow-hidden` from the main container in `EmployeeManagement.jsx` to ensure content is always scrollable when it exceeds the viewport.
 
 #### Verification
-[To be filled after fix verification]
+Verified that the "Register New Employee" button is reachable via scrolling.
 
 ---
 
@@ -64,7 +64,7 @@ The "Register New Employee" button on the Employee Management page is not access
 **Severity:** Medium  
 **Module:** Employee Management  
 **Test Case:** TS-001, TC 1.2, TC 1.3  
-**Status:** Open  
+**Status:** Fixed  
 **Priority:** P2
 
 #### Description
@@ -94,11 +94,13 @@ Clicking on an employee row in the Employee Management table does not expand the
 - **Workaround:** Direct database updates or API calls
 - **Affected Users:** Managers and Owners
 
-#### Proposed Fix
-1. Add onClick handler to employee rows
-2. Implement expandable row or modal for editing
-3. Add Edit/History buttons to each row
-4. Ensure proper event handling
+#### Fix Details
+1. Added `onClick` handler to employee rows to trigger edit mode.
+2. Expanded permissions (`canRegister`) to include the `manager` role, enabling action buttons for managers.
+3. Added `e.stopPropagation()` to action buttons to prevent conflicting triggers.
+
+#### Verification
+Confirmed row-click interaction and button visibility for both owner and manager roles.
 
 ---
 
@@ -163,9 +165,9 @@ The vendor payment modal opens correctly with proper structure including vendor 
 - **Low:** 0
 
 ### By Status
-- **Open:** 2
+- **Open:** 0
 - **In Progress:** 0
-- **Fixed:** 0
+- **Fixed:** 2
 - **Closed:** 0
 
 ### By Module

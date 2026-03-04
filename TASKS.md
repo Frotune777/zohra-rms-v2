@@ -96,3 +96,25 @@ Implement "Unapprove" logic for vendor bills, allowing ledger reversals when a b
 - [x] Add `unapprove` button to UI
 - [x] Set up API cache-control headers
 - [x] Fix database connection log error on startup
+
+## Phase 11: Employee Management UI Fixes - 100% Complete
+
+### Task 11.1: Fix Layout & Permissions
+**Status**: Complete
+**Priority**: HIGH
+**Assigned**: LLM
+**Estimated**: 1 hour
+**Actual**: 0.5 hours
+
+**Description**:
+Resolve issue #001 (Register button unreachable) and issue #002 (Row click/Missing actions) in the Employee Management module.
+
+**Files Affected**:
+- [x] `client/src/pages/EmployeeManagement.jsx`: Layout, permission, and event handler updates.
+- [x] `ISSUE_TRACKER.md`: Update issue status after verification.
+
+**Implementation Checklist**:
+- [x] Improve page layout/scrolling (Fix issue #001)
+- [x] Expand permissions to 'manager' role (Fix issue #002)
+- [x] Implement row click interaction
+- [x] Verify fix with owner and manager roles
