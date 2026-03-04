@@ -22,6 +22,16 @@ const limiter = rateLimit({
     legacyHeaders: false,
     message: { error: 'Too many requests, please try again later.' }
 });
+
+// Prevent caching for API routes
+app.use('/api', (req, res, next) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+    res.set('Surrogate-Control', 'no-store');
+    next();
+});
+
 app.use('/api/', limiter);
 
 // CORS Configuration - In production, this should be restricted to the client URL

@@ -413,15 +413,6 @@ class InventoryService {
                 console.log(`⚠ Warning: Item "${item_name}" not found in inventory. Stock not updated.`);
             }
 
-            const billAmount = parseFloat(qty) * parseFloat(vendor_rate);
-            await client.query(
-                `INSERT INTO vendor_ledger (date, supplier_id, transaction_type, amount, details)
-                 VALUES ($1, $2, 'Bill', $3, $4)`,
-                [date, supplier_id, billAmount, `Bill for ${item_name} (${qty} x ${vendor_rate})`]
-            );
-
-            await client.query('COMMIT');
-
             // Return bill entry with stock update status
             return {
                 ...billEntry,
@@ -437,12 +428,61 @@ class InventoryService {
     }
 
     async updateBillStatus(id, status, userId) {
-        const result = await db.query(
-            `UPDATE bill_entries SET status = $1, updated_at = NOW() WHERE id = $2 RETURNING *`,
-            [status, id]
-        );
-        if (result.rowCount === 0) throw new Error('Bill entry not found');
-        return result.rows[0];
+        const client = await db.pool.connect();
+        try {
+            await client.query('BEGIN');
+
+            // 1. Get current bill details
+            const billRes = await client.query('SELECT * FROM bill_entries WHERE id = $1', [id]);
+            if (billRes.rows.length === 0) throw new Error('Bill entry not found');
+            const bill = billRes.rows[0];
+            const oldStatus = bill.status;
+
+            // 2. Update status
+            const result = await client.query(
+                `UPDATE bill_entries SET status = $1 WHERE id = $2 RETURNING *`,
+                [status, id]
+            );
+            const updatedBill = result.rows[0];
+
+            // 3. Handle Ledger Logic
+            if (status === 'Approved' && oldStatus !== 'Approved') {
+                // APPROVAL ACTION: Add to ledger
+                const billAmount = parseFloat(bill.qty) * parseFloat(bill.vendor_rate);
+                await client.query(
+                    `INSERT INTO vendor_ledger (date, supplier_id, transaction_type, amount, details, created_by, bill_entry_id)
+                     VALUES ($1, $2, 'Bill', $3, $4, $5, $6)`,
+                    [
+                        bill.date,
+                        bill.supplier_id,
+                        billAmount,
+                        `Bill for ${bill.item_name} (${bill.qty} x ${bill.vendor_rate})`,
+                        userId,
+                        bill.id
+                    ]
+                );
+            } else if ((status === 'Pending' || status === 'Rejected') && oldStatus === 'Approved') {
+                // REVERSAL ACTION: Remove from ledger
+                // We delete the specific ledger entry linked to this bill
+                await client.query(
+                    `DELETE FROM vendor_ledger WHERE bill_entry_id = $1`,
+                    [bill.id]
+                );
+
+                // Fallback: If no bill_entry_id link (old data), we can't safely delete.
+                // In future, we might add a strict check here, but for now we rely on the new link.
+            }
+
+            await client.query('COMMIT');
+            return updatedBill;
+
+        } catch (err) {
+            await client.query('ROLLBACK');
+            console.error('Error updating bill status:', err);
+            throw err;
+        } finally {
+            client.release();
+        }
     }
 
     async getBillEntries(query) {

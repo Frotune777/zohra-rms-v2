@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.0] - 2026-03-04
+
+### Added
+- **Docker Infrastructure**: 
+    - Full containerization of the RMS application (PostgreSQL, Node.js Backend, Vite Frontend).
+    - Helper scripts for database access (`db-access.sh`) and system setup (`setup.sh`).
+- **Accounting & Ledger Controls**:
+    - Implementation of "Unapprove" logic for vendor bills, allowing automatic reversal of ledger entries when a bill status is changed.
+    - Enhanced Bill Summary view in the Approvals Dashboard.
+- **System Stability**:
+    - Cache-control headers for all API routes to prevent stale data issues.
+    - Improved environment variable loading and error handling for database connection logs.
+
+### Fixed
+- Resolved Docker daemon connectivity issues and configuration mismatches.
+- Fixed host-to-container port mapping inconsistencies for database verification.
+
+
 ## [2.1.0] - 2025-12-08
 
 ### Added

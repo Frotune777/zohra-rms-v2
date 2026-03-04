@@ -238,7 +238,7 @@ print_info "Verifying database connection..."
 cd server
 if node -e "
 const { Pool } = require('pg');
-const pool = new Pool({ connectionString: 'postgres://admin:password@localhost:5432/alzohra_db' });
+const pool = new Pool({ connectionString: 'postgres://admin:password@localhost:5433/alzohra_db' });
 pool.query('SELECT NOW()')
     .then(() => { console.log('✓ Database connection successful'); process.exit(0); })
     .catch(err => { console.error('✗ Database connection failed:', err.message); process.exit(1); });

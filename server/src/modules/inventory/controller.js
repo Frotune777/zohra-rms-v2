@@ -224,7 +224,7 @@ exports.getBillEntries = async (req, res) => {
 exports.getBillSummary = async (req, res) => {
     try {
         const result = await InventoryService.getBillSummary(req.query);
-        res.json({ summary: result });
+        res.json(result);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

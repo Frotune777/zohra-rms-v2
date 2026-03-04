@@ -1,4 +1,5 @@
 const { Pool } = require('pg');
+require('dotenv').config({ path: require('path').join(__dirname, '../../../.env') });
 
 if (!process.env.DATABASE_URL) {
   console.error('CRITICAL: DATABASE_URL must be set in environment variables');
@@ -14,7 +15,19 @@ const pool = new Pool({
 
 const fs = require('fs');
 const path = require('path');
-const logStream = fs.createWriteStream(path.join(__dirname, '../logs/db.log'), { flags: 'a' });
+let logStream;
+try {
+  logStream = fs.createWriteStream(path.join(__dirname, '../logs/db.log'), { flags: 'a' });
+} catch (err) {
+  console.error('Failed to create DB log stream:', err.message);
+  logStream = {
+    write: (msg) => console.log('[DB LOG]', msg.trim())
+  };
+}
+
+logStream.on('error', (err) => {
+  console.error('DB Log Stream Error:', err.message);
+});
 
 module.exports = {
   query: (text, params) => {
