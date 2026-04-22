@@ -74,7 +74,7 @@ else
 fi
 
 # Check Docker Compose
-if command -v docker-compose &> /dev/null || docker compose version &> /dev/null; then
+if command -v docker compose &> /dev/null || docker compose version &> /dev/null; then
     print_success "Docker Compose is available"
 else
     print_error "Docker Compose is not installed"
@@ -190,7 +190,7 @@ if docker ps | grep -q postgres; then
     print_success "PostgreSQL container is already running"
 else
     print_info "Starting PostgreSQL container..."
-    docker-compose up -d postgres
+    docker compose up -d postgres
     
     # Wait for PostgreSQL to be ready
     print_info "Waiting for PostgreSQL to be ready..."
@@ -268,7 +268,7 @@ echo "  1. Start the application:"
 echo "     ./start.sh"
 echo ""
 echo "  2. Or start with Docker Compose:"
-echo "     docker-compose up"
+echo "     docker compose up"
 echo ""
 echo "  3. Access the application:"
 echo "     - Frontend: http://localhost:3001"
