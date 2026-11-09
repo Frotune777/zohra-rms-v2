@@ -4,6 +4,13 @@ const inventoryController = require('./controller');
 const { verifyToken, requirePermission } = require('../../middleware/auth');
 const { PERMISSIONS } = require('../../config/permissions');
 
+const workflows=require('./workflows');
+router.get('/recipes',verifyToken,requirePermission(PERMISSIONS.INVENTORY_READ),workflows.recipes);
+router.put('/recipes/:id',verifyToken,requirePermission(PERMISSIONS.INVENTORY_WRITE),workflows.saveRecipe);
+router.get('/adjustments',verifyToken,requirePermission(PERMISSIONS.INVENTORY_READ),workflows.adjustments);
+router.post('/adjustments/:id/reverse',verifyToken,requirePermission(PERMISSIONS.INVENTORY_WRITE),require('./corrections').reverseAdjustment);
+router.post('/adjustments',verifyToken,requirePermission(PERMISSIONS.INVENTORY_WRITE),workflows.createAdjustment);
+
 // General Inventory
 router.get('/', verifyToken, requirePermission(PERMISSIONS.INVENTORY_READ), inventoryController.getInventory);
 router.post('/', verifyToken, requirePermission(PERMISSIONS.INVENTORY_WRITE), inventoryController.addInventory);

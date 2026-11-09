@@ -1,4 +1,5 @@
 const db = require('../../config/db');
+const validateBulk = require('./validateBulk');
 
 class AttendanceService {
     async getAttendance(date) {
@@ -17,6 +18,7 @@ class AttendanceService {
         const client = await db.pool.connect();
         try {
             await client.query('BEGIN');
+            await validateBulk(client,date,records);
             for (const record of records) {
                 await client.query(
                     `INSERT INTO attendance (date, employee_id, status)
@@ -46,7 +48,7 @@ class AttendanceService {
                 COUNT(a.employee_id) as filled_records,
                 (SELECT COUNT(*) FROM employees WHERE status = 'active') as total_employees
             FROM dates d
-            LEFT JOIN attendance a ON d.date = a.date
+            LEFT JOIN attendance a ON d.date = a.date AND a.employee_id IN (SELECT id FROM employees WHERE status='active')
             GROUP BY d.date
             ORDER BY d.date`,
             [startDate, endDate]

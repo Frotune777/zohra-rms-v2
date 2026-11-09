@@ -3,7 +3,7 @@
 # Database Access Helper Script
 # Usage: ./db-access.sh [command]
 
-DB_CONTAINER="zohra-rms-v2-postgres-1"
+DB_CONTAINER="alzohra-db"
 DB_USER="admin"
 DB_NAME="alzohra_db"
 DB_PASSWORD="password"

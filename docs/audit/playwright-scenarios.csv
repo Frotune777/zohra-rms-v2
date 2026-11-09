@@ -1,0 +1,175 @@
+id,area,entrypoint,scenario,expected_result,verification_status,priority
+SCREEN-001,Login,/login,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-002,POS,/,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-003,MasterDashboard,/dashboard,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-004,EmployeeManagement,/employees,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-005,MenuManagement,/menu,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-006,Payroll,/payroll,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-007,Advances,/advances,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-008,VendorPayments,/vendor-payments,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-009,Inventory,/inventory,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-010,Finance,/finance,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-011,PaymentEntry,/finance/payments,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-012,DailySummary,/finance/summary,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-013,DailyTracker,/finance/daily-tracker,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-014,ManagerFloat,/finance/float,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-015,ExpenseMapping,/finance/mappings,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-016,MoneyTransfer,/finance/transfer,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-017,BulkAttendance,/attendance/bulk,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-018,LeaveManagement,/attendance/leaves,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-019,AdvanceApprovals,/advances/approvals,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-020,AIDashboard,/ai-dashboard,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-021,ChickenDashboard,/chicken,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-022,DailyRates,/chicken/rates,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-023,BillEntry,/chicken/bills,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-024,VendorManager,/chicken/vendors,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-025,ReportsDashboard,/reports,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-026,FinancialReports,/reports/financial,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-027,HRReports,/reports/hr,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-028,OperationsReports,/reports/operations,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-029,InventoryReports,/reports/inventory,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-030,ConfigManager,/config,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-031,ApprovalsDashboard,/approvals,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+SCREEN-032,DevelopmentStatus,/development-status,"Direct navigation, refresh, session restore, empty/populated data, loading and error/retry states",Correct screen and required data render; no uncaught errors; recoverable failures preserve user input,Pending,P1
+AUTH-001,AUTH,/login,Valid owner/manager/staff with separate accounts,"Correct identity, token and permissions",Pending,P0
+AUTH-002,AUTH,/login,"Wrong password, unknown email, missing fields and normalization",Defined authentication/validation errors; no session,Pending,P0
+AUTH-003,AUTH,/login,Changed password for each default email then use demo password,Old/demo password fails; new password succeeds,Pending,P0
+AUTH-004,AUTH,/login,Inactive/deleted account and reuse of older JWT,No inactive/deleted user gains access,Pending,P0
+AUTH-005,AUTH,Protected APIs,Missing/malformed/expired/wrong-signature JWT,Consistent denial; no data or writes,Pending,P0
+AUTH-006,AUTH,Every page,Staff directly opens finance/payroll/config URLs,Page and API enforce the agreed role matrix,Pending,P0
+AUTH-007,AUTH,Registration,Manager creates owner; staff registers user,No unauthorized role escalation,Pending,P0
+AUTH-008,AUTH,Registration,Duplicate email and concurrent wallet code generation,One valid account; no duplicate/orphan ledger code,Pending,P0
+AUTH-009,AUTH,AuthContext,"Logout, refresh, multiple tabs and expiry mid-submit",Coherent session state; no stale or duplicate write,Pending,P0
+AUTH-010,AUTH,Reports APIs,Every report without auth and as staff,Every financial/HR endpoint enforces agreed access,Pending,P0
+AUTH-011,AUTH,CORS/sockets,Untrusted origin and unauthenticated kitchen join,Intended origin and event authorization,Pending,P0
+POS-001,POS,/,Search/category filters and empty results,Correct menu without stale data,Pending,P1
+POS-002,POS,/,Add same item; increment/decrement/remove; empty checkout,Exact quantities/total; no empty order,Pending,P1
+POS-003,POS,Order API,Tampered browser price and unknown menu ID,Trusted server prices; invalid items rejected atomically,Pending,P1
+POS-004,POS,/,Cash/Card/UPI where supported/Due/Part,UI/order/payment/journal share the payment contract,Pending,P1
+POS-005,POS,Order API,"Zero/negative/fractional quantity, invalid numbers, large totals",Declared quantity validation; no invalid ledger,Pending,P1
+POS-006,POS,Order API,"Taxes, discounts and cent-rounding boundaries",Exact invoice/payment/journal reconciliation under declared tax policy,Pending,P1
+POS-007,POS,Order API,Multiple recipes with shared ingredients,Exact stock/COGS/movement and source-linked journals,Pending,P1
+POS-008,POS,Order API,Insufficient stock and simultaneous last-stock orders,No invalid negative stock; failed order changes nothing,Pending,P1
+POS-009,POS,Order API,"Double click, response loss and retry",One order/payment/journal or documented idempotent response,Pending,P1
+POS-010,POS,/,Order type/customer/table/notes and SAVE/PRINT/KOT actions,Supported fields persist and actions perform advertised behavior,Pending,P1
+MENU-001,MENU,/menu,Create/duplicate/edit/delete support,Persisted supported behavior; missing edit explicitly recorded,Pending,P1
+MENU-002,MENU,/menu,Delete item with recipes and historical orders,Preserve history and enforce dependency policy,Pending,P1
+INV-001,INV,/inventory,Zero/fractional stock and decimal cost creation,Exact persisted stock/cost/initial movement,Pending,P1
+INV-002,INV,/inventory,Edit quantity/name/unit/cost up/down,Signed movement explains stock delta and attribution,Pending,P1
+INV-003,INV,/inventory,Negative/invalid inputs and nonexistent IDs,Defined rejection; no partial writes,Pending,P1
+INV-004,INV,/inventory,Delete stock linked to recipes/PO/wastage/movements,No broken history or unintended cascading deletion,Pending,P1
+INV-005,INV,Wastage API,Normal/fractional wastage and zero-cost stock,Exact stock/cost/movement/journal/audit linkage,Pending,P1
+INV-006,INV,Wastage API,Excess wastage and concurrent deductions,Agreed stock policy enforced with complete rollback,Pending,P1
+RATES-001,RATES,/chicken/rates,Complete/partial/missing rates and repeated save,Correct date-specific confirmed/pending values,Pending,P1
+RATES-002,RATES,/chicken/rates,Zero/negative/invalid and precision boundaries,Explicit rate validation and zero policy,Pending,P1
+RATES-003,RATES,Rates calendar,Leap day/month/year/local-time boundaries,No date shift or stale rate state,Pending,P1
+MARKUP-001,MARKUP,/chicken/vendors,Each base rate and + - * / with two operations,Exact rule order and expected rate,Pending,P1
+MARKUP-002,MARKUP,/chicken/vendors,"Zero division/operand, omitted op2, unknown operation",Explicit behavior without numeric corruption,Pending,P1
+MARKUP-003,MARKUP,/chicken/vendors,Below/equal/above threshold for each comparator,Conditional markup applies at the correct boundary,Pending,P1
+MARKUP-004,MARKUP,/chicken/vendors,Negative result/rounding/update/delete/duplicate rule,Declared clamping/rounding and unique stored rule,Pending,P1
+BILL-001,BILL,/chicken/bills,Create with/without matching stock; independent connection read,Success means committed bill/stock/movement,Pending,P0
+BILL-002,BILL,/chicken/bills,"Missing rates/markup, invalid supplier",Defined validation; no partial bill or stock,Pending,P0
+BILL-003,BILL,/chicken/bills,Rate below/equal/above expected and fractional weight,Exact costs and variance reconcile to reports,Pending,P0
+BILL-004,BILL,/approvals,Repeated and concurrent approvals,One liability/source journal,Pending,P0
+BILL-005,BILL,/approvals,Pending rejection and Approved to Pending/Rejected,Immutable reversal and correct stock/liability policy,Pending,P0
+BILL-006,BILL,/approvals,Reject partly paid bill then reapprove,Coherent settlement/outstanding/accounting,Pending,P0
+BILL-007,BILL,/chicken/bills,Creation in closed day/period,Blocked atomically at supported boundary,Pending,P0
+VENDOR-001,VENDOR,/chicken/vendors,Details/opening balance/markup flag edits,Stored values and supplier account/rules remain linked,Pending,P1
+VENDOR-002,VENDOR,/chicken/vendors,Concurrent supplier account codes,No duplicate or orphan account,Pending,P1
+VENDOR-003,VENDOR,/vendor-payments,Full/partial payment in each mode with reference,Payment/vendor/GL/cash-bank balances agree,Pending,P1
+VENDOR-004,VENDOR,/vendor-payments,Zero/negative/overpayment/inactive mode,Rejected without side effects,Pending,P1
+VENDOR-005,VENDOR,/vendor-payments,Two jointly excessive concurrent payments,Combined settlement respects outstanding policy,Pending,P1
+VENDOR-006,VENDOR,/vendor-payments,Double click and response-loss retry,One durable payment/source journal,Pending,P1
+VENDOR-007,VENDOR,Vendor reports,Date-filtered running balance/opening balance,Opening plus changes equals ending balance,Pending,P1
+VENDOR-008,VENDOR,Vendor reports,30/60/90-day aging after partial/full payment,Only outstanding debt aged at exact boundaries,Pending,P1
+VENDOR-009,VENDOR,Vendor reports,Category and independent supplier GL accounts,No cross-vendor attribution or aggregation error,Pending,P1
+EMP-001,EMP,/employees,CRUD/status changes and every history field,Stored changes and audit/history agree,Pending,P1
+EMP-002,EMP,/employees,"Zero salary/age, clear optional fields, negative salary",Valid zero/clear semantics; invalid values rejected,Pending,P1
+EMP-003,EMP,/employees,Concurrent employee code generation,Unique employees and codes,Pending,P1
+EMP-004,EMP,/employees,Owner delete/manager-staff denial with dependents,Explicit role/FK policy; no partial history deletion,Pending,P1
+ATT-001,ATT,/attendance/bulk,Present/Absent/Half-Day and repeated bulk saves,One employee/date record and exact half-day behavior,Pending,P1
+ATT-002,ATT,Both attendance APIs,Same input through both namespaces,Consistent rules/audit/persistence,Pending,P1
+ATT-003,ATT,Attendance calendar,Empty/partial/duplicate input and completeness,Correct counts and missing/partial/complete states,Pending,P1
+ATT-004,ATT,Attendance APIs,Invalid status/inactive employee/future/locked date,Explicit policy consistently enforced,Pending,P1
+LEAVE-001,LEAVE,/attendance/leaves,Create/list/filter/approve/reject/delete pending,Correct transitions and ownership,Pending,P1
+LEAVE-002,LEAVE,/attendance/leaves,Reverse/overlapping dates and month/year limits,Valid range and agreed overlap policy,Pending,P1
+LEAVE-003,LEAVE,/attendance/leaves,"Manager, repeated and concurrent approval",Authorized approval once; no duplicate attendance/audit,Pending,P1
+LEAVE-004,LEAVE,Attendance integration,Existing Present/Half-Day then approval and bulk edit,Declared conflict and approved-leave protection,Pending,P1
+LEAVE-005,LEAVE,/attendance/leaves,Staff reads/submits/deletes another employee request,Employee ownership enforced,Pending,P1
+LEAVE-006,LEAVE,Payroll,Paid/unpaid leave types,Exact payroll matches an explicitly agreed leave-pay policy,Pending,P1
+ADV-001,ADV,Each advance API,Advance and repayment request schemas/statuses,Consistent contract and employee ownership,Pending,P1
+ADV-002,ADV,Approvals,Manager approve/reject/adjust amount/repeat/concurrent approval,Working permission and one financial event/audit,Pending,P1
+ADV-003,ADV,Repayments,Below/equal/above balance and simultaneous requests,No negative balance or duplicate recovery,Pending,P1
+ADV-004,ADV,Schedules,Invalid/zero/negative amounts and repayment months,No invalid schedule/numeric/date values,Pending,P1
+ADV-005,ADV,Schedules,Installment rounding and month-end/leap due dates,Schedule total equals approved amount,Pending,P1
+ADV-006,ADV,Finance transfers,Auto approval and failure after request creation,No unexplained pending request/partial posting,Pending,P1
+PAY-001,PAY,/payroll,Zero/half/full days and missing attendance,Explicit attendance policy; zero never becomes full month accidentally,Pending,P0
+PAY-002,PAY,/payroll,"February leap/non-leap, 30/31 days and mid-month eligibility",Exact proration and status policy,Pending,P0
+PAY-003,PAY,/payroll,Components/overtime/extra days/positive-negative adjustment,Components reconcile to gross/deductions/net,Pending,P0
+PAY-004,PAY,/payroll,Deduction below/equal/above gross and explicit override,Recovery bounded by outstanding; valid net pay,Pending,P0
+PAY-005,PAY,/payroll,Regenerate Pending/Approved/Paid records,One employee/period record and allowed immutability,Pending,P0
+PAY-006,PAY,/payroll,Approve twice and payout before approval,Only valid authorized transitions,Pending,P0
+PAY-007,PAY,/payroll,FIFO partial recovery across multiple advances,Advance tables/ledger/schedules/GL agree,Pending,P0
+PAY-008,PAY,/payroll,Zero-net payroll after full deduction,Valid recovery completes without invalid zero ledger lines,Pending,P0
+PAY-009,PAY,/payroll,"Each payment mode, invalid mode, repeated/concurrent payout",One payout; source-specific journals; complete rollback,Pending,P0
+PAY-010,PAY,/payroll,Two employees same pay date; revert/delete one,Only chosen employee reverses; other unchanged,Pending,P0
+PAY-011,PAY,/payroll,Paid to Approved to paid; Approved to Pending,Exact cash/advance/ledger round trip,Pending,P0
+PAY-012,PAY,Legacy API,Legacy payroll zero days and unsettled wallet float,Independent semantics verified or legacy path classified unsupported,Pending,P0
+FIN-001,FIN,/finance,Revenue/expense create with date/category/mode/reference,Business event and balanced journal commit together,Pending,P0
+FIN-002,FIN,/finance,Invalid account and injected failure after first write,Complete rollback; no success response,Pending,P0
+TRACK-001,TRACK,/finance/daily-tracker,Cash/Bank/Bank_Cash income-expense and Pending/Paid vendor,Tracker/P&L/counter/float/vendor balances reconcile,Pending,P0
+TRACK-002,TRACK,/finance/daily-tracker,Edit amount/date/vendor/type/mode and delete posting,Reverse/repost correction without stale balances,Pending,P0
+TRACK-003,TRACK,/finance/daily-tracker,"Pending to Paid twice, Paid to Pending, response retry",No duplicate payment; coherent status and ledger,Pending,P0
+TRACK-004,TRACK,/finance/daily-tracker,Locked-period failure after transaction insertion,No partial transaction/orphan journal,Pending,P0
+TRACK-005,TRACK,Denominations,Zero count/negative-fractional counts/exact sums,Correct cash total and validation,Pending,P0
+MAP-001,MAP,/finance/mappings,CRUD/overlapping keywords/apply history,Deterministic matching and bounded history changes,Pending,P1
+MAP-002,MAP,/finance/mappings,Apply after closure and invalid/duplicate mapping,No unauthorized locked financial rewrite,Pending,P1
+TRANSFER-001,TRANSFER,/finance/transfer,Safe to user and return in every mode,Assets conserved; correct wallet/source balances,Pending,P1
+TRANSFER-002,TRANSFER,/finance/transfer,Missing wallet/same account/invalid amount,Defined rejection without misleading financial event,Pending,P1
+TRANSFER-003,TRANSFER,/finance/transfer,Excess funds and simultaneous returns,Agreed funds policy enforced atomically,Pending,P1
+TRANSFER-004,TRANSFER,Employee integration,Advance/repayment transfer and partial failure,Cash/request/employee balance agree,Pending,P1
+CLOSE-001,CLOSE,Daily closure,Initialize/actual zero/exact count/shortage/excess,Exact opening/expected/actual/variance and variance journal,Pending,P0
+CLOSE-002,CLOSE,Daily closure,Repeated/concurrent close and uninitialized date,One closure/carry-forward and defined failure,Pending,P0
+CLOSE-003,CLOSE,Every finance API,Post/edit/delete after day close/period lock,All supported paths enforce locks atomically,Pending,P0
+CLOSE-004,CLOSE,Reopen API,Owner reason/manager-staff denial/repeated reopen,Authorized reversal/audit without duplicate variance,Pending,P0
+CLOSE-005,CLOSE,Reopen API,Failure between reversal and state change,Reversal and closure state roll back together,Pending,P0
+CLOSE-006,CLOSE,Multiple accounts,Wallet/counter/float same date and next-day editing,Account-scoped closure and correct carry-forward,Pending,P0
+CLOSE-007,CLOSE,Date boundaries,Midnight/month/year close/reopen,No date shift or overwrite of closed next day,Pending,P0
+GL-001,GL,All financial sources,Per-journal balance/minimum lines/account/source validity,Each individual journal satisfies documented invariants,Pending,P0
+GL-002,GL,Journal entities,NaN/Infinity/invalid date/same account/cent boundaries,Invalid entries rejected; rounding preserves balance,Pending,P0
+GL-003,GL,Account balance API,Every account type and as-of/no-prior-activity dates,Correct signed historic balance,Pending,P0
+GL-004,GL,Reversal service,Twice-reversed journals and locked periods,Explicit idempotency/period policy; original remains immutable,Pending,P0
+REPORT-001,REPORT,/reports/financial,Exact revenue/expense fixtures/reversals/date filters,Report/breakdown/trend totals reconcile to GL,Pending,P1
+REPORT-002,REPORT,Balance sheet,Equity/liability/accounts without in-range activity,Correct as-of accounting equation,Pending,P1
+REPORT-003,REPORT,/reports/hr,"Advance/Repayment case, inactive staff, partial recovery",Summary/KPI/employee/GL totals agree,Pending,P1
+REPORT-004,REPORT,/reports/hr,Half-days/leaves/no records/partial month,Correct denominator and rounding,Pending,P1
+REPORT-005,REPORT,/reports/operations,Approval/rejection/variance/partial payments/filters,Correct committed procurement/vendor totals,Pending,P1
+REPORT-006,REPORT,/reports/inventory,Sale/wastage/purchase/unit-cost changes,Valuation and movement reconciliation,Pending,P1
+EXPORT-001,EXPORT,Every report,CSV commas/quotes/newlines/formulas/Unicode/nested data,Valid safe CSV and exact rows/headers,Pending,P1
+EXPORT-002,EXPORT,Every report,Empty/populated JSON and file inspection,Correct serialized content and filename,Pending,P1
+EXPORT-003,EXPORT,Every report,PDF and repeated download URL cleanup,Actual supported download or explicit gap; no thrown toast method,Pending,P1
+DASH-001,DASH,/dashboard and /reports,Mixed fixtures/negative-reversing journals,KPIs agree with reports and role/date policy,Pending,P1
+AI-001,AI,/ai-dashboard,"No/sparse/zero history, weighted dates, missing recipes",Declared formula/units/zero-day treatment,Pending,P1
+AI-002,AI,/ai-dashboard,"Exact reorder equality, lead time and safety stock",Suggestions follow documented inventory policy,Pending,P1
+KDS-001,KDS,API/sockets,Create/status transitions/completion/duplicate updates,Valid attribution and authorized event delivery,Pending,P1
+KDS-002,KDS,POS to kitchen to AI,Sale appears in kitchen and completion changes forecast once,Working linkage or explicit missing integration,Pending,P1
+PO-001,PO,Purchase order API,Draft/Sent/Received/Cancelled with multiple items,Exact stock/received/movement/liability/inventory journal,Pending,P1
+PO-002,PO,Purchase order API,"Receive twice, state reset, concurrent receive",One receipt and no double stock/liability,Pending,P1
+CFG-001,CFG,/config,CRUD/inactive visibility/toggle/reorder/duplicate bulk import,Category-scoped values/order and atomic import,Pending,P1
+CFG-002,CFG,/config,Staff mutation/cross-category ID/partial updates,Correct permissions and preserved unspecified fields,Pending,P1
+CFG-003,CFG,Consumer forms,Change/inactivate payment option across all forms,Canonical mode contract in UI and services,Pending,P1
+UI-001,UI,Every screen,Keyboard/labels/errors/modal escape/focus return,Accessible controls and usable feedback,Pending,P1
+UI-002,UI,Every screen,Phone/tablet/desktop and long forms/tables,No clipped/inaccessible actions or unintended overflow,Pending,P1
+UI-003,UI,Every screen,"Slow/offline API, 401/403/500, navigation abort",Recoverable state without stale/duplicate mutation,Pending,P1
+E2E-001,E2E,Harness,Fresh fixtures/explicit URLs/seed failure/non-test target,Fail closed outside disposable DB; no swallowed setup failure,Pending,P0
+E2E-002,E2E,Financial round trip,Purchase/approve/partial-full pay/close/reopen/reverse,Exact source-specific stock/vendor/GL/cash after every transition,Pending,P0
+E2E-003,E2E,HR round trip,Attendance/leave/advance/payroll/pay/revert/repay,Exact salary/advance/wallet/cash/audit/reports each step,Pending,P0
+DATA-001,DATA,Migration tools,"Synthetic XLS/XLSX/CSV twice, malformed rows, missing attendance",Explicit discrepancies/idempotency/no silent status changes/source-GL reconciliation,Pending,P1
+SCREEN-033,SCREEN,/kitchen,"Navigate, restore session, reload and resize Kitchen Display",Rendered workflow with no page/API errors or document overflow,Pending,P1
+SCREEN-034,SCREEN,/recipes,"Navigate, restore session, reload and resize Recipe Management",Rendered workflow with no page/API errors or document overflow,Pending,P1
+SCREEN-035,SCREEN,/purchase-orders,"Navigate, restore session, reload and resize Purchase Orders",Rendered workflow with no page/API errors or document overflow,Pending,P1
+SCREEN-036,SCREEN,/wastage,"Navigate, restore session, reload and resize Wastage",Rendered workflow with no page/API errors or document overflow,Pending,P1
+SCREEN-037,SCREEN,/stock-adjustments,"Navigate, restore session, reload and resize Stock Adjustments",Rendered workflow with no page/API errors or document overflow,Pending,P1
+SCREEN-038,SCREEN,/orders,"Navigate, restore session, reload and resize Orders & Payments",Rendered workflow with no page/API errors or document overflow,Pending,P1
+SCREEN-039,SCREEN,/employee-balances,"Navigate, restore session, reload and resize Employee Balances",Rendered workflow with no page/API errors or document overflow,Pending,P1
+PO-003,PO,Purchase order API and /purchase-orders,Sent reset and cancelled receipt transitions; missing/invalid statuses; browser history,Sent cannot reset Draft; Cancelled cannot receive; rejected writes preserve stock and ledger; received history persists,Pending,P1

@@ -33,8 +33,8 @@ const EmployeeManagement = () => {
   const [selectedEmployeeName, setSelectedEmployeeName] = useState('');
   const { userRole } = useAuth();
 
-  // Only owner can register new employees
-  const canRegister = userRole === 'owner';
+  // Both owner and manager can register/manage employees
+  const canRegister = userRole === 'owner' || userRole === 'manager';
 
   useEffect(() => {
     fetchEmployees();
@@ -202,7 +202,7 @@ const EmployeeManagement = () => {
   };
 
   return (
-    <div className="min-h-full w-full flex flex-col p-4 md:p-6 overflow-y-auto md:overflow-hidden lg:h-full">
+    <div className="min-h-full w-full flex flex-col p-4 md:p-6 overflow-y-auto lg:h-full">
       <PageHeader
         title="Employee Management"
         showBack={true}
@@ -240,7 +240,7 @@ const EmployeeManagement = () => {
           <div className="glass-panel p-6 rounded-xl w-full max-w-3xl max-h-[80vh] overflow-hidden flex flex-col">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold">History: {selectedEmployeeName}</h2>
-              <button
+              <button aria-label="Close"
                 onClick={() => setShowHistory(false)}
                 className="text-gray-400 hover:text-white transition"
               >
@@ -287,7 +287,7 @@ const EmployeeManagement = () => {
         <form onSubmit={handleSubmit} className="glass-panel p-6 mb-6 rounded-xl space-y-4">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">{editingId ? 'Edit Employee' : 'Register New Employee'}</h2>
-            <button
+            <button aria-label="Close"
               type="button"
               onClick={handleCancel}
               className="text-gray-400 hover:text-white transition"
@@ -299,7 +299,7 @@ const EmployeeManagement = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">First Name *</label>
-              <input
+              <input aria-label="First name"
                 type="text"
                 value={formData.first_name}
                 onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
@@ -311,7 +311,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Last Name *</label>
-              <input
+              <input aria-label="Last name"
                 type="text"
                 value={formData.last_name}
                 onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
@@ -323,7 +323,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Age</label>
-              <input
+              <input aria-label="Age"
                 type="number"
                 min="18"
                 max="100"
@@ -336,7 +336,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Gender</label>
-              <select
+              <select aria-label="Gender"
                 value={formData.gender}
                 onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
                 className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
@@ -350,7 +350,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Phone Number</label>
-              <input
+              <input aria-label="Phone number"
                 type="tel"
                 value={formData.phone_number}
                 onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
@@ -361,7 +361,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Position *</label>
-              <input
+              <input aria-label="Position"
                 type="text"
                 value={formData.position}
                 onChange={(e) => setFormData({ ...formData, position: e.target.value })}
@@ -373,7 +373,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Department *</label>
-              <input
+              <input aria-label="Department"
                 type="text"
                 value={formData.department}
                 onChange={(e) => setFormData({ ...formData, department: e.target.value })}
@@ -385,7 +385,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Base Salary (₹) *</label>
-              <input
+              <input aria-label="Base salary"
                 type="number"
                 step="0.01"
                 min="0"
@@ -399,7 +399,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Status</label>
-              <select
+              <select aria-label="Status"
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                 className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-zohra-blue"
@@ -411,7 +411,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">System Role</label>
-              <select
+              <select aria-label="Role"
                 value={formData.role}
                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                 className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-zohra-blue"
@@ -424,7 +424,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Govt ID Type</label>
-              <select
+              <select aria-label="Govt id type"
                 value={formData.govt_id_type}
                 onChange={(e) => setFormData({ ...formData, govt_id_type: e.target.value })}
                 className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-zohra-blue"
@@ -439,7 +439,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Govt ID Number</label>
-              <input
+              <input aria-label="Govt id number"
                 type="text"
                 value={formData.govt_id_number}
                 onChange={(e) => setFormData({ ...formData, govt_id_number: e.target.value })}
@@ -450,7 +450,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Payout Method</label>
-              <select
+              <select aria-label="Payout method"
                 value={formData.payout_method}
                 onChange={(e) => setFormData({ ...formData, payout_method: e.target.value })}
                 className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-zohra-blue"
@@ -462,7 +462,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Bank Account No</label>
-              <input
+              <input aria-label="Bank account no"
                 type="text"
                 value={formData.bank_account_no}
                 onChange={(e) => setFormData({ ...formData, bank_account_no: e.target.value })}
@@ -473,7 +473,7 @@ const EmployeeManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">IFSC Code</label>
-              <input
+              <input aria-label="Ifsc code"
                 type="text"
                 value={formData.ifsc_code}
                 onChange={(e) => setFormData({ ...formData, ifsc_code: e.target.value })}
@@ -526,7 +526,11 @@ const EmployeeManagement = () => {
               </tr>
             ) : (
               employees.map((emp) => (
-                <tr key={emp.id} className="border-b border-white/5 hover:bg-white/5 transition">
+                <tr 
+                  key={emp.id} 
+                  className="border-b border-white/5 hover:bg-white/10 transition cursor-pointer group"
+                  onClick={() => handleEdit(emp)}
+                >
                   <td className="p-4 font-mono text-gray-400 text-xs">{emp.employee_code || '-'}</td>
                   <td className="p-4 font-semibold">
                     <div>{emp.full_name}</div>
@@ -554,21 +558,30 @@ const EmployeeManagement = () => {
                     <td className="p-4">
                       <div className="flex gap-2">
                         <button
-                          onClick={() => handleViewHistory(emp)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleViewHistory(emp);
+                          }}
                           className="p-2 hover:bg-white/10 rounded transition text-purple-400"
                           title="View History"
                         >
                           <FiAlertCircle />
                         </button>
                         <button
-                          onClick={() => handleEdit(emp)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEdit(emp);
+                          }}
                           className="p-2 hover:bg-white/10 rounded transition text-blue-400"
                           title="Edit"
                         >
                           <FiEdit2 />
                         </button>
                         <button
-                          onClick={() => handleDelete(emp.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(emp.id);
+                          }}
                           className="p-2 hover:bg-white/10 rounded transition text-red-400"
                           title="Delete"
                         >

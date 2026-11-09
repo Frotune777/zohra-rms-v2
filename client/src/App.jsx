@@ -3,8 +3,13 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './context/AuthContext';
 import DashboardLayout from './layouts/DashboardLayout';
 import ProtectedRoute from './components/ProtectedRoute';
+import ApiErrorNotice from './components/ApiErrorNotice';
+import { Toaster } from 'react-hot-toast';
 import Login from './pages/Login';
 import POS from './pages/POS';
+import {KitchenDisplay,RecipeManagement,PurchaseOrders,StockWorkflow} from './pages/operations/Workflows';
+import OrderPayments from './pages/operations/OrderPayments';
+import EmployeeBalances from './pages/operations/EmployeeBalances';
 import Payroll from './pages/Payroll';
 import Advances from './pages/Advances';
 import VendorPayments from './pages/VendorPayments';
@@ -51,43 +56,50 @@ function AppRoutes() {
             <DashboardLayout>
               <Routes>
                 <Route path="/" element={<POS />} />
+                <Route path="kitchen" element={<KitchenDisplay />} />
+                <Route path="orders" element={<OrderPayments />} />
+                <Route path="recipes" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><RecipeManagement /></ProtectedRoute>} />
+                <Route path="purchase-orders" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><PurchaseOrders /></ProtectedRoute>} />
+                <Route path="wastage" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><StockWorkflow wastage /></ProtectedRoute>} />
+                <Route path="stock-adjustments" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><StockWorkflow /></ProtectedRoute>} />
+                <Route path="employee-balances" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><EmployeeBalances /></ProtectedRoute>} />
                 <Route path="/dashboard" element={<MasterDashboard />} />
-                <Route path="employees" element={<EmployeeManagement />} />
-                <Route path="menu" element={<MenuManagement />} />
-                <Route path="payroll" element={<Payroll />} />
+                <Route path="employees" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><EmployeeManagement /></ProtectedRoute>} />
+                <Route path="menu" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><MenuManagement /></ProtectedRoute>} />
+                <Route path="payroll" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><Payroll /></ProtectedRoute>} />
                 <Route path="advances" element={<Advances />} />
-                <Route path="vendor-payments" element={<VendorPayments />} />
-                <Route path="inventory" element={<Inventory />} />
-                <Route path="finance" element={<Finance />} />
-                <Route path="finance/payments" element={<PaymentEntry />} />
-                <Route path="finance/summary" element={<DailySummary />} />
-                <Route path="finance/daily-tracker" element={<DailyTracker />} />
-                <Route path="finance/float" element={<ManagerFloat />} />
-                <Route path="finance/mappings" element={<ExpenseMapping />} />
-                <Route path="finance/transfer" element={<MoneyTransfer />} />
-                <Route path="attendance/bulk" element={<BulkAttendance />} />
+                <Route path="vendor-payments" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><VendorPayments /></ProtectedRoute>} />
+                <Route path="inventory" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><Inventory /></ProtectedRoute>} />
+                <Route path="finance" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><Finance /></ProtectedRoute>} />
+                <Route path="finance/payments" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><PaymentEntry /></ProtectedRoute>} />
+                <Route path="finance/summary" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><DailySummary /></ProtectedRoute>} />
+                <Route path="finance/daily-tracker" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><DailyTracker /></ProtectedRoute>} />
+                <Route path="finance/float" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><ManagerFloat /></ProtectedRoute>} />
+                <Route path="finance/mappings" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><ExpenseMapping /></ProtectedRoute>} />
+                <Route path="finance/transfer" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><MoneyTransfer /></ProtectedRoute>} />
+                <Route path="attendance/bulk" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><BulkAttendance /></ProtectedRoute>} />
                 <Route path="attendance/leaves" element={<LeaveManagement />} />
-                <Route path="advances/approvals" element={<AdvanceApprovals />} />
-                <Route path="ai-dashboard" element={<AIDashboard />} />
+                <Route path="advances/approvals" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><AdvanceApprovals /></ProtectedRoute>} />
+                <Route path="ai-dashboard" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><AIDashboard /></ProtectedRoute>} />
 
                 {/* Chicken Tracker Routes */}
-                <Route path="chicken" element={<ChickenDashboard />} />
-                <Route path="chicken/rates" element={<DailyRates />} />
-                <Route path="chicken/bills" element={<BillEntry />} />
-                <Route path="chicken/vendors" element={<VendorManager />} />
+                <Route path="chicken" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><ChickenDashboard /></ProtectedRoute>} />
+                <Route path="chicken/rates" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><DailyRates /></ProtectedRoute>} />
+                <Route path="chicken/bills" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><BillEntry /></ProtectedRoute>} />
+                <Route path="chicken/vendors" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><VendorManager /></ProtectedRoute>} />
 
                 {/* Reports Routes */}
-                <Route path="reports" element={<ReportsDashboard />} />
-                <Route path="reports/financial" element={<FinancialReports />} />
-                <Route path="reports/hr" element={<HRReports />} />
-                <Route path="reports/operations" element={<OperationsReports />} />
-                <Route path="reports/inventory" element={<InventoryReports />} />
+                <Route path="reports" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><ReportsDashboard /></ProtectedRoute>} />
+                <Route path="reports/financial" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><FinancialReports /></ProtectedRoute>} />
+                <Route path="reports/hr" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><HRReports /></ProtectedRoute>} />
+                <Route path="reports/operations" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><OperationsReports /></ProtectedRoute>} />
+                <Route path="reports/inventory" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><InventoryReports /></ProtectedRoute>} />
 
                 {/* Configuration Management */}
-                <Route path="config" element={<ConfigManager />} />
+                <Route path="config" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><ConfigManager /></ProtectedRoute>} />
 
                 {/* Approvals Dashboard */}
-                <Route path="approvals" element={<ApprovalsDashboard />} />
+                <Route path="approvals" element={<ProtectedRoute requiredRoles={["owner", "manager"]}><ApprovalsDashboard /></ProtectedRoute>} />
 
                 <Route path="development-status" element={<DevelopmentStatus />} />
               </Routes>
@@ -102,8 +114,10 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <Router>
       <AuthProvider>
+        <ApiErrorNotice />
+        <Toaster position="top-right" />
         <AppRoutes />
       </AuthProvider>
     </Router>

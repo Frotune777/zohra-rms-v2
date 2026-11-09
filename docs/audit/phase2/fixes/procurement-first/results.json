@@ -1,0 +1,2002 @@
+{
+  "started_at": "2026-11-09T04:18:38.877Z",
+  "finished_at": "2026-11-09T04:19:13.869Z",
+  "planned_tests": [
+    {
+      "title": "RATES-001 complete, partial and repeated rate saves persist date-specific state",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 15
+    },
+    {
+      "title": "RATES-002 invalid rate -1 is rejected without changing stored rates",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 24
+    },
+    {
+      "title": "RATES-002 invalid rate NaN is rejected without changing stored rates",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 24
+    },
+    {
+      "title": "RATES-002 invalid rate Infinity is rejected without changing stored rates",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 24
+    },
+    {
+      "title": "RATES-003 leap-day and year boundaries stay on their requested calendar dates",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 28
+    },
+    {
+      "title": "MARKUP-001 all base rates and arithmetic operations compute independently expected prices",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 34
+    },
+    {
+      "title": "MARKUP-002 zero second operands are retained and division by zero is rejected",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 43
+    },
+    {
+      "title": "MARKUP-003 comparator boundaries apply the conditional markup exactly",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 50
+    },
+    {
+      "title": "MARKUP-004 negative results clamp to zero, decimals round, and duplicate rules update once",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 56
+    },
+    {
+      "title": "BILL-001 bill success commits on an independent connection for Audit Chicken",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 65
+    },
+    {
+      "title": "BILL-001 bill success commits on an independent connection for Unmatched stock item",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 65
+    },
+    {
+      "title": "BILL-002 missing rates and nonexistent suppliers are rejected without partial writes",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 70
+    },
+    {
+      "title": "BILL-003 fractional quantity and vendor rate 150 persist the exact variance",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 77
+    },
+    {
+      "title": "BILL-003 fractional quantity and vendor rate 160 persist the exact variance",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 77
+    },
+    {
+      "title": "BILL-003 fractional quantity and vendor rate 170 persist the exact variance",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 77
+    },
+    {
+      "title": "BILL-004 repeated and concurrent approvals post one liability and source journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 82
+    },
+    {
+      "title": "BILL-005 approved bill rejection preserves the original liability and posts a reversing event",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 89
+    },
+    {
+      "title": "BILL-006 partly settled bill rejection cannot produce negative supplier outstanding",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 96
+    },
+    {
+      "title": "BILL-007 closed-period bill creation is rejected without bill or inventory changes",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 104
+    },
+    {
+      "title": "VENDOR-001 supplier profile edits preserve opening balance and linked account",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 109
+    },
+    {
+      "title": "VENDOR-002 concurrent supplier creation assigns two distinct durable accounts",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 114
+    },
+    {
+      "title": "VENDOR-003 partial and full Cash settlements reconcile payment, supplier and journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 121
+    },
+    {
+      "title": "VENDOR-003 partial and full UPI settlements reconcile payment, supplier and journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 121
+    },
+    {
+      "title": "VENDOR-003 partial and full Bank Transfer settlements reconcile payment, supplier and journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 121
+    },
+    {
+      "title": "VENDOR-003 partial and full Card settlements reconcile payment, supplier and journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 121
+    },
+    {
+      "title": "VENDOR-004 invalid settlement 0 leaves payment, supplier and GL unchanged",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 128
+    },
+    {
+      "title": "VENDOR-004 invalid settlement -1 leaves payment, supplier and GL unchanged",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 128
+    },
+    {
+      "title": "VENDOR-004 invalid settlement 1001 leaves payment, supplier and GL unchanged",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 128
+    },
+    {
+      "title": "VENDOR-005 two jointly excessive concurrent payments cannot over-settle a supplier",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 131
+    },
+    {
+      "title": "VENDOR-006 retrying a settlement reference never duplicates payment or journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 136
+    },
+    {
+      "title": "VENDOR-007 date-filtered running balance includes prior bills and subtracts payments",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 141
+    },
+    {
+      "title": "VENDOR-008 a fully settled supplier has zero outstanding aged debt",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 147
+    },
+    {
+      "title": "VENDOR-009 supplier settlements use that supplier account instead of a shared payable",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 152
+    },
+    {
+      "title": "PO-001 receiving multiple items records quantities, movements, liability and source journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 158
+    },
+    {
+      "title": "PO-002 resetting and re-receiving a PO never adds its stock or liability twice",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 166
+    },
+    {
+      "title": "KDS-001 ticket transitions persist timestamps and reject unsupported status values",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 172
+    },
+    {
+      "title": "KDS-002 a POS sale appears automatically as one kitchen ticket",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 180
+    }
+  ],
+  "source_sha256": {
+    "playwright.audit.config.cjs": "a71db4d943a18608429fca9fe6f33014d4a87d69d4a12572aeff2b724fe12cad",
+    "tests/audit/auth.spec.cjs": "95fae9609d8a778dc2280a346d62e86197491236a1fa216a407cc5227381bc57",
+    "tests/audit/clock.cjs": "d610bc5db42c3f5ca22a04380af278baa79c80e528636da8fc068e1f3b7bf740",
+    "tests/audit/data-roundtrip.spec.cjs": "7d94671537178e3d032210d71dd69e4e1a6d985ecac811488a4b1a79a45ee2f9",
+    "tests/audit/database.cjs": "9e57d82896ffa25fd7ebfa5042a239af20bf726560df61ea1225be3da2a46174",
+    "tests/audit/exports.spec.cjs": "98cd06087cdfbf2bef7d94858704d23db5fe823539ecf89e35962ff60a436820",
+    "tests/audit/finance.spec.cjs": "12ea0397a98f73d4778b258d9d648005022ee6caa4596afff13cce53d932f2e3",
+    "tests/audit/fixtures.cjs": "754e4b030497b681c9b8a0bcf177e78201f07a8fa2aa815eb2b98bdda14ab14a",
+    "tests/audit/global-setup.cjs": "0193336d5a2c9c384ff79b1d7d4f39a64b5d6ca733f3411264958e6c51a05d38",
+    "tests/audit/global-teardown.cjs": "05fe5aef9cd5e4e0c7187257d4177f20e3fbafe790268e12448a402c310c509d",
+    "tests/audit/harness.spec.cjs": "09ecde360e4257c4e43df2cbdb65fd280a36314f14eb17fd055243f6329451d6",
+    "tests/audit/helpers.cjs": "41922596bef71690777ab88108ce74fe31ff5410e91650aa3d454b70dddf167a",
+    "tests/audit/hr.spec.cjs": "3ebbadd9a9ab34102de274d6bd0f75d258ab98e250f96858960b619f06065ca5",
+    "tests/audit/import-runner.py": "99eb69b02bf882a6255c7bddc1251466edb6cade53cc4d1af563fcd53b114331",
+    "tests/audit/payroll-ui.spec.cjs": "77ced4163432777ac05ca72028dc3ca1fa032337d2977df79895602166e2e4e6",
+    "tests/audit/pos-inventory.spec.cjs": "36812fccaf454a1b2a8a8cb5228b7440ab16a1919a834bf8a9d6020d78adadef",
+    "tests/audit/procurement.spec.cjs": "0f711d50e9bf22a7bafb473f388b64c3ca903387433d1e6fa6de6ca410b5e089",
+    "tests/audit/reporter.cjs": "2c5903c8e445544dccefaeff47521650f78652ace907e35ae68a9127f8f259f0",
+    "tests/audit/reports-config-ai.spec.cjs": "24b19eea59aff75842d92282ef56dd7c23c79ddf242efef52b38b4958eae7fa9",
+    "tests/audit/screen-states.spec.cjs": "36b3c238aaacfb96945afe0ba37e1302bf683d51ba04c637b0a68d29feb3a7ab",
+    "tests/audit/screens.cjs": "d1a775987958f7a4ea7951f1c67e4aaeee2171e9a5b758b465dc0de207a1ae17",
+    "tests/audit/screens.spec.cjs": "daede1a5e376ea623c767960d84f6b50b74015bd090fdbca18379cb1ec38da4c",
+    "tests/audit/service-runner.cjs": "b946717a5c368f4f20d46887489a5c4d4aa361ebcf08c1390963efaf17241c3b"
+  },
+  "status": "failed",
+  "counts": {
+    "passed": 34,
+    "failed": 3
+  },
+  "results": [
+    {
+      "title": "RATES-001 complete, partial and repeated rate saves persist date-specific state",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 15,
+      "ids": [
+        "RATES-001"
+      ],
+      "status": "passed",
+      "duration_ms": 2540,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-RATES-001-comp-7cb55-persist-date-specific-state/attachments/audit-evidence-3911d76da236e11a0a253910e9c072677a8dd9bd.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_c2c94b60e458_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/rates",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "chicken/rates?date=2026-11-09",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/rates",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "chicken/rates?date=2026-11-09",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/rates",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "chicken/rates?date=2026-11-09",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "RATES-002 invalid rate -1 is rejected without changing stored rates",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 24,
+      "ids": [
+        "RATES-002"
+      ],
+      "status": "passed",
+      "duration_ms": 846,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-RATES-002-inva-4c143-thout-changing-stored-rates/attachments/audit-evidence-636f8b09826aa7aba5f90abd0a36629d3a54a56e.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_14d0df90f3d7_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/rates",
+            "role": "owner",
+            "status": 400,
+            "error": "tandoor_rate must be a finite non-negative number"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "RATES-002 invalid rate NaN is rejected without changing stored rates",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 24,
+      "ids": [
+        "RATES-002"
+      ],
+      "status": "passed",
+      "duration_ms": 819,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-RATES-002-inva-b3f12-thout-changing-stored-rates/attachments/audit-evidence-da59b814668a128cc5bad7790a7170ca26236146.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a751f0d7315a_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/rates",
+            "role": "owner",
+            "status": 400,
+            "error": "tandoor_rate must be a finite non-negative number"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "RATES-002 invalid rate Infinity is rejected without changing stored rates",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 24,
+      "ids": [
+        "RATES-002"
+      ],
+      "status": "passed",
+      "duration_ms": 835,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-RATES-002-inva-ad5cf-thout-changing-stored-rates/attachments/audit-evidence-1a172c55c8f87374cda4fd84472fa7b2a769d24b.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_773690f5136d_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/rates",
+            "role": "owner",
+            "status": 400,
+            "error": "tandoor_rate must be a finite non-negative number"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "RATES-003 leap-day and year boundaries stay on their requested calendar dates",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 28,
+      "ids": [
+        "RATES-003"
+      ],
+      "status": "passed",
+      "duration_ms": 876,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-RATES-003-leap-eb524-ir-requested-calendar-dates/attachments/audit-evidence-164293f22741c8e97bb11beea367c5a2009aeab3.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ae149d8f7f8c_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/rates",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/rates",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/rates",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "chicken/rates/calendar?startDate=2024-02-28&endDate=2024-03-01",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "MARKUP-001 all base rates and arithmetic operations compute independently expected prices",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 34,
+      "ids": [
+        "MARKUP-001"
+      ],
+      "status": "passed",
+      "duration_ms": 899,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-MARKUP-001-all-0e5c0-dependently-expected-prices/attachments/audit-evidence-6d8d59c94004e29346000da946fae2c59c03e587.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e14140d02d20_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "MARKUP-002 zero second operands are retained and division by zero is rejected",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 43,
+      "ids": [
+        "MARKUP-002"
+      ],
+      "status": "passed",
+      "duration_ms": 865,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-MARKUP-002-zer-358f8-ivision-by-zero-is-rejected/attachments/audit-evidence-e7c3fb678722ad90712cbf1550c7224aafa96e56.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_547068169d3b_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 400,
+            "error": "Division by zero is not allowed"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "MARKUP-003 comparator boundaries apply the conditional markup exactly",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 50,
+      "ids": [
+        "MARKUP-003"
+      ],
+      "status": "passed",
+      "duration_ms": 937,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-MARKUP-003-com-4085b--conditional-markup-exactly/attachments/audit-evidence-47bf9f670d5694c514655ae899ecd67e4ebd468e.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_2cf67203e7ea_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "MARKUP-004 negative results clamp to zero, decimals round, and duplicate rules update once",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 56,
+      "ids": [
+        "MARKUP-004"
+      ],
+      "status": "passed",
+      "duration_ms": 877,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-MARKUP-004-neg-92a42-duplicate-rules-update-once/attachments/audit-evidence-ed83d5cd0a12165f7afb4541ca7dbdc27c41690a.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_79bf424ebd5f_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/markups",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "DELETE",
+            "endpoint": "chicken/markups/1",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "BILL-001 bill success commits on an independent connection for Audit Chicken",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 65,
+      "ids": [
+        "BILL-001"
+      ],
+      "status": "passed",
+      "duration_ms": 851,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-BILL-001-bill--12675-onnection-for-Audit-Chicken/attachments/audit-evidence-a0765b93a0d715547af9edabbc0d4613048c6c74.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d1954d6745f4_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "BILL-001 bill success commits on an independent connection for Unmatched stock item",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 65,
+      "ids": [
+        "BILL-001"
+      ],
+      "status": "passed",
+      "duration_ms": 843,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-BILL-001-bill--54a79-on-for-Unmatched-stock-item/attachments/audit-evidence-03e15fd3b53c6c00b5985ea305c62036fe1c09ba.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_8d3f7fb25dd5_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "BILL-002 missing rates and nonexistent suppliers are rejected without partial writes",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 70,
+      "ids": [
+        "BILL-002"
+      ],
+      "status": "passed",
+      "duration_ms": 888,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-BILL-002-missi-60e15-cted-without-partial-writes/attachments/audit-evidence-d990b100282c4c66f6c5909d6f94fa0cf88a71c2.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_80bf03064218_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 400,
+            "error": "Daily rates not set for this date"
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 404,
+            "error": "Supplier not found"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "BILL-003 fractional quantity and vendor rate 150 persist the exact variance",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 77,
+      "ids": [
+        "BILL-003"
+      ],
+      "status": "passed",
+      "duration_ms": 862,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-BILL-003-fract-8d8eb--persist-the-exact-variance/attachments/audit-evidence-46e36b9c474d7e8b1c5d9fd03edb1182553037bf.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_c40a3b5f6884_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "BILL-003 fractional quantity and vendor rate 160 persist the exact variance",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 77,
+      "ids": [
+        "BILL-003"
+      ],
+      "status": "passed",
+      "duration_ms": 861,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-BILL-003-fract-7fc9c--persist-the-exact-variance/attachments/audit-evidence-3a2630e18b58febdd9852a5e52d3f152de73cf7a.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_8b818cf47b3e_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "BILL-003 fractional quantity and vendor rate 170 persist the exact variance",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 77,
+      "ids": [
+        "BILL-003"
+      ],
+      "status": "passed",
+      "duration_ms": 869,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-BILL-003-fract-5721f--persist-the-exact-variance/attachments/audit-evidence-f8d515c6ce0101d370301dbf4ead097af5560c41.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_dbabe37daedf_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "BILL-004 repeated and concurrent approvals post one liability and source journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 82,
+      "ids": [
+        "BILL-004"
+      ],
+      "status": "passed",
+      "duration_ms": 883,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-BILL-004-repea-ea8a5-iability-and-source-journal/attachments/audit-evidence-101c60ace59b3d8b78df28b0416b79a4691dc7e0.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_211f23664e09_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "PATCH",
+            "endpoint": "chicken/bills/1/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "endpoint": "chicken/bills/1/status",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal Bill 1",
+            "actual": {
+              "header": {
+                "id": "ed269ccc-6e04-42a6-93a0-8174d367a93e",
+                "transaction_date": "2026-11-08T18:30:00.000Z",
+                "description": "Bill #1 - Audit Chicken",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "Bill",
+                "created_at": "2026-11-09T04:18:54.406Z"
+              },
+              "lines": [
+                {
+                  "account": 1200,
+                  "debit": 320,
+                  "credit": 0
+                },
+                {
+                  "account": 2000,
+                  "debit": 0,
+                  "credit": 320
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "BILL-005 approved bill rejection preserves the original liability and posts a reversing event",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 89,
+      "ids": [
+        "BILL-005"
+      ],
+      "status": "passed",
+      "duration_ms": 882,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-BILL-005-appro-3137d-and-posts-a-reversing-event/attachments/audit-evidence-d275f6d085e5c781507ad01c697917841f01c12e.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_85d2d2a2e037_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "PATCH",
+            "endpoint": "chicken/bills/1/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "endpoint": "chicken/bills/1/status",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "BILL-006 partly settled bill rejection cannot produce negative supplier outstanding",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 96,
+      "ids": [
+        "BILL-006"
+      ],
+      "status": "passed",
+      "duration_ms": 895,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-BILL-006-partl-50465-gative-supplier-outstanding/attachments/audit-evidence-2b4fc5f8e71cdb1eb798a52860dd81cf8b5c138c.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_27cb4f852775_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "PATCH",
+            "endpoint": "chicken/bills/1/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "endpoint": "chicken/bills/1/status",
+            "role": "owner",
+            "status": 409,
+            "error": "A settled bill cannot be rejected"
+          }
+        ],
+        "checks": [
+          {
+            "name": "Rejected partially paid bill response",
+            "actual": {
+              "status": 409,
+              "body": {
+                "error": "A settled bill cannot be rejected"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "BILL-007 closed-period bill creation is rejected without bill or inventory changes",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 104,
+      "ids": [
+        "BILL-007"
+      ],
+      "status": "passed",
+      "duration_ms": 875,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-BILL-007-close-f12fc-t-bill-or-inventory-changes/attachments/audit-evidence-8731627c3f9c9c7563cfd22f83d04b1ba4e03be5.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_bdc7273b644b_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 400,
+            "error": "Financial period is locked"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "VENDOR-001 supplier profile edits preserve opening balance and linked account",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 109,
+      "ids": [
+        "VENDOR-001"
+      ],
+      "status": "passed",
+      "duration_ms": 858,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-001-sup-b9832--balance-and-linked-account/attachments/audit-evidence-a5dada088a74cb1b2b859cc5bd3516cbd577b066.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_2c30e4382eb3_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "PUT",
+            "endpoint": "chicken/suppliers/1",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "VENDOR-002 concurrent supplier creation assigns two distinct durable accounts",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 114,
+      "ids": [
+        "VENDOR-002"
+      ],
+      "status": "passed",
+      "duration_ms": 904,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-002-con-b9ff5-o-distinct-durable-accounts/attachments/audit-evidence-e132498e15fd8ddcbab78b03b4de9d5407fad227.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_3c163f65526c_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/suppliers",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "chicken/suppliers",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "VENDOR-003 partial and full Cash settlements reconcile payment, supplier and journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 121,
+      "ids": [
+        "VENDOR-003"
+      ],
+      "status": "passed",
+      "duration_ms": 866,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-003-par-8406a-ayment-supplier-and-journal/attachments/audit-evidence-70d3009b932685c3d9fda52270ada4b6a16e14c6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_5ae1d855a46b_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal VendorPayment 1",
+            "actual": {
+              "header": {
+                "id": "13a252d3-81d3-487e-8f5b-772496fea4e2",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Vendor Payment - Audit Chicken Supplier",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "VendorPayment",
+                "created_at": "2026-11-09T04:18:59.699Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 0,
+                  "credit": 400
+                },
+                {
+                  "account": 2000,
+                  "debit": 400,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "VENDOR-003 partial and full UPI settlements reconcile payment, supplier and journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 121,
+      "ids": [
+        "VENDOR-003"
+      ],
+      "status": "passed",
+      "duration_ms": 900,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-003-par-26721-ayment-supplier-and-journal/attachments/audit-evidence-68866a725411a094347ca4613b106e9a886265d1.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_0b5396f76730_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal VendorPayment 1",
+            "actual": {
+              "header": {
+                "id": "9bc3b5ff-b15e-4864-82d2-2d2e45197315",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Vendor Payment - Audit Chicken Supplier",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "VendorPayment",
+                "created_at": "2026-11-09T04:19:00.606Z"
+              },
+              "lines": [
+                {
+                  "account": 1020,
+                  "debit": 0,
+                  "credit": 400
+                },
+                {
+                  "account": 2000,
+                  "debit": 400,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "VENDOR-003 partial and full Bank Transfer settlements reconcile payment, supplier and journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 121,
+      "ids": [
+        "VENDOR-003"
+      ],
+      "status": "passed",
+      "duration_ms": 864,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-003-par-36849-ayment-supplier-and-journal/attachments/audit-evidence-c37f3ef96a65034d91df79b0b84b85e991729484.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ac28f8b468ec_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal VendorPayment 1",
+            "actual": {
+              "header": {
+                "id": "c2e96b11-4010-499a-a72e-554cbf5007cd",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Vendor Payment - Audit Chicken Supplier",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "VendorPayment",
+                "created_at": "2026-11-09T04:19:01.467Z"
+              },
+              "lines": [
+                {
+                  "account": 1010,
+                  "debit": 0,
+                  "credit": 400
+                },
+                {
+                  "account": 2000,
+                  "debit": 400,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "VENDOR-003 partial and full Card settlements reconcile payment, supplier and journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 121,
+      "ids": [
+        "VENDOR-003"
+      ],
+      "status": "failed",
+      "duration_ms": 865,
+      "errors": [
+        "Error: {\"error\":\"new row for relation \\\"vendor_payments\\\" violates check constraint \\\"vendor_payments_payment_mode_check\\\"\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m400\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-003-par-74835-ayment-supplier-and-journal/attachments/audit-evidence-6f4dae989e906023e35e033bafeae21319e1ff2a.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-003-par-74835-ayment-supplier-and-journal/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-003-par-74835-ayment-supplier-and-journal/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_5b4265407c6f_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 400,
+            "error": "new row for relation \"vendor_payments\" violates check constraint \"vendor_payments_payment_mode_check\""
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "VENDOR-004 invalid settlement 0 leaves payment, supplier and GL unchanged",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 128,
+      "ids": [
+        "VENDOR-004"
+      ],
+      "status": "passed",
+      "duration_ms": 890,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-004-inv-f8438-t-supplier-and-GL-unchanged/attachments/audit-evidence-3568f07ff2c826653c1445d3e59838882f4f46d8.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_bea4188fa4f6_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 400,
+            "error": "Payment amount must be a finite positive number"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "VENDOR-004 invalid settlement -1 leaves payment, supplier and GL unchanged",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 128,
+      "ids": [
+        "VENDOR-004"
+      ],
+      "status": "passed",
+      "duration_ms": 890,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-004-inv-4ca2b-t-supplier-and-GL-unchanged/attachments/audit-evidence-b6e49398ec7e28ea099aa990836842275e5ff797.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e42a6c088407_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 400,
+            "error": "Payment amount must be a finite positive number"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "VENDOR-004 invalid settlement 1001 leaves payment, supplier and GL unchanged",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 128,
+      "ids": [
+        "VENDOR-004"
+      ],
+      "status": "passed",
+      "duration_ms": 860,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-004-inv-4dee4-t-supplier-and-GL-unchanged/attachments/audit-evidence-0d4b20958e1295a1c50d044aab0719307d2c9579.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a96324031b6d_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 400,
+            "error": "Payment amount (₹1001) exceeds outstanding balance (₹1000.00)"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "VENDOR-005 two jointly excessive concurrent payments cannot over-settle a supplier",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 131,
+      "ids": [
+        "VENDOR-005"
+      ],
+      "status": "passed",
+      "duration_ms": 976,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-005-two-57c3e-nnot-over-settle-a-supplier/attachments/audit-evidence-bb862a0dd595d4c0427ca3bbda04007528cbb91c.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_7afcde08d20b_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 400,
+            "error": "Payment amount (₹600) exceeds outstanding balance (₹400.00)"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "VENDOR-006 retrying a settlement reference never duplicates payment or journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 136,
+      "ids": [
+        "VENDOR-006"
+      ],
+      "status": "passed",
+      "duration_ms": 878,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-006-ret-dd87d-plicates-payment-or-journal/attachments/audit-evidence-928d995aaa00f81cceff0039fe39f889628c81f8.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b99a00d762fd_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "VENDOR-007 date-filtered running balance includes prior bills and subtracts payments",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 141,
+      "ids": [
+        "VENDOR-007"
+      ],
+      "status": "passed",
+      "duration_ms": 852,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-007-dat-fbd5d-ills-and-subtracts-payments/attachments/audit-evidence-15cfd39e07bc0f9b56d84c686465fef7ed202245.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_84359bc2a4a5_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "vendors/1/running-balance?startDate=2026-11-01&endDate=2026-11-30",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "VENDOR-008 a fully settled supplier has zero outstanding aged debt",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 147,
+      "ids": [
+        "VENDOR-008"
+      ],
+      "status": "passed",
+      "duration_ms": 866,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-008-a-f-67510--zero-outstanding-aged-debt/attachments/audit-evidence-18555249662c1faaf91e0cafdd39920d3b375f99.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_44bffbf96902_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "vendors/1/details",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "VENDOR-009 supplier settlements use that supplier account instead of a shared payable",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 152,
+      "ids": [
+        "VENDOR-009"
+      ],
+      "status": "passed",
+      "duration_ms": 870,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-VENDOR-009-sup-9b520-instead-of-a-shared-payable/attachments/audit-evidence-99aeaae1b63983ff1e2ced507642ef4c8e829a41.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_82248987886c_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal VendorPayment 1",
+            "actual": {
+              "header": {
+                "id": "05a6c571-8a42-4ea7-ba72-9f688cecd243",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Vendor Payment - Audit Chicken Supplier",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "VendorPayment",
+                "created_at": "2026-11-09T04:19:09.666Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 0,
+                  "credit": 100
+                },
+                {
+                  "account": 2011,
+                  "debit": 100,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "PO-001 receiving multiple items records quantities, movements, liability and source journal",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 158,
+      "ids": [
+        "PO-001"
+      ],
+      "status": "passed",
+      "duration_ms": 863,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-PO-001-receivi-445b5-iability-and-source-journal/attachments/audit-evidence-3af0c784a520364af95be98f32d763d5ed7b7ab0.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_55e13e6de971_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/po",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "chicken/po/1/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "chicken/po/1/status",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal PurchaseOrder 1",
+            "actual": {
+              "header": {
+                "id": "0259e2b2-c712-4551-835c-ca08e73d1f2f",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "PO #1 Received",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "PurchaseOrder",
+                "created_at": "2026-11-09T04:19:10.550Z"
+              },
+              "lines": [
+                {
+                  "account": 1200,
+                  "debit": 500,
+                  "credit": 0
+                },
+                {
+                  "account": 2000,
+                  "debit": 0,
+                  "credit": 500
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "PO-002 resetting and re-receiving a PO never adds its stock or liability twice",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 166,
+      "ids": [
+        "PO-002"
+      ],
+      "status": "passed",
+      "duration_ms": 888,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-PO-002-resetti-821ca-ts-stock-or-liability-twice/attachments/audit-evidence-d2f6b41aba97ff8be64b6815bae6fcd3331f03ab.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_9d8d84fc9e56_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/po",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "chicken/po/1/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "chicken/po/1/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "chicken/po/1/status",
+            "role": "owner",
+            "status": 409,
+            "error": "Received purchase orders cannot be reset"
+          },
+          {
+            "method": "PUT",
+            "endpoint": "chicken/po/1/status",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "KDS-001 ticket transitions persist timestamps and reject unsupported status values",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 172,
+      "ids": [
+        "KDS-001"
+      ],
+      "status": "failed",
+      "duration_ms": 905,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m400\u001b[39m\nReceived: \u001b[31m200\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-KDS-001-ticket-9469c-t-unsupported-status-values/attachments/audit-evidence-7bf4291bbde66a379c5a0aad15cf2e1e609ef3c3.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-KDS-001-ticket-9469c-t-unsupported-status-values/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-KDS-001-ticket-9469c-t-unsupported-status-values/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_dafe72fc68a6_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "kds/tickets",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "kds/tickets/1",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "kds/tickets/1",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "kds/tickets/1",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "KDS-002 a POS sale appears automatically as one kitchen ticket",
+      "file": "tests/audit/procurement.spec.cjs",
+      "line": 180,
+      "ids": [
+        "KDS-002"
+      ],
+      "status": "failed",
+      "duration_ms": 921,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoHaveLength\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected length: \u001b[32m1\u001b[39m\nReceived length: \u001b[31m0\u001b[39m\nReceived array:  \u001b[31m[]\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-KDS-002-a-POS--7741a-cally-as-one-kitchen-ticket/attachments/audit-evidence-5168c15ac698db33f0989641a4d4b2380828b428.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-KDS-002-a-POS--7741a-cally-as-one-kitchen-ticket/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/procurement-KDS-002-a-POS--7741a-cally-as-one-kitchen-ticket/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_74db368fe8f8_1794197918104",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    }
+  ]
+}

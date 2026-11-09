@@ -323,7 +323,7 @@ const Finance = () => {
 
       {/* Month/Year Navigation */}
       <div className="glass-panel p-3 md:p-4 rounded-lg mb-4 md:mb-6 flex items-center justify-between">
-        <button
+        <button aria-label="Previous"
           onClick={() => handleMonthChange(-1)}
           className="p-2 hover:bg-white/10 rounded transition"
         >
@@ -335,7 +335,7 @@ const Finance = () => {
           <p className="text-xs text-gray-400">Period {selectedMonth}/{selectedYear}</p>
         </div>
 
-        <button
+        <button aria-label="Next"
           onClick={() => handleMonthChange(1)}
           className="p-2 hover:bg-white/10 rounded transition"
         >
@@ -563,7 +563,7 @@ const Finance = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Type</label>
-                  <select
+                  <select aria-label="Transaction type"
                     value={transactionType}
                     onChange={(e) => setTransactionType(e.target.value)}
                     className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-zohra-blue"
@@ -574,7 +574,7 @@ const Finance = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
-                  <input
+                  <input aria-label="Description"
                     type="text"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -585,7 +585,7 @@ const Finance = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Amount (₹)</label>
-                  <input
+                  <input aria-label="Amount"
                     type="number"
                     step="0.01"
                     min="0"
@@ -625,7 +625,7 @@ const Finance = () => {
                     </td>
                     {userRole === 'owner' && (
                       <td className="p-4">
-                        <button onClick={() => handleDeleteTransaction(txn.id)} className="text-red-400 hover:text-white"><FiTrash2 /></button>
+                        <button aria-label="Delete" onClick={() => handleDeleteTransaction(txn.id)} className="text-red-400 hover:text-white"><FiTrash2 /></button>
                       </td>
                     )}
                   </tr>

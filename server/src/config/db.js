@@ -1,4 +1,5 @@
-const { Pool } = require('pg');
+const { Pool, types } = require('pg');
+require('dotenv').config({ path: require('path').join(__dirname, '../../../.env') });
 
 if (!process.env.DATABASE_URL) {
   console.error('CRITICAL: DATABASE_URL must be set in environment variables');
@@ -10,11 +11,30 @@ const pool = new Pool({
   max: 20, // Increase pool size
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 5000, // Fail fast if DB is busy
+  // SQL DATE is a calendar day, not a local-midnight instant. Keep its day
+  // intact when services compare it with UTC posting/closure dates.
+  types: {
+    getTypeParser: (oid, format) => oid === 1082 && format !== 'binary'
+      ? value => value
+      : types.getTypeParser(oid, format),
+  },
 });
 
 const fs = require('fs');
 const path = require('path');
-const logStream = fs.createWriteStream(path.join(__dirname, '../logs/db.log'), { flags: 'a' });
+let logStream;
+try {
+  logStream = fs.createWriteStream(path.join(__dirname, '../logs/db.log'), { flags: 'a' });
+} catch (err) {
+  console.error('Failed to create DB log stream:', err.message);
+  logStream = {
+    write: (msg) => console.log('[DB LOG]', msg.trim())
+  };
+}
+
+logStream.on('error', (err) => {
+  console.error('DB Log Stream Error:', err.message);
+});
 
 module.exports = {
   query: (text, params) => {

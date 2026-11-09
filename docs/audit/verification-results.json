@@ -1,0 +1,1126 @@
+{
+  "date": "2026-11-09",
+  "tests": {
+    "backend": {
+      "baseline": {
+        "total": 183,
+        "passed": 146,
+        "failed": 37,
+        "test_files": 15,
+        "failures": [
+          {
+            "file": "server/tests/auth.test.js",
+            "name": "Auth Module POST /api/auth/register should return 400 if email already exists",
+            "message": "Error: expect(received).toEqual(expected) // deep equality\n\nExpected: 400\nReceived: 500\n    at Object.toEqual (/Users/I557587/Personal/zohra-rms-v2/server/tests/auth.test.js:137:36)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"
+          },
+          {
+            "file": "server/tests/auth.test.js",
+            "name": "Auth Module POST /api/auth/register should successfully register a new user with auth",
+            "message": "Error: expect(received).toEqual(expected) // deep equality\n\nExpected: 200\nReceived: 500\n    at Object.toEqual (/Users/I557587/Personal/zohra-rms-v2/server/tests/auth.test.js:165:36)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"
+          },
+          {
+            "file": "server/tests/finance.test.js",
+            "name": "Finance Module addExpense should add an expense transaction",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"success\": true}\nReceived: {\"error\": \"Database error\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/finance.test.js:221:30)"
+          },
+          {
+            "file": "server/tests/finance.test.js",
+            "name": "Finance Module recordPayment should record a vendor payment",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"success\": true}\nReceived: {\"error\": \"Cannot read properties of undefined (reading '0')\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/finance.test.js:291:30)"
+          },
+          {
+            "file": "server/tests/finance.test.js",
+            "name": "Finance Module Account Closure & Balance should get daily balance summary",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"closing_balance\": 6000}\nReceived: {\"closing_balance\": 0, \"expected_closing_calculated\": 0, \"is_closed\": false, \"variance\": 0}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/finance.test.js:311:30)"
+          },
+          {
+            "file": "server/tests/finance.test.js",
+            "name": "Finance Module Account Closure & Balance should close daily balance",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"variance\": -50}\nReceived: {\"error\": \"Cannot read properties of undefined (reading 'length')\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/finance.test.js:337:30)"
+          },
+          {
+            "file": "server/tests/advances.test.js",
+            "name": "Advances and Payroll Module runPayroll should process payroll with prorated salary",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"earnedSalary\": Any<Number>, \"netPay\": Any<Number>, \"success\": true}\nReceived: {\"error\": \"Employee not found\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/advances.test.js:213:30)"
+          },
+          {
+            "file": "server/tests/advances.test.js",
+            "name": "Advances and Payroll Module runPayroll should apply manual adjustments to payroll",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"netPay\": Any<Number>, \"success\": true}\nReceived: {\"error\": \"Cannot read properties of undefined (reading 'id')\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/advances.test.js:255:30)"
+          },
+          {
+            "file": "server/tests/advances.test.js",
+            "name": "Advances and Payroll Module runPayroll should handle database errors",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 500\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/advances.test.js:316:32)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module processPayment should process vendor payment successfully",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"newBalance\": 5000, \"payment\": Any<Object>, \"success\": true}\nReceived: {\"error\": \"Account code is required for a ledger line\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:66:30)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module processPayment should return 404 if vendor not found",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 404\nReceived: 500\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:91:32)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module processPayment should prevent overpayment",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 400\nReceived: 500\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:114:32)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module processPayment should validate required fields",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 400\nReceived: 500\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:140:32)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getPayments should return all vendor payments",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Array [\n    Object {\n-     \"amount\": 5000,\n      \"id\": 1,\n-     \"payment_date\": \"2024-12-15\",\n-     \"payment_mode\": \"Cash\",\n-     \"vendor_id\": 1,\n-     \"vendor_name\": \"ABC Suppliers\",\n+     \"name\": \"ABC Suppliers\",\n    },\n  ],\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:179:30)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getPayments should handle database errors",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 500\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:216:32)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getOutstanding should return outstanding balance for vendor",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Object {\n-   \"outstanding_balance\": 5000,\n-   \"vendor_id\": 1,\n+   \"error\": \"Database error\",\n  },\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:233:30)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getVendorDetails should return comprehensive vendor details",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"aging\": Any<Object>, \"outstanding_balance\": 5000, \"total_bill_amount\": 15000, \"total_payment_amount\": 10000, \"vendor_id\": 1, \"vendor_name\": \"ABC Suppliers\"}\nReceived: {\"aging\": {\"0_30_days\": 0, \"30_60_days\": 0, \"60_90_days\": 0, \"over_90_days\": 0}, \"outstanding_balance\": 5000, \"vendor_id\": 1, \"vendor_name\": \"ABC Suppliers\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:315:30)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getVendorDetails should return 404 if vendor not found",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 404\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:334:32)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getVendorsWithOutstanding should return vendors with outstanding balances",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n- Array [\n-   Object {\n-     \"outstanding_balance\": 10000,\n-     \"vendor_id\": 1,\n-     \"vendor_name\": \"ABC Suppliers\",\n-   },\n-   Object {\n-     \"outstanding_balance\": 5000,\n-     \"vendor_id\": 2,\n-     \"vendor_name\": \"XYZ Traders\",\n-   },\n- ]\n+ Array [],\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:357:30)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getVendorsWithOutstanding should filter by category",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: StringContaining \"category_id = $1\", [\"1\"]\nReceived: \"SELECT * FROM vendor_outstanding ORDER BY outstanding_balance DESC\"\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:367:30)"
+          },
+          {
+            "file": "server/tests/chicken.test.js",
+            "name": "Chicken/Supplier Module createBillEntry should handle variance calculation",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"variance\": 250}\nReceived: {\"error\": \"Daily rates not set for this date\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/chicken.test.js:304:30)"
+          },
+          {
+            "file": "server/tests/chicken.test.js",
+            "name": "Chicken/Supplier Module createBillEntry should return 400 if daily rates not set",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 400\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/chicken.test.js:322:32)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module runPayroll should run payroll for an employee with manual days worked",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"data\": Any<Array>, \"success\": true}\nReceived: {\"error\": \"Cannot read properties of undefined (reading 'outstanding_balance')\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:70:30)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module runPayroll should handle database errors and rollback",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 500\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:192:32)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module getMonthlyPayroll should return payroll records for a specific month",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n- Array [\n-   Object {\n-     \"base_salary\": 30000,\n-     \"days_worked\": 30,\n-     \"employee_id\": 1,\n-     \"full_name\": \"John Doe\",\n-     \"id\": 1,\n-     \"month\": 12,\n-     \"net_pay\": 28000,\n-     \"position\": \"Chef\",\n-     \"status\": \"Pending\",\n-     \"total_outstanding_advances\": 2000,\n-     \"year\": 2024,\n-   },\n- ]\n+ Array [],\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:225:30)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module getMonthlyPayroll should handle database errors",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 500\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:235:32)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module approvePayroll should approve a pending payroll entry",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Object {\n-   \"employee_id\": 1,\n+   \"base_salary\": 30000,\n+   \"full_name\": \"John Doe\",\n    \"id\": 1,\n-   \"net_pay\": 28000,\n-   \"status\": \"Approved\",\n+   \"status\": \"active\",\n  },\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:258:30)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module approvePayroll should handle database errors",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 500\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:268:32)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module markPaid should mark payroll as paid and create journal entries",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Object {\n-   \"advance_deduction\": 2000,\n-   \"employee_id\": 1,\n-   \"id\": 1,\n-   \"month\": 12,\n-   \"net_pay\": 28000,\n-   \"status\": \"Paid\",\n-   \"year\": 2024,\n+   \"error\": \"Record not found or not Approved\",\n  },\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:304:30)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module markPaid should return error if record not found or not approved",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Object {\n-   \"error\": \"Record not found or not Approved\",\n+   \"error\": \"Database error\",\n  },\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:321:30)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module markPaid should handle payroll without advance deductions",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Object {\n-   \"advance_deduction\": 0,\n-   \"employee_id\": 1,\n-   \"id\": 1,\n-   \"net_pay\": 30000,\n-   \"status\": \"Paid\",\n+   \"error\": \"Record not found or not Approved\",\n  },\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:351:30)"
+          },
+          {
+            "file": "server/tests/pos.test.js",
+            "name": "POS Module createOrder should create an order with inventory updates",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"success\": true}\nReceived: {\"error\": \"Cannot read properties of undefined (reading 'id')\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/pos.test.js:251:30)"
+          },
+          {
+            "file": "server/tests/pos.test.js",
+            "name": "POS Module createOrder should calculate total revenue correctly",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: StringContaining \"INSERT INTO orders\", ArrayContaining [500]\nReceived\n       1: \"BEGIN\"\n       2: \"SELECT m.id, m.price, m.category, m.tax_rate_id, t.rate_percentage\u00b7\n                 FROM menu_items m\n                 LEFT JOIN tax_rates t ON m.tax_rate_id = t.id\n                 WHERE m.id = ANY($1)\", [[1]]\n       3: \"INSERT INTO orders (\n                    total_amount, payment_mode, status, customer_id, created_by, order_number\n                ) VALUES ($1, $2, 'Completed', $3, $4, $5) RETURNING id\", [0, \"Cash\", null, null, \"ORD-1794166696260-130\"]\n\nNumber of calls: 8\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/pos.test.js:276:23)"
+          },
+          {
+            "file": "server/tests/ai.test.js",
+            "name": "AI Module getSuggestedPOs should return suggested purchase orders for low stock items",
+            "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at Object.toBe (/Users/I557587/Personal/zohra-rms-v2/server/tests/ai.test.js:136:71)"
+          },
+          {
+            "file": "server/tests/ai.test.js",
+            "name": "AI Module getSuggestedPOs should handle items with no usage data",
+            "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at Object.toBe (/Users/I557587/Personal/zohra-rms-v2/server/tests/ai.test.js:243:71)"
+          },
+          {
+            "file": "server/tests/operations.test.js",
+            "name": "Operations Module Wastage Management logWastage should log wastage and update inventory",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Object {\n-   \"cost\": 500,\n-   \"id\": 1,\n-   \"inventory_item_id\": 10,\n-   \"qty\": 5,\n-   \"reason\": \"Expired\",\n-   \"reported_by\": \"manager@test.com\",\n+   \"error\": \"Invalid account code: 1200\",\n  },\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/operations.test.js:288:34)"
+          },
+          {
+            "file": "server/tests/operations.test.js",
+            "name": "Operations Module Wastage Management logWastage should rollback on database error",
+            "message": "Error: Query failed\n    at Object.<anonymous> (/Users/I557587/Personal/zohra-rms-v2/server/tests/operations.test.js:245:44)\n    at Promise.finally.completed (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1834:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1774:10)\n    at _callCircusTest (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1167:40)\n    at _runTestInContext (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1103:3)\n    at runTestWithContext (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:996:5)\n    at _runTestsForDescribeBlockOnce (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1008:11)\n    at _runTestsForDescribeBlock (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:824:5)\n    at _runTestsForDescribeBlockOnce (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestA"
+          }
+        ]
+      },
+      "upgraded": {
+        "total": 183,
+        "passed": 146,
+        "failed": 37,
+        "test_files": 15,
+        "failures": [
+          {
+            "file": "server/tests/auth.test.js",
+            "name": "Auth Module POST /api/auth/register should return 400 if email already exists",
+            "message": "Error: expect(received).toEqual(expected) // deep equality\n\nExpected: 400\nReceived: 500\n    at Object.toEqual (/Users/I557587/Personal/zohra-rms-v2/server/tests/auth.test.js:137:36)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"
+          },
+          {
+            "file": "server/tests/auth.test.js",
+            "name": "Auth Module POST /api/auth/register should successfully register a new user with auth",
+            "message": "Error: expect(received).toEqual(expected) // deep equality\n\nExpected: 200\nReceived: 500\n    at Object.toEqual (/Users/I557587/Personal/zohra-rms-v2/server/tests/auth.test.js:165:36)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"
+          },
+          {
+            "file": "server/tests/operations.test.js",
+            "name": "Operations Module Wastage Management logWastage should log wastage and update inventory",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Object {\n-   \"cost\": 500,\n-   \"id\": 1,\n-   \"inventory_item_id\": 10,\n-   \"qty\": 5,\n-   \"reason\": \"Expired\",\n-   \"reported_by\": \"manager@test.com\",\n+   \"error\": \"Invalid account code: 1200\",\n  },\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/operations.test.js:288:34)"
+          },
+          {
+            "file": "server/tests/operations.test.js",
+            "name": "Operations Module Wastage Management logWastage should rollback on database error",
+            "message": "Error: Query failed\n    at Object.<anonymous> (/Users/I557587/Personal/zohra-rms-v2/server/tests/operations.test.js:245:44)\n    at Promise.finally.completed (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1834:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1774:10)\n    at _callCircusTest (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1167:40)\n    at _runTestInContext (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1103:3)\n    at runTestWithContext (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:996:5)\n    at _runTestsForDescribeBlockOnce (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1008:11)\n    at _runTestsForDescribeBlock (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:824:5)\n    at _runTestsForDescribeBlockOnce (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestA"
+          },
+          {
+            "file": "server/tests/finance.test.js",
+            "name": "Finance Module addExpense should add an expense transaction",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"success\": true}\nReceived: {\"error\": \"Database error\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/finance.test.js:221:30)"
+          },
+          {
+            "file": "server/tests/finance.test.js",
+            "name": "Finance Module recordPayment should record a vendor payment",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"success\": true}\nReceived: {\"error\": \"Cannot read properties of undefined (reading '0')\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/finance.test.js:291:30)"
+          },
+          {
+            "file": "server/tests/finance.test.js",
+            "name": "Finance Module Account Closure & Balance should get daily balance summary",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"closing_balance\": 6000}\nReceived: {\"closing_balance\": 0, \"expected_closing_calculated\": 0, \"is_closed\": false, \"variance\": 0}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/finance.test.js:311:30)"
+          },
+          {
+            "file": "server/tests/finance.test.js",
+            "name": "Finance Module Account Closure & Balance should close daily balance",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"variance\": -50}\nReceived: {\"error\": \"Cannot read properties of undefined (reading 'length')\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/finance.test.js:337:30)"
+          },
+          {
+            "file": "server/tests/advances.test.js",
+            "name": "Advances and Payroll Module runPayroll should process payroll with prorated salary",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"earnedSalary\": Any<Number>, \"netPay\": Any<Number>, \"success\": true}\nReceived: {\"error\": \"Employee not found\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/advances.test.js:213:30)"
+          },
+          {
+            "file": "server/tests/advances.test.js",
+            "name": "Advances and Payroll Module runPayroll should apply manual adjustments to payroll",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"netPay\": Any<Number>, \"success\": true}\nReceived: {\"error\": \"Cannot read properties of undefined (reading 'id')\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/advances.test.js:255:30)"
+          },
+          {
+            "file": "server/tests/advances.test.js",
+            "name": "Advances and Payroll Module runPayroll should handle database errors",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 500\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/advances.test.js:316:32)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module runPayroll should run payroll for an employee with manual days worked",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"data\": Any<Array>, \"success\": true}\nReceived: {\"error\": \"Cannot read properties of undefined (reading 'outstanding_balance')\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:70:30)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module runPayroll should handle database errors and rollback",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 500\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:192:32)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module getMonthlyPayroll should return payroll records for a specific month",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n- Array [\n-   Object {\n-     \"base_salary\": 30000,\n-     \"days_worked\": 30,\n-     \"employee_id\": 1,\n-     \"full_name\": \"John Doe\",\n-     \"id\": 1,\n-     \"month\": 12,\n-     \"net_pay\": 28000,\n-     \"position\": \"Chef\",\n-     \"status\": \"Pending\",\n-     \"total_outstanding_advances\": 2000,\n-     \"year\": 2024,\n-   },\n- ]\n+ Array [],\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:225:30)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module getMonthlyPayroll should handle database errors",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 500\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:235:32)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module approvePayroll should approve a pending payroll entry",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Object {\n-   \"employee_id\": 1,\n+   \"base_salary\": 30000,\n+   \"full_name\": \"John Doe\",\n    \"id\": 1,\n-   \"net_pay\": 28000,\n-   \"status\": \"Approved\",\n+   \"status\": \"active\",\n  },\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:258:30)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module approvePayroll should handle database errors",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 500\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:268:32)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module markPaid should mark payroll as paid and create journal entries",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Object {\n-   \"advance_deduction\": 2000,\n-   \"employee_id\": 1,\n-   \"id\": 1,\n-   \"month\": 12,\n-   \"net_pay\": 28000,\n-   \"status\": \"Paid\",\n-   \"year\": 2024,\n+   \"error\": \"Record not found or not Approved\",\n  },\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:304:30)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module markPaid should return error if record not found or not approved",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Object {\n-   \"error\": \"Record not found or not Approved\",\n+   \"error\": \"Database error\",\n  },\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:321:30)"
+          },
+          {
+            "file": "server/tests/payroll.test.js",
+            "name": "Payroll Module markPaid should handle payroll without advance deductions",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Object {\n-   \"advance_deduction\": 0,\n-   \"employee_id\": 1,\n-   \"id\": 1,\n-   \"net_pay\": 30000,\n-   \"status\": \"Paid\",\n+   \"error\": \"Record not found or not Approved\",\n  },\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:351:30)"
+          },
+          {
+            "file": "server/tests/chicken.test.js",
+            "name": "Chicken/Supplier Module createBillEntry should handle variance calculation",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"variance\": 250}\nReceived: {\"error\": \"Daily rates not set for this date\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/chicken.test.js:304:30)"
+          },
+          {
+            "file": "server/tests/chicken.test.js",
+            "name": "Chicken/Supplier Module createBillEntry should return 400 if daily rates not set",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 400\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/chicken.test.js:322:32)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module processPayment should process vendor payment successfully",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"newBalance\": 5000, \"payment\": Any<Object>, \"success\": true}\nReceived: {\"error\": \"Account code is required for a ledger line\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:66:30)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module processPayment should return 404 if vendor not found",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 404\nReceived: 500\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:91:32)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module processPayment should prevent overpayment",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 400\nReceived: 500\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:114:32)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module processPayment should validate required fields",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 400\nReceived: 500\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:140:32)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getPayments should return all vendor payments",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Array [\n    Object {\n-     \"amount\": 5000,\n      \"id\": 1,\n-     \"payment_date\": \"2024-12-15\",\n-     \"payment_mode\": \"Cash\",\n-     \"vendor_id\": 1,\n-     \"vendor_name\": \"ABC Suppliers\",\n+     \"name\": \"ABC Suppliers\",\n    },\n  ],\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:179:30)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getPayments should handle database errors",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 500\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:216:32)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getOutstanding should return outstanding balance for vendor",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n  Object {\n-   \"outstanding_balance\": 5000,\n-   \"vendor_id\": 1,\n+   \"error\": \"Database error\",\n  },\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:233:30)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getVendorDetails should return comprehensive vendor details",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"aging\": Any<Object>, \"outstanding_balance\": 5000, \"total_bill_amount\": 15000, \"total_payment_amount\": 10000, \"vendor_id\": 1, \"vendor_name\": \"ABC Suppliers\"}\nReceived: {\"aging\": {\"0_30_days\": 0, \"30_60_days\": 0, \"60_90_days\": 0, \"over_90_days\": 0}, \"outstanding_balance\": 5000, \"vendor_id\": 1, \"vendor_name\": \"ABC Suppliers\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:315:30)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getVendorDetails should return 404 if vendor not found",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: 404\n\nNumber of calls: 0\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:334:32)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getVendorsWithOutstanding should return vendors with outstanding balances",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\n- Expected\n+ Received\n\n- Array [\n-   Object {\n-     \"outstanding_balance\": 10000,\n-     \"vendor_id\": 1,\n-     \"vendor_name\": \"ABC Suppliers\",\n-   },\n-   Object {\n-     \"outstanding_balance\": 5000,\n-     \"vendor_id\": 2,\n-     \"vendor_name\": \"XYZ Traders\",\n-   },\n- ]\n+ Array [],\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:357:30)"
+          },
+          {
+            "file": "server/tests/vendors.test.js",
+            "name": "Vendors Module getVendorsWithOutstanding should filter by category",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: StringContaining \"category_id = $1\", [\"1\"]\nReceived: \"SELECT * FROM vendor_outstanding ORDER BY outstanding_balance DESC\"\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:367:30)"
+          },
+          {
+            "file": "server/tests/pos.test.js",
+            "name": "POS Module createOrder should create an order with inventory updates",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: ObjectContaining {\"success\": true}\nReceived: {\"error\": \"Cannot read properties of undefined (reading 'id')\"}\n\nNumber of calls: 1\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/pos.test.js:251:30)"
+          },
+          {
+            "file": "server/tests/pos.test.js",
+            "name": "POS Module createOrder should calculate total revenue correctly",
+            "message": "Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)\n\nExpected: StringContaining \"INSERT INTO orders\", ArrayContaining [500]\nReceived\n       1: \"BEGIN\"\n       2: \"SELECT m.id, m.price, m.category, m.tax_rate_id, t.rate_percentage\u00b7\n                 FROM menu_items m\n                 LEFT JOIN tax_rates t ON m.tax_rate_id = t.id\n                 WHERE m.id = ANY($1)\", [[1]]\n       3: \"INSERT INTO orders (\n                    total_amount, payment_mode, status, customer_id, created_by, order_number\n                ) VALUES ($1, $2, 'Completed', $3, $4, $5) RETURNING id\", [0, \"Cash\", null, null, \"ORD-1794167525362-317\"]\n\nNumber of calls: 8\n    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/pos.test.js:276:23)"
+          },
+          {
+            "file": "server/tests/ai.test.js",
+            "name": "AI Module getSuggestedPOs should return suggested purchase orders for low stock items",
+            "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at Object.toBe (/Users/I557587/Personal/zohra-rms-v2/server/tests/ai.test.js:136:71)"
+          },
+          {
+            "file": "server/tests/ai.test.js",
+            "name": "AI Module getSuggestedPOs should handle items with no usage data",
+            "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at Object.toBe (/Users/I557587/Personal/zohra-rms-v2/server/tests/ai.test.js:243:71)"
+          }
+        ]
+      },
+      "new_failure_names": [],
+      "resolved_failure_names": []
+    },
+    "client": {
+      "baseline": {
+        "total": 50,
+        "passed": 41,
+        "failed": 9,
+        "test_files": 6,
+        "failures": [
+          {
+            "file": "client/src/tests/POS.test.jsx",
+            "name": "POS Component loads and displays menu items",
+            "message": "Unable to find an element with the text: Chicken Biryani. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"flex h-screen w-full bg-gray-100 text-gray-800 font-sans overflow-hidden\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"hidden md:flex w-40 lg:w-48 bg-gray-800 flex-col text-gray-300\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"p-2 md:p-4 border-b border-gray-700 font-bold text-white text-sm md:text-base\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[0mCategories\u001b[0m\n        \u001b[36m</div>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 overflow-y-auto\"\u001b[39m\n        \u001b[36m/>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 flex flex-col min-w-0 bg-gray-200\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"bg-white p-2 flex items-center gap-4 shadow-sm\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            "
+          },
+          {
+            "file": "client/src/tests/POS.test.jsx",
+            "name": "POS Component redirects if no token",
+            "message": "expected \"spy\" to be called with arguments: [ 'Please login to access POS' ]\n\nReceived: \n\n\n\nNumber of calls: 0\n\n\nIgnored nodes: comments, script, style\n\u001b[36m<html>\u001b[39m\n  \u001b[36m<head />\u001b[39m\n  \u001b[36m<body>\u001b[39m\n    \u001b[36m<div>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"flex h-screen w-full bg-gray-100 text-gray-800 font-sans overflow-hidden\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"hidden md:flex w-40 lg:w-48 bg-gray-800 flex-col text-gray-300\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"p-2 md:p-4 border-b border-gray-700 font-bold text-white text-sm md:text-base\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0mCategories\u001b[0m\n          \u001b[36m</div>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 overflow-y-auto\"\u001b[39m\n          \u001b[36m/>\u001b[39m\n        \u001b[36m</div>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 flex flex-col min-w-0 bg-gray-200\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"bg-white p-2 flex items-center gap-4 shadow-sm\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[36m<div\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"r"
+          },
+          {
+            "file": "client/src/tests/POS.test.jsx",
+            "name": "POS Component adds items to cart",
+            "message": "Unable to find an element with the text: Chicken Biryani. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"flex h-screen w-full bg-gray-100 text-gray-800 font-sans overflow-hidden\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"hidden md:flex w-40 lg:w-48 bg-gray-800 flex-col text-gray-300\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"p-2 md:p-4 border-b border-gray-700 font-bold text-white text-sm md:text-base\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[0mCategories\u001b[0m\n        \u001b[36m</div>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 overflow-y-auto\"\u001b[39m\n        \u001b[36m/>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 flex flex-col min-w-0 bg-gray-200\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"bg-white p-2 flex items-center gap-4 shadow-sm\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            "
+          },
+          {
+            "file": "client/src/tests/POS.test.jsx",
+            "name": "POS Component calculates total correctly",
+            "message": "Unable to find an element with the text: Chicken Biryani. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"flex h-screen w-full bg-gray-100 text-gray-800 font-sans overflow-hidden\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"hidden md:flex w-40 lg:w-48 bg-gray-800 flex-col text-gray-300\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"p-2 md:p-4 border-b border-gray-700 font-bold text-white text-sm md:text-base\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[0mCategories\u001b[0m\n        \u001b[36m</div>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 overflow-y-auto\"\u001b[39m\n        \u001b[36m/>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 flex flex-col min-w-0 bg-gray-200\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"bg-white p-2 flex items-center gap-4 shadow-sm\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            "
+          },
+          {
+            "file": "client/src/tests/POS.test.jsx",
+            "name": "POS Component filters menu by category",
+            "message": "Unable to find an element with the text: Main Course. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"flex h-screen w-full bg-gray-100 text-gray-800 font-sans overflow-hidden\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"hidden md:flex w-40 lg:w-48 bg-gray-800 flex-col text-gray-300\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"p-2 md:p-4 border-b border-gray-700 font-bold text-white text-sm md:text-base\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[0mCategories\u001b[0m\n        \u001b[36m</div>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 overflow-y-auto\"\u001b[39m\n        \u001b[36m/>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 flex flex-col min-w-0 bg-gray-200\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"bg-white p-2 flex items-center gap-4 shadow-sm\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            \u001b[33"
+          },
+          {
+            "file": "client/src/tests/POS.test.jsx",
+            "name": "POS Component handles checkout successfully",
+            "message": "Unable to find an element with the text: Chicken Biryani. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"flex h-screen w-full bg-gray-100 text-gray-800 font-sans overflow-hidden\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"hidden md:flex w-40 lg:w-48 bg-gray-800 flex-col text-gray-300\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"p-2 md:p-4 border-b border-gray-700 font-bold text-white text-sm md:text-base\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[0mCategories\u001b[0m\n        \u001b[36m</div>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 overflow-y-auto\"\u001b[39m\n        \u001b[36m/>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 flex flex-col min-w-0 bg-gray-200\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"bg-white p-2 flex items-center gap-4 shadow-sm\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            "
+          },
+          {
+            "file": "client/src/tests/VendorPayments.test.jsx",
+            "name": "VendorPayments Component loads and displays vendor list",
+            "message": "Unable to find an element with the text: Chicken Supplier A. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div />\u001b[39m\n\u001b[36m</body>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<html>\u001b[39m\n  \u001b[36m<head />\u001b[39m\n  \u001b[36m<body>\u001b[39m\n    \u001b[36m<div />\u001b[39m\n  \u001b[36m</body>\u001b[39m\n\u001b[36m</html>\u001b[39m"
+          },
+          {
+            "file": "client/src/tests/VendorPayments.test.jsx",
+            "name": "VendorPayments Component opens payment modal for vendor with outstanding balance",
+            "message": "Unable to find an element with the text: Chicken Supplier A. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div />\u001b[39m\n\u001b[36m</body>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<html>\u001b[39m\n  \u001b[36m<head />\u001b[39m\n  \u001b[36m<body>\u001b[39m\n    \u001b[36m<div />\u001b[39m\n  \u001b[36m</body>\u001b[39m\n\u001b[36m</html>\u001b[39m"
+          },
+          {
+            "file": "client/src/tests/VendorPayments.test.jsx",
+            "name": "VendorPayments Component submits payment successfully",
+            "message": "Unable to find an element with the text: Chicken Supplier A. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div />\u001b[39m\n\u001b[36m</body>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<html>\u001b[39m\n  \u001b[36m<head />\u001b[39m\n  \u001b[36m<body>\u001b[39m\n    \u001b[36m<div />\u001b[39m\n  \u001b[36m</body>\u001b[39m\n\u001b[36m</html>\u001b[39m"
+          }
+        ]
+      },
+      "upgraded": {
+        "total": 50,
+        "passed": 46,
+        "failed": 4,
+        "test_files": 6,
+        "failures": [
+          {
+            "file": "client/src/tests/POS.test.jsx",
+            "name": "POS Component handles checkout successfully",
+            "message": "AssertionError: expected \"vi.fn()\" to be called with arguments: [ '/orders', ObjectContaining{\u2026} ]\n\nReceived:\n\n  1st vi.fn() call:\n\n@@ -1,11 +1,14 @@\n  [\n-   \"/orders\",\n-   ObjectContaining {\n-     \"items\": ArrayContaining [\n-       ObjectContaining {\n+   \"orders\",\n+   {\n+     \"items\": [\n+       {\n+         \"category\": \"Main Course\",\n          \"id\": 1,\n+         \"name\": \"Chicken Biryani\",\n+         \"price\": 150,\n          \"qty\": 1,\n        },\n      ],\n      \"paymentMode\": \"Cash\",\n      \"type\": \"Dine In\",\n\n\nNumber of calls: 1\n\n\nIgnored nodes: comments, script, style\n\u001b[36m<html>\u001b[39m\n  \u001b[36m<head />\u001b[39m\n  \u001b[36m<body>\u001b[39m\n    \u001b[36m<div>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"flex h-screen w-full bg-gray-100 text-gray-800 font-sans overflow-hidden\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"hidden md:flex w-40 lg:w-48 bg-gray-800 flex-col text-gray-300\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"p-2 md:p-4 border-b border-gray-700 font-bold text-white text-sm md:text-base\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0mCategories\u001b[0m\n          \u001b[36m</div>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 overflow-y-auto\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[36m<button\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"w-full text-left p-2 md:p-4 hover:bg-gray-700 transition-colors border-l-4 text-xs md:text-sm border-green-500 bg-gray-700 text-white\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[0mAll\u001b[0m\n            \u001b[36m</button>\u001b[39m\n            \u001b[36m<button\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"w-full text-left p-2 md:p-4 hover:bg-gray-700 transition-colors border-l-4 text-xs md:text-sm border-transparent\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[0mMain Course\u001b[0m\n            \u001b[36m</button>\u001b[39m\n            \u001b[36m<button\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"w-full text-left p-2 md:p-4 hover:bg-gray-700 transition-colors border-l-4 text-xs md:text-sm border-transparent\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[0mBeverages\u001b[0m\n            \u001b[36m</button>\u001b[39m\n            \u001b[36m<button\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"w-full text-left p-2 md:p-4 hover:bg-gray-700 transition-colors border-l-4 text-xs md:text-sm border-transparent\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[0mStarters\u001b[0m\n            \u001b[36m</button>\u001b[39m\n          \u001b[36m</div>\u001b[39m\n        \u001b[36m</div>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"flex-1 flex flex-col min-w-0 bg-gray-200\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"bg-white p-2 flex items-center gap-4 shadow-sm\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[36m<div\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"relative flex-1\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[36m<svg\u001b[39m\n                \u001b[33mclass\u001b[39m=\u001b[32m\"absolute left-3 top-1/2 -translate-y-1/2 text-gray-400\"\u001b[39m\n                \u001b[33mfill\u001b[39m=\u001b[32m\"none\"\u001b[39m\n                \u001b[33mheig"
+          },
+          {
+            "file": "client/src/tests/VendorPayments.test.jsx",
+            "name": "VendorPayments Component loads and displays vendor list",
+            "message": "Error: Unable to find an element with the text: Chicken Supplier A. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div />\u001b[39m\n\u001b[36m</body>\u001b[39m\n    at Proxy.waitForWrapper (/Users/I557587/Personal/zohra-rms-v2/client/node_modules/@testing-library/dom/dist/wait-for.js:163:27)\n    at /Users/I557587/Personal/zohra-rms-v2/client/src/tests/VendorPayments.test.jsx:111:15\n    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:1632:35\n    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:2801:26\n    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3338:20\n    at new Promise (<anonymous>)\n    at runWithCancel (file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3333:10)\n    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3318:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3276:10)"
+          },
+          {
+            "file": "client/src/tests/VendorPayments.test.jsx",
+            "name": "VendorPayments Component opens payment modal for vendor with outstanding balance",
+            "message": "Error: Unable to find an element with the text: Chicken Supplier A. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div />\u001b[39m\n\u001b[36m</body>\u001b[39m\n    at Proxy.waitForWrapper (/Users/I557587/Personal/zohra-rms-v2/client/node_modules/@testing-library/dom/dist/wait-for.js:163:27)\n    at /Users/I557587/Personal/zohra-rms-v2/client/src/tests/VendorPayments.test.jsx:126:15\n    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:1632:35\n    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:2801:26\n    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3338:20\n    at new Promise (<anonymous>)\n    at runWithCancel (file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3333:10)\n    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3318:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3276:10)"
+          },
+          {
+            "file": "client/src/tests/VendorPayments.test.jsx",
+            "name": "VendorPayments Component submits payment successfully",
+            "message": "Error: Unable to find an element with the text: Chicken Supplier A. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div />\u001b[39m\n\u001b[36m</body>\u001b[39m\n    at Proxy.waitForWrapper (/Users/I557587/Personal/zohra-rms-v2/client/node_modules/@testing-library/dom/dist/wait-for.js:163:27)\n    at /Users/I557587/Personal/zohra-rms-v2/client/src/tests/VendorPayments.test.jsx:157:15\n    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:1632:35\n    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:2801:26\n    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3338:20\n    at new Promise (<anonymous>)\n    at runWithCancel (file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3333:10)\n    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3318:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3276:10)"
+          }
+        ],
+        "started_at": "2026-11-08T20:10:34.164000+00:00"
+      },
+      "new_failure_names": [],
+      "resolved_failure_names": [
+        [
+          "client/src/tests/POS.test.jsx",
+          "POS Component adds items to cart"
+        ],
+        [
+          "client/src/tests/POS.test.jsx",
+          "POS Component calculates total correctly"
+        ],
+        [
+          "client/src/tests/POS.test.jsx",
+          "POS Component filters menu by category"
+        ],
+        [
+          "client/src/tests/POS.test.jsx",
+          "POS Component loads and displays menu items"
+        ],
+        [
+          "client/src/tests/POS.test.jsx",
+          "POS Component redirects if no token"
+        ]
+      ]
+    }
+  },
+  "build": {
+    "baseline": {
+      "status": "passed",
+      "log": "\n> al-zohra-client@0.1.0 build\n> vite build\n\nvite v4.5.14 building for production...\ntransforming...\n\u2713 533 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.44 kB \u2502 gzip:   0.29 kB\ndist/assets/index-925cb5f6.css   64.92 kB \u2502 gzip:   9.23 kB\ndist/assets/index-ef43c493.js   989.42 kB \u2502 gzip: 262.73 kB\n\n(!) Some chunks are larger than 500 kBs after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n\u2713 built in 3.27s\n"
+    },
+    "upgraded": {
+      "status": "passed",
+      "log": "\n> al-zohra-client@0.1.0 build\n> vite build\n\nvite v8.3.6 building client environment for production...\ntransforming...\n\u2713 507 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                     0.45 kB \u2502 gzip:   0.29 kB\ndist/assets/index-2Hx9xcht.css     97.25 kB \u2502 gzip:  12.75 kB\ndist/assets/index-DpucM9Hp.js   1,075.61 kB \u2502 gzip: 281.95 kB\n\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n\u2713 built in 505ms\n"
+    }
+  },
+  "python": {
+    "smoke": {
+      "import": "passed",
+      "pandas": "3.1.1",
+      "workbooks": {
+        "Key Data.xls": 3,
+        "AL Zohra Attendance(1).xlsx": 20,
+        "Chicken Rate & Bill Tracker.xlsx": 6,
+        "Daily_Restaurant_Tracking.xlsx": 5
+      }
+    },
+    "ruff": [
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 102,
+          "row": 3
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 3
+        },
+        "message": "Line too long (101 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 30,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "F401",
+        "end_location": {
+          "column": 30,
+          "row": 34
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": {
+          "applicability": "safe",
+          "edits": [
+            {
+              "content": "",
+              "end_location": {
+                "column": 1,
+                "row": 35
+              },
+              "location": {
+                "column": 1,
+                "row": 34
+              }
+            }
+          ],
+          "message": "Remove unused import: `datetime.datetime`"
+        },
+        "location": {
+          "column": 22,
+          "row": 34
+        },
+        "message": "`datetime.datetime` imported but unused",
+        "name": "unused-import",
+        "noqa_row": 34,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/unused-import"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 90,
+          "row": 143
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 143
+        },
+        "message": "Line too long (89 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 143,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 99,
+          "row": 192
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 192
+        },
+        "message": "Line too long (98 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 192,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 106,
+          "row": 195
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 195
+        },
+        "message": "Line too long (105 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 195,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 99,
+          "row": 252
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 252
+        },
+        "message": "Line too long (98 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 252,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 105,
+          "row": 274
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 274
+        },
+        "message": "Line too long (104 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 278,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 104,
+          "row": 315
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 315
+        },
+        "message": "Line too long (103 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 315,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 96,
+          "row": 317
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 317
+        },
+        "message": "Line too long (95 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 317,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "W291",
+        "end_location": {
+          "column": 59,
+          "row": 347
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": {
+          "applicability": "safe",
+          "edits": [
+            {
+              "content": "",
+              "end_location": {
+                "column": 59,
+                "row": 347
+              },
+              "location": {
+                "column": 58,
+                "row": 347
+              }
+            }
+          ],
+          "message": "Remove trailing whitespace"
+        },
+        "location": {
+          "column": 58,
+          "row": 347
+        },
+        "message": "Trailing whitespace",
+        "name": "trailing-whitespace",
+        "noqa_row": 347,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/trailing-whitespace"
+      },
+      {
+        "cell": null,
+        "code": "W293",
+        "end_location": {
+          "column": 25,
+          "row": 386
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": {
+          "applicability": "safe",
+          "edits": [
+            {
+              "content": "",
+              "end_location": {
+                "column": 25,
+                "row": 386
+              },
+              "location": {
+                "column": 1,
+                "row": 386
+              }
+            }
+          ],
+          "message": "Remove whitespace from blank line"
+        },
+        "location": {
+          "column": 1,
+          "row": 386
+        },
+        "message": "Blank line contains whitespace",
+        "name": "blank-line-with-whitespace",
+        "noqa_row": 386,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/blank-line-with-whitespace"
+      },
+      {
+        "cell": null,
+        "code": "W293",
+        "end_location": {
+          "column": 25,
+          "row": 389
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": {
+          "applicability": "safe",
+          "edits": [
+            {
+              "content": "",
+              "end_location": {
+                "column": 25,
+                "row": 389
+              },
+              "location": {
+                "column": 1,
+                "row": 389
+              }
+            }
+          ],
+          "message": "Remove whitespace from blank line"
+        },
+        "location": {
+          "column": 1,
+          "row": 389
+        },
+        "message": "Blank line contains whitespace",
+        "name": "blank-line-with-whitespace",
+        "noqa_row": 389,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/blank-line-with-whitespace"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 97,
+          "row": 400
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 400
+        },
+        "message": "Line too long (96 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 400,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "W293",
+        "end_location": {
+          "column": 21,
+          "row": 404
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": {
+          "applicability": "safe",
+          "edits": [
+            {
+              "content": "",
+              "end_location": {
+                "column": 21,
+                "row": 404
+              },
+              "location": {
+                "column": 1,
+                "row": 404
+              }
+            }
+          ],
+          "message": "Remove whitespace from blank line"
+        },
+        "location": {
+          "column": 1,
+          "row": 404
+        },
+        "message": "Blank line contains whitespace",
+        "name": "blank-line-with-whitespace",
+        "noqa_row": 404,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/blank-line-with-whitespace"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 97,
+          "row": 418
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 418
+        },
+        "message": "Line too long (96 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 418,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 101,
+          "row": 426
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 426
+        },
+        "message": "Line too long (100 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 426,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 90,
+          "row": 439
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 439
+        },
+        "message": "Line too long (89 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 439,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 91,
+          "row": 487
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 487
+        },
+        "message": "Line too long (90 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 487,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 124,
+          "row": 497
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 497
+        },
+        "message": "Line too long (123 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 497,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 125,
+          "row": 503
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 503
+        },
+        "message": "Line too long (124 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 503,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 124,
+          "row": 510
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 510
+        },
+        "message": "Line too long (123 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 510,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 125,
+          "row": 516
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 516
+        },
+        "message": "Line too long (124 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 516,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      },
+      {
+        "cell": null,
+        "code": "E501",
+        "end_location": {
+          "column": 123,
+          "row": 555
+        },
+        "filename": "/Users/I557587/Personal/zohra-rms-v2/migration_tool.py",
+        "fix": null,
+        "location": {
+          "column": 89,
+          "row": 555
+        },
+        "message": "Line too long (122 > 88)",
+        "name": "line-too-long",
+        "noqa_row": 555,
+        "severity": "error",
+        "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+      }
+    ],
+    "mypy": "migration_tool.py:185: error: Unsupported operand types for + (\"Hashable\" and \"int\")  [operator]\nmigration_tool.py:353: error: Unsupported right operand type for in (\"int | str\")  [operator]\nmigration_tool.py:358: error: Item \"int\" of \"int | str\" has no attribute \"split\"  [union-attr]\nFound 3 errors in 1 file (checked 1 source file)\n"
+  },
+  "compose_config": "passed",
+  "shell_syntax": "passed",
+  "full_feature_audit": "pending",
+  "dependency_tree": {
+    "root": [],
+    "client": [],
+    "server": []
+  },
+  "node_image_manifest": "verified",
+  "syntax": {
+    "parsed": 223,
+    "javascript_errors": [
+      {
+        "file": "client/src/pages/BATCH_UPDATE_REFERENCE.js",
+        "message": "Unexpected token (56:36)"
+      }
+    ],
+    "shell_checked": 7,
+    "shell_errors": []
+  },
+  "sheetjs": {
+    "version": "0.20.3",
+    "workbooks": {
+      "Key Data.xls": 3,
+      "AL Zohra Attendance(1).xlsx": 20,
+      "Chicken Rate & Bill Tracker.xlsx": 6,
+      "Daily_Restaurant_Tracking.xlsx": 5
+    }
+  },
+  "browser_dependency_smoke": {
+    "status": "passed",
+    "scope": "Login, POS render, direct route reloads, Tailwind background and uncaught browser errors.",
+    "background": "rgb(15, 23, 42)",
+    "routes": [
+      {
+        "route": "/dashboard",
+        "heading": "Al Zohra RMS"
+      },
+      {
+        "route": "/employees",
+        "heading": "Al Zohra RMS"
+      },
+      {
+        "route": "/reports",
+        "heading": "Al Zohra RMS"
+      }
+    ],
+    "errors": [],
+    "full_feature_audit": "pending"
+  },
+  "playwright_discovery": {
+    "root": {
+      "tests": 25,
+      "files": 9,
+      "config": "playwright.config.js"
+    },
+    "client": {
+      "tests": 1,
+      "files": 1,
+      "config": "client/playwright.config.js"
+    },
+    "full_feature_execution": "pending"
+  },
+  "artifact_validation": {
+    "status": "passed",
+    "json_files": 9,
+    "tracked_file_hashes": 444,
+    "unique_playwright_cases": 166,
+    "screen_routes_covered": 32,
+    "local_report_links": "passed",
+    "git_diff_check": "passed",
+    "preexisting_gap_analysis_diff": "preserved; 50 additions, 22 deletions"
+  },
+  "lockfile_consistency": {
+    "npm": "root/client/server manifests match lockfile dependencies, devDependencies, and engines",
+    "python": "10 direct pins match uv.lock; uv lock --check --offline passed"
+  },
+  "audit_script_syntax": {
+    "javascript": "all 3 new CJS scripts pass node --check",
+    "python": "repository_inventory.py AST parse passed"
+  },
+  "audit_database_cleanup": "Disposable PostgreSQL server at /private/tmp/zohra-audit-pg stopped; data retained for reproduction."
+}

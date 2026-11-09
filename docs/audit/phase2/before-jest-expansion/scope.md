@@ -1,0 +1,1 @@
+Historical checkpoint before Jest expansion: 190 Jest assertions and 439 Playwright cases. Default Babel coverage failed; combined V8 coverage passed. Source changes in the expanded Jest work require new verification. Copied evidence was not rerun or relabeled.

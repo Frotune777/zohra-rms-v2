@@ -1,0 +1,63 @@
+{
+  "database": "zohra_pw_case_ba3c7c16dd5e_1794207674055",
+  "date": "2026-11-09",
+  "business_instant": "2026-11-09T12:00:00Z",
+  "calls": [
+    {
+      "method": "GET",
+      "endpoint": "vendors/payments",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions"
+    },
+    {
+      "method": "GET",
+      "endpoint": "vendors/1/outstanding",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions"
+    },
+    {
+      "method": "GET",
+      "endpoint": "vendors/1/ledger",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions"
+    },
+    {
+      "method": "GET",
+      "endpoint": "vendors/reports/aging",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions"
+    },
+    {
+      "method": "GET",
+      "endpoint": "vendors/all-suppliers",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions"
+    },
+    {
+      "method": "POST",
+      "endpoint": "vendors/payments",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions"
+    },
+    {
+      "method": "GET",
+      "endpoint": "vendors/1/ledger?endDate=2026-11-05",
+      "role": "manager",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "endpoint": "vendors/payments",
+      "role": "manager",
+      "status": 500,
+      "error": "null value in column \"notes\" of relation \"vendor_payments\" violates not-null constraint"
+    }
+  ],
+  "checks": []
+}

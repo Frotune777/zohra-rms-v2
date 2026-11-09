@@ -7,10 +7,8 @@ export default defineConfig({
     port: 3002,
     host: '0.0.0.0'
   },
-  css: {
-    postcss: './postcss.config.js'
-  },
   test: {
+    include: ['src/**/*.test.{js,jsx}'],
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/setupTests.js',

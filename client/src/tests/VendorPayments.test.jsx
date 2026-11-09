@@ -26,18 +26,6 @@ vi.mock('react-hot-toast', () => {
         toast: toast,
     };
 });
-vi.mock('react-icons/fi', () => {
-    // Mock icons as simple spans
-    return {
-        FiDollarSign: () => 'Icon',
-        FiTrendingUp: () => 'Icon',
-        FiUsers: () => 'Icon',
-        FiAlertCircle: () => 'Icon',
-        FiPlus: () => 'Icon',
-        FiX: () => 'CloseIcon',
-        FiCheckCircle: () => 'Icon',
-    };
-});
 
 // Import api after mocking
 import api from '../utils/api';
@@ -135,7 +123,7 @@ describe('VendorPayments Component', () => {
 
         // Check for modal opening and header
         await waitFor(() => {
-            expect(screen.getByRole('heading', { name: /process vendor payment/i })).toBeInTheDocument();
+            expect(screen.getByRole('heading', { name: /process payment/i })).toBeInTheDocument();
         });
 
         // Wait for details to be loaded / loading to finish
@@ -162,7 +150,7 @@ describe('VendorPayments Component', () => {
         const payBtns = screen.getAllByText('Pay').filter(el => el.tagName === 'BUTTON');
         fireEvent.click(payBtns[0]);
 
-        await waitFor(() => screen.getByText('Process Vendor Payment'));
+        await waitFor(() => screen.getByRole('heading', { name: 'Process Payment' }));
 
         // Fill Form
         const paidBySelect = screen.getByText('Select Payer').closest('select');
@@ -189,6 +177,6 @@ describe('VendorPayments Component', () => {
         });
 
         // Modal closed
-        expect(screen.queryByText('Process Vendor Payment')).not.toBeInTheDocument();
+        expect(screen.queryByRole('heading', { name: 'Process Payment' })).not.toBeInTheDocument();
     });
 });

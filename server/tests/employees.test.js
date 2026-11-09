@@ -1,3 +1,4 @@
+const {sqlMock}=require('./helpers/sql-mock');
 const {
     getEmployees,
     createEmployee,
@@ -29,10 +30,15 @@ jest.mock('../src/config/db', () => {
 describe('Employee Module', () => {
     let req, res;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         req = global.testUtils.mockRequest();
         res = global.testUtils.mockResponse();
         jest.clearAllMocks();
+        db.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        if(db.pool) {
+            const isolatedClient=await db.pool.connect();
+            if(isolatedClient.query !== db.query) isolatedClient.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        }
 
         // Reset default mock implementation
         db.query.mockResolvedValue(mockQueryResult([]));
@@ -96,6 +102,11 @@ describe('Employee Module', () => {
                     employee_code: 'EMP003',
                     status: 'active',
                 }])); // INSERT
+
+            sqlMock(db.query,(sql,p)=>{
+                if(sql.includes('SELECT MAX(id)'))return mockQueryResult([{max_id:2}]);
+                if(sql.startsWith('INSERT INTO employees'))return mockQueryResult([{id:3,...newEmployee,employee_code:p[10],status:p[8]}]);
+            });
 
             await createEmployee(req, res);
 

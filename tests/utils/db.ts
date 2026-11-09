@@ -1,13 +1,15 @@
 
 import { Pool, PoolClient } from 'pg';
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://admin:password@localhost:5433/alzohra_db';
+const connectionString = process.env.DATABASE_URL;
+const { guard } = require('../audit/database.cjs');
 
 export class DbUtils {
     private pool: Pool;
 
     constructor() {
-        console.log('DB Connection String:', connectionString);
+        if (!connectionString) throw new Error('Historical E2E utilities require an explicit disposable audit database.');
+        guard(connectionString);
         this.pool = new Pool({
             connectionString,
         });
@@ -98,7 +100,7 @@ export class DbUtils {
             try {
                 await this.query(`TRUNCATE TABLE ${table} CASCADE`);
             } catch (e) {
-                console.warn(`Failed to truncate ${table}: ${e}`);
+                throw new Error('Failed to reset historical audit table ' + table, { cause: e });
             }
         }
 

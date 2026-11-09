@@ -1,0 +1,406 @@
+  ● Tracker journals, supplier settlement and correction transactions › revenue category cannot be used as an expense category
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+      52 |   test('revenue category cannot be used as an expense category',async()=>{
+      53 |     const category=(await ctx.rows("SELECT id FROM transaction_categories WHERE type='Revenue' LIMIT 1"))[0];
+    > 54 |     const before=await ctx.snapshot();await expect(service().createTransaction(sale({type:'Expense',category_id:category.id}))).rejects.toThrow('expense category');expect(await ctx.snapshot()).toEqual(before);
+         |                                                                                                                          ^
+      55 |   });
+      56 |   test.each(['Locked','Closed'])('%s period rejects creation and correction without writes',async status=>{
+      57 |     const row=await service().createTransaction(sale());await ctx.closedPeriod(status);const before=await ctx.snapshot();
+
+      at Object.id (tests/tracker.integration.test.js:54:122)
+
+
+
+  ● Tracker journals, supplier settlement and correction transactions › paid vendor correction reverses the exact original sources and preserves payment history
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -   1
+    + Received  + 173
+
+    @@ -1127,19 +1127,37 @@
+            "reference_id": "63e1921e-df3b-4115-a252-3ae5916ae21f",
+            "reference_type": "Reversal",
+            "transaction_date": "2026-11-09T00:00:00",
+          },
+          Object {
+    +       "created_at": "2026-11-09T13:26:35.972406",
+    +       "created_by_user_id": null,
+    +       "description": "REVERSAL: Tracker: Corrected bill | Reason: Tracker corrected or deleted",
+    +       "id": "63a57ba7-d5bc-499d-8fcc-7fc466736e1b",
+    +       "reference_id": "197f406f-40fa-40b6-b8ec-4f597f99762e",
+    +       "reference_type": "Reversal",
+    +       "transaction_date": "2026-11-09T00:00:00",
+    +     },
+    +     Object {
+            "created_at": "2026-11-09T13:26:35.8864",
+            "created_by_user_id": null,
+            "description": "Tracker settlement ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+            "id": "63e1921e-df3b-4115-a252-3ae5916ae21f",
+            "reference_id": "ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+            "reference_type": "TrackerSettlement",
+            "transaction_date": "2026-11-09T00:00:00",
+          },
+          Object {
+    +       "created_at": "2026-11-09T13:26:35.972406",
+    +       "created_by_user_id": null,
+    +       "description": "REVERSAL: Tracker settlement ac9aa9fa-42ae-4d4d-bf64-e73805251ba1 | Reason: Tracker corrected or deleted",
+    +       "id": "94db6412-53ea-4082-be52-ce728cb79b81",
+    +       "reference_id": "1c33b7ca-c688-4d40-92af-d6c5c2a18f37",
+    +       "reference_type": "Reversal",
+    +       "transaction_date": "2026-11-09T00:00:00",
+    +     },
+    +     Object {
+            "created_at": "2026-11-09T13:26:35.905323",
+            "created_by_user_id": null,
+            "description": "REVERSAL: Tracker: Jest sale | Reason: Tracker corrected or deleted",
+            "id": "b503d02b-cae4-46c6-a5f1-c8d6fa124de5",
+            "reference_id": "b9cc20f5-60c5-4f2d-8319-53a7c965fff3",
+    @@ -1153,14 +1171,39 @@
+            "id": "b9cc20f5-60c5-4f2d-8319-53a7c965fff3",
+            "reference_id": "ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+            "reference_type": "Tracker",
+            "transaction_date": "2026-11-09T00:00:00",
+          },
+    +     Object {
+    +       "created_at": "2026-11-09T13:26:35.972406",
+    +       "created_by_user_id": null,
+    +       "description": "Tracker settlement ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+    +       "id": "dc7f449e-4940-4f40-83e5-0bb1342926fb",
+    +       "reference_id": "ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+    +       "reference_type": "TrackerSettlement",
+    +       "transaction_date": "2026-11-09T00:00:00",
+    +     },
+    +     Object {
+    +       "created_at": "2026-11-09T13:26:35.972406",
+    +       "created_by_user_id": null,
+    +       "description": "Tracker: Corrected bill",
+    +       "id": "ff4a1ce6-a90f-4256-8996-ca368eaa57c1",
+    +       "reference_id": "ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+    +       "reference_type": "Tracker",
+    +       "transaction_date": "2026-11-09T00:00:00",
+    +     },
+        ],
+        "kds_tickets": Array [],
+        "leave_requests": Array [],
+        "ledger_lines": Array [
+    +     Object {
+    +       "account_code": 6000,
+    +       "credit": 80,
+    +       "debit": 0,
+    +       "id": "0d1836b6-3fe6-464f-a2a8-fb7b24fe2432",
+    +       "journal_entry_id": "63a57ba7-d5bc-499d-8fcc-7fc466736e1b",
+    +     },
+          Object {
+            "account_code": 1010,
+            "credit": 80,
+            "debit": 0,
+            "id": "3316844b-6c30-479e-aa10-4f8a95c174c7",
+    @@ -1172,10 +1215,24 @@
+            "debit": 0,
+            "id": "4301ba70-0399-43d5-94f4-76f91e9f8a3c",
+            "journal_entry_id": "b503d02b-cae4-46c6-a5f1-c8d6fa124de5",
+          },
+          Object {
+    +       "account_code": 2000,
+    +       "credit": 0,
+    +       "debit": 80,
+    +       "id": "4c6d7eb5-3354-477a-9fd3-dee6d40e154a",
+    +       "journal_entry_id": "63a57ba7-d5bc-499d-8fcc-7fc466736e1b",
+    +     },
+    +     Object {
+    +       "account_code": 1010,
+    +       "credit": 80,
+    +       "debit": 0,
+    +       "id": "5b4a1d0a-19a2-4fe1-9488-8df7c81d79e9",
+    +       "journal_entry_id": "dc7f449e-4940-4f40-83e5-0bb1342926fb",
+    +     },
+    +     Object {
+            "account_code": 1000,
+            "credit": 0,
+            "debit": 120,
+            "id": "6429cdd1-ac41-47f2-bcd4-028acc6d40a7",
+            "journal_entry_id": "575428c9-2642-4c57-84f9-0b50d69e369f",
+    @@ -1184,10 +1241,17 @@
+            "account_code": 2000,
+            "credit": 120,
+            "debit": 0,
+            "id": "6c9d3c5b-db3c-4619-b077-dacc47e637dd",
+            "journal_entry_id": "b9cc20f5-60c5-4f2d-8319-53a7c965fff3",
+    +     },
+    +     Object {
+    +       "account_code": 2000,
+    +       "credit": 80,
+    +       "debit": 0,
+    +       "id": "702da4ef-8e75-4e87-b8f4-bb1aa70355eb",
+    +       "journal_entry_id": "94db6412-53ea-4082-be52-ce728cb79b81",
+          },
+          Object {
+            "account_code": 6000,
+            "credit": 0,
+            "debit": 80,
+    @@ -1207,10 +1271,17 @@
+            "debit": 0,
+            "id": "85824070-df11-4d34-9669-eb0d14ff6c34",
+            "journal_entry_id": "575428c9-2642-4c57-84f9-0b50d69e369f",
+          },
+          Object {
+    +       "account_code": 6000,
+    +       "credit": 0,
+    +       "debit": 80,
+    +       "id": "8e1ea0bc-4520-452f-986e-4f1be315b8cc",
+    +       "journal_entry_id": "ff4a1ce6-a90f-4256-8996-ca368eaa57c1",
+    +     },
+    +     Object {
+            "account_code": 2000,
+            "credit": 0,
+            "debit": 120,
+            "id": "aaae6082-53cc-41ca-83e2-939b140e960b",
+            "journal_entry_id": "b503d02b-cae4-46c6-a5f1-c8d6fa124de5",
+    @@ -1238,12 +1309,33 @@
+          },
+          Object {
+            "account_code": 2000,
+            "credit": 80,
+            "debit": 0,
+    +       "id": "d664babd-7b6d-4d6b-b82e-f28a6c87f488",
+    +       "journal_entry_id": "ff4a1ce6-a90f-4256-8996-ca368eaa57c1",
+    +     },
+    +     Object {
+    +       "account_code": 2000,
+    +       "credit": 80,
+    +       "debit": 0,
+            "id": "dc934cf2-26b7-4ad4-956d-f0369f6712ed",
+            "journal_entry_id": "197f406f-40fa-40b6-b8ec-4f597f99762e",
+    +     },
+    +     Object {
+    +       "account_code": 1010,
+    +       "credit": 0,
+    +       "debit": 80,
+    +       "id": "e6aac27b-9eae-40c8-93b9-bff93056cee9",
+    +       "journal_entry_id": "94db6412-53ea-4082-be52-ce728cb79b81",
+    +     },
+    +     Object {
+    +       "account_code": 2000,
+    +       "credit": 0,
+    +       "debit": 80,
+    +       "id": "ed1462a2-2ef1-4e21-91c2-25b19d946f6e",
+    +       "journal_entry_id": "dc7f449e-4940-4f40-83e5-0bb1342926fb",
+          },
+        ],
+        "markup_rules": Array [],
+        "menu_items": Array [
+          Object {
+    @@ -1590,11 +1682,11 @@
+            "paid_by": null,
+            "paid_date": null,
+            "payment_method": "Bank",
+            "status": "Paid",
+            "type": "Expense",
+    -       "updated_at": "2026-11-09T13:26:35.905323",
+    +       "updated_at": "2026-11-09T13:26:35.972406",
+            "vendor_id": 1,
+          },
+        ],
+        "users": Array [
+          Object {
+    @@ -1700,10 +1792,26 @@
+            "reference_number": "TRX-ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+            "supplier_id": 1,
+            "transaction_type": "Bill",
+          },
+          Object {
+    +       "amount": 80,
+    +       "bill_entry_id": null,
+    +       "category_id": null,
+    +       "created_at": "2026-11-09T13:26:35.972406",
+    +       "created_by": null,
+    +       "date": "2026-11-09",
+    +       "details": "Corrected bill",
+    +       "id": 10,
+    +       "journal_entry_id": null,
+    +       "payment_id": 3,
+    +       "payment_mode": null,
+    +       "reference_number": "TRX-ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+    +       "supplier_id": 1,
+    +       "transaction_type": "Payment",
+    +     },
+    +     Object {
+            "amount": 120,
+            "bill_entry_id": null,
+            "category_id": null,
+            "created_at": "2026-11-09T13:26:35.8864",
+            "created_by": null,
+    @@ -1774,14 +1882,62 @@
+            "date": "2026-11-09",
+            "details": "Corrected bill",
+            "id": 6,
+            "journal_entry_id": null,
+            "payment_id": 2,
+    +       "payment_mode": null,
+    +       "reference_number": "TRX-ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+    +       "supplier_id": 1,
+    +       "transaction_type": "Payment",
+    +     },
+    +     Object {
+    +       "amount": -80,
+    +       "bill_entry_id": null,
+    +       "category_id": null,
+    +       "created_at": "2026-11-09T13:26:35.972406",
+    +       "created_by": null,
+    +       "date": "2026-11-09",
+    +       "details": "Tracker reversal",
+    +       "id": 7,
+    +       "journal_entry_id": null,
+    +       "payment_id": null,
+    +       "payment_mode": null,
+    +       "reference_number": "TRX-ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+    +       "supplier_id": 1,
+    +       "transaction_type": "Bill",
+    +     },
+    +     Object {
+    +       "amount": -80,
+    +       "bill_entry_id": null,
+    +       "category_id": null,
+    +       "created_at": "2026-11-09T13:26:35.972406",
+    +       "created_by": null,
+    +       "date": "2026-11-09",
+    +       "details": "Tracker reversal",
+    +       "id": 8,
+    +       "journal_entry_id": null,
+    +       "payment_id": null,
+            "payment_mode": null,
+            "reference_number": "TRX-ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+            "supplier_id": 1,
+            "transaction_type": "Payment",
+    +     },
+    +     Object {
+    +       "amount": 80,
+    +       "bill_entry_id": null,
+    +       "category_id": null,
+    +       "created_at": "2026-11-09T13:26:35.972406",
+    +       "created_by": null,
+    +       "date": "2026-11-09",
+    +       "details": "Corrected bill",
+    +       "id": 9,
+    +       "journal_entry_id": null,
+    +       "payment_id": null,
+    +       "payment_mode": null,
+    +       "reference_number": "TRX-ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+    +       "supplier_id": 1,
+    +       "transaction_type": "Bill",
+          },
+        ],
+        "vendor_payments": Array [
+          Object {
+            "amount": 120,
+    @@ -1805,10 +1961,26 @@
+            "created_at": "2026-11-09T13:26:35.905323",
+            "created_by": null,
+            "created_by_user_id": null,
+            "id": 2,
+            "journal_entry_id": "1c33b7ca-c688-4d40-92af-d6c5c2a18f37",
+    +       "notes": "Corrected bill",
+    +       "paid_by": "Unknown",
+    +       "payment_date": "2026-11-09",
+    +       "payment_mode": "Bank",
+    +       "reference_number": "TRX-ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+    +       "status": "Reversed",
+    +       "vendor_id": 1,
+    +     },
+    +     Object {
+    +       "amount": 80,
+    +       "attachment_url": null,
+    +       "created_at": "2026-11-09T13:26:35.972406",
+    +       "created_by": null,
+    +       "created_by_user_id": null,
+    +       "id": 3,
+    +       "journal_entry_id": "dc7f449e-4940-4f40-83e5-0bb1342926fb",
+            "notes": "Corrected bill",
+            "paid_by": "Unknown",
+            "payment_date": "2026-11-09",
+            "payment_mode": "Bank",
+            "reference_number": "TRX-ac9aa9fa-42ae-4d4d-bf64-e73805251ba1",
+
+      73 |     expect((await ctx.rows("SELECT reference_id FROM journal_entries WHERE reference_type='Reversal' ORDER BY reference_id")).map(r=>r.reference_id)).toEqual(originals.map(r=>r.id).sort());
+      74 |     expect((await ctx.rows('SELECT amount,status FROM vendor_payments ORDER BY id'))).toEqual([{amount:'120.00',status:'Reversed'},{amount:'80.00',status:'Posted'}]);
+    > 75 |     const before=await ctx.snapshot();await service().updateTransaction(row.id,{amount:80});await service().updateTransaction(row.id,{ignored_field:'value'});expect(await ctx.snapshot()).toEqual(before);
+         |                                                                                                                                                                                            ^
+      76 |     await service().deleteTransaction(row.id);
+      77 |     expect(await ctx.balance(6000)).toBe(0);expect(await ctx.balance(1010)).toBe(0);
+      78 |     expect(Number((await ctx.rows('SELECT outstanding_balance FROM vendor_outstanding WHERE vendor_id=1'))[0].outstanding_balance)).toBe(0);
+
+      at Object.toEqual (tests/tracker.integration.test.js:75:188)
+
+
+
+  ● Tracker journals, supplier settlement and correction transactions › a competing date change forces update to reject after the controlled lock
+
+    Competing writer never reached the controlled database lock
+
+      104 |       await new Promise(resolve=>setTimeout(resolve,10));
+      105 |     }
+    > 106 |     throw new Error('Competing writer never reached the controlled database lock');
+          |           ^
+      107 |   };
+      108 |   return context;
+      109 | }
+
+      at Object.context.waitForLock (tests/helpers/integration.js:106:11)
+      at tests/tracker.integration.test.js:103:7
+
+
+
+  ● Tracker journals, supplier settlement and correction transactions › a competing date change forces delete to reject after the controlled lock
+
+    Competing writer never reached the controlled database lock
+
+      104 |       await new Promise(resolve=>setTimeout(resolve,10));
+      105 |     }
+    > 106 |     throw new Error('Competing writer never reached the controlled database lock');
+          |           ^
+      107 |   };
+      108 |   return context;
+      109 | }
+
+      at Object.context.waitForLock (tests/helpers/integration.js:106:11)
+      at tests/tracker.integration.test.js:103:7
+
+
+
+  ● Tracker journals, supplier settlement and correction transactions › a row deleted while update waits cannot create an orphan correction
+
+    Competing writer never reached the controlled database lock
+
+      104 |       await new Promise(resolve=>setTimeout(resolve,10));
+      105 |     }
+    > 106 |     throw new Error('Competing writer never reached the controlled database lock');
+          |           ^
+      107 |   };
+      108 |   return context;
+      109 | }
+
+      at Object.context.waitForLock (tests/helpers/integration.js:106:11)
+      at tests/tracker.integration.test.js:112:7
+
+
+
+  ● Tracker journals, supplier settlement and correction transactions › a row deleted while delete waits cannot create an orphan correction
+
+    Competing writer never reached the controlled database lock
+
+      104 |       await new Promise(resolve=>setTimeout(resolve,10));
+      105 |     }
+    > 106 |     throw new Error('Competing writer never reached the controlled database lock');
+          |           ^
+      107 |   };
+      108 |   return context;
+      109 | }
+
+      at Object.context.waitForLock (tests/helpers/integration.js:106:11)
+      at tests/tracker.integration.test.js:112:7
+
+

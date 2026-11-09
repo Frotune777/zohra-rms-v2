@@ -1,0 +1,43 @@
+{
+  "verified_at": "2026-11-09T05:00:04.488Z",
+  "runtime": {
+    "started_at": "2026-11-09T04:57:36.543Z",
+    "pid": 89716,
+    "api_pid": 89729,
+    "client_pid": 89731,
+    "database": "zohra_pw_manual_1794200255168",
+    "frontend": "http://localhost:3002",
+    "backend": "http://127.0.0.1:5001"
+  },
+  "health_status": 200,
+  "roles": [
+    {
+      "role": "owner",
+      "email": "owner@alzohra.com",
+      "api_identity_status": 200,
+      "pos_visible": true,
+      "page_errors": [],
+      "advance_filter": {
+        "status": 200,
+        "array": true
+      }
+    },
+    {
+      "role": "manager",
+      "email": "manager@alzohra.com",
+      "api_identity_status": 200,
+      "pos_visible": true,
+      "page_errors": [],
+      "advance_filter": null
+    },
+    {
+      "role": "staff",
+      "email": "staff@alzohra.com",
+      "api_identity_status": 200,
+      "pos_visible": true,
+      "page_errors": [],
+      "advance_filter": null
+    }
+  ],
+  "scope": "Fresh disposable demo startup, role browser login, POS render, API identity and owner advance-filter request. Business feature coverage is recorded separately."
+}

@@ -81,7 +81,7 @@ const Payroll = () => {
 
     setSelectedEmployee(employee);
     setProcessForm({
-      daysWorked: employee.days_worked || daysInMonth,
+      daysWorked: employee.days_worked ?? daysInMonth,
       overtimeHours: employee.overtime_hours || '',
       overtimeRate: hourlyRate,
       overtimeAmount: employee.overtime_amount || '',
@@ -105,7 +105,7 @@ const Payroll = () => {
         month: selectedMonth,
         year: selectedYear,
         employeeId: selectedEmployee.employee_id || selectedEmployee.id,
-        daysWorked: parseInt(processForm.daysWorked),
+        daysWorked: parseFloat(processForm.daysWorked),
         overtimeHours: parseFloat(processForm.overtimeHours) || 0,
         overtimeAmount: parseFloat(processForm.overtimeAmount) || 0,
         extraDays: parseFloat(processForm.extraDays) || 0,
@@ -171,8 +171,8 @@ const Payroll = () => {
   };
 
   const exportBankSheet = () => {
-    const approved = payrollData.filter(p => p.status === 'Approved' && p.payout_method === 'Bank Transfer');
-    if (approved.length === 0) return toast.error('No approved bank transfer records');
+    const approved = payrollData.filter(p => p.status === 'Approved' && Number(p.net_pay)>0 && p.bank_account_no && p.ifsc_code);
+    if (approved.length === 0) return toast.error('No approved positive payouts with bank details');
 
     const csvContent = "data:text/csv;charset=utf-8,"
       + "Employee Name,Bank Account,IFSC,Amount,Payment Mode\n"
@@ -249,7 +249,7 @@ const Payroll = () => {
         showHome={true}
         actions={
           <div className="flex items-center gap-4 glass-panel px-4 py-2 rounded-lg">
-            <select
+            <select aria-label="Selected month"
               id="payroll-month"
               name="month"
               value={selectedMonth}
@@ -260,7 +260,7 @@ const Payroll = () => {
                 <option key={i + 1} value={i + 1} className="bg-gray-800">{new Date(0, i).toLocaleString('default', { month: 'long' })}</option>
               ))}
             </select>
-            <select
+            <select aria-label="Selected year"
               id="payroll-year"
               name="year"
               value={selectedYear}
@@ -364,7 +364,7 @@ const Payroll = () => {
                             ₹{parseFloat(p.total_outstanding_advances || 0).toFixed(0)}
                           </td>
                           <td className="p-3 text-right text-red-400">-₹{p.advance_deduction}</td>
-                          <td className="p-3 text-right font-bold text-green-400">₹{p.net_pay}</td>
+                          <td className="p-3 text-right font-bold text-green-400">₹{p.net_pay}{Number(p.net_pay)<0&&<span className="block text-red-400 text-xs">Employee owes ₹{Math.abs(p.net_pay)}</span>}{p.attendance_missing&&<span className="block text-amber-400 text-xs">Attendance missing: full month assumed</span>}{Number(p.paid_leave_days)>0&&<span className="block text-xs">Paid leave: {p.paid_leave_days} days</span>}</td>
                           <td className="p-3 text-center"><span className="bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded text-xs">Draft</span></td>
                           <td className="p-3 text-right flex justify-end gap-2">
                             <button onClick={() => openProcessModal(p)} className="text-gray-300 hover:text-white" title="Adjust"><FiClock /></button>
@@ -387,7 +387,7 @@ const Payroll = () => {
                   <h2 className="text-xl font-bold text-white">Ready for Payout</h2>
                   <div className="relative">
                     <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                    <input
+                    <input aria-label="Search term"
                       type="text"
                       id="payout-search"
                       name="search"
@@ -425,7 +425,7 @@ const Payroll = () => {
                                 <div className="font-medium text-white">{p.full_name}</div>
                                 <div className="text-xs text-gray-400">{p.position}</div>
                               </td>
-                              <td className="p-4 text-right font-bold text-green-400 text-lg">₹{p.net_pay}</td>
+                              <td className="p-4 text-right font-bold text-green-400 text-lg">₹{p.net_pay}{Number(p.net_pay)<0&&<span className="block text-red-400 text-xs">Employee owes ₹{Math.abs(p.net_pay)}</span>}{p.attendance_missing&&<span className="block text-amber-400 text-xs">Attendance missing: full month assumed</span>}{Number(p.paid_leave_days)>0&&<span className="block text-xs">Paid leave: {p.paid_leave_days} days</span>}</td>
                               <td className={`p-4 text-right ${parseFloat(p.total_outstanding_advances || 0) > 0 ? 'text-red-400 font-medium' : 'text-gray-500'}`}>
                                 ₹{parseFloat(p.total_outstanding_advances || 0).toFixed(0)}
                               </td>
@@ -471,7 +471,7 @@ const Payroll = () => {
                         <td className="p-3 font-medium text-white">{p.full_name}</td>
                         <td className="p-3 text-gray-400">{new Date(p.payment_date).toLocaleDateString()}</td>
                         <td className="p-3 text-gray-400">{p.payment_mode}</td>
-                        <td className="p-3 text-right font-bold text-green-400">₹{p.net_pay}</td>
+                        <td className="p-3 text-right font-bold text-green-400">₹{p.net_pay}{Number(p.net_pay)<0&&<span className="block text-red-400 text-xs">Employee owes ₹{Math.abs(p.net_pay)}</span>}{p.attendance_missing&&<span className="block text-amber-400 text-xs">Attendance missing: full month assumed</span>}{Number(p.paid_leave_days)>0&&<span className="block text-xs">Paid leave: {p.paid_leave_days} days</span>}</td>
                         <td className="p-3 text-center">
                           <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Paid</span>
                           {isOwner && (
@@ -508,7 +508,7 @@ const Payroll = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Paid By</label>
-                <input
+                <input aria-label="Paid by"
                   id="payment-paid-by"
                   name="paidBy"
                   type="text"
@@ -521,7 +521,7 @@ const Payroll = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Payment Mode</label>
-                <select
+                <select aria-label="Mode"
                   id="payment-mode"
                   name="paymentMode"
                   value={paymentData.mode}
@@ -539,7 +539,7 @@ const Payroll = () => {
               {paymentData.mode === 'Other' && (
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Specify Mode</label>
-                  <input
+                  <input aria-label="Custom mode"
                     id="payment-custom-mode"
                     name="customMode"
                     type="text"
@@ -578,7 +578,7 @@ const Payroll = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">Days Worked</label>
                 <div className="flex gap-2">
-                  <input
+                  <input aria-label="Days worked"
                     id="process-days-worked"
                     name="daysWorked"
                     type="number"
@@ -595,7 +595,7 @@ const Payroll = () => {
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">OT Hours</label>
-                  <input
+                  <input aria-label="Overtime hours"
                     id="process-overtime-hours"
                     name="overtimeHours"
                     type="number"
@@ -611,7 +611,7 @@ const Payroll = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Rate/Hr</label>
-                  <input
+                  <input aria-label="Overtime rate"
                     id="process-overtime-rate"
                     name="overtimeRate"
                     type="number"
@@ -627,7 +627,7 @@ const Payroll = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">OT Amount (₹)</label>
-                  <input
+                  <input aria-label="Overtime amount"
                     id="process-overtime-amount"
                     name="overtimeAmount"
                     type="number"
@@ -640,7 +640,7 @@ const Payroll = () => {
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Extra Days</label>
-                  <input
+                  <input aria-label="Extra days"
                     id="process-extra-days"
                     name="extraDays"
                     type="number"
@@ -656,7 +656,7 @@ const Payroll = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Rate/Day</label>
-                  <input
+                  <input aria-label="Extra day rate"
                     id="process-extra-day-rate"
                     name="extraDayRate"
                     type="number"
@@ -672,7 +672,7 @@ const Payroll = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Extra Amount (₹)</label>
-                  <input
+                  <input aria-label="Extra day amount"
                     id="process-extra-day-amount"
                     name="extraDayAmount"
                     type="number"
@@ -686,7 +686,7 @@ const Payroll = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Manual Adjustment (₹)</label>
-                  <input
+                  <input aria-label="Manual adjustment"
                     id="process-manual-adjustment"
                     name="manualAdjustment"
                     type="number"
@@ -699,7 +699,7 @@ const Payroll = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Advance Deduction (₹)</label>
-                  <input
+                  <input aria-label="Advance deduction"
                     id="process-advance-deduction"
                     name="advanceDeduction"
                     type="number"
@@ -765,7 +765,7 @@ const Payroll = () => {
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 Reason (Required) <span className="text-red-400">*</span>
               </label>
-              <textarea
+              <textarea aria-label="Confirm reason"
                 id="confirm-reason"
                 name="reason"
                 value={confirmReason}

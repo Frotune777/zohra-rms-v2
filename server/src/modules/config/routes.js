@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const configController = require('./controller');
-const { verifyToken } = require('../../middleware/auth');
+const { verifyToken, checkRole } = require('../../middleware/auth');
 
 // All routes require authentication
-router.use(verifyToken);
+router.use(verifyToken, checkRole(['owner','manager']));
 
 // Get all categories with counts
 router.get('/categories', configController.getAllCategories);

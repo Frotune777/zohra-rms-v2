@@ -1,0 +1,51 @@
+
+> test:audit
+> playwright test --config=playwright.audit.config.cjs tests/audit/completion.spec.cjs --grep zero-cost|final cent|no outstanding
+
+[WebServer] (node:4377) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:4380) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/audit/completion.spec.cjs:25:1 › PAY-004 explicit recovery with no outstanding debt rejects in both payroll APIs (887ms)
+(node:4385) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 tests/audit/completion.spec.cjs:56:1 › PAY-004 POS-004 final cent payments reconcile order receivables and payroll shortfalls (987ms)
+  ✓  3 tests/audit/completion.spec.cjs:972:1 › PO-001 zero-cost purchase receipt adds stock without invalid zero journals (899ms)
+
+
+  1) tests/audit/completion.spec.cjs:25:1 › PAY-004 explicit recovery with no outstanding debt rejects in both payroll APIs 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 400
+    Received: 500
+
+      41 |       advanceDeduction: 0.01,
+      42 |     });
+    > 43 |     expect(r.status).toBe(400);
+         |                      ^
+      44 |     expect(r.body.error).toContain("outstanding balance");
+      45 |     expect(
+      46 |       await snapshot(audit, [
+        at /Users/I557587/Personal/zohra-rms-v2/tests/audit/completion.spec.cjs:43:22
+
+    attachment #1: audit-evidence (application/json) ───────────────────────────────────────────────
+    test-results/audit/completion-PAY-004-explici-01918-ejects-in-both-payroll-APIs/attachments/audit-evidence-3e9119c64812fa94318adabec58df19a72439692.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/audit/completion-PAY-004-explici-01918-ejects-in-both-payroll-APIs/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/audit/completion-PAY-004-explici-01918-ejects-in-both-payroll-APIs/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/audit/completion-PAY-004-explici-01918-ejects-in-both-payroll-APIs/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/audit/completion.spec.cjs:25:1 › PAY-004 explicit recovery with no outstanding debt rejects in both payroll APIs 
+  2 passed (4.2s)

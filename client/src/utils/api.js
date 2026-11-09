@@ -22,7 +22,10 @@ api.interceptors.request.use(
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response?.status === 401) {
+        if (!error.response || error.response.status >= 500) {
+            window.dispatchEvent(new Event('zohra-api-error'));
+        }
+        if (error.response?.status === 401 && !error.config?.url?.includes('auth/login')) {
             // Token expired or invalid
             localStorage.removeItem('token');
             localStorage.removeItem('user');

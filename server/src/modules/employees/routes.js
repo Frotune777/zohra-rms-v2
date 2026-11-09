@@ -1,32 +1,115 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const employeesController = require('./controller');
-const { verifyToken, checkRole } = require('../../middleware/auth');
+const employeesController = require("./controller");
+const { verifyToken, checkRole } = require("../../middleware/auth");
 
 // Employee Management (mounted at /api/employees)
-router.get('/', verifyToken, employeesController.getEmployees);
-router.post('/', verifyToken, checkRole(['manager', 'owner']), employeesController.createEmployee);
-router.put('/:id', verifyToken, checkRole(['manager', 'owner']), employeesController.updateEmployee);
-router.delete('/:id', verifyToken, checkRole(['owner']), employeesController.deleteEmployee);
-router.get('/:id/history', verifyToken, checkRole(['manager', 'owner']), employeesController.getEmployeeHistory);
+router.get("/", verifyToken, employeesController.getEmployees);
+router.post(
+  "/",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  employeesController.createEmployee,
+);
+router.put(
+  "/:id",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  employeesController.updateEmployee,
+);
+router.delete(
+  "/:id",
+  verifyToken,
+  checkRole(["owner"]),
+  employeesController.deleteEmployee,
+);
+router.get(
+  "/:id/history",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  employeesController.getEmployeeHistory,
+);
 
 // Attendance (mounted at /api/employees/attendance)
-router.get('/attendance', verifyToken, checkRole(['manager', 'owner']), employeesController.getAttendance);
-router.post('/attendance/bulk', verifyToken, checkRole(['manager', 'owner']), employeesController.saveBulkAttendance);
+router.get(
+  "/attendance",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  employeesController.getAttendance,
+);
+router.post(
+  "/attendance/bulk",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  employeesController.saveBulkAttendance,
+);
 
 // Payroll & Advances (mounted at /api/employees/payroll/...)
-router.get('/payroll/advances', verifyToken, employeesController.getAllAdvances);
-router.get('/payroll/advances/:id', verifyToken, employeesController.getEmployeeAdvanceHistory);
-router.get('/payroll/advances/:id/balance', verifyToken, employeesController.getEmployeeBalance);
-router.post('/payroll/advance', verifyToken, checkRole(['manager', 'owner']), employeesController.createTransaction);
-router.get('/payroll/requests', verifyToken, checkRole(['manager', 'owner']), employeesController.getAdvanceRequests);
-router.post('/payroll/requests/:id/approve', verifyToken, checkRole(['manager', 'owner']), employeesController.approveAdvance);
-router.post('/payroll/requests/:id/reject', verifyToken, checkRole(['manager', 'owner']), employeesController.rejectAdvance);
+router.get(
+  "/payroll/advances",
+  verifyToken,
+  employeesController.getAllAdvances,
+);
+router.get(
+  "/payroll/advances/:id",
+  verifyToken,
+  employeesController.getEmployeeAdvanceHistory,
+);
+router.get(
+  "/payroll/advances/:id/balance",
+  verifyToken,
+  employeesController.getEmployeeBalance,
+);
+router.post(
+  "/payroll/advance",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  employeesController.createTransaction,
+);
+router.get(
+  "/payroll/requests",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  employeesController.getAdvanceRequests,
+);
+router.post(
+  "/payroll/requests/:id/approve",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  employeesController.approveAdvance,
+);
+router.post(
+  "/payroll/requests/:id/reverse",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  require("./repaymentReversal").controller,
+);
+router.post(
+  "/payroll/requests/:id/reject",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  employeesController.rejectAdvance,
+);
 
-router.post('/payroll/run', verifyToken, checkRole(['manager', 'owner']), employeesController.runPayroll);
-router.get('/payroll/monthly', verifyToken, checkRole(['manager', 'owner']), employeesController.getMonthlyPayroll);
+router.post(
+  "/payroll/run",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  employeesController.runPayroll,
+);
+router.get(
+  "/payroll/monthly",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  employeesController.getMonthlyPayroll,
+);
 
 // Legacy endpoint
-router.get('/employees-payroll', verifyToken, checkRole(['manager', 'owner']), employeesController.getEmployeesWithAdvances);
+router.get(
+  "/employees-payroll",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  employeesController.getEmployeesWithAdvances,
+);
 
 module.exports = router;

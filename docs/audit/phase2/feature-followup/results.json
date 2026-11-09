@@ -1,0 +1,1734 @@
+{
+  "started_at": "2026-11-09T05:37:04.994Z",
+  "finished_at": "2026-11-09T05:38:28.700Z",
+  "planned_tests": [
+    {
+      "title": "POS-007 KDS-001 KDS-002 recipe editor drives stock costing and kitchen transitions",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 75
+    },
+    {
+      "title": "TRACK-003 competing corrections use the latest locked transaction snapshot",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 96
+    },
+    {
+      "title": "SCREEN-033 empty business data renders without an uncaught exception /kitchen",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-033 delayed API completion preserves navigation and renders /kitchen",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12
+    },
+    {
+      "title": "SCREEN-033 failed data requests show feedback and recover after reload /kitchen",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21
+    },
+    {
+      "title": "UI-001 SCREEN-033 visible buttons and form fields have programmatic accessible names /kitchen",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "SCREEN-034 empty business data renders without an uncaught exception /recipes",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-034 delayed API completion preserves navigation and renders /recipes",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12
+    },
+    {
+      "title": "SCREEN-034 failed data requests show feedback and recover after reload /recipes",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21
+    },
+    {
+      "title": "UI-001 SCREEN-034 visible buttons and form fields have programmatic accessible names /recipes",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "SCREEN-035 empty business data renders without an uncaught exception /purchase-orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-035 delayed API completion preserves navigation and renders /purchase-orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12
+    },
+    {
+      "title": "SCREEN-035 failed data requests show feedback and recover after reload /purchase-orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21
+    },
+    {
+      "title": "UI-001 SCREEN-035 visible buttons and form fields have programmatic accessible names /purchase-orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "SCREEN-036 empty business data renders without an uncaught exception /wastage",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-036 delayed API completion preserves navigation and renders /wastage",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12
+    },
+    {
+      "title": "SCREEN-036 failed data requests show feedback and recover after reload /wastage",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21
+    },
+    {
+      "title": "UI-001 SCREEN-036 visible buttons and form fields have programmatic accessible names /wastage",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "SCREEN-037 empty business data renders without an uncaught exception /stock-adjustments",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-037 delayed API completion preserves navigation and renders /stock-adjustments",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12
+    },
+    {
+      "title": "SCREEN-037 failed data requests show feedback and recover after reload /stock-adjustments",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21
+    },
+    {
+      "title": "UI-001 SCREEN-037 visible buttons and form fields have programmatic accessible names /stock-adjustments",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "SCREEN-038 empty business data renders without an uncaught exception /orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-038 delayed API completion preserves navigation and renders /orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12
+    },
+    {
+      "title": "SCREEN-038 failed data requests show feedback and recover after reload /orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21
+    },
+    {
+      "title": "UI-001 SCREEN-038 visible buttons and form fields have programmatic accessible names /orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "SCREEN-039 empty business data renders without an uncaught exception /employee-balances",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-039 delayed API completion preserves navigation and renders /employee-balances",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12
+    },
+    {
+      "title": "SCREEN-039 failed data requests show feedback and recover after reload /employee-balances",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21
+    },
+    {
+      "title": "UI-001 SCREEN-039 visible buttons and form fields have programmatic accessible names /employee-balances",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "SCREEN-033 direct navigation, session restore, reload and phone/tablet/desktop rendering /kitchen",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-034 direct navigation, session restore, reload and phone/tablet/desktop rendering /recipes",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-035 direct navigation, session restore, reload and phone/tablet/desktop rendering /purchase-orders",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-036 direct navigation, session restore, reload and phone/tablet/desktop rendering /wastage",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-037 direct navigation, session restore, reload and phone/tablet/desktop rendering /stock-adjustments",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-038 direct navigation, session restore, reload and phone/tablet/desktop rendering /orders",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4
+    },
+    {
+      "title": "SCREEN-039 direct navigation, session restore, reload and phone/tablet/desktop rendering /employee-balances",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4
+    }
+  ],
+  "source_sha256": {
+    "playwright.audit.config.cjs": "a71db4d943a18608429fca9fe6f33014d4a87d69d4a12572aeff2b724fe12cad",
+    "tests/audit/auth.spec.cjs": "95fae9609d8a778dc2280a346d62e86197491236a1fa216a407cc5227381bc57",
+    "tests/audit/clock.cjs": "d610bc5db42c3f5ca22a04380af278baa79c80e528636da8fc068e1f3b7bf740",
+    "tests/audit/completion.spec.cjs": "476a423aaefbfcc9ec7dc54e5c87363c3daf6265eabbe1fdc342736086c9532f",
+    "tests/audit/data-roundtrip.spec.cjs": "6fa80c53d2e33b20c09c70d943e1292d41adf99a6e0fc4b05394f19994ab94f4",
+    "tests/audit/database.cjs": "1577de9f52f39f6ec4dd5edb2752913f88e149e94e3d1d0a16c3b46713a92855",
+    "tests/audit/exports.spec.cjs": "2f0aa94e423f13f5be3e4f8ed5c4f2551f4c097c74e5bd9801d1f7bb61e54cdf",
+    "tests/audit/finance.spec.cjs": "862cbb92d8b2b5a30cd15db9a9adb53816ab47753b755d33db5e622f436b8288",
+    "tests/audit/fixtures.cjs": "754e4b030497b681c9b8a0bcf177e78201f07a8fa2aa815eb2b98bdda14ab14a",
+    "tests/audit/global-setup.cjs": "0193336d5a2c9c384ff79b1d7d4f39a64b5d6ca733f3411264958e6c51a05d38",
+    "tests/audit/global-teardown.cjs": "05fe5aef9cd5e4e0c7187257d4177f20e3fbafe790268e12448a402c310c509d",
+    "tests/audit/harness.spec.cjs": "09ecde360e4257c4e43df2cbdb65fd280a36314f14eb17fd055243f6329451d6",
+    "tests/audit/helpers.cjs": "41922596bef71690777ab88108ce74fe31ff5410e91650aa3d454b70dddf167a",
+    "tests/audit/hr.spec.cjs": "e3d4d9666bd679b0ba9c750b4b3e32f7da59f41a32d7d04a3ff77844d5a6f4b2",
+    "tests/audit/import-runner.py": "99eb69b02bf882a6255c7bddc1251466edb6cade53cc4d1af563fcd53b114331",
+    "tests/audit/integrity-regressions.spec.cjs": "e4bb8219aa424e5337a46872b4412a6d666dae391bf8fe00b851af8cf3e87c41",
+    "tests/audit/payroll-ui.spec.cjs": "77ced4163432777ac05ca72028dc3ca1fa032337d2977df79895602166e2e4e6",
+    "tests/audit/pos-inventory.spec.cjs": "36812fccaf454a1b2a8a8cb5228b7440ab16a1919a834bf8a9d6020d78adadef",
+    "tests/audit/procurement.spec.cjs": "0f711d50e9bf22a7bafb473f388b64c3ca903387433d1e6fa6de6ca410b5e089",
+    "tests/audit/reporter.cjs": "2c5903c8e445544dccefaeff47521650f78652ace907e35ae68a9127f8f259f0",
+    "tests/audit/reports-config-ai.spec.cjs": "24b19eea59aff75842d92282ef56dd7c23c79ddf242efef52b38b4958eae7fa9",
+    "tests/audit/screen-states.spec.cjs": "36b3c238aaacfb96945afe0ba37e1302bf683d51ba04c637b0a68d29feb3a7ab",
+    "tests/audit/screens.cjs": "30e34effadb6404b5e5d24f74bbfb9183e1af1f1006e99991261d5848769395a",
+    "tests/audit/screens.spec.cjs": "daede1a5e376ea623c767960d84f6b50b74015bd090fdbca18379cb1ec38da4c",
+    "tests/audit/service-runner.cjs": "b946717a5c368f4f20d46887489a5c4d4aa361ebcf08c1390963efaf17241c3b"
+  },
+  "status": "passed",
+  "counts": {
+    "passed": 37
+  },
+  "results": [
+    {
+      "title": "POS-007 KDS-001 KDS-002 recipe editor drives stock costing and kitchen transitions",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 75,
+      "ids": [
+        "POS-007",
+        "KDS-001",
+        "KDS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 2433,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-POS-007-KDS-001-5213d-ing-and-kitchen-transitions/attachments/audit-evidence-9bb550d3b207c5a3dedd40fe94682182510a57ad.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_c293c7ed409c_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "kds/tickets/1",
+            "role": "owner",
+            "status": 409,
+            "error": "Invalid kitchen status transition"
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal COGS 1",
+            "actual": {
+              "header": {
+                "id": "9e83fc9f-5404-4ef8-82f5-a065e310acf0",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "COGS Order #ORD-2c989f0d-1805-4c5d-ad16-b56e8438f5ea",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "COGS",
+                "created_at": "2026-11-09T05:37:06.874Z"
+              },
+              "lines": [
+                {
+                  "account": 1200,
+                  "debit": 0,
+                  "credit": 100
+                },
+                {
+                  "account": 5000,
+                  "debit": 100,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "TRACK-003 competing corrections use the latest locked transaction snapshot",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 96,
+      "ids": [
+        "TRACK-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1131,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-TRACK-003-compe-42c60-locked-transaction-snapshot/attachments/audit-evidence-e67bbbb880a4eeae1b3c18903a6ca67ebf02518f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_5f7addcf13ef_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "PUT",
+            "endpoint": "finance/tracker/transaction/f32a66a4-e6a5-46af-b03f-a81757b0d250",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "finance/tracker/transaction/f32a66a4-e6a5-46af-b03f-a81757b0d250",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "SCREEN-033 empty business data renders without an uncaught exception /kitchen",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-033"
+      ],
+      "status": "passed",
+      "duration_ms": 2008,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-033-e-1fd31--uncaught-exception-kitchen/attachments/audit-evidence-735403bf922b2302944749110acbc68d9ac255c9.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_dbfc8a5e6550_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Empty business rendering",
+            "actual": {
+              "title": "Kitchen Display",
+              "errors": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-033 delayed API completion preserves navigation and renders /kitchen",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12,
+      "ids": [
+        "SCREEN-033"
+      ],
+      "status": "passed",
+      "duration_ms": 2030,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-033-d-96722-igation-and-renders-kitchen/attachments/audit-evidence-2251ae600d9290d77d10cbb41b7cc357661bc0a2.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_f13f917ab4ca_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Pending API requests",
+            "actual": [
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/kds/tickets",
+              "http://127.0.0.1:33130/api/kds/tickets"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-033 failed data requests show feedback and recover after reload /kitchen",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21,
+      "ids": [
+        "SCREEN-033"
+      ],
+      "status": "passed",
+      "duration_ms": 2815,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-033-f-19609-ecover-after-reload-kitchen/attachments/audit-evidence-4c5805e4959f0e23a790761ca326f2243c4c4d5a.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d824191913c9_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Injected HTTP failures",
+            "actual": [
+              "http://127.0.0.1:33130/api/kds/tickets",
+              "http://127.0.0.1:33130/api/kds/tickets"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-033 visible buttons and form fields have programmatic accessible names /kitchen",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-033"
+      ],
+      "status": "passed",
+      "duration_ms": 1902,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-ea591-ic-accessible-names-kitchen/attachments/audit-evidence-f6d1442056bedd521262be6280812a372628fdbc.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1011b5cd639d_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-034 empty business data renders without an uncaught exception /recipes",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-034"
+      ],
+      "status": "passed",
+      "duration_ms": 1878,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-034-e-d98a9--uncaught-exception-recipes/attachments/audit-evidence-88c96a9d0b2d949cf990dddbcff3128a24fdac2b.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a9449eb9d412_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Empty business rendering",
+            "actual": {
+              "title": "Recipe Management",
+              "errors": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-034 delayed API completion preserves navigation and renders /recipes",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12,
+      "ids": [
+        "SCREEN-034"
+      ],
+      "status": "passed",
+      "duration_ms": 1918,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-034-d-1cd05-igation-and-renders-recipes/attachments/audit-evidence-db1fb7e5edd215ccd6992404c02d98c8aa117cd2.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_15a68228c47e_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Pending API requests",
+            "actual": [
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/inventory/recipes",
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/inventory/recipes"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-034 failed data requests show feedback and recover after reload /recipes",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21,
+      "ids": [
+        "SCREEN-034"
+      ],
+      "status": "passed",
+      "duration_ms": 2730,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-034-f-86f6e-ecover-after-reload-recipes/attachments/audit-evidence-80dc075df455bb329c45bc8237a8e3564d2e9c92.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e15d579c2938_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Injected HTTP failures",
+            "actual": [
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/inventory/recipes",
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/inventory/recipes"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-034 visible buttons and form fields have programmatic accessible names /recipes",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-034"
+      ],
+      "status": "passed",
+      "duration_ms": 1866,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-48ca0-ic-accessible-names-recipes/attachments/audit-evidence-3ce0816f04942fbfddc21f6831de1437529fdbf5.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_2ab2a2c24dce_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-035 empty business data renders without an uncaught exception /purchase-orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-035"
+      ],
+      "status": "passed",
+      "duration_ms": 1895,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-035-e-e940a-t-exception-purchase-orders/attachments/audit-evidence-0aadb8affe991f73647b1f2be9ced2c3769eb9ba.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_93dead17d3f6_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Empty business rendering",
+            "actual": {
+              "title": "Purchase Orders",
+              "errors": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-035 delayed API completion preserves navigation and renders /purchase-orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12,
+      "ids": [
+        "SCREEN-035"
+      ],
+      "status": "passed",
+      "duration_ms": 1884,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-035-d-05f1b-and-renders-purchase-orders/attachments/audit-evidence-0e121e2a0b40ee0c836ef2e480fed9f1770267b7.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b1ea7c95c577_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Pending API requests",
+            "actual": [
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/inventory/po",
+              "http://127.0.0.1:33130/api/inventory/suppliers",
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/inventory/po",
+              "http://127.0.0.1:33130/api/inventory/suppliers"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-035 failed data requests show feedback and recover after reload /purchase-orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21,
+      "ids": [
+        "SCREEN-035"
+      ],
+      "status": "passed",
+      "duration_ms": 2874,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-035-f-da9e6-fter-reload-purchase-orders/attachments/audit-evidence-9ed42617491b3cd1ce45bccca6844b5b3d22115f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_9296955fdc0c_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Injected HTTP failures",
+            "actual": [
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/inventory/po",
+              "http://127.0.0.1:33130/api/inventory/suppliers",
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/inventory/po",
+              "http://127.0.0.1:33130/api/inventory/suppliers"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-035 visible buttons and form fields have programmatic accessible names /purchase-orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-035"
+      ],
+      "status": "passed",
+      "duration_ms": 1898,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-355bb-sible-names-purchase-orders/attachments/audit-evidence-29909b6086988b26cb381a60e199d8a9fa3f1435.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_da02b167c2c8_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-036 empty business data renders without an uncaught exception /wastage",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-036"
+      ],
+      "status": "passed",
+      "duration_ms": 2136,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-036-e-786ef--uncaught-exception-wastage/attachments/audit-evidence-2f76a597751559088160103b364fe49476a510e9.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1454152d933d_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Empty business rendering",
+            "actual": {
+              "title": "Wastage",
+              "errors": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-036 delayed API completion preserves navigation and renders /wastage",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12,
+      "ids": [
+        "SCREEN-036"
+      ],
+      "status": "passed",
+      "duration_ms": 1889,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-036-d-08b42-igation-and-renders-wastage/attachments/audit-evidence-45a32f81e8bfbdcf5e1c6a26963b6243fb633c24.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e97f0770edbb_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Pending API requests",
+            "actual": [
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/wastage",
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/wastage"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-036 failed data requests show feedback and recover after reload /wastage",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21,
+      "ids": [
+        "SCREEN-036"
+      ],
+      "status": "passed",
+      "duration_ms": 2835,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-036-f-a3e3e-ecover-after-reload-wastage/attachments/audit-evidence-fe694b452f5b5b0b1781756960f5ecaf64047255.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b28494b54a5c_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Injected HTTP failures",
+            "actual": [
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/wastage",
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/wastage"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-036 visible buttons and form fields have programmatic accessible names /wastage",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-036"
+      ],
+      "status": "passed",
+      "duration_ms": 1758,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-46f04-ic-accessible-names-wastage/attachments/audit-evidence-5938f865f320ae4052a18618488f9139ef4887c3.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_db708345e9ef_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-037 empty business data renders without an uncaught exception /stock-adjustments",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-037"
+      ],
+      "status": "passed",
+      "duration_ms": 1862,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-037-e-45089-exception-stock-adjustments/attachments/audit-evidence-b47d244643f3b16cdca3281b30c4d0070049d9ba.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_159b9c1a8b48_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Empty business rendering",
+            "actual": {
+              "title": "Stock Adjustments",
+              "errors": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-037 delayed API completion preserves navigation and renders /stock-adjustments",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12,
+      "ids": [
+        "SCREEN-037"
+      ],
+      "status": "passed",
+      "duration_ms": 1908,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-037-d-0d063-d-renders-stock-adjustments/attachments/audit-evidence-bc173e2e89f430a4fe15cf00d5b3bfe61c41dfdb.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_37203763cd9d_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Pending API requests",
+            "actual": [
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/inventory/adjustments",
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/inventory/adjustments"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-037 failed data requests show feedback and recover after reload /stock-adjustments",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21,
+      "ids": [
+        "SCREEN-037"
+      ],
+      "status": "passed",
+      "duration_ms": 2832,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-037-f-45811-er-reload-stock-adjustments/attachments/audit-evidence-a9492a7fdc5782056fc304c91e9b4edeb42c4328.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_c1775293bed3_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Injected HTTP failures",
+            "actual": [
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/inventory/adjustments",
+              "http://127.0.0.1:33130/api/inventory",
+              "http://127.0.0.1:33130/api/inventory/adjustments"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-037 visible buttons and form fields have programmatic accessible names /stock-adjustments",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-037"
+      ],
+      "status": "passed",
+      "duration_ms": 1944,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-2cca4-ble-names-stock-adjustments/attachments/audit-evidence-b453c12cbf544a5df9df546235817d030f30f58b.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e965991af1cd_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-038 empty business data renders without an uncaught exception /orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-038"
+      ],
+      "status": "passed",
+      "duration_ms": 1887,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-038-e-b1e20-n-uncaught-exception-orders/attachments/audit-evidence-f6ce796c05218f8645024944eae13dd5e8328a85.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e0c2b1df243b_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Empty business rendering",
+            "actual": {
+              "title": "Orders & Payments",
+              "errors": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-038 delayed API completion preserves navigation and renders /orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12,
+      "ids": [
+        "SCREEN-038"
+      ],
+      "status": "passed",
+      "duration_ms": 1988,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-038-d-91e4e-vigation-and-renders-orders/attachments/audit-evidence-7418a395902fdb0435f08e4c12384aa6e5344a4f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_746865ea7421_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Pending API requests",
+            "actual": [
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/orders",
+              "http://127.0.0.1:33130/api/orders"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-038 failed data requests show feedback and recover after reload /orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21,
+      "ids": [
+        "SCREEN-038"
+      ],
+      "status": "passed",
+      "duration_ms": 2742,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-038-f-b1143-recover-after-reload-orders/attachments/audit-evidence-a9484bbde66e38c35ff4cab3caa6e7741ada90a4.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_de92bc09af72_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Injected HTTP failures",
+            "actual": [
+              "http://127.0.0.1:33130/api/orders",
+              "http://127.0.0.1:33130/api/orders"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-038 visible buttons and form fields have programmatic accessible names /orders",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-038"
+      ],
+      "status": "passed",
+      "duration_ms": 1940,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-5bdb1-tic-accessible-names-orders/attachments/audit-evidence-edbdc73c3adcbb88d9b7caccd2de6cd1ddfcb054.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b1a5a565ea9e_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-039 empty business data renders without an uncaught exception /employee-balances",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-039"
+      ],
+      "status": "passed",
+      "duration_ms": 2049,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-039-e-468f1-exception-employee-balances/attachments/audit-evidence-1040f33579bcc0aa3999e98559e2129ddfc0d78b.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_73d6aa60135b_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Empty business rendering",
+            "actual": {
+              "title": "Employee Balances",
+              "errors": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-039 delayed API completion preserves navigation and renders /employee-balances",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 12,
+      "ids": [
+        "SCREEN-039"
+      ],
+      "status": "passed",
+      "duration_ms": 1885,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-039-d-26fef-d-renders-employee-balances/attachments/audit-evidence-b40323aae867290f011f5e531414337b9ff40023.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_674196a2cf2c_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Pending API requests",
+            "actual": [
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/auth/me",
+              "http://127.0.0.1:33130/api/payroll/shortfalls",
+              "http://127.0.0.1:33130/api/finance/transfer/history",
+              "http://127.0.0.1:33130/api/payroll/shortfalls",
+              "http://127.0.0.1:33130/api/finance/transfer/history"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-039 failed data requests show feedback and recover after reload /employee-balances",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 21,
+      "ids": [
+        "SCREEN-039"
+      ],
+      "status": "passed",
+      "duration_ms": 2834,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-SCREEN-039-f-40c3a-er-reload-employee-balances/attachments/audit-evidence-217611c3f4482a72ba39c2108420efe1bc6da2e8.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a67aa7292390_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Injected HTTP failures",
+            "actual": [
+              "http://127.0.0.1:33130/api/payroll/shortfalls",
+              "http://127.0.0.1:33130/api/finance/transfer/history",
+              "http://127.0.0.1:33130/api/payroll/shortfalls",
+              "http://127.0.0.1:33130/api/finance/transfer/history"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-039 visible buttons and form fields have programmatic accessible names /employee-balances",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-039"
+      ],
+      "status": "passed",
+      "duration_ms": 1976,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-9d84a-ble-names-employee-balances/attachments/audit-evidence-0907b13ac3bf0130ce482c2cddfbeb80419e2fc6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1d49706b36c4_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-033 direct navigation, session restore, reload and phone/tablet/desktop rendering /kitchen",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-033"
+      ],
+      "status": "passed",
+      "duration_ms": 2748,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screen",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screens-SCREEN-033-direct--15e3a-t-desktop-rendering-kitchen/attachments/audit-evidence-b9243abf78419c90fbe9ff42fc113dcf3602e37a.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_988c309e4d6c_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Viewport 375",
+            "actual": {
+              "viewport": 375,
+              "width": 375
+            }
+          },
+          {
+            "name": "Viewport 768",
+            "actual": {
+              "viewport": 768,
+              "width": 768
+            }
+          },
+          {
+            "name": "Viewport 1440",
+            "actual": {
+              "viewport": 1440,
+              "width": 1440
+            }
+          },
+          {
+            "name": "Browser errors",
+            "actual": []
+          },
+          {
+            "name": "HTTP failures",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-034 direct navigation, session restore, reload and phone/tablet/desktop rendering /recipes",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-034"
+      ],
+      "status": "passed",
+      "duration_ms": 2786,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screen",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screens-SCREEN-034-direct--00c93-t-desktop-rendering-recipes/attachments/audit-evidence-e185fc90cb7341bc5f4e7aa03272ef50acd495a2.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b6def6806bca_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Viewport 375",
+            "actual": {
+              "viewport": 375,
+              "width": 375
+            }
+          },
+          {
+            "name": "Viewport 768",
+            "actual": {
+              "viewport": 768,
+              "width": 768
+            }
+          },
+          {
+            "name": "Viewport 1440",
+            "actual": {
+              "viewport": 1440,
+              "width": 1440
+            }
+          },
+          {
+            "name": "Browser errors",
+            "actual": []
+          },
+          {
+            "name": "HTTP failures",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-035 direct navigation, session restore, reload and phone/tablet/desktop rendering /purchase-orders",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-035"
+      ],
+      "status": "passed",
+      "duration_ms": 2683,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screen",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screens-SCREEN-035-direct--c9f0d-p-rendering-purchase-orders/attachments/audit-evidence-4ec5b104657a34d672deb84c90a967432abd5de2.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_3d52b92e666b_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Viewport 375",
+            "actual": {
+              "viewport": 375,
+              "width": 375
+            }
+          },
+          {
+            "name": "Viewport 768",
+            "actual": {
+              "viewport": 768,
+              "width": 768
+            }
+          },
+          {
+            "name": "Viewport 1440",
+            "actual": {
+              "viewport": 1440,
+              "width": 1440
+            }
+          },
+          {
+            "name": "Browser errors",
+            "actual": []
+          },
+          {
+            "name": "HTTP failures",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-036 direct navigation, session restore, reload and phone/tablet/desktop rendering /wastage",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-036"
+      ],
+      "status": "passed",
+      "duration_ms": 2779,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screen",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screens-SCREEN-036-direct--b6b76-t-desktop-rendering-wastage/attachments/audit-evidence-54e69cc0342d8ae09c3a3d501b8a21348f9f3f77.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1eb78c2600c4_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Viewport 375",
+            "actual": {
+              "viewport": 375,
+              "width": 375
+            }
+          },
+          {
+            "name": "Viewport 768",
+            "actual": {
+              "viewport": 768,
+              "width": 768
+            }
+          },
+          {
+            "name": "Viewport 1440",
+            "actual": {
+              "viewport": 1440,
+              "width": 1440
+            }
+          },
+          {
+            "name": "Browser errors",
+            "actual": []
+          },
+          {
+            "name": "HTTP failures",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-037 direct navigation, session restore, reload and phone/tablet/desktop rendering /stock-adjustments",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-037"
+      ],
+      "status": "passed",
+      "duration_ms": 2651,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screen",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screens-SCREEN-037-direct--d37bd-rendering-stock-adjustments/attachments/audit-evidence-0d18923e59c5e5b72406e3b2ce49795c22b3ceb1.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_632839382bc4_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Viewport 375",
+            "actual": {
+              "viewport": 375,
+              "width": 375
+            }
+          },
+          {
+            "name": "Viewport 768",
+            "actual": {
+              "viewport": 768,
+              "width": 768
+            }
+          },
+          {
+            "name": "Viewport 1440",
+            "actual": {
+              "viewport": 1440,
+              "width": 1440
+            }
+          },
+          {
+            "name": "Browser errors",
+            "actual": []
+          },
+          {
+            "name": "HTTP failures",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-038 direct navigation, session restore, reload and phone/tablet/desktop rendering /orders",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-038"
+      ],
+      "status": "passed",
+      "duration_ms": 2771,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screen",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screens-SCREEN-038-direct--efc69-et-desktop-rendering-orders/attachments/audit-evidence-263e4ed322c9339d3fb517e7f63c766db7f45a87.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_35d105b148a2_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Viewport 375",
+            "actual": {
+              "viewport": 375,
+              "width": 375
+            }
+          },
+          {
+            "name": "Viewport 768",
+            "actual": {
+              "viewport": 768,
+              "width": 768
+            }
+          },
+          {
+            "name": "Viewport 1440",
+            "actual": {
+              "viewport": 1440,
+              "width": 1440
+            }
+          },
+          {
+            "name": "Browser errors",
+            "actual": []
+          },
+          {
+            "name": "HTTP failures",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "SCREEN-039 direct navigation, session restore, reload and phone/tablet/desktop rendering /employee-balances",
+      "file": "tests/audit/screens.spec.cjs",
+      "line": 4,
+      "ids": [
+        "SCREEN-039"
+      ],
+      "status": "passed",
+      "duration_ms": 2860,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screen",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screens-SCREEN-039-direct--a5958-rendering-employee-balances/attachments/audit-evidence-fb8956321bb203dbbb2a2e3ed1840fe0900d02db.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_83b3205867a5_1794202624271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Viewport 375",
+            "actual": {
+              "viewport": 375,
+              "width": 375
+            }
+          },
+          {
+            "name": "Viewport 768",
+            "actual": {
+              "viewport": 768,
+              "width": 768
+            }
+          },
+          {
+            "name": "Viewport 1440",
+            "actual": {
+              "viewport": 1440,
+              "width": 1440
+            }
+          },
+          {
+            "name": "Browser errors",
+            "actual": []
+          },
+          {
+            "name": "HTTP failures",
+            "actual": []
+          }
+        ]
+      }
+    }
+  ]
+}

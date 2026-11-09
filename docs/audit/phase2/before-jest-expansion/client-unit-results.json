@@ -1,0 +1,10 @@
+{
+  "recorded_at": "2026-11-09T07:40:11.577746+00:00",
+  "passed": 65,
+  "failed": 0,
+  "files": 6,
+  "command": "npm run test:client",
+  "log_sha256": "0f071274ec6c79015989e87fd2c23b1e068563cb275ea80a086cdb4555f93de8",
+  "plugin_version": "6.3.0",
+  "scope": "Executed final client unit suite; browser workflows have separate audit evidence."
+}

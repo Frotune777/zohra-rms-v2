@@ -1,0 +1,1536 @@
+{
+  "started_at": "2026-11-09T05:29:21.560Z",
+  "finished_at": "2026-11-09T05:30:28.625Z",
+  "planned_tests": [
+    {
+      "title": "PAY-004 PAY-010 PAY-011 negative payout recovers full debt and tracks settlement, reversal, repayout and deletion",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 8
+    },
+    {
+      "title": "PAY-005 PAY-012 both payroll APIs share draft and payout state without duplicate cash postings",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "LEAVE-004 LEAVE-006 mixed attendance counts approved paid leave once and protects overlap",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 37
+    },
+    {
+      "title": "PAY-001 missing attendance remains explicit and inactive employees are excluded",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 43
+    },
+    {
+      "title": "POS-003 POS-005 discounts, tax, customer, table, notes and partial settlement persist through browser flow",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 47
+    },
+    {
+      "title": "POS-004 POS-005 due checkout and competing settlements reconcile debt without double collection",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 57
+    },
+    {
+      "title": "POS-005 invalid discounts, unidentified due orders and oversized partial payments roll back",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 64
+    },
+    {
+      "title": "POS-004 browser retry after a lost response creates one order and one ticket",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 69
+    },
+    {
+      "title": "INV-003 KDS-001 KDS-002 recipe editor drives stock costing and kitchen transitions",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 75
+    },
+    {
+      "title": "PO-001 PO-003 browser creates and receives purchase order exactly once and prevents cancelled receipt",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 83
+    },
+    {
+      "title": "WASTE-001 INV-002 browser logs fractional wastage and stock adjustments with source-linked valuation",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 88
+    },
+    {
+      "title": "GL-002 per-line cent rounding prevents stored journals from becoming unbalanced",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 93
+    },
+    {
+      "title": "TRACK-003 competing corrections use the latest locked transaction snapshot",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 96
+    },
+    {
+      "title": "EXPORT-003 PDF contains long report data, repeated headers, Unicode and multiple pages",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 101
+    },
+    {
+      "title": "AUTH-006 operations writes and employee debts reject staff access",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 105
+    },
+    {
+      "title": "EXPORT-003 /reports/financial PDF downloads parse and contain report values",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 25
+    },
+    {
+      "title": "EXPORT-003 /reports/hr PDF downloads parse and contain report values",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 25
+    },
+    {
+      "title": "EXPORT-003 /reports/operations PDF downloads parse and contain report values",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 25
+    },
+    {
+      "title": "EXPORT-003 /reports/inventory PDF downloads parse and contain report values",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 25
+    },
+    {
+      "title": "TRANSFER-003 concurrent wallet returns preserve signed balance and overdraft history",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 88
+    },
+    {
+      "title": "LEAVE-006 Paid leave earns pay while Unpaid leave does not",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 95
+    },
+    {
+      "title": "PAY-004 advance recovery can exceed salary and rejects recovery beyond outstanding debt",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 164
+    },
+    {
+      "title": "INV-005 fractional wastage links the log, stock deduction and journal",
+      "file": "tests/audit/pos-inventory.spec.cjs",
+      "line": 130
+    }
+  ],
+  "source_sha256": {
+    "playwright.audit.config.cjs": "a71db4d943a18608429fca9fe6f33014d4a87d69d4a12572aeff2b724fe12cad",
+    "tests/audit/auth.spec.cjs": "95fae9609d8a778dc2280a346d62e86197491236a1fa216a407cc5227381bc57",
+    "tests/audit/clock.cjs": "d610bc5db42c3f5ca22a04380af278baa79c80e528636da8fc068e1f3b7bf740",
+    "tests/audit/completion.spec.cjs": "6010d49b1f18835e9b979c79e3da303474d46a725693f04205108a4de022fc60",
+    "tests/audit/data-roundtrip.spec.cjs": "6fa80c53d2e33b20c09c70d943e1292d41adf99a6e0fc4b05394f19994ab94f4",
+    "tests/audit/database.cjs": "1577de9f52f39f6ec4dd5edb2752913f88e149e94e3d1d0a16c3b46713a92855",
+    "tests/audit/exports.spec.cjs": "2f0aa94e423f13f5be3e4f8ed5c4f2551f4c097c74e5bd9801d1f7bb61e54cdf",
+    "tests/audit/finance.spec.cjs": "862cbb92d8b2b5a30cd15db9a9adb53816ab47753b755d33db5e622f436b8288",
+    "tests/audit/fixtures.cjs": "754e4b030497b681c9b8a0bcf177e78201f07a8fa2aa815eb2b98bdda14ab14a",
+    "tests/audit/global-setup.cjs": "0193336d5a2c9c384ff79b1d7d4f39a64b5d6ca733f3411264958e6c51a05d38",
+    "tests/audit/global-teardown.cjs": "05fe5aef9cd5e4e0c7187257d4177f20e3fbafe790268e12448a402c310c509d",
+    "tests/audit/harness.spec.cjs": "09ecde360e4257c4e43df2cbdb65fd280a36314f14eb17fd055243f6329451d6",
+    "tests/audit/helpers.cjs": "41922596bef71690777ab88108ce74fe31ff5410e91650aa3d454b70dddf167a",
+    "tests/audit/hr.spec.cjs": "e3d4d9666bd679b0ba9c750b4b3e32f7da59f41a32d7d04a3ff77844d5a6f4b2",
+    "tests/audit/import-runner.py": "99eb69b02bf882a6255c7bddc1251466edb6cade53cc4d1af563fcd53b114331",
+    "tests/audit/integrity-regressions.spec.cjs": "e4bb8219aa424e5337a46872b4412a6d666dae391bf8fe00b851af8cf3e87c41",
+    "tests/audit/payroll-ui.spec.cjs": "77ced4163432777ac05ca72028dc3ca1fa032337d2977df79895602166e2e4e6",
+    "tests/audit/pos-inventory.spec.cjs": "36812fccaf454a1b2a8a8cb5228b7440ab16a1919a834bf8a9d6020d78adadef",
+    "tests/audit/procurement.spec.cjs": "0f711d50e9bf22a7bafb473f388b64c3ca903387433d1e6fa6de6ca410b5e089",
+    "tests/audit/reporter.cjs": "2c5903c8e445544dccefaeff47521650f78652ace907e35ae68a9127f8f259f0",
+    "tests/audit/reports-config-ai.spec.cjs": "24b19eea59aff75842d92282ef56dd7c23c79ddf242efef52b38b4958eae7fa9",
+    "tests/audit/screen-states.spec.cjs": "36b3c238aaacfb96945afe0ba37e1302bf683d51ba04c637b0a68d29feb3a7ab",
+    "tests/audit/screens.cjs": "d1a775987958f7a4ea7951f1c67e4aaeee2171e9a5b758b465dc0de207a1ae17",
+    "tests/audit/screens.spec.cjs": "daede1a5e376ea623c767960d84f6b50b74015bd090fdbca18379cb1ec38da4c",
+    "tests/audit/service-runner.cjs": "b946717a5c368f4f20d46887489a5c4d4aa361ebcf08c1390963efaf17241c3b"
+  },
+  "status": "failed",
+  "counts": {
+    "passed": 21,
+    "timedOut": 1,
+    "failed": 1
+  },
+  "results": [
+    {
+      "title": "PAY-004 PAY-010 PAY-011 negative payout recovers full debt and tracks settlement, reversal, repayout and deletion",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 8,
+      "ids": [
+        "PAY-004",
+        "PAY-010",
+        "PAY-011"
+      ],
+      "status": "passed",
+      "duration_ms": 1811,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-PAY-004-PAY-010-a3525-ersal-repayout-and-deletion/attachments/audit-evidence-2c8ac31385d40029534968010338dc04a4644c1b.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_62b08ebeb83b_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "payroll/shortfalls",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/shortfalls/1/settle",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/revert/1",
+            "role": "owner",
+            "status": 409,
+            "error": "Reverse shortfall settlements before correcting payroll"
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/shortfalls/1/settlements/1/reverse",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/revert/1",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "DELETE",
+            "endpoint": "payroll/1",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal PayrollShortfall 1",
+            "actual": {
+              "header": {
+                "id": "39926ad0-705f-402e-a083-42d06bd7b4bf",
+                "transaction_date": "2026-11-08T18:30:00.000Z",
+                "description": "Negative payroll payout #1",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "PayrollShortfall",
+                "created_at": "2026-11-09T05:29:22.906Z"
+              },
+              "lines": [
+                {
+                  "account": 1110,
+                  "debit": 10000,
+                  "credit": 0
+                },
+                {
+                  "account": 6100,
+                  "debit": 0,
+                  "credit": 10000
+                }
+              ]
+            }
+          },
+          {
+            "name": "Journal AdvanceRepayment 1",
+            "actual": {
+              "header": {
+                "id": "a1059837-4772-4932-b54b-ef8de458afd4",
+                "transaction_date": "2026-11-08T18:30:00.000Z",
+                "description": "Advance recovery for payroll #1",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "AdvanceRepayment",
+                "created_at": "2026-11-09T05:29:22.906Z"
+              },
+              "lines": [
+                {
+                  "account": 1100,
+                  "debit": 0,
+                  "credit": 40000
+                },
+                {
+                  "account": 6100,
+                  "debit": 40000,
+                  "credit": 0
+                }
+              ]
+            }
+          },
+          {
+            "name": "Journal PayrollShortfallSettlement negative-pay-test",
+            "actual": {
+              "header": {
+                "id": "0bb09114-8469-470b-93ff-39e2de03b263",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Payroll shortfall settlement #1",
+                "created_by_user_id": null,
+                "reference_id": "negative-pay-test",
+                "reference_type": "PayrollShortfallSettlement",
+                "created_at": "2026-11-09T05:29:23.398Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 2000,
+                  "credit": 0
+                },
+                {
+                  "account": 1110,
+                  "debit": 0,
+                  "credit": 2000
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "PAY-005 PAY-012 both payroll APIs share draft and payout state without duplicate cash postings",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 31,
+      "ids": [
+        "PAY-005",
+        "PAY-012"
+      ],
+      "status": "passed",
+      "duration_ms": 948,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-PAY-005-PAY-012-e0258-out-duplicate-cash-postings/attachments/audit-evidence-092b2bebf573591e7cff25548612793491a0f1dd.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d0c5c456e2c3_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/run",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "LEAVE-004 LEAVE-006 mixed attendance counts approved paid leave once and protects overlap",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 37,
+      "ids": [
+        "LEAVE-004",
+        "LEAVE-006"
+      ],
+      "status": "passed",
+      "duration_ms": 1085,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-LEAVE-004-LEAVE-fd2fa-e-once-and-protects-overlap/attachments/audit-evidence-1c8ed44536f13d7f5e2b6da14975ca3e45174ee6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_22ddc97d205b_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/2/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/3/approve",
+            "role": "owner",
+            "status": 409,
+            "error": "Leave overlaps locked attendance"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-001 missing attendance remains explicit and inactive employees are excluded",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 43,
+      "ids": [
+        "PAY-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1313,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-PAY-001-missing-fd581-tive-employees-are-excluded/attachments/audit-evidence-b51af2d95e3172404f3f0f083fdc18cc8a12713e.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_41223b1c4344_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "POS-003 POS-005 discounts, tax, customer, table, notes and partial settlement persist through browser flow",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 47,
+      "ids": [
+        "POS-003",
+        "POS-005"
+      ],
+      "status": "passed",
+      "duration_ms": 2004,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-POS-003-POS-005-84327-ersist-through-browser-flow/attachments/audit-evidence-c49107c0a5bc9ea89e75501f0158b24e8fcaec62.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_bf1ba49fc266_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "0b2c52fc-f5d9-4edc-90c1-26e3b97e5b82",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-7910396f-bca4-4d06-a5fd-ab1e766a531b",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T05:29:28.427Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 1120,
+                  "debit": 110,
+                  "credit": 0
+                },
+                {
+                  "account": 2100,
+                  "debit": 0,
+                  "credit": 10
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 200
+                }
+              ]
+            }
+          },
+          {
+            "name": "Journal OrderSettlement 18dd3254-ea17-4093-b5dd-fb2bb281ae78",
+            "actual": {
+              "header": {
+                "id": "258accf2-9fd6-4247-ae98-093299b5c06d",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Order payment #1",
+                "created_by_user_id": null,
+                "reference_id": "18dd3254-ea17-4093-b5dd-fb2bb281ae78",
+                "reference_type": "OrderSettlement",
+                "created_at": "2026-11-09T05:29:28.866Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 110,
+                  "credit": 0
+                },
+                {
+                  "account": 1120,
+                  "debit": 0,
+                  "credit": 110
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-004 POS-005 due checkout and competing settlements reconcile debt without double collection",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 57,
+      "ids": [
+        "POS-004",
+        "POS-005"
+      ],
+      "status": "passed",
+      "duration_ms": 943,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-POS-004-POS-005-28755-t-without-double-collection/attachments/audit-evidence-a7c160b50c350b48c083a8f27a7622bcb3a031eb.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_f12f6f653e99_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/payments",
+            "role": "staff",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/payments",
+            "role": "staff",
+            "status": 409,
+            "error": "Payment exceeds outstanding order balance"
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/payments",
+            "role": "staff",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "75a19500-5db6-4b94-bc64-d748411cd162",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-023469c1-7037-4430-a6a3-f7fa66485960",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T05:29:29.728Z"
+              },
+              "lines": [
+                {
+                  "account": 1120,
+                  "debit": 250,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 250
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-005 invalid discounts, unidentified due orders and oversized partial payments roll back",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 64,
+      "ids": [
+        "POS-005"
+      ],
+      "status": "passed",
+      "duration_ms": 954,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-POS-005-invalid-f6c61--partial-payments-roll-back/attachments/audit-evidence-50a9426330426d09597dea449766b689854d6343.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_29e3dc34e596_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 400,
+            "error": "Discount exceeds subtotal"
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 400,
+            "error": "Discount must be a finite non-negative number"
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 400,
+            "error": "Customer phone required for outstanding orders"
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 400,
+            "error": "Partial payment must be below order total"
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 400,
+            "error": "Invalid order type"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "POS-004 browser retry after a lost response creates one order and one ticket",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 69,
+      "ids": [
+        "POS-004"
+      ],
+      "status": "passed",
+      "duration_ms": 1961,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-POS-004-browser-05c67-es-one-order-and-one-ticket/attachments/audit-evidence-001a800f30b0bd4a2da026352f4b588ce6408f74.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_fa9cd185ff83_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "INV-003 KDS-001 KDS-002 recipe editor drives stock costing and kitchen transitions",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 75,
+      "ids": [
+        "INV-003",
+        "KDS-001",
+        "KDS-002"
+      ],
+      "status": "timedOut",
+      "duration_ms": 35246,
+      "errors": [
+        "\u001b[31mTest timeout of 35000ms exceeded.\u001b[39m",
+        "Error: locator.click: Test timeout of 35000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Mark done', exact: true })\u001b[22m\n"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-INV-003-KDS-001-95d3d-ing-and-kitchen-transitions/test-failed-1.png",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-INV-003-KDS-001-95d3d-ing-and-kitchen-transitions/attachments/audit-evidence-b87c55a1f77d521cc9a90fd8c9dcb4aecbf57a22.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-INV-003-KDS-001-95d3d-ing-and-kitchen-transitions/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-INV-003-KDS-001-95d3d-ing-and-kitchen-transitions/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d1724b7b38f9_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal COGS 1",
+            "actual": {
+              "header": {
+                "id": "040dbe53-b882-4cb9-8685-27930ef86efc",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "COGS Order #ORD-e552217d-c4e4-4d9d-8417-4253884100b2",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "COGS",
+                "created_at": "2026-11-09T05:29:34.167Z"
+              },
+              "lines": [
+                {
+                  "account": 1200,
+                  "debit": 0,
+                  "credit": 100
+                },
+                {
+                  "account": 5000,
+                  "debit": 100,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "PO-001 PO-003 browser creates and receives purchase order exactly once and prevents cancelled receipt",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 83,
+      "ids": [
+        "PO-001",
+        "PO-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1637,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-PO-001-PO-003-b-45b80--prevents-cancelled-receipt/attachments/audit-evidence-f99a24ef850650590a3be0748b06dd00b67d0c02.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a016aa1e731a_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "PUT",
+            "endpoint": "inventory/po/1/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "inventory/po",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "inventory/po/2/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "inventory/po/2/status",
+            "role": "owner",
+            "status": 409,
+            "error": "Cancelled purchase orders cannot be reopened"
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal PurchaseOrder 1",
+            "actual": {
+              "header": {
+                "id": "d110022e-b737-4aa4-a5de-e1bf45ef9370",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "PO #1 Received",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "PurchaseOrder",
+                "created_at": "2026-11-09T05:30:09.937Z"
+              },
+              "lines": [
+                {
+                  "account": 1200,
+                  "debit": 300,
+                  "credit": 0
+                },
+                {
+                  "account": 2000,
+                  "debit": 0,
+                  "credit": 300
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "WASTE-001 INV-002 browser logs fractional wastage and stock adjustments with source-linked valuation",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 88,
+      "ids": [
+        "WASTE-001",
+        "INV-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1890,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-WASTE-001-INV-0-99f1b-ith-source-linked-valuation/attachments/audit-evidence-ac895388e99a4e52f00820f320ddf5fd60fbe83c.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b15829765d97_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "inventory/adjustments",
+            "role": "owner",
+            "status": 400,
+            "error": "Adjustment exceeds available stock"
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal Wastage 1",
+            "actual": {
+              "header": {
+                "id": "3fa621b8-8e57-4c1d-b6ff-384c10d854e1",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Wastage Logging: Spilled",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "Wastage",
+                "created_at": "2026-11-09T05:30:11.310Z"
+              },
+              "lines": [
+                {
+                  "account": 1200,
+                  "debit": 0,
+                  "credit": 37.5
+                },
+                {
+                  "account": 6000,
+                  "debit": 37.5,
+                  "credit": 0
+                }
+              ]
+            }
+          },
+          {
+            "name": "Journal StockAdjustment 1",
+            "actual": {
+              "header": {
+                "id": "43acd7a1-0ecf-41bd-96dc-9e9d97fe2bae",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Count correction",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "StockAdjustment",
+                "created_at": "2026-11-09T05:30:11.641Z"
+              },
+              "lines": [
+                {
+                  "account": 1200,
+                  "debit": 0,
+                  "credit": 75
+                },
+                {
+                  "account": 6200,
+                  "debit": 75,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "GL-002 per-line cent rounding prevents stored journals from becoming unbalanced",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 93,
+      "ids": [
+        "GL-002"
+      ],
+      "status": "passed",
+      "duration_ms": 948,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-GL-002-per-line-826ba-ls-from-becoming-unbalanced/attachments/audit-evidence-8c45740e273441a70aabd2256f7d56989b716cee.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_842c54ef2017_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "JournalService.createJournalEntry",
+            "actual": {
+              "ok": false,
+              "error": "Unbalanced Journal Entry: Total Debits (0.02) does not equal Total Credits (0.01)"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "TRACK-003 competing corrections use the latest locked transaction snapshot",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 96,
+      "ids": [
+        "TRACK-003"
+      ],
+      "status": "failed",
+      "duration_ms": 851,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m201\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-TRACK-003-compe-42c60-locked-transaction-snapshot/attachments/audit-evidence-e67bbbb880a4eeae1b3c18903a6ca67ebf02518f.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-TRACK-003-compe-42c60-locked-transaction-snapshot/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-TRACK-003-compe-42c60-locked-transaction-snapshot/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_5f7addcf13ef_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "EXPORT-003 PDF contains long report data, repeated headers, Unicode and multiple pages",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 101,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 2362,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-EXPORT-003-PDF--e9b01--Unicode-and-multiple-pages/attachments/audit-evidence-d4b246c11ce080e7da99bb2f7718e7795e05fb79.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_697dfbb9b107_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Paginated PDF",
+            "actual": {
+              "pages": 5,
+              "text": "inventory\nGenerated 2026-11-09\nid name stock_qty unit_cost unit stock_value stock_level\n1 रसोई 20.0000 150.00 kg 3000.000000 medium\n2 Audit Rice 10.0000 50.00 kg 500.000000 low\n4 Long report item 1 1.0000 2.00 kg 2.000000 low\n5 Long report item 2 1.0000 2.00 kg 2.000000 low\n6 Long report item 3 1.0000 2.00 kg 2.000000 low\n7 Long report item 4 1.0000 2.00 kg 2.000000 low\n8 Long report item 5 1.0000 2.00 kg 2.000000 low\n9 Long report item 6 1.0000 2.00 kg 2.000000 low\n10 Long report item 7 1.0000 2.00 kg 2.000000 low\n11 Long report item 8 1.0000 2.00 kg 2.000000 low\n12 Long report item 9 1.0000 2.00 kg 2.000000 low\n13 Long report item 10 1.0000 2.00 kg 2.000000 low\n14 Long report item 11 1.0000 2.00 kg 2.000000 low\n15 Long report item 12 1.0000 2.00 kg 2.000000 low\n16 Long report item 13 1.0000 2.00 kg 2.000000 low\n17 Long report item 14 1.0000 2.00 kg 2.000000 low\n18 Long report item 15 1.0000 2.00 kg 2.000000 low\n19 Long report item 16 1.0000 2.00 kg 2.000000 low\n20 Long report item 17 1.0000 2.00 kg 2.000000 low\n21 Long report item 18 1.0000 2.00 kg 2.000000 low\n22 Long report item 19 1.0000 2.00 kg 2.000000 low\nPage 1 of 5\nid name stock_qty unit_cost unit stock_value stock_level\n23 Long report item 20 1.0000 2.00 kg 2.000000 low\n24 Long report item 21 1.0000 2.00 kg 2.000000 low\n25 Long report item 22 1.0000 2.00 kg 2.000000 low\n26 Long report item 23 1.0000 2.00 kg 2.000000 low\n27 Long report item 24 1.0000 2.00 kg 2.000000 low\n28 Long report item 25 1.0000 2.00 kg 2.000000 low\n29 Long report item 26 1.0000 2.00 kg 2.000000 low\n30 Long report item 27 1.0000 2.00 kg 2.000000 low\n31 Long report item 28 1.0000 2.00 kg 2.000000 low\n32 Long report item 29 1.0000 2.00 kg 2.000000 low\n33 Long report item 30 1.0000 2.00 kg 2.000000 low\n34 Long report item 31 1.0000 2.00 kg 2.000000 low\n35 Long report item 32 1.0000 2.00 kg 2.000000 low\n36 Long report item 33 1.0000 2.00 kg 2.000000 low\n37 Long report item 34 1.0000 2.00 kg 2.000000 low\n38 Long report item 35 1.0000 2.00 kg 2.000000 low\n39 Long report item 36 1.0000 2.00 kg 2.000000 low\n40 Long report item 37 1.0000 2.00 kg 2.000000 low\n41 Long report item 38 1.0000 2.00 kg 2.000000 low\n42 Long report item 39 1.0000 2.00 kg 2.000000 low\n43 Long report item 40 1.0000 2.00 kg 2.000000 low\n44 Long report item 41 1.0000 2.00 kg 2.000000 low\n45 Long report item 42 1.0000 2.00 kg 2.000000 low\nPage 2 of 5\nid name stock_qty unit_cost unit stock_value stock_level\n46 Long report item 43 1.0000 2.00 kg 2.000000 low\n47 Long report item 44 1.0000 2.00 kg 2.000000 low\n48 Long report item 45 1.0000 2.00 kg 2.000000 low\n49 Long report item 46 1.0000 2.00 kg 2.000000 low\n50 Long report item 47 1.0000 2.00 kg 2.000000 low\n51 Long report item 48 1.0000 2.00 kg 2.000000 low\n52 Long report item 49 1.0000 2.00 kg 2.000000 low\n53 Long report item 50 1.0000 2.00 kg 2.000000 low\n54 Long report item 51 1.0000 2.00 kg 2.000000 low\n55 Long report item 52 1.0000 2.00 kg 2.000000 low\n56 Long report item 53 1.0000 2.00 kg 2.000000 low\n57 Long report item 54 1.0000 2.00 kg 2.000000 low\n58 Long report item 55 1.0000 2.00 kg 2.000000 low\n59 Long report item 56 1.0000 2.00 kg 2.000000 low\n60 Long report item 57 1.0000 2.00 kg 2.000000 low\n61 Long report item 58 1.0000 2.00 kg 2.000000 low\n62 Long report item 59 1.0000 2.00 kg 2.000000 low\n63 Long report item 60 1.0000 2.00 kg 2.000000 low\n64 Long report item 61 1.0000 2.00 kg 2.000000 low\n65 Long report item 62 1.0000 2.00 kg 2.000000 low\n66 Long report item 63 1.0000 2.00 kg 2.000000 low\n67 Long report item 64 1.0000 2.00 kg 2.000000 low\n68 Long report item 65 1.0000 2.00 kg 2.000000 low\nPage 3 of 5\nid name stock_qty unit_cost unit stock_value stock_level\n69 Long report item 66 1.0000 2.00 kg 2.000000 low\n70 Long report item 67 1.0000 2.00 kg 2.000000 low\n71 Long report item 68 1.0000 2.00 kg 2.000000 low\n72 Long report item 69 1.0000 2.00 kg 2.000000 low\n73 Long report item 70 1.0000 2.00 kg 2.000000 low\n74 Long report item 71 1.0000 2.00 kg 2.000000 low\n75 Long report item 72 1.0000 2.00 kg 2.000000 low\n76 Long report item 73 1.0000 2.00 kg 2.000000 low\n77 Long report item 74 1.0000 2.00 kg 2.000000 low\n78 Long report item 75 1.0000 2.00 kg 2.000000 low\n79 Long report item 76 1.0000 2.00 kg 2.000000 low\n80 Long report item 77 1.0000 2.00 kg 2.000000 low\n81 Long report item 78 1.0000 2.00 kg 2.000000 low\n82 Long report item 79 1.0000 2.00 kg 2.000000 low\n83 Long report item 80 1.0000 2.00 kg 2.000000 low\n84 Long report item 81 1.0000 2.00 kg 2.000000 low\n85 Long report item 82 1.0000 2.00 kg 2.000000 low\n86 Long report item 83 1.0000 2.00 kg 2.000000 low\n87 Long report item 84 1.0000 2.00 kg 2.000000 low\n88 Long report item 85 1.0000 2.00 kg 2.000000 low\n89 Long report item 86 1.0000 2.00 kg 2.000000 low\n90 Long report item 87 1.0000 2.00 kg 2.000000 low\n91 Long report item 88 1.0000 2.00 kg 2.000000 low\nPage 4 of 5\nid name stock_qty unit_cost unit stock_value stock_level\n92 Long report item 89 1.0000 2.00 kg 2.000000 low\n3 Long report item 0 1.0000 2.00 kg 2.000000 low\nPage 5 of 5"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "AUTH-006 operations writes and employee debts reject staff access",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 105,
+      "ids": [
+        "AUTH-006"
+      ],
+      "status": "passed",
+      "duration_ms": 934,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-AUTH-006-operat-7c44e-e-debts-reject-staff-access/attachments/audit-evidence-be7d66718cde4fa3627b5082ee7c344859c0c5ed.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_9faa910a2338_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "PUT",
+            "endpoint": "inventory/recipes/1",
+            "role": "staff",
+            "status": 403,
+            "error": "Insufficient permissions"
+          },
+          {
+            "method": "POST",
+            "endpoint": "inventory/adjustments",
+            "role": "staff",
+            "status": 403,
+            "error": "Insufficient permissions"
+          },
+          {
+            "method": "POST",
+            "endpoint": "inventory/po",
+            "role": "staff",
+            "status": 403,
+            "error": "Insufficient permissions"
+          },
+          {
+            "method": "POST",
+            "endpoint": "wastage",
+            "role": "staff",
+            "status": 403,
+            "error": "Insufficient permissions"
+          },
+          {
+            "method": "GET",
+            "endpoint": "payroll/shortfalls",
+            "role": "staff",
+            "status": 403,
+            "error": "Insufficient permissions"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "EXPORT-003 /reports/financial PDF downloads parse and contain report values",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 25,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1867,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-8071b-e-and-contain-report-values/attachments/audit-evidence-8336791611bad3d45cb22fa7fd6e6f43f015b751.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_4c3c69000100_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "PDF contents",
+            "actual": {
+              "pages": 1,
+              "text": "financial\nGenerated 2026-11-09\ndate revenue expenses\n9 Nov 100 50\nPage 1 of 1"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-003 /reports/hr PDF downloads parse and contain report values",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 25,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1742,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-452f3-e-and-contain-report-values/attachments/audit-evidence-bc7457da8a3e5b062eb79e004c22d69639aeb988.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_435a2ff79276_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "PDF contents",
+            "actual": {
+              "pages": 1,
+              "text": "hr\nGenerated 2026-11-09\nemployee_id full_name position total_advances total_recovered outstanding_balance\n1 Audit Staff Cook 1000.00 0 1000.00\nPage 1 of 1"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-003 /reports/operations PDF downloads parse and contain report values",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 25,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1923,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-5f9e4-e-and-contain-report-values/attachments/audit-evidence-2a101e067e6956ef88e3aad303c011dbd65695bb.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_c93c43af28da_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "PDF contents",
+            "actual": {
+              "pages": 1,
+              "text": "operations\nGenerated 2026-11-09\nitem_name total_qty avg_rate total_amount bill_count\nAudit Chicken 2.00 160.0000000000000000 320.0000 1\nPage 1 of 1"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-003 /reports/inventory PDF downloads parse and contain report values",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 25,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1713,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-5456c-e-and-contain-report-values/attachments/audit-evidence-efe0fecde62d66913f1dd2462183f4f97d5d6795.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_2dedcf4c9a41_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "PDF contents",
+            "actual": {
+              "pages": 1,
+              "text": "inventory\nGenerated 2026-11-09\nid name stock_qty unit_cost unit stock_value stock_level\n1 Audit Chicken 20.0000 150.00 kg 3000.000000 medium\n2 Audit Rice 10.0000 50.00 kg 500.000000 low\nPage 1 of 1"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "TRANSFER-003 concurrent wallet returns preserve signed balance and overdraft history",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 88,
+      "ids": [
+        "TRANSFER-003"
+      ],
+      "status": "passed",
+      "duration_ms": 938,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRANSFER-003-concu-4a7de-lance-and-overdraft-history/attachments/audit-evidence-f0b6abb9f5e7e9268ef21584553f97453d69a796.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_053d7dfc6bc1_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/user-to-safe",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/user-to-safe",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/transfer/history",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "LEAVE-006 Paid leave earns pay while Unpaid leave does not",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 95,
+      "ids": [
+        "LEAVE-006"
+      ],
+      "status": "passed",
+      "duration_ms": 945,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-LEAVE-006-Paid-leave-ea-96985-while-Unpaid-leave-does-not/attachments/audit-evidence-4561db3e3d83bc7255dc90373d0cef5d52fe075d.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ee0a7de333f4_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/2/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-004 advance recovery can exceed salary and rejects recovery beyond outstanding debt",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 164,
+      "ids": [
+        "PAY-004"
+      ],
+      "status": "passed",
+      "duration_ms": 930,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-004-advance-recover-82b10-ery-beyond-outstanding-debt/attachments/audit-evidence-30560d921b02ae6018a274529600da2a637e6e63.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_cbc44b239c22_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 400,
+            "error": "Advance recovery exceeds outstanding balance"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "INV-005 fractional wastage links the log, stock deduction and journal",
+      "file": "tests/audit/pos-inventory.spec.cjs",
+      "line": 130,
+      "ids": [
+        "INV-005"
+      ],
+      "status": "passed",
+      "duration_ms": 956,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-inventory-INV-005-frac-a03fc-stock-deduction-and-journal/attachments/audit-evidence-28aeb2fe7dbb951f434f82196873e7856d9d8304.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ce628cb89205_1794202160260",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "wastage",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal Wastage 1",
+            "actual": {
+              "header": {
+                "id": "f473719b-8a66-4601-98ce-bfdd191a5c2f",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Wastage Logging: Audit spoiled",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "Wastage",
+                "created_at": "2026-11-09T05:30:28.189Z"
+              },
+              "lines": [
+                {
+                  "account": 1200,
+                  "debit": 0,
+                  "credit": 75
+                },
+                {
+                  "account": 6000,
+                  "debit": 75,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

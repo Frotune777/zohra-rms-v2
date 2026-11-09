@@ -1,0 +1,44 @@
+{
+  "scope": "Phase 2 dependency and build supplement; phase 1 registry/test artifacts are preserved.",
+  "python_dependencies": [
+    "pandas==3.1.1",
+    "pandas-stubs==3.1.0.261029",
+    "sqlalchemy==2.1.8",
+    "psycopg2-binary==2.9.13",
+    "openpyxl==3.1.5",
+    "xlrd==2.0.2",
+    "python-dotenv==1.2.4",
+    "psycopg[binary]==3.3.8"
+  ],
+  "installed": {
+    "pandas": "3.1.1",
+    "sqlalchemy": "2.1.8",
+    "psycopg": "3.3.8",
+    "psycopg-binary": "3.3.8",
+    "psycopg2-binary": "2.9.13",
+    "openpyxl": "3.1.5",
+    "xlrd": "2.0.2",
+    "python-dotenv": "1.2.4"
+  },
+  "uv_lock_check": "passed offline",
+  "client_build": "passed with existing oversized bundle warning",
+  "sha256": {
+    "pyproject.toml": "55cb60afc16ce040ffe0e8c114e0dba3f54b47c794a952a73369ea7631cb48bf",
+    "uv.lock": "3fb4a915511af0ca724f5b93c52537ce4611980ec392977dac908f7179fd1897"
+  },
+  "psycopg_registry_check": {
+    "checked_at": "2026-11-09T03:18:39.589235+00:00",
+    "packages": {
+      "psycopg": {
+        "version": "3.3.8",
+        "requires_python": ">=3.10",
+        "source": "https://pypi.org/pypi/psycopg/json"
+      },
+      "psycopg-binary": {
+        "version": "3.3.8",
+        "requires_python": ">=3.10",
+        "source": "https://pypi.org/pypi/psycopg-binary/json"
+      }
+    }
+  }
+}

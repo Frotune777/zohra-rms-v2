@@ -10,9 +10,15 @@ const ApprovalsDashboard = () => {
     const [advanceRequests, setAdvanceRequests] = useState([]);
     const [activeTab, setActiveTab] = useState('all');
 
+    const [approvedBills, setApprovedBills] = useState([]);
+
     useEffect(() => {
-        fetchPendingItems();
-    }, []);
+        if (activeTab === 'history') {
+            fetchApprovedItems();
+        } else {
+            fetchPendingItems();
+        }
+    }, [activeTab]);
 
     const fetchPendingItems = async () => {
         setLoading(true);
@@ -23,11 +29,22 @@ const ApprovalsDashboard = () => {
             ]);
 
             setPendingBills(billsRes.data);
-            // Filter advances on frontend since the endpoint returns all
             setAdvanceRequests(advancesRes.data.filter(r => r.status === 'Pending'));
         } catch (error) {
             console.error('Failed to load pending items:', error);
             toast.error('Failed to load pending approvals');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchApprovedItems = async () => {
+        setLoading(true);
+        try {
+            const billsRes = await api.get('chicken/bills?status=Approved');
+            setApprovedBills(billsRes.data);
+        } catch (error) {
+            toast.error('Failed to load history');
         } finally {
             setLoading(false);
         }
@@ -43,11 +60,21 @@ const ApprovalsDashboard = () => {
         }
     };
 
-    const rejectBill = async (id) => {
-        // Assuming we have a reject endpoint or just use status update
-        // For now, let's assume we can set status to Rejected
-        if (!window.confirm('Are you sure you want to reject this bill?')) return;
+    const unapproveBill = async (id) => {
+        if (!window.confirm('Are you sure you want to unapprove this bill? This will reverse the ledger entry.')) return;
+        try {
+            await api.patch(`chicken/bills/${id}/status`, { status: 'Pending' });
+            toast.success('Bill unapproved (Reversed)');
+            setApprovedBills(prev => prev.filter(b => b.id !== id));
+            // Optionally switch back to pending tab or just refresh count
+            fetchPendingItems(); // Refresh counts in background
+        } catch (error) {
+            toast.error('Failed to unapprove bill');
+        }
+    };
 
+    const rejectBill = async (id) => {
+        if (!window.confirm('Are you sure you want to reject this bill?')) return;
         try {
             await api.patch(`chicken/bills/${id}/status`, { status: 'Rejected' });
             toast.success('Bill rejected');
@@ -85,14 +112,17 @@ const ApprovalsDashboard = () => {
     return (
         <div className="p-6 max-w-7xl mx-auto h-full overflow-y-auto">
             <PageHeader
-                title="Pending Approvals"
-                subtitle={`${totalPending} items awaiting review`}
+                title="Approvals Dashboard"
+                subtitle={activeTab === 'history' ? "Approved History" : `${totalPending} items awaiting review`}
                 showBack={true}
             />
 
             {/* Stats Overview */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="glass-panel p-6 rounded-xl flex items-center justify-between border-l-4 border-yellow-500">
+                <div
+                    onClick={() => setActiveTab('all')}
+                    className={`glass-panel p-6 rounded-xl flex items-center justify-between border-l-4 border-yellow-500 cursor-pointer hover:bg-white/10 transition ${activeTab === 'all' ? 'ring-2 ring-yellow-500/20' : ''}`}
+                >
                     <div>
                         <p className="text-gray-400 text-sm uppercase tracking-wider">Total Pending</p>
                         <h2 className="text-3xl font-bold text-white mt-1">{totalPending}</h2>
@@ -102,7 +132,10 @@ const ApprovalsDashboard = () => {
                     </div>
                 </div>
 
-                <div className="glass-panel p-6 rounded-xl flex items-center justify-between">
+                <div
+                    onClick={() => setActiveTab('bills')}
+                    className={`glass-panel p-6 rounded-xl flex items-center justify-between cursor-pointer hover:bg-white/10 transition ${activeTab === 'bills' ? 'ring-2 ring-blue-500/20 bg-white/5' : ''}`}
+                >
                     <div>
                         <p className="text-gray-400 text-sm uppercase tracking-wider">Pending Bills</p>
                         <h2 className="text-3xl font-bold text-white mt-1">{pendingBills.length}</h2>
@@ -112,13 +145,16 @@ const ApprovalsDashboard = () => {
                     </div>
                 </div>
 
-                <div className="glass-panel p-6 rounded-xl flex items-center justify-between">
+                <div
+                    onClick={() => setActiveTab('history')}
+                    className={`glass-panel p-6 rounded-xl flex items-center justify-between cursor-pointer hover:bg-white/10 transition ${activeTab === 'history' ? 'ring-2 ring-green-500/20 bg-white/5' : ''}`}
+                >
                     <div>
-                        <p className="text-gray-400 text-sm uppercase tracking-wider">Advance Requests</p>
-                        <h2 className="text-3xl font-bold text-white mt-1">{advanceRequests.length}</h2>
+                        <p className="text-gray-400 text-sm uppercase tracking-wider">History</p>
+                        <h2 className="text-3xl font-bold text-white mt-1">View</h2>
                     </div>
-                    <div className="p-3 bg-purple-500/20 rounded-full text-purple-400">
-                        <FiUser size={24} />
+                    <div className="p-3 bg-green-500/20 rounded-full text-green-400">
+                        <FiCheck size={24} />
                     </div>
                 </div>
             </div>
@@ -152,10 +188,19 @@ const ApprovalsDashboard = () => {
                 >
                     Advance Requests ({advanceRequests.length})
                 </button>
+                <button
+                    onClick={() => setActiveTab('history')}
+                    className={`pb-3 px-2 text-sm font-medium transition ${activeTab === 'history'
+                        ? 'text-zohra-blue border-b-2 border-zohra-blue'
+                        : 'text-gray-400 hover:text-white'
+                        }`}
+                >
+                    Approved History
+                </button>
             </div>
 
             {loading ? (
-                <div className="text-center py-12 text-gray-500">Loading pending items...</div>
+                <div className="text-center py-12 text-gray-500">Loading items...</div>
             ) : (
                 <div className="space-y-8">
                     {/* Chicken Bills Section */}
@@ -211,6 +256,62 @@ const ApprovalsDashboard = () => {
                                                 </td>
                                             </tr>
                                         ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Approved History Section */}
+                    {activeTab === 'history' && (
+                        <div className="glass-panel rounded-xl overflow-hidden">
+                            <div className="p-4 bg-white/5 border-b border-white/10 flex justify-between items-center">
+                                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                                    <FiCheck className="text-green-400" /> Approved History (Bills)
+                                </h3>
+                            </div>
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-left text-sm">
+                                    <thead className="bg-white/5 text-gray-400">
+                                        <tr>
+                                            <th className="p-4">Date</th>
+                                            <th className="p-4">Supplier</th>
+                                            <th className="p-4">Item</th>
+                                            <th className="p-4 text-right">Qty</th>
+                                            <th className="p-4 text-right">Amount</th>
+                                            <th className="p-4 text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-white/5">
+                                        {approvedBills.length === 0 ? (
+                                            <tr>
+                                                <td colSpan="6" className="p-8 text-center text-gray-500">
+                                                    No approved history found
+                                                </td>
+                                            </tr>
+                                        ) : (
+                                            approvedBills.map(bill => (
+                                                <tr key={bill.id} className="hover:bg-white/5 transition">
+                                                    <td className="p-4 text-white">{new Date(bill.date).toLocaleDateString()}</td>
+                                                    <td className="p-4 text-gray-300">{bill.supplier_name}</td>
+                                                    <td className="p-4 text-gray-300">{bill.item_name}</td>
+                                                    <td className="p-4 text-right text-gray-300">{bill.qty}</td>
+                                                    <td className="p-4 text-right font-bold text-white">₹{(bill.qty * bill.vendor_rate).toFixed(2)}</td>
+                                                    <td className="p-4 flex justify-center gap-2">
+                                                        <button
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                unapproveBill(bill.id);
+                                                            }}
+                                                            className="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded hover:bg-yellow-500/30 transition text-xs font-bold cursor-pointer relative z-10"
+                                                            title="Unapprove (Reverse)"
+                                                        >
+                                                            Unapprove
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
@@ -284,7 +385,7 @@ const ApprovalsDashboard = () => {
                         </div>
                     )}
 
-                    {totalPending === 0 && (
+                    {activeTab !== 'history' && totalPending === 0 && (
                         <div className="glass-panel p-12 text-center rounded-xl">
                             <FiCheck className="mx-auto text-green-500 mb-4" size={48} />
                             <h3 className="text-xl font-bold text-white mb-2">All Caught Up!</h3>

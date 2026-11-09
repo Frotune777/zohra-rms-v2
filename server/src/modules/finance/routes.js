@@ -42,6 +42,7 @@ router.post('/mappings/:id/apply', verifyToken, requirePermission(PERMISSIONS.FI
 router.get('/daily-balance/:date', verifyToken, requirePermission(PERMISSIONS.FINANCE_READ), financeController.getDailyBalance);
 router.post('/daily-balance/close', verifyToken, requirePermission(PERMISSIONS.FINANCE_WRITE), financeController.closeDailyBalance);
 router.post('/daily-balance/reopen', verifyToken, requirePermission(PERMISSIONS.ADMIN), financeController.reopenDailyBalance); // Owner only
+router.get('/transfer/history',verifyToken,requirePermission(PERMISSIONS.FINANCE_READ),financeController.getWalletHistory);
 router.post('/transfer/safe-to-user', verifyToken, requirePermission(PERMISSIONS.FINANCE_WRITE), financeController.transferSafeToUser);
 router.post('/transfer/user-to-safe', verifyToken, requirePermission(PERMISSIONS.FINANCE_WRITE), financeController.transferUserToSafe);
 

@@ -36,7 +36,7 @@ export default function FinancialReports() {
                 api.get('reports/financial/overview', { params: dateRange }),
                 api.get('reports/financial/expense-breakdown', { params: dateRange }),
                 api.get('reports/financial/balance-sheet', { params: { date: dateRange.endDate } }),
-                api.get('reports/financial/spending-by-person', { params: dateRange })
+                api.get('finance/reports/spending-by-person', { params: dateRange })
             ]);
 
             setOverview(overviewRes.data);

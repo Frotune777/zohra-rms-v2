@@ -1,0 +1,40 @@
+{
+  "checked_at": "2026-11-09T03:28:32.755608+00:00",
+  "scope": "Final artifact and repository-knowledge checks; this does not certify all feature behavior.",
+  "audit": {
+    "results_and_plan_match": 355,
+    "counts": {
+      "failed": 194,
+      "passed": 161
+    },
+    "planned_ids": 166,
+    "attempted_ids": 166,
+    "fully_verified_ids": 0,
+    "execution_test_hashes_match": 23,
+    "referenced_attachments": "all present",
+    "skips_and_timeouts": 0
+  },
+  "documentation": {
+    "documents_checked": 15,
+    "local_links_checked": 663,
+    "missing_local_links": 0,
+    "source_checkpoint_files": 326,
+    "source_checkpoint": "matches"
+  },
+  "skills": {
+    "bundled_validation": "all four passed",
+    "independent_read_only_accounting_scenario": "completed; selected routed payroll writer and identified competing recovery models"
+  },
+  "scripts": {
+    "freshness_checker": "missing/matching/changed/added/removed/exclusion/read-only checks passed in disposable fixtures; actual Tailwind addition detected",
+    "coverage_summarizer": "partial coverage/snapshot retention/missing hashes/unknown IDs/rejection before overwrite checks passed in disposable fixtures"
+  },
+  "dependencies": {
+    "root_client_server_manifest_lock_evidence": "match",
+    "root_client_server_installed_trees": "no dependency problems",
+    "python_manifest_lock_phase2_hashes": "match",
+    "psycopg_registry": "latest 3.3.8 confirmed on PyPI"
+  },
+  "json_artifacts_parsed": 15,
+  "audit_cluster": "pg_ctl status confirms no server running"
+}

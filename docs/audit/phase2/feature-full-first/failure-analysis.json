@@ -1,0 +1,78 @@
+{
+  "analysed_at": "2026-11-09T06:11:11.119040+00:00",
+  "run_finished_at": "2026-11-09T06:09:16.966Z",
+  "results_sha256": "b757425d50b975a6752c05e9cdb7e07acf9d3a46fc2d3d592990fa4d2b4231e3",
+  "failed_tests": 1,
+  "recorded_error_objects": 1,
+  "by_file": {
+    "tests/audit/pos-inventory.spec.cjs": 1
+  },
+  "by_primary_kind": {
+    "review_required": 1
+  },
+  "scope": "Current completed-run failures. The historical 194-failure diagnosis is preserved under baseline-before-fixes. Paid leave, uncapped recovery and signed-payout tracking assertions now reflect the confirmed user rules. Passing subcases do not certify complete features.",
+  "tests": [
+    {
+      "primary_id": "POS-006",
+      "ids": [
+        "POS-006"
+      ],
+      "title": "POS-006 explicit tax reconciles order, payment and journal cents",
+      "test_file": "tests/audit/pos-inventory.spec.cjs",
+      "test_line": 50,
+      "status": "failed",
+      "kind": "review_required",
+      "diagnosis": "Requires review of this exact reached assertion and persisted evidence; no automatic root-cause claim.",
+      "source_files": [],
+      "errors": [
+        "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 1\n\n@@ -3,11 +3,11 @@\n      \"account\": 1000,\n      \"credit\": 0,\n      \"debit\": 262.5,\n    },\n    Object {\n-     \"account\": 2000,\n+     \"account\": 2100,\n      \"credit\": 12.5,\n      \"debit\": 0,\n    },\n    Object {\n      \"account\": 4000,"
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_beca48119f06_1794203870345",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "b0ee1326-f181-4484-904e-6ad1059af292",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-ace5667a-9cc6-4185-a515-4d7e417ef342",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T06:00:46.781Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 262.5,
+                  "credit": 0
+                },
+                {
+                  "account": 2100,
+                  "debit": 0,
+                  "credit": 12.5
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 250
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

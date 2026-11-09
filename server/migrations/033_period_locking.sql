@@ -45,7 +45,7 @@ RETURNS TRIGGER AS $$
 DECLARE
     period_status VARCHAR;
 BEGIN
-    period_status := get_period_status(NEW.transaction_date);
+    period_status := get_period_status(NEW.transaction_date::DATE);
     
     IF period_status IN ('Locked', 'Closed') THEN
         RAISE EXCEPTION 'Cannot create/modify journal entry: Period for % is %', 

@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-11-09T09:01:40.428862+00:00",
+  "completed_run": "2026-11-09T08:59:42.826Z",
+  "executed_test_hashes_match_current": true,
+  "mismatched_test_files": [],
+  "combined_coverage_server_hashes_match_current": true,
+  "combined_coverage_server_hashes": 73,
+  "maintained_local_links_checked": 962,
+  "missing_links": [],
+  "standalone_jest_source_test_hashes_match_current": true,
+  "knowledge_source_hashes": 379,
+  "knowledge_source_hashes_match_current": true,
+  "result_analysis_and_coverage_match": true,
+  "scope": "Execution-time test/harness, default Babel Jest source/test hashes and same-run V8 server coverage, final source checkpoint and maintained links; not a claim of complete feature coverage."
+}

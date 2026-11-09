@@ -1,4 +1,5 @@
 const db = require('../../config/db');
+const { finite } = require('../../utils/domain');
 
 class EmployeeService {
     /**
@@ -15,20 +16,28 @@ class EmployeeService {
     async createEmployee(data) {
         const { full_name, first_name, last_name, position, age, gender, phone_number, base_salary, status, role, govt_id_type, govt_id_number } = data;
 
+        finite(base_salary,'Salary');
+        const client=await db.pool.connect();
+        try {
+        await client.query('BEGIN');
+        await client.query("SELECT pg_advisory_xact_lock(hashtext('employee-code'))");
         // Generate Employee Code
-        const maxIdRes = await db.query('SELECT MAX(id) as max_id FROM employees');
+        const maxIdRes = await client.query('SELECT MAX(id) as max_id FROM employees');
         const nextId = (parseInt(maxIdRes.rows[0].max_id) || 0) + 1;
         const employee_code = `EMP${String(nextId).padStart(3, '0')}`;
 
-        const result = await db.query(
+        const result = await client.query(
             `INSERT INTO employees 
             (full_name, first_name, last_name, position, age, gender, phone_number, base_salary, status, role, employee_code, govt_id_type, govt_id_number) 
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) 
             RETURNING *`,
-            [full_name, first_name, last_name, position, age || null, gender || null, phone_number || null, base_salary, status || 'active', role || 'staff', employee_code, govt_id_type || null, govt_id_number || null]
+            [full_name, first_name, last_name, position, age ?? null, gender ?? null, phone_number ?? null, base_salary, status || 'active', role || 'staff', employee_code, govt_id_type ?? null, govt_id_number ?? null]
         );
 
+        await client.query('COMMIT');
         return result.rows[0];
+        } catch(err) { await client.query('ROLLBACK'); throw err; }
+        finally { client.release(); }
     }
 
     /**
@@ -37,7 +46,8 @@ class EmployeeService {
     async updateEmployee(id, data, changedBy, client) {
         const { full_name, first_name, last_name, position, age, gender, phone_number, base_salary, status, role, govt_id_type, govt_id_number } = data;
 
-        const currentRes = await client.query('SELECT * FROM employees WHERE id = $1', [id]);
+        if (data.base_salary !== undefined) finite(data.base_salary,'Salary');
+        const currentRes = await client.query('SELECT * FROM employees WHERE id = $1 FOR UPDATE', [id]);
         if (currentRes.rows.length === 0) throw new Error('Employee not found');
         const current = currentRes.rows[0];
 
@@ -56,7 +66,7 @@ class EmployeeService {
             govt_id_type = COALESCE($11, govt_id_type),
             govt_id_number = COALESCE($12, govt_id_number)
             WHERE id = $13 RETURNING *`,
-            [full_name || null, first_name || null, last_name || null, position || null, age || null, gender || null, phone_number || null, base_salary || null, status || null, role || null, govt_id_type || null, govt_id_number || null, id]
+            [full_name ?? null, first_name ?? null, last_name ?? null, position ?? null, age ?? null, gender ?? null, phone_number ?? null, base_salary ?? null, status ?? null, role ?? null, govt_id_type ?? null, govt_id_number ?? null, id]
         );
         const updated = result.rows[0];
 
@@ -65,7 +75,7 @@ class EmployeeService {
             if (data[field] !== undefined && data[field] != current[field]) {
                 await client.query(
                     'INSERT INTO employee_history (employee_id, field_changed, old_value, new_value, changed_by) VALUES ($1, $2, $3, $4, $5)',
-                    [id, field, current[field], data[field], changedBy]
+                    [id, field, current[field], updated[field], changedBy]
                 );
             }
         }

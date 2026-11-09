@@ -1,0 +1,17 @@
+{
+  "verified_at": "2026-11-09T07:39:54.476Z",
+  "postgres": "15.19",
+  "node": "v26.13.0",
+  "fresh_business_rows": 0,
+  "repeat_check": {
+    "mode": "check",
+    "applied": 0,
+    "pending": [],
+    "checksums": "verified"
+  },
+  "all_services_healthy": true,
+  "api_health": 200,
+  "browser_order_refund": "passed",
+  "signed_stock_value_restoration": 3000,
+  "scope": "Fresh canonical bootstrap, clean Dockerfile builds, real API/Chromium partial sale/collection/full-refund smoke on PostgreSQL 15. Full Playwright suite runs separately on PostgreSQL 14."
+}

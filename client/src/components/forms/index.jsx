@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 
 /**
  * Reusable Input component with consistent styling
@@ -10,10 +10,12 @@ export const Input = ({
     className = '',
     ...props
 }) => {
+    const generatedId = useId();
+    const fieldId = props.id || generatedId;
     return (
         <div className="w-full">
             {label && (
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor={fieldId} className="block text-sm font-medium text-gray-300 mb-2">
                     {label} {required && <span className="text-red-400">*</span>}
                 </label>
             )}
@@ -21,6 +23,8 @@ export const Input = ({
                 className={`w-full px-4 py-2 bg-white/5 border ${error ? 'border-red-500' : 'border-white/10'
                     } rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-zohra-blue transition ${className}`}
                 {...props}
+                id={fieldId}
+                required={required}
             />
             {error && <p className="text-red-400 text-sm mt-1">{error}</p>}
         </div>
@@ -39,10 +43,12 @@ export const Select = ({
     className = '',
     ...props
 }) => {
+    const generatedId = useId();
+    const fieldId = props.id || generatedId;
     return (
         <div className="w-full">
             {label && (
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor={fieldId} className="block text-sm font-medium text-gray-300 mb-2">
                     {label} {required && <span className="text-red-400">*</span>}
                 </label>
             )}
@@ -50,6 +56,8 @@ export const Select = ({
                 className={`w-full px-4 py-2 bg-white/5 border ${error ? 'border-red-500' : 'border-white/10'
                     } rounded-lg text-white focus:outline-none focus:border-zohra-blue transition ${className}`}
                 {...props}
+                id={fieldId}
+                required={required}
             >
                 <option value="" className="bg-gray-800 text-white">
                     {placeholder}
@@ -79,10 +87,12 @@ export const Textarea = ({
     className = '',
     ...props
 }) => {
+    const generatedId = useId();
+    const fieldId = props.id || generatedId;
     return (
         <div className="w-full">
             {label && (
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor={fieldId} className="block text-sm font-medium text-gray-300 mb-2">
                     {label} {required && <span className="text-red-400">*</span>}
                 </label>
             )}
@@ -90,6 +100,8 @@ export const Textarea = ({
                 className={`w-full px-4 py-2 bg-white/5 border ${error ? 'border-red-500' : 'border-white/10'
                     } rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-zohra-blue transition resize-none ${className}`}
                 {...props}
+                id={fieldId}
+                required={required}
             />
             {error && <p className="text-red-400 text-sm mt-1">{error}</p>}
         </div>

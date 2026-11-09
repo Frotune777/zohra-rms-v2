@@ -1,0 +1,15 @@
+{
+  "schema_sha256": "e24450b9f0124c7215b4a173e45f62f30be9699dc6066e7ac0247ab6f2a36313",
+  "source": "Verified legacy sequence through 047",
+  "files": [
+    {
+      "path": "001_baseline.sql",
+      "sha256": "73d616a7d1eb705e23f3d2878ff63f795caf740d902d9d4698c3940d1ab66157"
+    },
+    {
+      "path": "002_lookup_seed.sql",
+      "sha256": "5411df2d9c5d7de1ada69d8999877342e9f43cec05eb5f9216442d7e304aac40"
+    }
+  ],
+  "legacy_schema_sha256": "9c32522144ff6ed575b19c898b2c6dfea45a6ec768b43dd8bdf965cb405b2c12"
+}

@@ -326,19 +326,19 @@ const BulkAttendance = () => {
             <div className="glass-panel p-4 rounded-xl mb-6">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <button
+                        <button aria-label="Previous"
                             onClick={() => navigateDate(-1)}
                             className="p-2 hover:bg-white/10 rounded-lg transition"
                         >
                             <FiChevronLeft className="text-gray-400" />
                         </button>
-                        <input
+                        <input aria-label="Date"
                             type="date"
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
                             className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white font-medium"
                         />
-                        <button
+                        <button aria-label="Next"
                             onClick={() => navigateDate(1)}
                             className="p-2 hover:bg-white/10 rounded-lg transition"
                         >

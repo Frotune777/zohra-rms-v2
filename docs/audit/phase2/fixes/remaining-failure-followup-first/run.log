@@ -1,0 +1,49 @@
+
+> test:audit
+> playwright test --config=playwright.audit.config.cjs tests/audit/corrections.spec.cjs --grep weighted receipt and complete depletion|corrections reject staff and locked|vendor APIs enforce management
+
+[WebServer] (node:38860) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:38863) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/audit/corrections.spec.cjs:370:1 › PO-001 INV-002 weighted receipt and complete depletion conserve every cent (1.2s)
+  ✓  2 tests/audit/corrections.spec.cjs:407:1 › AUTH-006 CLOSE-003 corrections reject staff and locked periods without writes (1.2s)
+  ✘  3 tests/audit/corrections.spec.cjs:595:1 › AUTH-006 VENDOR-004 vendor APIs enforce management permission and end-only ledger filters work (2.0s)
+
+
+  1) tests/audit/corrections.spec.cjs:595:1 › AUTH-006 VENDOR-004 vendor APIs enforce management permission and end-only ledger filters work 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 500
+
+      643 |     "manager",
+      644 |   );
+    > 645 |   expect(payment.status).toBe(200);
+          |                          ^
+      646 |   expect(payment.body.payment.notes).toBe("");
+      647 |   expect(
+      648 |     await audit.rows(
+        at /Users/I557587/Personal/zohra-rms-v2/tests/audit/corrections.spec.cjs:645:26
+
+    attachment #1: audit-evidence (application/json) ───────────────────────────────────────────────
+    test-results/audit/corrections-AUTH-006-VENDO-30f6b-nd-only-ledger-filters-work/attachments/audit-evidence-656a1bb7df782c0cb09734096f9fb948e44ef423.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/audit/corrections-AUTH-006-VENDO-30f6b-nd-only-ledger-filters-work/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/audit/corrections-AUTH-006-VENDO-30f6b-nd-only-ledger-filters-work/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/audit/corrections-AUTH-006-VENDO-30f6b-nd-only-ledger-filters-work/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/audit/corrections.spec.cjs:595:1 › AUTH-006 VENDOR-004 vendor APIs enforce management permission and end-only ledger filters work 
+  2 passed (6.2s)

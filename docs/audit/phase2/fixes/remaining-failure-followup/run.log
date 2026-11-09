@@ -1,0 +1,16 @@
+
+> test:audit
+> playwright test --config=playwright.audit.config.cjs tests/audit/corrections.spec.cjs --grep weighted receipt and complete depletion|corrections reject staff and locked|vendor APIs enforce management
+
+[WebServer] (node:39133) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:39146) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/audit/corrections.spec.cjs:370:1 › PO-001 INV-002 weighted receipt and complete depletion conserve every cent (3.5s)
+  ✓  2 tests/audit/corrections.spec.cjs:407:1 › AUTH-006 CLOSE-003 corrections reject staff and locked periods without writes (1.2s)
+  ✓  3 tests/audit/corrections.spec.cjs:595:1 › AUTH-006 VENDOR-004 vendor APIs enforce management permission and end-only ledger filters work (1.2s)
+
+  3 passed (9.9s)

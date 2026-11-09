@@ -22,8 +22,20 @@ if [ ! -f .env ]; then
 fi
 
 # Start services
+echo "🛑 Stopping existing containers to free up ports..."
+docker compose down || true
+
+echo "🧹 Releasing ports 3001 and 5000 from rogue processes..."
+for port in 3001 5000; do
+    PIDS=$(lsof -t -i:$port -sTCP:LISTEN 2>/dev/null)
+    if [ ! -z "$PIDS" ]; then
+        echo "Killing processes on port $port: $PIDS"
+        kill -9 $PIDS
+    fi
+done
+
 echo "🐳 Starting Docker containers..."
-docker-compose up -d --build
+docker compose up -d --build
 
 # Wait for services to be healthy
 echo ""
@@ -33,13 +45,13 @@ sleep 5
 # Check service status
 echo ""
 echo "📊 Service Status:"
-docker-compose ps
+docker compose ps
 
 echo ""
 echo "✅ Al Zohra RMS is starting!"
 echo ""
 echo "🌐 Access the application:"
-echo "   Frontend: http://localhost:3002"
+echo "   Frontend: http://localhost:3001"
 echo "   Backend:  http://localhost:5000"
 echo ""
 echo "📝 Default credentials:"
@@ -48,7 +60,7 @@ echo "   Manager:  manager@alzohra.com / manager123"
 echo "   Staff:    staff@alzohra.com / staff123"
 echo ""
 echo "📋 Useful commands:"
-echo "   View logs:  docker-compose logs -f"
-echo "   Stop:       ./stop.sh or docker-compose down"
-echo "   Restart:    docker-compose restart"
+echo "   View logs:  docker compose logs -f"
+echo "   Stop:       ./stop.sh or docker compose down"
+echo "   Restart:    docker compose restart"
 echo ""

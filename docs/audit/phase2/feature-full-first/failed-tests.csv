@@ -1,0 +1,19 @@
+primary_id,title,status,test_file,test_line,kind,diagnosis,source_files,errors
+POS-006,"POS-006 explicit tax reconciles order, payment and journal cents",failed,tests/audit/pos-inventory.spec.cjs,50,review_required,Requires review of this exact reached assertion and persisted evidence; no automatic root-cause claim.,,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+@@ -3,11 +3,11 @@
+      ""account"": 1000,
+      ""credit"": 0,
+      ""debit"": 262.5,
+    },
+    Object {
+-     ""account"": 2000,
++     ""account"": 2100,
+      ""credit"": 12.5,
+      ""debit"": 0,
+    },
+    Object {
+      ""account"": 4000,"

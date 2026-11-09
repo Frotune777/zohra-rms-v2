@@ -1,0 +1,133 @@
+
+> test:audit
+> playwright test --config=playwright.audit.config.cjs tests/audit/pos-tables.spec.cjs
+
+[WebServer] (node:76193) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 24 tests using 1 worker
+
+(node:76201) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 1 opens its cart and automatically persists the table at checkout (1.7s)
+  ✓   2 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 2 opens its cart and automatically persists the table at checkout (1.6s)
+  ✓   3 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 3 opens its cart and automatically persists the table at checkout (1.6s)
+  ✓   4 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 4 opens its cart and automatically persists the table at checkout (1.6s)
+  ✓   5 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 5 opens its cart and automatically persists the table at checkout (1.5s)
+  ✓   6 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 6 opens its cart and automatically persists the table at checkout (1.6s)
+  ✓   7 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 7 opens its cart and automatically persists the table at checkout (1.6s)
+  ✓   8 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 8 opens its cart and automatically persists the table at checkout (1.6s)
+  ✓   9 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 9 opens its cart and automatically persists the table at checkout (1.6s)
+  ✓  10 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 10 opens its cart and automatically persists the table at checkout (1.7s)
+  ✓  11 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 11 opens its cart and automatically persists the table at checkout (1.5s)
+  ✓  12 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 12 opens its cart and automatically persists the table at checkout (1.6s)
+  ✓  13 tests/audit/pos-tables.spec.cjs:22:3 › POS-004 owner Due checkout without a phone records debt and can collect payment later (2.1s)
+  ✓  14 tests/audit/pos-tables.spec.cjs:22:3 › POS-004 manager Part checkout without a phone records debt and can collect payment later (2.1s)
+  ✓  15 tests/audit/pos-tables.spec.cjs:22:3 › POS-004 staff Due checkout without a phone records debt and can collect payment later (2.0s)
+  ✓  16 tests/audit/pos-tables.spec.cjs:43:1 › POS-002 POS-009 table carts remain separate across navigation, browser back and reload (2.3s)
+  ✓  17 tests/audit/pos-tables.spec.cjs:61:3 › POS-002 Delivery stays accessible from home and does not inherit table cart or number (1.9s)
+  ✓  18 tests/audit/pos-tables.spec.cjs:61:3 › POS-002 Pick Up stays accessible from home and does not inherit table cart or number (2.0s)
+[WebServer] 3:05:58 PM [vite] (client) [console.error] Failed to load menu: AxiosError: Request failed with status code 503
+[WebServer]     at settle (http://127.0.0.1:33129/node_modules/.vite/deps/axios.js?v=6bb24cc9:2145:14)
+[WebServer]     at XMLHttpRequest.onloadend (http://127.0.0.1:33129/node_modules/.vite/deps/axios.js?v=6bb24cc9:2727:4)
+[WebServer]     at Axios$1.request (http://127.0.0.1:33129/node_modules/.vite/deps/axios.js?v=6bb24cc9:3759:37)
+[WebServer]     at async loadMenu (http://127.0.0.1:33129/src/pages/POS.jsx:287:22)
+[WebServer] 3:05:58 PM [vite] (client) [console.error] Failed to load menu: AxiosError: Request failed with status code 503
+[WebServer]     at settle (http://127.0.0.1:33129/node_modules/.vite/deps/axios.js?v=6bb24cc9:2145:14)
+[WebServer]     at XMLHttpRequest.onloadend (http://127.0.0.1:33129/node_modules/.vite/deps/axios.js?v=6bb24cc9:2727:4)
+[WebServer]     at Axios$1.request (http://127.0.0.1:33129/node_modules/.vite/deps/axios.js?v=6bb24cc9:3759:37)
+[WebServer]     at async loadMenu (http://127.0.0.1:33129/src/pages/POS.jsx:287:22)
+  ✘  19 tests/audit/pos-tables.spec.cjs:71:1 › POS-001 failed table and menu loads expose working retry controls (1.6s)
+(node:76425) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  20 tests/audit/pos-tables.spec.cjs:82:1 › CFG-001 POS-002 manager can load, rename and deactivate dining tables without granting staff configuration access (35.4s)
+(node:76544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  21 tests/audit/pos-tables.spec.cjs:98:3 › SCREEN-002 POS-002 table home and phone-free checkout work at viewport 375 (1.7s)
+  ✓  22 tests/audit/pos-tables.spec.cjs:98:3 › SCREEN-002 POS-002 table home and phone-free checkout work at viewport 768 (1.8s)
+  ✓  23 tests/audit/pos-tables.spec.cjs:98:3 › SCREEN-002 POS-002 table home and phone-free checkout work at viewport 1440 (1.8s)
+  ✓  24 tests/audit/pos-tables.spec.cjs:106:1 › POS-005 phone-free partial checkout with oversized payment still rejects atomically and keeps the cart (1.8s)
+
+
+  1) tests/audit/pos-tables.spec.cjs:71:1 › POS-001 failed table and menu loads expose working retry controls 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected substring: "Unable to load menu"
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <div role="alert" class="fixed top-16 left-4 right-4 z-50 rounded border border-red-400 bg-red-950 p-3 text-white flex justify-between gap-4">…</div> aka getByText('The request failed. Please try again.Dismiss')
+        2) <div class="p-4" role="alert">…</div> aka getByText('Unable to load menu. Retry')
+
+    Call log:
+      - Expect "toContainText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      75 |   failTables=false;await page.getByRole('button',{name:'Retry loading tables'}).click();
+      76 |   await page.route('**/api/menu',route=>failMenu?route.fulfill({status:503,contentType:'application/json',body:'{"error":"temporary"}'}):route.continue());
+    > 77 |   await audit.openTable(page);await expect(page.getByRole('alert')).toContainText('Unable to load menu');
+         |                                                                     ^
+      78 |   failMenu=false;await page.getByRole('button',{name:'Retry loading menu'}).click();
+      79 |   await expect(page.getByRole('button',{name:'Audit Rice Bowl ₹100.00'})).toBeVisible();
+      80 |   expect(await audit.rows('SELECT id FROM orders')).toHaveLength(0);
+        at /Users/I557587/Personal/zohra-rms-v2/tests/audit/pos-tables.spec.cjs:77:69
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/audit/pos-tables-POS-001-failed--27f5a-pose-working-retry-controls/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: audit-evidence (application/json) ───────────────────────────────────────────────
+    test-results/audit/pos-tables-POS-001-failed--27f5a-pose-working-retry-controls/attachments/audit-evidence-7d45d8d65b387dff260ebc21ab37e964f75166d2.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/audit/pos-tables-POS-001-failed--27f5a-pose-working-retry-controls/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/audit/pos-tables-POS-001-failed--27f5a-pose-working-retry-controls/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/audit/pos-tables-POS-001-failed--27f5a-pose-working-retry-controls/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/audit/pos-tables.spec.cjs:82:1 › CFG-001 POS-002 manager can load, rename and deactivate dining tables without granting staff configuration access 
+
+    Test timeout of 35000ms exceeded.
+
+    Error: locator.click: Test timeout of 35000ms exceeded.
+    Call log:
+      - waiting for getByText('Table 12', { exact: true }).locator('../..').getByRole('button', { name: 'Edit', exact: true })
+
+
+      86 |   const [option]=await audit.rows("SELECT id FROM config_options WHERE category='dining_tables' AND value='12'");
+      87 |   const row=page.getByText('Table 12',{exact:true}).locator('../..');
+    > 88 |   await row.getByRole('button',{name:'Edit',exact:true}).click();await row.getByLabel('Label').fill('Patio 12');
+         |                                                          ^
+      89 |   await row.getByRole('button',{name:'Save',exact:true}).click();await expect(page.getByText('Option updated successfully',{exact:true})).toBeVisible();
+      90 |   await page.goto('/');await page.getByRole('button',{name:'Patio 12',exact:true}).click();
+      91 |   await expect(page.getByRole('heading',{name:'Patio 12'})).toBeVisible();
+        at /Users/I557587/Personal/zohra-rms-v2/tests/audit/pos-tables.spec.cjs:88:58
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/audit/pos-tables-CFG-001-POS-002-55c01--staff-configuration-access/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: audit-evidence (application/json) ───────────────────────────────────────────────
+    test-results/audit/pos-tables-CFG-001-POS-002-55c01--staff-configuration-access/attachments/audit-evidence-3686ce94f445aac6d5e15bd647a274bbaa81d07e.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/audit/pos-tables-CFG-001-POS-002-55c01--staff-configuration-access/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/audit/pos-tables-CFG-001-POS-002-55c01--staff-configuration-access/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/audit/pos-tables-CFG-001-POS-002-55c01--staff-configuration-access/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests/audit/pos-tables.spec.cjs:71:1 › POS-001 failed table and menu loads expose working retry controls 
+    tests/audit/pos-tables.spec.cjs:82:1 › CFG-001 POS-002 manager can load, rename and deactivate dining tables without granting staff configuration access 
+  22 passed (1.3m)

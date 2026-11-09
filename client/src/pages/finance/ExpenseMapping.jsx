@@ -119,7 +119,7 @@ const ExpenseMapping = () => {
                     <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                         <div className="md:col-span-1">
                             <label className="block text-sm font-medium text-gray-400 mb-1">Concept / Keyword (Item Name)</label>
-                            <input
+                            <input aria-label="Item keyword"
                                 type="text"
                                 value={formData.item_keyword}
                                 onChange={(e) => setFormData({ ...formData, item_keyword: e.target.value })}
@@ -130,7 +130,7 @@ const ExpenseMapping = () => {
                         </div>
                         <div className="md:col-span-1">
                             <label className="block text-sm font-medium text-gray-400 mb-1">Map to Category</label>
-                            <select
+                            <select aria-label="Category id"
                                 value={formData.category_id}
                                 onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
                                 className="w-full bg-gray-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500"
@@ -201,13 +201,13 @@ const ExpenseMapping = () => {
                                             >
                                                 {applyingId === map.id ? <FiRefreshCw className="animate-spin" /> : <FiRefreshCw />}
                                             </button>
-                                            <button
+                                            <button aria-label="Edit"
                                                 onClick={() => handleEdit(map)}
                                                 className="text-gray-400 hover:text-white p-2 rounded hover:bg-white/5"
                                             >
                                                 <FiEdit2 />
                                             </button>
-                                            <button
+                                            <button aria-label="Delete"
                                                 onClick={() => handleDelete(map.id)}
                                                 className="text-red-400 hover:text-red-300 p-2 rounded hover:bg-white/5"
                                             >

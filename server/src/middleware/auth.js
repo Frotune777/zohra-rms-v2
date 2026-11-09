@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const db = require('../config/db');
 const { ROLE_PERMISSIONS, ROLES } = require('../config/permissions');
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -6,26 +7,20 @@ if (!JWT_SECRET) {
     throw new Error('JWT_SECRET must be set in environment variables');
 }
 
-// Verify JWT token
-const verifyToken = (req, res, next) => {
-    const token = req.headers['authorization']?.split(' ')[1];
-
-    if (!token) {
-        return res.status(401).json({ error: 'No token provided' });
-    }
-
+// Resolve account status and role on every request rather than trusting stale claims.
+const verifyToken = async (req, res, next) => {
+    const match = /^Bearer ([^\s]+)$/i.exec(req.headers.authorization || '');
+    if (!match) return res.status(401).json({ error: 'Bearer token required' });
+    let decoded;
+    try { decoded = jwt.verify(match[1], JWT_SECRET); }
+    catch { return res.status(403).json({ error: 'Invalid token' }); }
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
-        req.user = decoded;
-
-        // Attach permissions to user object for easy checking
-        const role = req.user.role || ROLES.STAFF; // Default to staff
-        req.user.permissions = ROLE_PERMISSIONS[role] || [];
-
+        const result = await db.query('SELECT id,email,full_name,role,status,employee_id,ledger_account_code FROM users WHERE id=$1',[decoded.id]);
+        const user = result.rows[0];
+        if (!user || user.status !== 'active') return res.status(403).json({ error: 'Account is inactive or unavailable' });
+        req.user = { ...user, permissions: ROLE_PERMISSIONS[user.role] || [] };
         next();
-    } catch (err) {
-        return res.status(403).json({ error: 'Invalid token' });
-    }
+    } catch (err) { next(err); }
 };
 
 // Check role-based access (Deprecated, prefer requirePermission)

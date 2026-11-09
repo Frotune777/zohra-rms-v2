@@ -8,6 +8,7 @@
  */
 
 const db = require('../../config/db');
+const { DomainError } = require('../../utils/domain');
 
 class PaymentModeService {
     /**
@@ -17,15 +18,16 @@ class PaymentModeService {
      * @returns {Promise<Number>} GL account code
      * @throws {Error} If payment mode not found or inactive
      */
-    async getAccountCode(paymentMode) {
-        const result = await db.query(`
+    async getAccountCode(paymentMode, client = db) {
+        const normalized = String(paymentMode).trim().toLowerCase() === 'bank transfer' ? 'Bank' : paymentMode;
+        const result = await client.query(`
             SELECT account_code, requires_reference 
             FROM payment_modes 
-            WHERE LOWER(name) = LOWER($1) AND is_active = TRUE
-        `, [paymentMode]);
+            WHERE (LOWER(name) = LOWER($1) OR LOWER(display_name) = LOWER($1)) AND is_active = TRUE
+        `, [normalized]);
 
         if (result.rows.length === 0) {
-            throw new Error(`Invalid or inactive payment mode: ${paymentMode}`);
+            throw new DomainError(`Invalid or inactive payment mode: ${paymentMode}`);
         }
 
         return result.rows[0].account_code;

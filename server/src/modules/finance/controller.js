@@ -1,4 +1,5 @@
 const FinanceService = require('./service');
+const { statusFor } = require('../../utils/domain');
 const ReconciliationService = require('./ReconciliationService');
 
 exports.getCategories = async (req, res) => {
@@ -6,7 +7,7 @@ exports.getCategories = async (req, res) => {
         const categories = await FinanceService.getCategories();
         res.json(categories);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -17,7 +18,7 @@ exports.getReconciliation = async (req, res) => {
         const result = await ReconciliationService.getCounterReconciliation(date);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -28,7 +29,7 @@ exports.updateReconciliation = async (req, res) => {
         const result = await ReconciliationService.updateDailyBalance(date, type || 'Counter', req.body);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -39,7 +40,7 @@ exports.getManagerFloat = async (req, res) => {
         const result = await ReconciliationService.getManagerFloat(date);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -49,7 +50,7 @@ exports.getPnL = async (req, res) => {
         const result = await FinanceService.getPnL(month, year);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -66,7 +67,7 @@ exports.getYearlyPnL = async (req, res) => {
         const result = await FinanceService.getYearlyPnL(year);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -75,7 +76,7 @@ exports.getTransactions = async (req, res) => {
         const result = await FinanceService.getJournalTransactions(req.query);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -87,7 +88,7 @@ exports.addRevenue = async (req, res) => {
         if (err.message.includes('Amount is required')) {
             return res.status(400).json({ error: err.message });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -99,7 +100,7 @@ exports.addExpense = async (req, res) => {
         if (err.message.includes('Amount is required')) {
             return res.status(400).json({ error: err.message });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -116,7 +117,7 @@ exports.deleteTransaction = async (req, res) => {
         if (err.message === 'Transaction not found') {
             return res.status(404).json({ error: 'Transaction not found' });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -127,16 +128,16 @@ exports.getDailySummary = async (req, res) => {
         const result = await FinanceService.getFinancialSummary(date);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
 exports.recordPayment = async (req, res) => {
     try {
-        const result = await FinanceService.recordPayment(req.body);
+        const result = await FinanceService.recordPayment(req.body,req.user);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -148,7 +149,7 @@ exports.getDailyTrackerSummary = async (req, res) => {
         const summary = await FinanceService.getDailyTrackerSummary(date);
         res.json(summary);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -157,7 +158,7 @@ exports.addTrackerTransaction = async (req, res) => {
         const transaction = await FinanceService.addTrackerTransaction(req.body);
         res.status(201).json(transaction);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -166,7 +167,7 @@ exports.getTrackerTransactions = async (req, res) => {
         const transactions = await FinanceService.getTrackerTransactions(req.query);
         res.json(transactions);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -177,7 +178,7 @@ exports.updateTrackerTransaction = async (req, res) => {
         if (!updated) return res.status(404).json({ error: 'Transaction not found or no changes made' });
         res.json(updated);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -188,7 +189,7 @@ exports.deleteTrackerTransaction = async (req, res) => {
         if (!result) return res.status(404).json({ error: 'Transaction not found' });
         res.json({ success: true, message: 'Transaction deleted' });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -199,7 +200,7 @@ exports.getExpenseMappings = async (req, res) => {
         const mappings = await FinanceService.getExpenseMappings();
         res.json(mappings);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -208,7 +209,7 @@ exports.addExpenseMapping = async (req, res) => {
         const mapping = await FinanceService.addExpenseMapping(req.body);
         res.json(mapping);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -217,7 +218,7 @@ exports.updateExpenseMapping = async (req, res) => {
         const mapping = await FinanceService.updateExpenseMapping(req.params.id, req.body);
         res.json(mapping);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -226,7 +227,7 @@ exports.deleteExpenseMapping = async (req, res) => {
         const success = await FinanceService.deleteExpenseMapping(req.params.id);
         res.json({ success });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -235,7 +236,7 @@ exports.applyMappingHistory = async (req, res) => {
         const result = await FinanceService.applyMappingToHistory(req.params.id);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 exports.getSpendingByPerson = async (req, res) => {
@@ -244,7 +245,7 @@ exports.getSpendingByPerson = async (req, res) => {
         const result = await FinanceService.getSpendingByPerson(startDate, endDate);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -259,10 +260,10 @@ exports.getDailyBalance = async (req, res) => {
     const { date } = req.params;
     try {
         const ClosureService = require('./ClosureService');
-        const summary = await ClosureService.getDailyBalanceSummary(date);
+        const summary = await ClosureService.getDailyBalanceSummary(date, req.query.type || 'Counter', req.query.accountCode ? Number(req.query.accountCode) : null);
         res.json(summary);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -284,11 +285,12 @@ exports.closeDailyBalance = async (req, res) => {
             date,
             type,
             actualClosingBalance,
-            req.user.id
+            req.user.id,
+            req.body.accountCode ? Number(req.body.accountCode) : null
         );
         res.json(result);
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -310,11 +312,12 @@ exports.reopenDailyBalance = async (req, res) => {
             date,
             type,
             req.user.id,
-            reason
+            reason,
+            req.body.accountCode ? Number(req.body.accountCode) : null
         );
         res.json(result);
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -327,7 +330,7 @@ exports.getPaymentModes = async (req, res) => {
         const modes = await PaymentModeService.getAllPaymentModes();
         res.json(modes);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -360,7 +363,7 @@ exports.getAccountBalance = async (req, res) => {
         );
         res.json({ account_code: code, balance: balance });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -414,3 +417,5 @@ exports.transferUserToSafe = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
+exports.getWalletHistory=async(req,res)=>{try{res.json(await require('./TransferService').getWalletHistory());}catch(e){res.status(statusFor(e)).json({error:e.message});}};

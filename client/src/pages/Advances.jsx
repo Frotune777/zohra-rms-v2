@@ -39,7 +39,7 @@ const Advances = () => {
 
       const [advRes, empRes] = await Promise.all([
         selectedEmployee
-          ? api.get(`http://localhost:5000/api/employees/payroll/advances/${selectedEmployee}`)
+          ? api.get(`employees/payroll/advances/${selectedEmployee}`)
           : api.get('employees/payroll/advances'),
         api.get('employees')
       ]);
@@ -126,7 +126,7 @@ const Advances = () => {
         showHome={true}
         actions={
           <div className="flex items-center gap-4">
-            <select
+            <select aria-label="Selected employee"
               value={selectedEmployee}
               onChange={(e) => setSelectedEmployee(e.target.value)}
               className="bg-white/5 border border-white/10 rounded-lg p-2 text-white text-sm focus:outline-none focus:border-zohra-blue"
@@ -189,7 +189,7 @@ const Advances = () => {
         <form onSubmit={handleSubmit} className="glass-panel p-6 mb-6 rounded-xl space-y-4">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-bold">New Transaction</h3>
-            <button
+            <button aria-label="Close"
               type="button"
               onClick={() => setShowForm(false)}
               className="text-gray-400 hover:text-white transition"
@@ -201,7 +201,7 @@ const Advances = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Employee *</label>
-              <select
+              <select aria-label="Employee id"
                 value={formData.employeeId}
                 onChange={(e) => setFormData({ ...formData, employeeId: e.target.value })}
                 className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
@@ -218,7 +218,7 @@ const Advances = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Type *</label>
-              <select
+              <select aria-label="Type"
                 value={formData.type}
                 onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                 className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
@@ -231,7 +231,7 @@ const Advances = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Amount (₹) *</label>
-              <input
+              <input aria-label="Amount"
                 type="number"
                 step="0.01"
                 min="0"
@@ -245,7 +245,7 @@ const Advances = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Notes</label>
-              <input
+              <input aria-label="Notes"
                 type="text"
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
@@ -256,7 +256,7 @@ const Advances = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Payment Mode</label>
-              <select
+              <select aria-label="Payment mode"
                 value={formData.paymentMode}
                 onChange={(e) => setFormData({ ...formData, paymentMode: e.target.value })}
                 className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
@@ -270,7 +270,7 @@ const Advances = () => {
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Paid By (Name)</label>
               <div className="relative">
-                <input
+                <input aria-label="Paid by"
                   type="text"
                   list="payer-options"
                   value={formData.paidBy}

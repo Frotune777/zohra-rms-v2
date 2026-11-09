@@ -21,7 +21,6 @@ instance/
 
 ######## node ########
 node_modules/
-package-lock.json
 yarn.lock
 .pnp*
 .pnp.js
@@ -38,6 +37,9 @@ temp/
 *.tmp
 *.cache
 .cache/
+playwright-report/
+test-results/
+.venv/
 *.gz
 *.swp
 *.swo

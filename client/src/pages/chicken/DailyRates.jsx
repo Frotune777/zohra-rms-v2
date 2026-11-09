@@ -79,7 +79,7 @@ const DailyRates = () => {
                             <label className="block text-gray-400 mb-2">Date</label>
                             <div className="relative">
                                 <FiCalendar className="absolute left-3 top-3 text-gray-500" />
-                                <input
+                                <input aria-label="Date"
                                     type="date"
                                     value={date}
                                     onChange={(e) => setDate(e.target.value)}
@@ -92,7 +92,7 @@ const DailyRates = () => {
                         <div className="grid grid-cols-1 gap-6">
                             <div>
                                 <label className="block text-gray-400 mb-2">Tandoor Rate (₹)</label>
-                                <input
+                                <input aria-label="Tandoor rate"
                                     type="number"
                                     step="0.01"
                                     value={rates.tandoor_rate}
@@ -105,7 +105,7 @@ const DailyRates = () => {
 
                             <div>
                                 <label className="block text-gray-400 mb-2">Boiler Rate (₹)</label>
-                                <input
+                                <input aria-label="Boiler rate"
                                     type="number"
                                     step="0.01"
                                     value={rates.boiler_rate}
@@ -118,7 +118,7 @@ const DailyRates = () => {
 
                             <div>
                                 <label className="block text-gray-400 mb-2">Egg Rate (₹)</label>
-                                <input
+                                <input aria-label="Egg rate"
                                     type="number"
                                     step="0.01"
                                     value={rates.egg_rate}

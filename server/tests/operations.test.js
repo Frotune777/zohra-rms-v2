@@ -1,3 +1,4 @@
+const {sqlMock}=require('./helpers/sql-mock');
 const kdsController = require('../src/modules/operations/kds.controller');
 const wastageController = require('../src/modules/operations/wastage.controller');
 const db = require('../src/config/db');
@@ -30,10 +31,15 @@ jest.mock('../src/config/db', () => {
 describe('Operations Module', () => {
     let req, res;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         req = global.testUtils.mockRequest();
         res = global.testUtils.mockResponse();
         jest.clearAllMocks();
+        db.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        if(db.pool) {
+            const isolatedClient=await db.pool.connect();
+            if(isolatedClient.query !== db.query) isolatedClient.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        }
     });
 
     describe('KDS - Kitchen Display System', () => {
@@ -63,7 +69,7 @@ describe('Operations Module', () => {
                 await kdsController.getTickets(req, res);
 
                 expect(db.query).toHaveBeenCalledWith(
-                    expect.stringContaining("WHERE status != 'Done'")
+                    expect.stringContaining("WHERE k.status NOT IN ('Done','Cancelled')")
                 );
                 expect(res.json).toHaveBeenCalledWith(mockTickets);
             });
@@ -97,7 +103,9 @@ describe('Operations Module', () => {
 
                 db.query.mockResolvedValue(mockQueryResult([mockTicket]));
 
-                await kdsController.createTicket(req, res);
+                db.query.mockResolvedValueOnce(mockQueryResult([]));
+
+            await kdsController.createTicket(req, res);
 
                 expect(db.query).toHaveBeenCalledWith(
                     expect.stringContaining('INSERT INTO kds_tickets'),
@@ -122,7 +130,9 @@ describe('Operations Module', () => {
 
                 db.query.mockResolvedValue(mockQueryResult([mockTicket]));
 
-                await kdsController.createTicket(req, res);
+                db.query.mockResolvedValueOnce(mockQueryResult([]));
+
+            await kdsController.createTicket(req, res);
 
                 expect(db.query).toHaveBeenCalledWith(
                     expect.any(String),
@@ -156,12 +166,13 @@ describe('Operations Module', () => {
                 req.params = { id: '1' };
                 req.body = { status: 'Preparing' };
 
-                db.query.mockResolvedValue(mockQueryResult([mockTicket]));
+                db.query.mockResolvedValueOnce(mockQueryResult([{...mockTicket,status:req.body.status==='Preparing'?'Pending':'Preparing'}])).mockResolvedValueOnce(mockQueryResult([mockTicket]));
+                req.user={id:1};
 
                 await kdsController.updateTicketStatus(req, res);
 
                 expect(db.query).toHaveBeenCalledWith(
-                    expect.stringContaining('started_at = NOW()'),
+                    expect.stringContaining("started_at=CASE WHEN $1='Preparing'"),
                     expect.arrayContaining(['Preparing', '1'])
                 );
                 expect(res.json).toHaveBeenCalledWith(mockTicket);
@@ -178,12 +189,13 @@ describe('Operations Module', () => {
                 req.params = { id: '1' };
                 req.body = { status: 'Done' };
 
-                db.query.mockResolvedValue(mockQueryResult([mockTicket]));
+                db.query.mockResolvedValueOnce(mockQueryResult([{...mockTicket,status:req.body.status==='Preparing'?'Pending':'Preparing'}])).mockResolvedValueOnce(mockQueryResult([mockTicket]));
+                req.user={id:1};
 
                 await kdsController.updateTicketStatus(req, res);
 
                 expect(db.query).toHaveBeenCalledWith(
-                    expect.stringContaining('completed_at = NOW()'),
+                    expect.stringContaining("completed_at=CASE WHEN $1='Done'"),
                     expect.arrayContaining(['Done', '1'])
                 );
                 expect(res.json).toHaveBeenCalledWith(mockTicket);
@@ -283,7 +295,14 @@ describe('Operations Module', () => {
                     .mockResolvedValueOnce(mockQueryResult([])) // Credit ledger line
                     .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
-                await wastageController.logWastage(req, res);
+                sqlMock(db.query,(sql)=>{
+                if(sql.includes('FROM inventory_items'))return mockQueryResult([mockItem]);
+                if(sql.startsWith('SELECT id FROM users'))return mockQueryResult([{id:1}]);
+                if(sql.startsWith('INSERT INTO wastage_logs'))return mockQueryResult([mockWastageLog]);
+                if(sql.startsWith('UPDATE inventory_items') || sql.startsWith('INSERT INTO stock_movements') || sql.startsWith('UPDATE wastage_logs'))return mockQueryResult([]);
+            });
+
+            await wastageController.logWastage(req, res);
 
                 expect(res.json).toHaveBeenCalledWith(mockWastageLog);
             });

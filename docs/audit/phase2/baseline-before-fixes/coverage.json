@@ -1,0 +1,4591 @@
+{
+  "run_finished_at": "2026-11-09T03:27:12.778Z",
+  "test_counts": {
+    "failed": 194,
+    "passed": 161
+  },
+  "planned_ids": 166,
+  "attempted_ids": 166,
+  "fully_verified_ids": 0,
+  "case_verdicts": {
+    "passed_subcases": 32,
+    "failed_subcases": 134
+  },
+  "scope": "Results verify the assertions actually reached. No bundled feature is declared fully verified.",
+  "cases": [
+    {
+      "id": "SCREEN-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 4,
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "SCREEN-001 empty business data renders without an uncaught exception /login",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-001 delayed API completion preserves navigation and renders /login",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-001 failed data requests show feedback and recover after reload /login",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "UI-001 SCREEN-001 visible buttons and form fields have programmatic accessible names /login",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-001 direct navigation, session restore, reload and phone/tablet/desktop rendering /login",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-002 empty business data renders without an uncaught exception /",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-002 delayed API completion preserves navigation and renders /",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-002 failed data requests show feedback and recover after reload /",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-002 visible buttons and form fields have programmatic accessible names /",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-002 direct navigation, session restore, reload and phone/tablet/desktop rendering /",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 4,
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "SCREEN-003 empty business data renders without an uncaught exception /dashboard",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-003 delayed API completion preserves navigation and renders /dashboard",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-003 failed data requests show feedback and recover after reload /dashboard",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "UI-001 SCREEN-003 visible buttons and form fields have programmatic accessible names /dashboard",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-003 direct navigation, session restore, reload and phone/tablet/desktop rendering /dashboard",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 4,
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "SCREEN-004 empty business data renders without an uncaught exception /employees",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-004 delayed API completion preserves navigation and renders /employees",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-004 failed data requests show feedback and recover after reload /employees",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "UI-001 SCREEN-004 visible buttons and form fields have programmatic accessible names /employees",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-004 direct navigation, session restore, reload and phone/tablet/desktop rendering /employees",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-005",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 4,
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "SCREEN-005 empty business data renders without an uncaught exception /menu",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-005 delayed API completion preserves navigation and renders /menu",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-005 failed data requests show feedback and recover after reload /menu",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "UI-001 SCREEN-005 visible buttons and form fields have programmatic accessible names /menu",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-005 direct navigation, session restore, reload and phone/tablet/desktop rendering /menu",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-006",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-006 empty business data renders without an uncaught exception /payroll",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-006 delayed API completion preserves navigation and renders /payroll",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-006 failed data requests show feedback and recover after reload /payroll",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-006 visible buttons and form fields have programmatic accessible names /payroll",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-006 direct navigation, session restore, reload and phone/tablet/desktop rendering /payroll",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-007",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 4,
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "SCREEN-007 empty business data renders without an uncaught exception /advances",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-007 delayed API completion preserves navigation and renders /advances",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-007 failed data requests show feedback and recover after reload /advances",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "UI-001 SCREEN-007 visible buttons and form fields have programmatic accessible names /advances",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-007 direct navigation, session restore, reload and phone/tablet/desktop rendering /advances",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-008",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-008 empty business data renders without an uncaught exception /vendor-payments",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-008 delayed API completion preserves navigation and renders /vendor-payments",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-008 failed data requests show feedback and recover after reload /vendor-payments",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-008 visible buttons and form fields have programmatic accessible names /vendor-payments",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-008 direct navigation, session restore, reload and phone/tablet/desktop rendering /vendor-payments",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-009",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 4,
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "SCREEN-009 empty business data renders without an uncaught exception /inventory",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-009 delayed API completion preserves navigation and renders /inventory",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-009 failed data requests show feedback and recover after reload /inventory",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "UI-001 SCREEN-009 visible buttons and form fields have programmatic accessible names /inventory",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-009 direct navigation, session restore, reload and phone/tablet/desktop rendering /inventory",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-010",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-010 empty business data renders without an uncaught exception /finance",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-010 delayed API completion preserves navigation and renders /finance",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-010 failed data requests show feedback and recover after reload /finance",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-010 visible buttons and form fields have programmatic accessible names /finance",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-010 direct navigation, session restore, reload and phone/tablet/desktop rendering /finance",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-011",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-011 empty business data renders without an uncaught exception /finance/payments",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-011 delayed API completion preserves navigation and renders /finance/payments",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-011 failed data requests show feedback and recover after reload /finance/payments",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-011 visible buttons and form fields have programmatic accessible names /finance/payments",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-011 direct navigation, session restore, reload and phone/tablet/desktop rendering /finance/payments",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-012",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 4,
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "SCREEN-012 empty business data renders without an uncaught exception /finance/summary",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-012 delayed API completion preserves navigation and renders /finance/summary",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-012 failed data requests show feedback and recover after reload /finance/summary",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "UI-001 SCREEN-012 visible buttons and form fields have programmatic accessible names /finance/summary",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-012 direct navigation, session restore, reload and phone/tablet/desktop rendering /finance/summary",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-013",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 4,
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "SCREEN-013 empty business data renders without an uncaught exception /finance/daily-tracker",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-013 delayed API completion preserves navigation and renders /finance/daily-tracker",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-013 failed data requests show feedback and recover after reload /finance/daily-tracker",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "UI-001 SCREEN-013 visible buttons and form fields have programmatic accessible names /finance/daily-tracker",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-013 direct navigation, session restore, reload and phone/tablet/desktop rendering /finance/daily-tracker",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-014",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-014 empty business data renders without an uncaught exception /finance/float",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-014 delayed API completion preserves navigation and renders /finance/float",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-014 failed data requests show feedback and recover after reload /finance/float",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "UI-001 SCREEN-014 visible buttons and form fields have programmatic accessible names /finance/float",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-014 direct navigation, session restore, reload and phone/tablet/desktop rendering /finance/float",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-015",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-015 empty business data renders without an uncaught exception /finance/mappings",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-015 delayed API completion preserves navigation and renders /finance/mappings",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-015 failed data requests show feedback and recover after reload /finance/mappings",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-015 visible buttons and form fields have programmatic accessible names /finance/mappings",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-015 direct navigation, session restore, reload and phone/tablet/desktop rendering /finance/mappings",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-016",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-016 empty business data renders without an uncaught exception /finance/transfer",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-016 delayed API completion preserves navigation and renders /finance/transfer",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-016 failed data requests show feedback and recover after reload /finance/transfer",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-016 visible buttons and form fields have programmatic accessible names /finance/transfer",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-016 direct navigation, session restore, reload and phone/tablet/desktop rendering /finance/transfer",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-017",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-017 empty business data renders without an uncaught exception /attendance/bulk",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-017 delayed API completion preserves navigation and renders /attendance/bulk",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-017 failed data requests show feedback and recover after reload /attendance/bulk",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-017 visible buttons and form fields have programmatic accessible names /attendance/bulk",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-017 direct navigation, session restore, reload and phone/tablet/desktop rendering /attendance/bulk",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-018",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-018 empty business data renders without an uncaught exception /attendance/leaves",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-018 delayed API completion preserves navigation and renders /attendance/leaves",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-018 failed data requests show feedback and recover after reload /attendance/leaves",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-018 visible buttons and form fields have programmatic accessible names /attendance/leaves",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-018 direct navigation, session restore, reload and phone/tablet/desktop rendering /attendance/leaves",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-019",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 4,
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "SCREEN-019 empty business data renders without an uncaught exception /advances/approvals",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-019 delayed API completion preserves navigation and renders /advances/approvals",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-019 failed data requests show feedback and recover after reload /advances/approvals",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "UI-001 SCREEN-019 visible buttons and form fields have programmatic accessible names /advances/approvals",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-019 direct navigation, session restore, reload and phone/tablet/desktop rendering /advances/approvals",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-020",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-020 empty business data renders without an uncaught exception /ai-dashboard",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-020 delayed API completion preserves navigation and renders /ai-dashboard",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-020 failed data requests show feedback and recover after reload /ai-dashboard",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-020 visible buttons and form fields have programmatic accessible names /ai-dashboard",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-020 direct navigation, session restore, reload and phone/tablet/desktop rendering /ai-dashboard",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-021",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-021 empty business data renders without an uncaught exception /chicken",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-021 delayed API completion preserves navigation and renders /chicken",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-021 failed data requests show feedback and recover after reload /chicken",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-021 visible buttons and form fields have programmatic accessible names /chicken",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-021 direct navigation, session restore, reload and phone/tablet/desktop rendering /chicken",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-022",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-022 empty business data renders without an uncaught exception /chicken/rates",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-022 delayed API completion preserves navigation and renders /chicken/rates",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-022 failed data requests show feedback and recover after reload /chicken/rates",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-022 visible buttons and form fields have programmatic accessible names /chicken/rates",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-022 direct navigation, session restore, reload and phone/tablet/desktop rendering /chicken/rates",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-023",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-023 empty business data renders without an uncaught exception /chicken/bills",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-023 delayed API completion preserves navigation and renders /chicken/bills",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-023 failed data requests show feedback and recover after reload /chicken/bills",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-023 visible buttons and form fields have programmatic accessible names /chicken/bills",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-023 direct navigation, session restore, reload and phone/tablet/desktop rendering /chicken/bills",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-024",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-024 empty business data renders without an uncaught exception /chicken/vendors",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-024 delayed API completion preserves navigation and renders /chicken/vendors",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-024 failed data requests show feedback and recover after reload /chicken/vendors",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-024 visible buttons and form fields have programmatic accessible names /chicken/vendors",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-024 direct navigation, session restore, reload and phone/tablet/desktop rendering /chicken/vendors",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-025",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-025 empty business data renders without an uncaught exception /reports",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-025 delayed API completion preserves navigation and renders /reports",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-025 failed data requests show feedback and recover after reload /reports",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-025 visible buttons and form fields have programmatic accessible names /reports",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-025 direct navigation, session restore, reload and phone/tablet/desktop rendering /reports",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-026",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 2,
+        "failed": 3
+      },
+      "tests": [
+        {
+          "title": "SCREEN-026 empty business data renders without an uncaught exception /reports/financial",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-026 delayed API completion preserves navigation and renders /reports/financial",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-026 failed data requests show feedback and recover after reload /reports/financial",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-026 visible buttons and form fields have programmatic accessible names /reports/financial",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-026 direct navigation, session restore, reload and phone/tablet/desktop rendering /reports/financial",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-027",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-027 empty business data renders without an uncaught exception /reports/hr",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-027 delayed API completion preserves navigation and renders /reports/hr",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-027 failed data requests show feedback and recover after reload /reports/hr",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-027 visible buttons and form fields have programmatic accessible names /reports/hr",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-027 direct navigation, session restore, reload and phone/tablet/desktop rendering /reports/hr",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-028",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-028 empty business data renders without an uncaught exception /reports/operations",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-028 delayed API completion preserves navigation and renders /reports/operations",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-028 failed data requests show feedback and recover after reload /reports/operations",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-028 visible buttons and form fields have programmatic accessible names /reports/operations",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-028 direct navigation, session restore, reload and phone/tablet/desktop rendering /reports/operations",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-029",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-029 empty business data renders without an uncaught exception /reports/inventory",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-029 delayed API completion preserves navigation and renders /reports/inventory",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-029 failed data requests show feedback and recover after reload /reports/inventory",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-029 visible buttons and form fields have programmatic accessible names /reports/inventory",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-029 direct navigation, session restore, reload and phone/tablet/desktop rendering /reports/inventory",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-030",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-030 empty business data renders without an uncaught exception /config",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-030 delayed API completion preserves navigation and renders /config",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-030 failed data requests show feedback and recover after reload /config",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-030 visible buttons and form fields have programmatic accessible names /config",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-030 direct navigation, session restore, reload and phone/tablet/desktop rendering /config",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-031",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 3,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "SCREEN-031 empty business data renders without an uncaught exception /approvals",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-031 delayed API completion preserves navigation and renders /approvals",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-031 failed data requests show feedback and recover after reload /approvals",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-031 visible buttons and form fields have programmatic accessible names /approvals",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-031 direct navigation, session restore, reload and phone/tablet/desktop rendering /approvals",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "SCREEN-032",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 4,
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "SCREEN-032 empty business data renders without an uncaught exception /development-status",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-032 delayed API completion preserves navigation and renders /development-status",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 12,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "SCREEN-032 failed data requests show feedback and recover after reload /development-status",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 21,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "UI-001 SCREEN-032 visible buttons and form fields have programmatic accessible names /development-status",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "SCREEN-032 direct navigation, session restore, reload and phone/tablet/desktop rendering /development-status",
+          "file": "tests/audit/screens.spec.cjs",
+          "line": 4,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Inline retry, preserving form input on every screen, and detailed populated workflows; injected HTTP 500 recovery uses reload. Initial accessibility/viewport tests do not cover every modal or action."
+    },
+    {
+      "id": "AUTH-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "AUTH-001 separate owner, manager and staff logins identify the correct accounts",
+          "file": "tests/audit/harness.spec.cjs",
+          "line": 20,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "All three real role browser logins and /auth/me identities were tested. Additional role authorization belongs to the remaining AUTH cases."
+    },
+    {
+      "id": "AUTH-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "AUTH-002 wrong passwords, unknown users and omitted fields never create a session",
+          "file": "tests/audit/auth.spec.cjs",
+          "line": 3,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Email normalization, full role matrix, actual logout action and cross-tab propagation, expiry mid-submit, deterministic registration allocation race, authenticated socket event delivery."
+    },
+    {
+      "id": "AUTH-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "AUTH-003 changed passwords invalidate every default demo password",
+          "file": "tests/audit/auth.spec.cjs",
+          "line": 14,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Changed passwords and all three demo-password fallbacks were tested; the fallback remains a reproduced failure."
+    },
+    {
+      "id": "AUTH-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "AUTH-004 inactive and deleted accounts lose login and existing-token access",
+          "file": "tests/audit/auth.spec.cjs",
+          "line": 24,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Email normalization, full role matrix, actual logout action and cross-tab propagation, expiry mid-submit, deterministic registration allocation race, authenticated socket event delivery."
+    },
+    {
+      "id": "AUTH-005",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "AUTH-005 malformed, expired, wrong-signature and wrong-scheme JWTs are rejected",
+          "file": "tests/audit/auth.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Email normalization, full role matrix, actual logout action and cross-tab propagation, expiry mid-submit, deterministic registration allocation race, authenticated socket event delivery."
+    },
+    {
+      "id": "AUTH-006",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "AUTH-006 staff cannot open sensitive pages directly or read their APIs",
+          "file": "tests/audit/auth.spec.cjs",
+          "line": 38,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Email normalization, full role matrix, actual logout action and cross-tab propagation, expiry mid-submit, deterministic registration allocation race, authenticated socket event delivery."
+    },
+    {
+      "id": "AUTH-007",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "AUTH-007 manager cannot create owners and staff cannot register accounts",
+          "file": "tests/audit/auth.spec.cjs",
+          "line": 48,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Email normalization, full role matrix, actual logout action and cross-tab propagation, expiry mid-submit, deterministic registration allocation race, authenticated socket event delivery."
+    },
+    {
+      "id": "AUTH-008",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "AUTH-008 duplicate and concurrent registration preserve unique users and wallet accounts",
+          "file": "tests/audit/auth.spec.cjs",
+          "line": 54,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Email normalization, full role matrix, actual logout action and cross-tab propagation, expiry mid-submit, deterministic registration allocation race, authenticated socket event delivery."
+    },
+    {
+      "id": "AUTH-009",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "AUTH-009 a cleared session stays logged out after reload and a second tab",
+          "file": "tests/audit/auth.spec.cjs",
+          "line": 64,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Email normalization, full role matrix, actual logout action and cross-tab propagation, expiry mid-submit, deterministic registration allocation race, authenticated socket event delivery."
+    },
+    {
+      "id": "AUTH-010",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "AUTH-010 all financial, HR, operational and inventory reports enforce authentication",
+          "file": "tests/audit/auth.spec.cjs",
+          "line": 69,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Email normalization, full role matrix, actual logout action and cross-tab propagation, expiry mid-submit, deterministic registration allocation race, authenticated socket event delivery."
+    },
+    {
+      "id": "AUTH-011",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "AUTH-011 an unlisted browser origin receives no credentialed CORS authorization",
+          "file": "tests/audit/auth.spec.cjs",
+          "line": 78,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "AUTH-011 unauthenticated kitchen sockets cannot connect",
+          "file": "tests/audit/auth.spec.cjs",
+          "line": 82,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Email normalization, full role matrix, actual logout action and cross-tab propagation, expiry mid-submit, deterministic registration allocation race, authenticated socket event delivery."
+    },
+    {
+      "id": "POS-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "POS-001 search and category filters show exact menu matches and empty results",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 3,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "The implemented search/category/empty-result assertions were executed; broader interaction coverage is in the other POS cases."
+    },
+    {
+      "id": "POS-002",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "POS-002 cart merges items, calculates exact totals and prevents empty checkout",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 14,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Due/Part/UPI UI contracts, large-total and cent boundaries, discount policy, double-click/lost-response browser retry, customer/table/order-type/notes persistence, KOT actions."
+    },
+    {
+      "id": "POS-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "POS-003 the server uses stored prices and rejects unknown menu IDs atomically",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 25,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Due/Part/UPI UI contracts, large-total and cent boundaries, discount policy, double-click/lost-response browser retry, customer/table/order-type/notes persistence, KOT actions."
+    },
+    {
+      "id": "POS-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1,
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "POS-004 Cash UI checkout persists its payment mode and matching journal",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 33,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "POS-004 Card UI checkout persists its payment mode and matching journal",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 33,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Due/Part/UPI UI contracts, large-total and cent boundaries, discount policy, double-click/lost-response browser retry, customer/table/order-type/notes persistence, KOT actions."
+    },
+    {
+      "id": "POS-005",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 5
+      },
+      "tests": [
+        {
+          "title": "POS-005 invalid quantity 0 is rejected without stock, payment or journal writes",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 46,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "POS-005 invalid quantity -1 is rejected without stock, payment or journal writes",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 46,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "POS-005 invalid quantity 0.5 is rejected without stock, payment or journal writes",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 46,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "POS-005 invalid quantity NaN is rejected without stock, payment or journal writes",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 46,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "POS-005 invalid quantity Infinity is rejected without stock, payment or journal writes",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 46,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Due/Part/UPI UI contracts, large-total and cent boundaries, discount policy, double-click/lost-response browser retry, customer/table/order-type/notes persistence, KOT actions."
+    },
+    {
+      "id": "POS-006",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "POS-006 explicit tax reconciles order, payment and journal cents",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 50,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Tax-only invoice/payment/journal reconciliation executed; discount order and rounding policy remain unconfirmed."
+    },
+    {
+      "id": "POS-007",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "POS-007 shared recipe ingredients produce exact stock deductions and separate revenue/COGS journals",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 59,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Due/Part/UPI UI contracts, large-total and cent boundaries, discount policy, double-click/lost-response browser retry, customer/table/order-type/notes persistence, KOT actions."
+    },
+    {
+      "id": "POS-008",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "POS-008 simultaneous last-stock orders cannot overdraw ingredients",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 68,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Due/Part/UPI UI contracts, large-total and cent boundaries, discount policy, double-click/lost-response browser retry, customer/table/order-type/notes persistence, KOT actions."
+    },
+    {
+      "id": "POS-009",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "POS-009 retrying one idempotency key creates one durable order/payment/source journal",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 74,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Due/Part/UPI UI contracts, large-total and cent boundaries, discount policy, double-click/lost-response browser retry, customer/table/order-type/notes persistence, KOT actions."
+    },
+    {
+      "id": "POS-010",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "POS-010 advertised SAVE & PRINT actually invokes printing after a committed sale",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 81,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Due/Part/UPI UI contracts, large-total and cent boundaries, discount policy, double-click/lost-response browser retry, customer/table/order-type/notes persistence, KOT actions."
+    },
+    {
+      "id": "MENU-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "MENU-001 supported menu creation/deletion persists and edit availability is explicit",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 89,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD and duplicate policy; edit implementation is absent; dependent recipe deletion beyond sold-item case."
+    },
+    {
+      "id": "MENU-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "MENU-002 deleting a sold menu item preserves historical order details and recipes",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 97,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD and duplicate policy; edit implementation is absent; dependent recipe deletion beyond sold-item case."
+    },
+    {
+      "id": "INV-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "INV-001 zero and fractional initial stock preserve exact quantities, cost and initial movements",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 103,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser CRUD, every editable field, nonexistent IDs, deletion with each dependency, zero-cost wastage, deterministic concurrent sale/waste races."
+    },
+    {
+      "id": "INV-002",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "INV-002 quantity edits record direction, exact delta and actor attribution",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 112,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser CRUD, every editable field, nonexistent IDs, deletion with each dependency, zero-cost wastage, deterministic concurrent sale/waste races."
+    },
+    {
+      "id": "INV-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 3
+      },
+      "tests": [
+        {
+          "title": "INV-003 invalid inventory values {\"stock_qty\":-1,\"unit_cost\":150} leave no partial changes",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 120,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "INV-003 invalid inventory values {\"stock_qty\":20,\"unit_cost\":-1} leave no partial changes",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 120,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "INV-003 invalid inventory values {\"stock_qty\":\"NaN\",\"unit_cost\":150} leave no partial changes",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 120,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD, every editable field, nonexistent IDs, deletion with each dependency, zero-cost wastage, deterministic concurrent sale/waste races."
+    },
+    {
+      "id": "INV-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "INV-004 deleting inventory with historical wastage preserves dependencies",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 124,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD, every editable field, nonexistent IDs, deletion with each dependency, zero-cost wastage, deterministic concurrent sale/waste races."
+    },
+    {
+      "id": "INV-005",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "INV-005 fractional wastage links the log, stock deduction and journal",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 130,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD, every editable field, nonexistent IDs, deletion with each dependency, zero-cost wastage, deterministic concurrent sale/waste races."
+    },
+    {
+      "id": "INV-006",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "INV-006 excessive wastage is rejected and preserves inventory and accounting",
+          "file": "tests/audit/pos-inventory.spec.cjs",
+          "line": 138,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD, every editable field, nonexistent IDs, deletion with each dependency, zero-cost wastage, deterministic concurrent sale/waste races."
+    },
+    {
+      "id": "RATES-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "RATES-001 complete, partial and repeated rate saves persist date-specific state",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 15,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser date/calendar saving, omitted values, numeric precision and timezone matrix."
+    },
+    {
+      "id": "RATES-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 3
+      },
+      "tests": [
+        {
+          "title": "RATES-002 invalid rate -1 is rejected without changing stored rates",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 24,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "RATES-002 invalid rate NaN is rejected without changing stored rates",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 24,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "RATES-002 invalid rate Infinity is rejected without changing stored rates",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 24,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser date/calendar saving, omitted values, numeric precision and timezone matrix."
+    },
+    {
+      "id": "RATES-003",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "RATES-003 leap-day and year boundaries stay on their requested calendar dates",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 28,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser date/calendar saving, omitted values, numeric precision and timezone matrix."
+    },
+    {
+      "id": "MARKUP-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "MARKUP-001 all base rates and arithmetic operations compute independently expected prices",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 34,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser rule CRUD, every operation/comparator combination, unknown operations, threshold rounding, rule deletion with references."
+    },
+    {
+      "id": "MARKUP-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "MARKUP-002 zero second operands are retained and division by zero is rejected",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 43,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser rule CRUD, every operation/comparator combination, unknown operations, threshold rounding, rule deletion with references."
+    },
+    {
+      "id": "MARKUP-003",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "MARKUP-003 comparator boundaries apply the conditional markup exactly",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 50,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser rule CRUD, every operation/comparator combination, unknown operations, threshold rounding, rule deletion with references."
+    },
+    {
+      "id": "MARKUP-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "MARKUP-004 negative results clamp to zero, decimals round, and duplicate rules update once",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 56,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser rule CRUD, every operation/comparator combination, unknown operations, threshold rounding, rule deletion with references."
+    },
+    {
+      "id": "BILL-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "BILL-001 bill success commits on an independent connection for Audit Chicken",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 65,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "BILL-001 bill success commits on an independent connection for Unmatched stock item",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 65,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser bill/approval forms, missing-markup contract, full source/movement/audit checks after commit is fixed, pending rejection and reapproval after settlement."
+    },
+    {
+      "id": "BILL-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "BILL-002 missing rates and nonexistent suppliers are rejected without partial writes",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 70,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser bill/approval forms, missing-markup contract, full source/movement/audit checks after commit is fixed, pending rejection and reapproval after settlement."
+    },
+    {
+      "id": "BILL-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 3
+      },
+      "tests": [
+        {
+          "title": "BILL-003 fractional quantity and vendor rate 150 persist the exact variance",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 77,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "BILL-003 fractional quantity and vendor rate 160 persist the exact variance",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 77,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "BILL-003 fractional quantity and vendor rate 170 persist the exact variance",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 77,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser bill/approval forms, missing-markup contract, full source/movement/audit checks after commit is fixed, pending rejection and reapproval after settlement."
+    },
+    {
+      "id": "BILL-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "BILL-004 repeated and concurrent approvals post one liability and source journal",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 82,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser bill/approval forms, missing-markup contract, full source/movement/audit checks after commit is fixed, pending rejection and reapproval after settlement."
+    },
+    {
+      "id": "BILL-005",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "BILL-005 approved bill rejection preserves the original liability and posts a reversing event",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 89,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser bill/approval forms, missing-markup contract, full source/movement/audit checks after commit is fixed, pending rejection and reapproval after settlement."
+    },
+    {
+      "id": "BILL-006",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "BILL-006 partly settled bill rejection cannot produce negative supplier outstanding",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 96,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser bill/approval forms, missing-markup contract, full source/movement/audit checks after commit is fixed, pending rejection and reapproval after settlement."
+    },
+    {
+      "id": "BILL-007",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "BILL-007 closed-period bill creation is rejected without bill or inventory changes",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 104,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser bill/approval forms, missing-markup contract, full source/movement/audit checks after commit is fixed, pending rejection and reapproval after settlement."
+    },
+    {
+      "id": "VENDOR-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "VENDOR-001 supplier profile edits preserve opening balance and linked account",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 109,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/payment actions, inactive modes, all aging boundaries, category filters, lost-response browser retry and every supplier profile field."
+    },
+    {
+      "id": "VENDOR-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "VENDOR-002 concurrent supplier creation assigns two distinct durable accounts",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 114,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/payment actions, inactive modes, all aging boundaries, category filters, lost-response browser retry and every supplier profile field."
+    },
+    {
+      "id": "VENDOR-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 2,
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "VENDOR-003 partial and full Cash settlements reconcile payment, supplier and journal",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 121,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "VENDOR-003 partial and full UPI settlements reconcile payment, supplier and journal",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 121,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "VENDOR-003 partial and full Bank Transfer settlements reconcile payment, supplier and journal",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 121,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "VENDOR-003 partial and full Card settlements reconcile payment, supplier and journal",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 121,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/payment actions, inactive modes, all aging boundaries, category filters, lost-response browser retry and every supplier profile field."
+    },
+    {
+      "id": "VENDOR-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 3
+      },
+      "tests": [
+        {
+          "title": "VENDOR-004 invalid settlement 0 leaves payment, supplier and GL unchanged",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 128,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "VENDOR-004 invalid settlement -1 leaves payment, supplier and GL unchanged",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 128,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "VENDOR-004 invalid settlement 1001 leaves payment, supplier and GL unchanged",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 128,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/payment actions, inactive modes, all aging boundaries, category filters, lost-response browser retry and every supplier profile field."
+    },
+    {
+      "id": "VENDOR-005",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "VENDOR-005 two jointly excessive concurrent payments cannot over-settle a supplier",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 131,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/payment actions, inactive modes, all aging boundaries, category filters, lost-response browser retry and every supplier profile field."
+    },
+    {
+      "id": "VENDOR-006",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "VENDOR-006 retrying a settlement reference never duplicates payment or journal",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 136,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/payment actions, inactive modes, all aging boundaries, category filters, lost-response browser retry and every supplier profile field."
+    },
+    {
+      "id": "VENDOR-007",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "VENDOR-007 date-filtered running balance includes prior bills and subtracts payments",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 141,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/payment actions, inactive modes, all aging boundaries, category filters, lost-response browser retry and every supplier profile field."
+    },
+    {
+      "id": "VENDOR-008",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "VENDOR-008 a fully settled supplier has zero outstanding aged debt",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 147,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/payment actions, inactive modes, all aging boundaries, category filters, lost-response browser retry and every supplier profile field."
+    },
+    {
+      "id": "VENDOR-009",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "VENDOR-009 supplier settlements use that supplier account instead of a shared payable",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 152,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/payment actions, inactive modes, all aging boundaries, category filters, lost-response browser retry and every supplier profile field."
+    },
+    {
+      "id": "EMP-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "EMP-001 create, edit and history agree with persisted salary, position, role and status",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 11,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser CRUD/history actions, age/negative-salary validation, every employee field and dependency policy."
+    },
+    {
+      "id": "EMP-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "EMP-002 zero salary edits and clearing optional fields do not silently retain old values",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 21,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD/history actions, age/negative-salary validation, every employee field and dependency policy."
+    },
+    {
+      "id": "EMP-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "EMP-003 concurrent creation produces two unique employee codes",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 29,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD/history actions, age/negative-salary validation, every employee field and dependency policy."
+    },
+    {
+      "id": "EMP-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "EMP-004 manager/staff cannot delete; owner receives a conflict for historical payroll dependencies",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 35,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD/history actions, age/negative-salary validation, every employee field and dependency policy."
+    },
+    {
+      "id": "ATT-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "ATT-001 Present, Absent and Half-Day survive repeated bulk saves without duplicate employee dates",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 40,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser repeated saves, duplicate input, inactive/future date policy and audit attribution."
+    },
+    {
+      "id": "ATT-002",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "ATT-002 both attendance namespaces persist the same supported statuses",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 46,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser repeated saves, duplicate input, inactive/future date policy and audit attribution."
+    },
+    {
+      "id": "ATT-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "ATT-003 calendar completeness counts active staff and excludes inactive attendance",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 53,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser repeated saves, duplicate input, inactive/future date policy and audit attribution."
+    },
+    {
+      "id": "ATT-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "ATT-004 attendance/bulk rejects invalid statuses and preserves locked attendance",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 61,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "ATT-004 employees/attendance/bulk rejects invalid statuses and preserves locked attendance",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 61,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser repeated saves, duplicate input, inactive/future date policy and audit attribution."
+    },
+    {
+      "id": "LEAVE-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "LEAVE-001 owner create/filter/approve/reject/delete transitions persist attendance and status",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 67,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser create/filter/delete, overlap policy, existing Present/Half-Day conflict, leave-pay policy confirmation and audit deduplication."
+    },
+    {
+      "id": "LEAVE-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "LEAVE-002 reversed ranges are validation errors and valid cross-year dates retain exact day count",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 75,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/filter/delete, overlap policy, existing Present/Half-Day conflict, leave-pay policy confirmation and audit deduplication."
+    },
+    {
+      "id": "LEAVE-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "LEAVE-003 manager approval works and simultaneous owner approvals create one attendance event",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 79,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/filter/delete, overlap policy, existing Present/Half-Day conflict, leave-pay policy confirmation and audit deduplication."
+    },
+    {
+      "id": "LEAVE-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "LEAVE-004 bulk edits cannot overwrite approved leave attendance",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 84,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/filter/delete, overlap policy, existing Present/Half-Day conflict, leave-pay policy confirmation and audit deduplication."
+    },
+    {
+      "id": "LEAVE-005",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "LEAVE-005 staff cannot read, submit or delete another employee request",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 89,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/filter/delete, overlap policy, existing Present/Half-Day conflict, leave-pay policy confirmation and audit deduplication."
+    },
+    {
+      "id": "LEAVE-006",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "LEAVE-006 Paid leave earns pay while Unpaid leave does not",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 95,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Paid-versus-Unpaid assertion is provisional. The business meaning of leave types still requires confirmation; current behavior pays neither."
+    },
+    {
+      "id": "ADV-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "ADV-001 both advance request APIs persist their declared request contracts",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 101,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser request/approval actions, adjustments/rejection/repeat/concurrent same-request approval in both namespaces, all repayment limits, zero/invalid installment months and leap-year schedule dates."
+    },
+    {
+      "id": "ADV-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "ADV-002 manager approves a legacy request once with a source-linked ledger and journal",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 106,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "ADV-002 manager can approve the standalone repayment-schedule request",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 112,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser request/approval actions, adjustments/rejection/repeat/concurrent same-request approval in both namespaces, all repayment limits, zero/invalid installment months and leap-year schedule dates."
+    },
+    {
+      "id": "ADV-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "ADV-003 jointly excessive concurrent repayments cannot produce negative employee receivables",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 116,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser request/approval actions, adjustments/rejection/repeat/concurrent same-request approval in both namespaces, all repayment limits, zero/invalid installment months and leap-year schedule dates."
+    },
+    {
+      "id": "ADV-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "ADV-004 invalid amounts and negative repayment months are rejected without schedules",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 121,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser request/approval actions, adjustments/rejection/repeat/concurrent same-request approval in both namespaces, all repayment limits, zero/invalid installment months and leap-year schedule dates."
+    },
+    {
+      "id": "ADV-005",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "ADV-005 installment cents sum exactly to the approved amount",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 126,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "ADV-005 January 31 schedules use February month-end instead of overflowing to March",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 134,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser request/approval actions, adjustments/rejection/repeat/concurrent same-request approval in both namespaces, all repayment limits, zero/invalid installment months and leap-year schedule dates."
+    },
+    {
+      "id": "ADV-006",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "ADV-006 failure to auto-approve a transfer leaves no partial advance request",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 140,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser request/approval actions, adjustments/rejection/repeat/concurrent same-request approval in both namespaces, all repayment limits, zero/invalid installment months and leap-year schedule dates."
+    },
+    {
+      "id": "PAY-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 4
+      },
+      "tests": [
+        {
+          "title": "PAY-001 explicit 0 days draft earns exactly 0",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 145,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "PAY-001 explicit 0.5 days draft earns exactly 500",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 145,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "PAY-001 explicit 15 days draft earns exactly 15000",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 145,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "PAY-001 explicit 30 days draft earns exactly 30000",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 145,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Explicit zero/half/partial/full days executed. Missing-attendance policy has no user answer; current source defaults to the full month."
+    },
+    {
+      "id": "PAY-002",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "PAY-002 February leap and non-leap proration uses the correct month length",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 149,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser generation/approval/payout, missing-attendance policy, mid-month eligibility, all component combinations, paid reruns, schedule synchronization, delete-one-of-two, invalid mode, and legacy path after missing schema is resolved."
+    },
+    {
+      "id": "PAY-003",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "PAY-003 components, overtime, extra days and negative adjustment reconcile the draft",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 154,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser generation/approval/payout, missing-attendance policy, mid-month eligibility, all component combinations, paid reruns, schedule synchronization, delete-one-of-two, invalid mode, and legacy path after missing schema is resolved."
+    },
+    {
+      "id": "PAY-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "PAY-004 explicit advance deductions never exceed gross salary or the outstanding balance",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 164,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser generation/approval/payout, missing-attendance policy, mid-month eligibility, all component combinations, paid reruns, schedule synchronization, delete-one-of-two, invalid mode, and legacy path after missing schema is resolved."
+    },
+    {
+      "id": "PAY-005",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "PAY-005 regenerating an approved record does not silently change its locked salary",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 168,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser generation/approval/payout, missing-attendance policy, mid-month eligibility, all component combinations, paid reruns, schedule synchronization, delete-one-of-two, invalid mode, and legacy path after missing schema is resolved."
+    },
+    {
+      "id": "PAY-006",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "PAY-006 approval and payout reject repeated or out-of-order transitions",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 172,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser generation/approval/payout, missing-attendance policy, mid-month eligibility, all component combinations, paid reruns, schedule synchronization, delete-one-of-two, invalid mode, and legacy path after missing schema is resolved."
+    },
+    {
+      "id": "PAY-007",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "PAY-007 FIFO partial recovery reconciles both advance models, ledger and source journals",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 178,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser generation/approval/payout, missing-attendance policy, mid-month eligibility, all component combinations, paid reruns, schedule synchronization, delete-one-of-two, invalid mode, and legacy path after missing schema is resolved."
+    },
+    {
+      "id": "PAY-008",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "PAY-008 zero-net payroll completes advance recovery without invalid zero payment lines",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 188,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser generation/approval/payout, missing-attendance policy, mid-month eligibility, all component combinations, paid reruns, schedule synchronization, delete-one-of-two, invalid mode, and legacy path after missing schema is resolved."
+    },
+    {
+      "id": "PAY-009",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 5
+      },
+      "tests": [
+        {
+          "title": "PAY-009 Cash payout commits once despite concurrent repeated submissions",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 193,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "PAY-009 UPI payout commits once despite concurrent repeated submissions",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 193,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "PAY-009 Card payout commits once despite concurrent repeated submissions",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 193,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "PAY-009 Bank Transfer payout commits once despite concurrent repeated submissions",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 193,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "PAY-009 payer name entered in the payout UI is accepted and persisted",
+          "file": "tests/audit/payroll-ui.spec.cjs",
+          "line": 3,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser generation/approval/payout, missing-attendance policy, mid-month eligibility, all component combinations, paid reruns, schedule synchronization, delete-one-of-two, invalid mode, and legacy path after missing schema is resolved."
+    },
+    {
+      "id": "PAY-010",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "PAY-010 reverting one of two same-date payouts preserves the other and reverses cash exactly",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 197,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser generation/approval/payout, missing-attendance policy, mid-month eligibility, all component combinations, paid reruns, schedule synchronization, delete-one-of-two, invalid mode, and legacy path after missing schema is resolved."
+    },
+    {
+      "id": "PAY-011",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "PAY-011 paid to approved to paid restores one net payout across the complete round trip",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 204,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser generation/approval/payout, missing-attendance policy, mid-month eligibility, all component combinations, paid reruns, schedule synchronization, delete-one-of-two, invalid mode, and legacy path after missing schema is resolved."
+    },
+    {
+      "id": "PAY-012",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "PAY-012 legacy zero-days payroll never substitutes a full month",
+          "file": "tests/audit/hr.spec.cjs",
+          "line": 210,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser generation/approval/payout, missing-attendance policy, mid-month eligibility, all component combinations, paid reruns, schedule synchronization, delete-one-of-two, invalid mode, and legacy path after missing schema is resolved."
+    },
+    {
+      "id": "FIN-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 2
+      },
+      "tests": [
+        {
+          "title": "FIN-001 revenue persists exact cent-balanced journal with configured accounts",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 20,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "FIN-001 expense persists exact cent-balanced journal with configured accounts",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 20,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser revenue/expense forms, payer/vendor/reference contract, invalid categories and transactionally injected failure after each write stage."
+    },
+    {
+      "id": "FIN-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "FIN-002 invalid mapping and a failure during ledger insertion roll back the header",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 26,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser revenue/expense forms, payer/vendor/reference contract, invalid categories and transactionally injected failure after each write stage."
+    },
+    {
+      "id": "TRACK-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 3
+      },
+      "tests": [
+        {
+          "title": "TRACK-001 Cash tracker cash and GL accounts reconcile without false revenue",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "TRACK-001 Bank tracker cash and GL accounts reconcile without false revenue",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "TRACK-001 Bank_Cash tracker cash and GL accounts reconcile without false revenue",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/delete/status actions, exact full tracker/P&L/counter/float/vendor reconciliation, vendor/type changes, deterministic concurrent paid transition and response-loss retries."
+    },
+    {
+      "id": "TRACK-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "TRACK-002 amount/date/mode corrections and deletion never leave stale journals",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 38,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/delete/status actions, exact full tracker/P&L/counter/float/vendor reconciliation, vendor/type changes, deterministic concurrent paid transition and response-loss retries."
+    },
+    {
+      "id": "TRACK-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "TRACK-003 repeated paid status and paid-to-pending keep vendor liability and GL consistent",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 46,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/delete/status actions, exact full tracker/P&L/counter/float/vendor reconciliation, vendor/type changes, deterministic concurrent paid transition and response-loss retries."
+    },
+    {
+      "id": "TRACK-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "TRACK-004 locked-period journal failure leaves no successful partial tracker write",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 54,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/delete/status actions, exact full tracker/P&L/counter/float/vendor reconciliation, vendor/type changes, deterministic concurrent paid transition and response-loss retries."
+    },
+    {
+      "id": "TRACK-005",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "TRACK-005 denomination counts reject negative fractional values in the tracker",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 58,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser create/edit/delete/status actions, exact full tracker/P&L/counter/float/vendor reconciliation, vendor/type changes, deterministic concurrent paid transition and response-loss retries."
+    },
+    {
+      "id": "MAP-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "MAP-001 mapping history changes only matching expense records and preserves sales",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 66,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD, overlapping keyword precedence, duplicate/invalid rules and source ledger correction after historical categorization."
+    },
+    {
+      "id": "MAP-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "MAP-002 applying mappings cannot rewrite a closed day",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 73,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD, overlapping keyword precedence, duplicate/invalid rules and source ledger correction after historical categorization."
+    },
+    {
+      "id": "TRANSFER-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 4
+      },
+      "tests": [
+        {
+          "title": "TRANSFER-001 Cash wallet round trip conserves total assets",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 79,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "TRANSFER-001 Bank wallet round trip conserves total assets",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 79,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "TRANSFER-001 UPI wallet round trip conserves total assets",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 79,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "TRANSFER-001 Card wallet round trip conserves total assets",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 79,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser transfer actions, available-funds policy confirmation, every source account, deterministic concurrent returns and injected failures at each stage."
+    },
+    {
+      "id": "TRANSFER-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "TRANSFER-002 missing wallet, nonfinite amount and same-account transfers are rejected atomically",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 83,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser transfer actions, available-funds policy confirmation, every source account, deterministic concurrent returns and injected failures at each stage."
+    },
+    {
+      "id": "TRANSFER-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "TRANSFER-003 concurrent excessive wallet returns cannot create negative float",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 88,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser transfer actions, available-funds policy confirmation, every source account, deterministic concurrent returns and injected failures at each stage."
+    },
+    {
+      "id": "TRANSFER-004",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "TRANSFER-004 employee advance and repayment reconcile receivable, ledger and cash",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 92,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser transfer actions, available-funds policy confirmation, every source account, deterministic concurrent returns and injected failures at each stage."
+    },
+    {
+      "id": "CLOSE-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 2,
+        "passed": 4
+      },
+      "tests": [
+        {
+          "title": "CLOSE-001 default schema supports a cash variance without missing accounts",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 97,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "CLOSE-001 actual 0 reports exact variance and carry-forward",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 101,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "CLOSE-001 actual 90 reports exact variance and carry-forward",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 101,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "CLOSE-001 actual 100 reports exact variance and carry-forward",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 101,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "CLOSE-001 actual 110 reports exact variance and carry-forward",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 101,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "CLOSE-001 first summary includes journal movements with time on the selected day",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 106,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser count/close/reopen flows, negative/invalid count policy, deterministic concurrent variance close, period locks on every writer, full account-scoped carry-forward and timezone boundaries."
+    },
+    {
+      "id": "CLOSE-002",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "CLOSE-002 concurrent close produces one closure and uninitialized close fails without changes",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 109,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser count/close/reopen flows, negative/invalid count policy, deterministic concurrent variance close, period locks on every writer, full account-scoped carry-forward and timezone boundaries."
+    },
+    {
+      "id": "CLOSE-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 4
+      },
+      "tests": [
+        {
+          "title": "CLOSE-003 closed-day revenue is blocked atomically",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 114,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "CLOSE-003 closed-day tracker-add is blocked atomically",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 114,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "CLOSE-003 closed-day tracker-edit is blocked atomically",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 114,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "CLOSE-003 closed-day tracker-delete is blocked atomically",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 114,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser count/close/reopen flows, negative/invalid count policy, deterministic concurrent variance close, period locks on every writer, full account-scoped carry-forward and timezone boundaries."
+    },
+    {
+      "id": "CLOSE-004",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "CLOSE-004 owner reason and single reopen are enforced with role denial",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 119,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Browser count/close/reopen flows, negative/invalid count policy, deterministic concurrent variance close, period locks on every writer, full account-scoped carry-forward and timezone boundaries."
+    },
+    {
+      "id": "CLOSE-005",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "CLOSE-005 audit insertion failure rolls back variance reversal and closed state together",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 125,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser count/close/reopen flows, negative/invalid count policy, deterministic concurrent variance close, period locks on every writer, full account-scoped carry-forward and timezone boundaries."
+    },
+    {
+      "id": "CLOSE-006",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "CLOSE-006 reopening one account preserves a second account with the same type/date",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 129,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "CLOSE-006 custom account summary and close honor the requested wallet account",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 135,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser count/close/reopen flows, negative/invalid count policy, deterministic concurrent variance close, period locks on every writer, full account-scoped carry-forward and timezone boundaries."
+    },
+    {
+      "id": "CLOSE-007",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "CLOSE-007 December close never overwrites an already closed January opening",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 140,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser count/close/reopen flows, negative/invalid count policy, deterministic concurrent variance close, period locks on every writer, full account-scoped carry-forward and timezone boundaries."
+    },
+    {
+      "id": "GL-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "GL-001 each journal has balanced cents, source references and at least two valid lines",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 144,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Every financial source and attribution, minimum-line invariant across failed direct writes, every account type/cutoff, all sub-cent rounding boundaries and reversal source-link policy."
+    },
+    {
+      "id": "GL-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 2,
+        "passed": 3
+      },
+      "tests": [
+        {
+          "title": "GL-002 NaN rejected by journal entity/service without persistence",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 150,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "GL-002 Infinity rejected by journal entity/service without persistence",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 150,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "GL-002 invalid date rejected by journal entity/service without persistence",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 150,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "GL-002 same account rejected by journal entity/service without persistence",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 150,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "GL-002 cent imbalance rejected by journal entity/service without persistence",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 150,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Every financial source and attribution, minimum-line invariant across failed direct writes, every account type/cutoff, all sub-cent rounding boundaries and reversal source-link policy."
+    },
+    {
+      "id": "GL-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "GL-003 signed balances include equity and zero activity before an as-of cutoff",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 154,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Every financial source and attribution, minimum-line invariant across failed direct writes, every account type/cutoff, all sub-cent rounding boundaries and reversal source-link policy."
+    },
+    {
+      "id": "GL-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "GL-004 repeated reversal is idempotent and locked reversal leaves originals immutable",
+          "file": "tests/audit/finance.spec.cjs",
+          "line": 158,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Every financial source and attribution, minimum-line invariant across failed direct writes, every account type/cutoff, all sub-cent rounding boundaries and reversal source-link policy."
+    },
+    {
+      "id": "REPORT-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "REPORT-001 overview, expense breakdown and revenue trends reconcile reversals to GL",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 7,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "REPORT-001 inclusive end date contains transactions at 23:59:59",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 14,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Full UI chart/KPI values, every filter/default range, inactive staff, no-record denominator policy, partial months, inventory purchase and cost-change reconciliation."
+    },
+    {
+      "id": "REPORT-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "REPORT-002 historical balance sheet excludes future account movements and satisfies equation",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 18,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Full UI chart/KPI values, every filter/default range, inactive staff, no-record denominator policy, partial months, inventory purchase and cost-change reconciliation."
+    },
+    {
+      "id": "REPORT-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "REPORT-003 capitalized advances and repayments agree in employee report and summary",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 22,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Full UI chart/KPI values, every filter/default range, inactive staff, no-record denominator policy, partial months, inventory purchase and cost-change reconciliation."
+    },
+    {
+      "id": "REPORT-004",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "REPORT-004 attendance percentage includes the earned half-day proportion",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 26,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Full UI chart/KPI values, every filter/default range, inactive staff, no-record denominator policy, partial months, inventory purchase and cost-change reconciliation."
+    },
+    {
+      "id": "REPORT-005",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "REPORT-005 approved/rejected bill counts and partial vendor payment reconcile exact fixtures",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 30,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Full UI chart/KPI values, every filter/default range, inactive staff, no-record denominator policy, partial months, inventory purchase and cost-change reconciliation."
+    },
+    {
+      "id": "REPORT-006",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "REPORT-006 stock valuation and dated wastage reconcile sale and waste deductions",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 36,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Full UI chart/KPI values, every filter/default range, inactive staff, no-record denominator policy, partial months, inventory purchase and cost-change reconciliation."
+    },
+    {
+      "id": "EXPORT-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "EXPORT-001 CSV preserves quotes, Unicode and embedded newlines without executable formula cells",
+          "file": "tests/audit/exports.spec.cjs",
+          "line": 7,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "CSV on every report, newline-only/formula/Unicode/nested cells, empty JSON and exact filename policies on every report, actual PDF implementation is absent."
+    },
+    {
+      "id": "EXPORT-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1,
+        "passed": 3
+      },
+      "tests": [
+        {
+          "title": "EXPORT-002 /reports/financial JSON download matches the report input",
+          "file": "tests/audit/exports.spec.cjs",
+          "line": 13,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "EXPORT-002 /reports/hr JSON download matches the report input",
+          "file": "tests/audit/exports.spec.cjs",
+          "line": 13,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "EXPORT-002 /reports/operations JSON download matches the report input",
+          "file": "tests/audit/exports.spec.cjs",
+          "line": 13,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "EXPORT-002 /reports/inventory JSON download matches the report input",
+          "file": "tests/audit/exports.spec.cjs",
+          "line": 13,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "CSV on every report, newline-only/formula/Unicode/nested cells, empty JSON and exact filename policies on every report, actual PDF implementation is absent."
+    },
+    {
+      "id": "EXPORT-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 5
+      },
+      "tests": [
+        {
+          "title": "EXPORT-003 /reports/financial PDF placeholder is clear and never throws an unavailable toast method",
+          "file": "tests/audit/exports.spec.cjs",
+          "line": 23,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "EXPORT-003 /reports/hr PDF placeholder is clear and never throws an unavailable toast method",
+          "file": "tests/audit/exports.spec.cjs",
+          "line": 23,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "EXPORT-003 /reports/operations PDF placeholder is clear and never throws an unavailable toast method",
+          "file": "tests/audit/exports.spec.cjs",
+          "line": 23,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "EXPORT-003 /reports/inventory PDF placeholder is clear and never throws an unavailable toast method",
+          "file": "tests/audit/exports.spec.cjs",
+          "line": 23,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "EXPORT-003 repeated downloads release their Blob URLs",
+          "file": "tests/audit/exports.spec.cjs",
+          "line": 27,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "CSV on every report, newline-only/formula/Unicode/nested cells, empty JSON and exact filename policies on every report, actual PDF implementation is absent."
+    },
+    {
+      "id": "DASH-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "DASH-001 dashboard KPIs agree with net financial and advance balances",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 41,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Full rendered KPI comparisons on dashboard and report landing page, all roles/date filters."
+    },
+    {
+      "id": "AI-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "AI-001 no history yields zero and weighted completed recipes retain ingredient units",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 48,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Zero-usage-day forecasting policy, missing recipes, invalid item IDs, sparse date gaps, forecasting validation beyond the fixed arithmetic formula."
+    },
+    {
+      "id": "AI-002",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "AI-002 documented two-day lead plus one-day safety triggers strictly below reorder point",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 53,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Zero-usage-day forecasting policy, missing recipes, invalid item IDs, sparse date gaps, forecasting validation beyond the fixed arithmetic formula."
+    },
+    {
+      "id": "KDS-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "KDS-001 ticket transitions persist timestamps and reject unsupported status values",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 172,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Authenticated event delivery/attribution and duplicate completion effects on forecasts; POS ticket generation currently fails."
+    },
+    {
+      "id": "KDS-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "KDS-002 a POS sale appears automatically as one kitchen ticket",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 180,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Authenticated event delivery/attribution and duplicate completion effects on forecasts; POS ticket generation currently fails."
+    },
+    {
+      "id": "PO-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "PO-001 receiving multiple items records quantities, movements, liability and source journal",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 158,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Cancellation/invalid transitions, receipt attribution, concurrent receipt and failure rollback, browser workflow is absent."
+    },
+    {
+      "id": "PO-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "PO-002 resetting and re-receiving a PO never adds its stock or liability twice",
+          "file": "tests/audit/procurement.spec.cjs",
+          "line": 166,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Cancellation/invalid transitions, receipt attribution, concurrent receipt and failure rollback, browser workflow is absent."
+    },
+    {
+      "id": "CFG-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1,
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "CFG-001 bulk upsert/reorder, toggle and rollback preserve category-scoped configuration",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 58,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "CFG-001 inactive options remain reachable in the management screen for reactivation",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 66,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD/import/reorder/toggle, cross-category update/toggle/reorder, canonical inactive payment behavior across every consumer."
+    },
+    {
+      "id": "CFG-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 2
+      },
+      "tests": [
+        {
+          "title": "CFG-002 staff cannot mutate and an ID from another category cannot be deleted",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 70,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "CFG-002 partial label update retains value, activation, metadata and display order",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 75,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD/import/reorder/toggle, cross-category update/toggle/reorder, canonical inactive payment behavior across every consumer."
+    },
+    {
+      "id": "CFG-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "CFG-003 configured active payment label is accepted by financial services",
+          "file": "tests/audit/reports-config-ai.spec.cjs",
+          "line": 79,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Browser CRUD/import/reorder/toggle, cross-category update/toggle/reorder, canonical inactive payment behavior across every consumer."
+    },
+    {
+      "id": "UI-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 32
+      },
+      "tests": [
+        {
+          "title": "UI-001 SCREEN-001 visible buttons and form fields have programmatic accessible names /login",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-002 visible buttons and form fields have programmatic accessible names /",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-003 visible buttons and form fields have programmatic accessible names /dashboard",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-004 visible buttons and form fields have programmatic accessible names /employees",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-005 visible buttons and form fields have programmatic accessible names /menu",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-006 visible buttons and form fields have programmatic accessible names /payroll",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-007 visible buttons and form fields have programmatic accessible names /advances",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-008 visible buttons and form fields have programmatic accessible names /vendor-payments",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-009 visible buttons and form fields have programmatic accessible names /inventory",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-010 visible buttons and form fields have programmatic accessible names /finance",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-011 visible buttons and form fields have programmatic accessible names /finance/payments",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-012 visible buttons and form fields have programmatic accessible names /finance/summary",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-013 visible buttons and form fields have programmatic accessible names /finance/daily-tracker",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-014 visible buttons and form fields have programmatic accessible names /finance/float",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-015 visible buttons and form fields have programmatic accessible names /finance/mappings",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-016 visible buttons and form fields have programmatic accessible names /finance/transfer",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-017 visible buttons and form fields have programmatic accessible names /attendance/bulk",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-018 visible buttons and form fields have programmatic accessible names /attendance/leaves",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-019 visible buttons and form fields have programmatic accessible names /advances/approvals",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-020 visible buttons and form fields have programmatic accessible names /ai-dashboard",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-021 visible buttons and form fields have programmatic accessible names /chicken",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-022 visible buttons and form fields have programmatic accessible names /chicken/rates",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-023 visible buttons and form fields have programmatic accessible names /chicken/bills",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-024 visible buttons and form fields have programmatic accessible names /chicken/vendors",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-025 visible buttons and form fields have programmatic accessible names /reports",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-026 visible buttons and form fields have programmatic accessible names /reports/financial",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-027 visible buttons and form fields have programmatic accessible names /reports/hr",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-028 visible buttons and form fields have programmatic accessible names /reports/operations",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-029 visible buttons and form fields have programmatic accessible names /reports/inventory",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-030 visible buttons and form fields have programmatic accessible names /config",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-031 visible buttons and form fields have programmatic accessible names /approvals",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "UI-001 SCREEN-032 visible buttons and form fields have programmatic accessible names /development-status",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 31,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Full keyboard journeys, associated error messages, modal Escape/focus trap/focus return, accessibility beyond initial names, clipped actions/long forms/tables, offline/403/navigation-abort and duplicate-submit recovery."
+    },
+    {
+      "id": "UI-002",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "UI-002 long inventory names remain within scrollable content on mobile",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 42,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Full keyboard journeys, associated error messages, modal Escape/focus trap/focus return, accessibility beyond initial names, clipped actions/long forms/tables, offline/403/navigation-abort and duplicate-submit recovery."
+    },
+    {
+      "id": "UI-003",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 1
+      },
+      "tests": [
+        {
+          "title": "UI-003 failed employee creation preserves entered form values for retry",
+          "file": "tests/audit/screen-states.spec.cjs",
+          "line": 50,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Full keyboard journeys, associated error messages, modal Escape/focus trap/focus return, accessibility beyond initial names, clipped actions/long forms/tables, offline/403/navigation-abort and duplicate-submit recovery."
+    },
+    {
+      "id": "E2E-001",
+      "verdict": "passed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 2
+      },
+      "tests": [
+        {
+          "title": "E2E-001 rejects application, remote, alternate-user and alternate-port targets",
+          "file": "tests/audit/harness.spec.cjs",
+          "line": 3,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "E2E-001 bootstrap repeats without losing data and detects changed checksums",
+          "file": "tests/audit/harness.spec.cjs",
+          "line": 11,
+          "status": "passed",
+          "classification": "passed_assertions"
+        }
+      ],
+      "remaining": "Full successful financial and HR round trips after the recorded failing stages are repaired; harness external cluster/browser failure paths."
+    },
+    {
+      "id": "E2E-002",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "E2E-002 purchase approval settlement and closure reconcile after each committed stage",
+          "file": "tests/audit/data-roundtrip.spec.cjs",
+          "line": 42,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "The independent committed-purchase assertion fails. Approval/payment/close/reopen/reverse stages cannot be reported as passed in this round trip; downstream APIs have separate fixture-based tests."
+    },
+    {
+      "id": "E2E-003",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "failed": 1
+      },
+      "tests": [
+        {
+          "title": "E2E-003 attendance advance payroll payout revert and repay conserve source balances",
+          "file": "tests/audit/data-roundtrip.spec.cjs",
+          "line": 53,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Payout/revert cash conservation fails. Leave, repayment, reports and full audit attribution in this round trip remain incomplete."
+    },
+    {
+      "id": "DATA-001",
+      "verdict": "failed_subcases",
+      "coverage": "partial",
+      "counts": {
+        "passed": 2,
+        "failed": 3
+      },
+      "tests": [
+        {
+          "title": "DATA-001 synthetic xls employee/rates/attendance round trip is repeatable",
+          "file": "tests/audit/data-roundtrip.spec.cjs",
+          "line": 20,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "DATA-001 synthetic xlsx employee/rates/attendance round trip is repeatable",
+          "file": "tests/audit/data-roundtrip.spec.cjs",
+          "line": 20,
+          "status": "passed",
+          "classification": "passed_assertions"
+        },
+        {
+          "title": "DATA-001 repeated bill import does not duplicate financial source rows",
+          "file": "tests/audit/data-roundtrip.spec.cjs",
+          "line": 29,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "DATA-001 repeated CSV import is idempotent and malformed source rows are reported",
+          "file": "tests/audit/data-roundtrip.spec.cjs",
+          "line": 33,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        },
+        {
+          "title": "DATA-001 missing attendance is reported before changing active employee statuses",
+          "file": "tests/audit/data-roundtrip.spec.cjs",
+          "line": 38,
+          "status": "failed",
+          "classification": "failed_assertion_review_required"
+        }
+      ],
+      "remaining": "Malformed workbook rows, negative financial values, importer row-level rollback/source attribution/GL reconciliation, full multi-file orchestrator and JavaScript importers."
+    }
+  ]
+}

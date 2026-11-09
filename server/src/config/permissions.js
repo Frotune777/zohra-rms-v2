@@ -17,6 +17,7 @@ const PERMISSIONS = {
     PAYROLL_READ: 'payroll:read',
     PAYROLL_WRITE: 'payroll:write',
     ATTENDANCE_WRITE: 'attendance:write',
+    HR_WRITE: 'hr:write',
 
     // System
     SYSTEM_ADMIN: 'system:admin'
@@ -42,7 +43,8 @@ const ROLE_PERMISSIONS = {
         PERMISSIONS.EMPLOYEES_WRITE,
         PERMISSIONS.PAYROLL_READ,
         PERMISSIONS.PAYROLL_WRITE,
-        PERMISSIONS.ATTENDANCE_WRITE
+        PERMISSIONS.ATTENDANCE_WRITE,
+        PERMISSIONS.HR_WRITE
     ],
 
     [ROLES.STAFF]: [

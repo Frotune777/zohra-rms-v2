@@ -1,16 +1,32 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const kdsController = require('./kds.controller');
-const wastageController = require('./wastage.controller');
-const { verifyToken, checkRole } = require('../../middleware/auth');
+const kdsController = require("./kds.controller");
+const wastageController = require("./wastage.controller");
+const { verifyToken, checkRole } = require("../../middleware/auth");
 
 // KDS
-router.get('/kds/tickets', verifyToken, kdsController.getTickets);
-router.post('/kds/tickets', verifyToken, kdsController.createTicket); // POS calls this
-router.put('/kds/tickets/:id', verifyToken, kdsController.updateTicketStatus);
+router.get("/kds/tickets", verifyToken, kdsController.getTickets);
+router.post("/kds/tickets", verifyToken, kdsController.createTicket); // POS calls this
+router.put("/kds/tickets/:id", verifyToken, kdsController.updateTicketStatus);
 
 // Wastage
-router.get('/wastage', verifyToken, checkRole(['manager', 'owner']), wastageController.getWastageLogs);
-router.post('/wastage', verifyToken, checkRole(['manager', 'owner']), wastageController.logWastage);
+router.get(
+  "/wastage",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  wastageController.getWastageLogs,
+);
+router.post(
+  "/wastage/:id/reverse",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  require("../inventory/corrections").reverseWastage,
+);
+router.post(
+  "/wastage",
+  verifyToken,
+  checkRole(["manager", "owner"]),
+  wastageController.logWastage,
+);
 
 module.exports = router;

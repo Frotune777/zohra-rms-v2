@@ -8,6 +8,8 @@
 
 const db = require('../../config/db');
 const JournalService = require('./JournalService');
+const { assertWritable } = require('./writeGuard');
+const { finite, DomainError } = require('../../utils/domain');
 
 class ClosureService {
     /**
@@ -26,24 +28,27 @@ class ClosureService {
             await client.query('BEGIN');
 
             const targetAccount = accountCode || (type === 'Counter' ? 1000 : 1030);
+            await assertWritable(client,date);
+            finite(actualClosingBalance,'Actual closing balance',{min:-Infinity});
 
             // 1. Get existing balance record
             const balanceRes = await client.query(`
                 SELECT * FROM daily_balances 
-                WHERE date = $1 AND account_code = $2
+                WHERE date = $1 AND account_code = $2 FOR UPDATE
             `, [date, targetAccount]);
 
             if (balanceRes.rows.length === 0) {
-                throw new Error(`Daily balance record not initialized for ${date} (Account: ${targetAccount})`);
+                throw new DomainError(`Daily balance record not initialized for ${date} (Account: ${targetAccount})`);
             }
 
             const balance = balanceRes.rows[0];
 
             if (balance.status === 'Closed') {
-                throw new Error(`Day ${date} already closed for this account`);
+                throw new DomainError(`Day ${date} already closed for this account`);
             }
 
-            const expectedClosing = parseFloat(balance.closing_balance);
+            const calculation = await this.calculateExpectedClosing(date,targetAccount,client);
+            const expectedClosing = calculation.closing_balance;
             const actualClosing = parseFloat(actualClosingBalance);
             const variance = actualClosing - expectedClosing;
 
@@ -60,6 +65,7 @@ class ClosureService {
                         ? `Cash Shortage - ${type || targetAccount}`
                         : `Cash Excess - ${type || targetAccount}`,
                     reference_type: 'CashVariance',
+                    reference_id: balance.id,
                     lines: isShortage ? [
                         { account_code: 7000, debit: absVariance, credit: 0 }, // Cash Shortage Expense
                         { account_code: targetAccount, debit: 0, credit: absVariance } // Reduce Cash
@@ -80,9 +86,10 @@ class ClosureService {
                     status = 'Closed',
                     closed_by = $2,
                     closed_at = NOW(),
-                    variance_je_id = $3
+                    variance_je_id = $3,
+                    closing_balance = $6
                 WHERE date = $4 AND account_code = $5
-            `, [actualClosing, userId, varianceJeId, date, targetAccount]);
+            `, [actualClosing, userId, varianceJeId, date, targetAccount,expectedClosing]);
 
             // 4. Set next day's opening balance
             const nextDay = new Date(date);
@@ -94,6 +101,7 @@ class ClosureService {
                 VALUES ($1, $2, $3, $4, $4, 'Open')
                 ON CONFLICT (date, account_code) 
                 DO UPDATE SET opening_balance = $4
+                WHERE daily_balances.status = 'Open'
             `, [nextDayStr, type || 'Custom', targetAccount, actualClosing]);
 
             await client.query('COMMIT');
@@ -127,26 +135,29 @@ class ClosureService {
      * @param {String} reason - Reason for reopening
      * @returns {Promise<Object>} Reopen result
      */
-    async reopenDay(date, type, userId, reason) {
+    async reopenDay(date, type, userId, reason, accountCode = null) {
         const client = await db.pool.connect();
 
         try {
             await client.query('BEGIN');
+            if (!reason?.trim()) throw new DomainError('Reopen reason required');
+            const targetAccount = accountCode || (type === 'Counter' ? 1000 : 1030);
+            await assertWritable(client,date);
 
             // 1. Get balance with closure info
             const balanceRes = await client.query(`
                 SELECT * FROM daily_balances 
-                WHERE date = $1 AND type = $2
-            `, [date, type]);
+                WHERE date = $1 AND account_code = $2 FOR UPDATE
+            `, [date, targetAccount]);
 
             if (balanceRes.rows.length === 0) {
-                throw new Error(`Daily balance not found for ${date} (${type})`);
+                throw new DomainError(`Daily balance not found for ${date} (${type})`);
             }
 
             const balance = balanceRes.rows[0];
 
             if (balance.status !== 'Closed') {
-                throw new Error(`Day ${date} (${type}) is not closed`);
+                throw new DomainError(`Day ${date} (${type}) is not closed`);
             }
 
             // 2. If variance JE exists, reverse it
@@ -154,7 +165,7 @@ class ClosureService {
                 await JournalService.reverseJournalEntry(
                     balance.variance_je_id,
                     `Day reopened: ${reason}`,
-                    new Date()
+                    date, client, true
                 );
             }
 
@@ -165,9 +176,10 @@ class ClosureService {
                     closed_by = NULL,
                     closed_at = NULL,
                     variance_je_id = NULL,
+                    actual_closing_balance = NULL,
                     reopen_count = reopen_count + 1
-                WHERE date = $1 AND type = $2
-            `, [date, type]);
+                WHERE date = $1 AND account_code = $2
+            `, [date, targetAccount]);
 
             // 4. Audit log
             await client.query(`
@@ -242,16 +254,7 @@ class ClosureService {
                 ON CONFLICT (date, account_code) DO NOTHING
             `, [date, type, targetAccount]);
 
-            return {
-                date: date,
-                type: type,
-                account_code: targetAccount,
-                status: 'Open',
-                opening_balance: 0,
-                closing_balance: 0,
-                actual_closing_balance: null,
-                variance: 0
-            };
+            return this.getDailyBalanceSummary(date,type,targetAccount);
         }
 
         const balance = balanceRes.rows[0];
@@ -268,9 +271,9 @@ class ClosureService {
 
         return {
             ...balance,
-            closing_balance: expectedRes.closing_balance, // override with fresh calc
+            closing_balance: balance.status === 'Closed' ? Number(balance.closing_balance) : expectedRes.closing_balance,
             expected_closing_calculated: expectedRes.closing_balance,
-            variance: balance.actual_closing_balance
+            variance: balance.actual_closing_balance !== null
                 ? parseFloat(balance.actual_closing_balance) - parseFloat(balance.closing_balance)
                 : 0
         };
@@ -283,22 +286,24 @@ class ClosureService {
      * @param {String} type - 'Counter' or 'Float'
      * @returns {Promise<Object>} Calculated balances
      */
-    async calculateExpectedClosing(date, accountCode = 1000) {
+    async calculateExpectedClosing(date, accountCode = 1000, client = db) {
         // Get opening balance (closing of previous day)
         const prevDay = new Date(date);
         prevDay.setDate(prevDay.getDate() - 1);
         const prevDayStr = prevDay.toISOString().split('T')[0];
 
-        const prevBalanceRes = await db.query(`
+        const prevBalanceRes = await client.query(`
             SELECT actual_closing_balance
             FROM daily_balances
             WHERE date = $1 AND account_code = $2
         `, [prevDayStr, accountCode]);
 
-        const openingBalance = parseFloat(prevBalanceRes.rows[0]?.actual_closing_balance || 0);
+        const today = await client.query('SELECT opening_balance FROM daily_balances WHERE date=$1 AND account_code=$2',[date,accountCode]);
+        const historic = await client.query("SELECT COALESCE(SUM(l.debit-l.credit),0) AS amount FROM ledger_lines l JOIN journal_entries j ON j.id=l.journal_entry_id WHERE l.account_code=$1 AND j.transaction_date < $2::date",[accountCode,date]);
+        const openingBalance = Number(prevBalanceRes.rows[0]?.actual_closing_balance ?? (Number(today.rows[0]?.opening_balance) || historic.rows[0].amount || 0));
 
         // Calculate movements from ledger
-        const movementsRes = await db.query(`
+        const movementsRes = await client.query(`
             SELECT 
                 COALESCE(SUM(ll.debit), 0) as total_debit,
                 COALESCE(SUM(ll.credit), 0) as total_credit,
@@ -307,7 +312,9 @@ class ClosureService {
             JOIN journal_entries je ON ll.journal_entry_id = je.id
             JOIN chart_of_accounts ca ON ll.account_code = ca.code
             WHERE ll.account_code = $1
-              AND je.transaction_date = $2
+              AND je.transaction_date >= $2::date AND je.transaction_date < $2::date + INTERVAL '1 day'
+              AND je.reference_type IS DISTINCT FROM 'CashVariance'
+              AND NOT (je.reference_type IS NOT DISTINCT FROM 'Reversal' AND EXISTS(SELECT 1 FROM journal_entries original WHERE original.id::text=je.reference_id AND original.reference_type='CashVariance'))
             GROUP BY ca.type
         `, [accountCode, date]);
 

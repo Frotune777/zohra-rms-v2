@@ -1,0 +1,371 @@
+[
+  {
+    "mode": "docker-initialization",
+    "database": "zohra_audit_bootstrap",
+    "checks": [
+      {
+        "file": "database/00_init.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/01_add_employee_code.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/02_missing_tables.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/03_fix_advance_ledger.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/04_fix_salary_history.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/05_phase2_schema.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/06_add_department_to_employees.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/06_critical_fixes.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/06_critical_fixes.sql:187: NOTICE:  trigger \"update_users_modtime\" for relation \"users\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/06_critical_fixes.sql:187: NOTICE:  trigger \"update_inventory_items_modtime\" for relation \"inventory_items\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/06_critical_fixes.sql:187: NOTICE:  trigger \"update_menu_items_modtime\" for relation \"menu_items\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/06_critical_fixes.sql:187: NOTICE:  trigger \"update_suppliers_modtime\" for relation \"suppliers\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/06_critical_fixes.sql:187: NOTICE:  trigger \"update_employees_modtime\" for relation \"employees\" does not exist, skipping"
+      },
+      {
+        "file": "database/07_add_supplier_fields.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/07_gap_fixes.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/07_gap_fixes.sql:75: NOTICE:  relation \"tax_rates\" already exists, skipping"
+      },
+      {
+        "file": "database/08_fix_salary_history.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/08_payroll_schema.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/08_payroll_schema.sql:13: NOTICE:  column \"status\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/08_payroll_schema.sql:13: NOTICE:  column \"payment_mode\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/08_payroll_schema.sql:13: NOTICE:  column \"payment_date\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/08_payroll_schema.sql:13: NOTICE:  column \"allowances\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/08_payroll_schema.sql:13: NOTICE:  column \"deductions\" of relation \"salary_history\" already exists, skipping"
+      },
+      {
+        "file": "database/09_audit_system.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/09_audit_system.sql:50: NOTICE:  trigger \"audit_menu_items\" for relation \"menu_items\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/09_audit_system.sql:56: NOTICE:  trigger \"audit_employees\" for relation \"employees\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/09_audit_system.sql:62: NOTICE:  trigger \"audit_users\" for relation \"users\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/09_audit_system.sql:68: NOTICE:  trigger \"audit_suppliers\" for relation \"suppliers\" does not exist, skipping"
+      },
+      {
+        "file": "database/09_payroll_enhancements.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/09_payroll_enhancements.sql:10: NOTICE:  column \"overtime_hours\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/09_payroll_enhancements.sql:10: NOTICE:  column \"overtime_amount\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/09_payroll_enhancements.sql:10: NOTICE:  column \"extra_days\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/09_payroll_enhancements.sql:10: NOTICE:  column \"extra_day_amount\" of relation \"salary_history\" already exists, skipping"
+      },
+      {
+        "file": "database/10_finance_schema.sql",
+        "status": 3,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/10_finance_schema.sql:11: NOTICE:  relation \"journal_entries\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/10_finance_schema.sql:20: NOTICE:  relation \"ledger_lines\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/10_finance_schema.sql:23: ERROR:  column \"date\" does not exist"
+      }
+    ],
+    "interpretation": "Top-level database SQL files in the order used by the Docker init mount."
+  },
+  {
+    "mode": "diagnostic-combined",
+    "database": "zohra_audit_diagnostic",
+    "checks": [
+      {
+        "file": "database/00_init.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/01_add_employee_code.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/02_missing_tables.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/03_fix_advance_ledger.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/04_fix_salary_history.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/05_phase2_schema.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/06_add_department_to_employees.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/06_critical_fixes.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/06_critical_fixes.sql:187: NOTICE:  trigger \"update_users_modtime\" for relation \"users\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/06_critical_fixes.sql:187: NOTICE:  trigger \"update_inventory_items_modtime\" for relation \"inventory_items\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/06_critical_fixes.sql:187: NOTICE:  trigger \"update_menu_items_modtime\" for relation \"menu_items\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/06_critical_fixes.sql:187: NOTICE:  trigger \"update_suppliers_modtime\" for relation \"suppliers\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/06_critical_fixes.sql:187: NOTICE:  trigger \"update_employees_modtime\" for relation \"employees\" does not exist, skipping"
+      },
+      {
+        "file": "database/07_add_supplier_fields.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/07_gap_fixes.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/07_gap_fixes.sql:75: NOTICE:  relation \"tax_rates\" already exists, skipping"
+      },
+      {
+        "file": "database/08_fix_salary_history.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/08_payroll_schema.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/08_payroll_schema.sql:13: NOTICE:  column \"status\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/08_payroll_schema.sql:13: NOTICE:  column \"payment_mode\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/08_payroll_schema.sql:13: NOTICE:  column \"payment_date\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/08_payroll_schema.sql:13: NOTICE:  column \"allowances\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/08_payroll_schema.sql:13: NOTICE:  column \"deductions\" of relation \"salary_history\" already exists, skipping"
+      },
+      {
+        "file": "database/09_audit_system.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/09_audit_system.sql:50: NOTICE:  trigger \"audit_menu_items\" for relation \"menu_items\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/09_audit_system.sql:56: NOTICE:  trigger \"audit_employees\" for relation \"employees\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/09_audit_system.sql:62: NOTICE:  trigger \"audit_users\" for relation \"users\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/09_audit_system.sql:68: NOTICE:  trigger \"audit_suppliers\" for relation \"suppliers\" does not exist, skipping"
+      },
+      {
+        "file": "database/09_payroll_enhancements.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/09_payroll_enhancements.sql:10: NOTICE:  column \"overtime_hours\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/09_payroll_enhancements.sql:10: NOTICE:  column \"overtime_amount\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/09_payroll_enhancements.sql:10: NOTICE:  column \"extra_days\" of relation \"salary_history\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/09_payroll_enhancements.sql:10: NOTICE:  column \"extra_day_amount\" of relation \"salary_history\" already exists, skipping"
+      },
+      {
+        "file": "database/10_finance_schema.sql",
+        "status": 3,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/10_finance_schema.sql:11: NOTICE:  relation \"journal_entries\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/10_finance_schema.sql:20: NOTICE:  relation \"ledger_lines\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/10_finance_schema.sql:23: ERROR:  column \"date\" does not exist"
+      },
+      {
+        "file": "database/10_financial_periods.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/10_financial_periods.sql:15: NOTICE:  relation \"financial_periods\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/10_financial_periods.sql:44: NOTICE:  trigger \"check_period_journal\" for relation \"journal_entries\" does not exist, skipping"
+      },
+      {
+        "file": "database/11_add_paid_by_to_salary_history.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/11_add_paid_by_to_salary_history.sql:2: NOTICE:  column \"paid_by\" of relation \"salary_history\" already exists, skipping"
+      },
+      {
+        "file": "database/12_add_recovered_amount_to_advances.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/13_audit_and_status.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/13_audit_and_status.sql:8: NOTICE:  column \"updated_at\" of relation \"suppliers\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/13_audit_and_status.sql:8: NOTICE:  column \"updated_by\" of relation \"suppliers\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/13_audit_and_status.sql:15: NOTICE:  column \"updated_at\" of relation \"markup_rules\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/13_audit_and_status.sql:28: NOTICE:  column \"approved_by\" of relation \"bill_entries\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/13_audit_and_status.sql:28: NOTICE:  column \"approved_at\" of relation \"bill_entries\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/13_audit_and_status.sql:58: NOTICE:  constraint \"chk_bill_entries_status\" of relation \"bill_entries\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/13_audit_and_status.sql:74: NOTICE:  trigger \"update_suppliers_updated_at\" for relation \"suppliers\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/13_audit_and_status.sql:80: NOTICE:  trigger \"update_markup_rules_updated_at\" for relation \"markup_rules\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/13_audit_and_status.sql:86: NOTICE:  trigger \"update_daily_rates_updated_at\" for relation \"daily_rates\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/13_audit_and_status.sql:92: NOTICE:  trigger \"update_bill_entries_updated_at\" for relation \"bill_entries\" does not exist, skipping"
+      },
+      {
+        "file": "database/14_fix_table_connections.sql",
+        "status": 3,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/14_fix_table_connections.sql:18: ERROR:  relation \"vendor_payments\" does not exist\nLINE 1: UPDATE vendor_payments \n               ^"
+      },
+      {
+        "file": "database/15_leave_and_attendance_governance.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/16_add_conditional_markup.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/16_add_conditional_markup.sql:2: NOTICE:  column \"threshold_val\" of relation \"markup_rules\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/16_add_conditional_markup.sql:3: NOTICE:  column \"threshold_op\" of relation \"markup_rules\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/16_add_conditional_markup.sql:4: NOTICE:  column \"threshold_markup_op\" of relation \"markup_rules\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/16_add_conditional_markup.sql:5: NOTICE:  column \"threshold_markup_val\" of relation \"markup_rules\" already exists, skipping"
+      },
+      {
+        "file": "database/17_add_markup_timestamps.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/17_add_markup_timestamps.sql:6: NOTICE:  column \"created_at\" of relation \"markup_rules\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/17_add_markup_timestamps.sql:6: NOTICE:  column \"updated_at\" of relation \"markup_rules\" already exists, skipping"
+      },
+      {
+        "file": "database/18_add_daily_rates_audit.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/18_add_daily_rates_audit.sql:6: NOTICE:  column \"updated_by\" of relation \"daily_rates\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/18_add_daily_rates_audit.sql:6: NOTICE:  column \"updated_at\" of relation \"daily_rates\" already exists, skipping"
+      },
+      {
+        "file": "database/19_create_config_options.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/20_create_advance_requests.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/21_add_bill_id_to_ledger.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/22_add_created_by_to_ledger.sql",
+        "status": 3,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/22_add_created_by_to_ledger.sql:3: ERROR:  column \"created_by\" of relation \"vendor_ledger\" already exists"
+      },
+      {
+        "file": "database/23_employee_history.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/cleanup_samples.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"salary_advances\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"salary_history\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"advance_ledger\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"purchase_order_items\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"wastage_logs\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"employee_documents\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"employee_salary_structure\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"inventory_transactions\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"leave_requests\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"attendance_change_requests\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"attendance_audit_log\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"advance_requests\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"employee_history\"\npsql:/Users/I557587/Personal/zohra-rms-v2/database/cleanup_samples.sql:20: NOTICE:  truncate cascades to table \"salary_history_components\""
+      },
+      {
+        "file": "server/migrations/001_advance_recovery_validation.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/001_advance_recovery_validation.sql:21: NOTICE:  relation \"idx_advance_ledger_date\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/001_advance_recovery_validation.sql:37: WARNING:  there is no transaction in progress"
+      },
+      {
+        "file": "server/migrations/002_vendor_payment_system.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/002_vendor_payment_system.sql:92: WARNING:  there is no transaction in progress"
+      },
+      {
+        "file": "server/migrations/003_fix_journal_entry_id_type.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "server/migrations/004_add_payment_accounts.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/004_add_payment_accounts.sql:50: NOTICE:  All required account codes are present"
+      },
+      {
+        "file": "server/migrations/023_add_auditing_fields.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/023_add_auditing_fields.sql:5: NOTICE:  column \"created_at\" of relation \"employees\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/023_add_auditing_fields.sql:5: NOTICE:  column \"updated_at\" of relation \"employees\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/023_add_auditing_fields.sql:11: NOTICE:  column \"updated_at\" of relation \"inventory_items\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/023_add_auditing_fields.sql:17: NOTICE:  column \"updated_at\" of relation \"menu_items\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/023_add_auditing_fields.sql:23: NOTICE:  column \"created_at\" of relation \"suppliers\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/023_add_auditing_fields.sql:23: NOTICE:  column \"updated_at\" of relation \"suppliers\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/023_add_auditing_fields.sql:35: NOTICE:  trigger \"update_employees_updated_at\" for relation \"employees\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/023_add_auditing_fields.sql:38: NOTICE:  trigger \"update_inventory_items_updated_at\" for relation \"inventory_items\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/023_add_auditing_fields.sql:41: NOTICE:  trigger \"update_menu_items_updated_at\" for relation \"menu_items\" does not exist, skipping"
+      },
+      {
+        "file": "server/migrations/024_create_stock_movements.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "server/migrations/025_create_pos_transactions.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "server/migrations/026_update_vendor_outstanding_dates.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "server/migrations/030_payment_modes.sql",
+        "status": 3,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/030_payment_modes.sql:31: ERROR:  insert or update on table \"payment_modes\" violates foreign key constraint \"payment_modes_account_code_fkey\"\nDETAIL:  Key (account_code)=(1030) is not present in table \"chart_of_accounts\"."
+      },
+      {
+        "file": "server/migrations/031_category_account_mapping.sql",
+        "status": 3,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/031_category_account_mapping.sql:12: ERROR:  relation \"transaction_categories\" does not exist"
+      },
+      {
+        "file": "server/migrations/032_daily_closure_enforcement.sql",
+        "status": 3,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/032_daily_closure_enforcement.sql:15: ERROR:  relation \"daily_balances\" does not exist"
+      },
+      {
+        "file": "server/migrations/033_period_locking.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/033_period_locking.sql:13: NOTICE:  column \"locked_at\" of relation \"financial_periods\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/033_period_locking.sql:60: NOTICE:  trigger \"trigger_journal_period_check\" for relation \"journal_entries\" does not exist, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/033_period_locking.sql:96: NOTICE:  Created financial periods for last 12 months and next 3 months\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/033_period_locking.sql:100: NOTICE:  relation \"idx_financial_periods_dates\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/033_period_locking.sql:120: NOTICE:  Financial periods: 16 total, 16 open"
+      },
+      {
+        "file": "server/migrations/034_advance_ledger_je_link.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "server/migrations/036_restore_transactions_table.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/036_restore_transactions_table.sql:26: NOTICE:  constraint \"check_payment_method\" of relation \"transactions\" does not exist, skipping"
+      },
+      {
+        "file": "server/migrations/037_owner_equity_tracking.sql",
+        "status": 3,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/037_owner_equity_tracking.sql:45: ERROR:  column \"ledger_account_code\" does not exist\nLINE 1: SELECT id, full_name, ledger_account_code FROM users WHERE r...\n                              ^\nQUERY:  SELECT id, full_name, ledger_account_code FROM users WHERE role = 'owner' ORDER BY id\nCONTEXT:  PL/pgSQL function inline_code_block line 9 at FOR over SELECT rows"
+      },
+      {
+        "file": "server/migrations/040_fix_closure_schema.sql",
+        "status": 3,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/040_fix_closure_schema.sql:8: ERROR:  relation \"daily_balances\" does not exist"
+      },
+      {
+        "file": "server/migrations/041_link_user_employee.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "server/migrations/20_add_transactions_table.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/20_add_transactions_table.sql:17: NOTICE:  relation \"transactions\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/20_add_transactions_table.sql:20: NOTICE:  relation \"idx_transactions_date_type\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/20_add_transactions_table.sql:21: NOTICE:  relation \"idx_transactions_status\" already exists, skipping"
+      },
+      {
+        "file": "server/migrations/21_add_transaction_details.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/21_add_transaction_details.sql:4: NOTICE:  column \"paid_by\" of relation \"transactions\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/21_add_transaction_details.sql:4: NOTICE:  column \"paid_date\" of relation \"transactions\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/21_add_transaction_details.sql:7: NOTICE:  constraint \"check_payment_method\" of relation \"transactions\" does not exist, skipping"
+      },
+      {
+        "file": "server/migrations/22_add_transaction_vendor.sql",
+        "status": 3,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/22_add_transaction_vendor.sql:3: NOTICE:  column \"vendor_id\" of relation \"transactions\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/server/migrations/22_add_transaction_vendor.sql:10: ERROR:  constraint \"fk_transactions_vendor\" for relation \"transactions\" already exists"
+      },
+      {
+        "file": "database/migrations/035_fix_daily_rates.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/migrations/035_fix_daily_rates.sql:9: NOTICE:  column \"status\" of relation \"daily_rates\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/migrations/035_fix_daily_rates.sql:9: NOTICE:  column \"updated_by\" of relation \"daily_rates\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/migrations/035_fix_daily_rates.sql:24: NOTICE:  relation \"idx_daily_rates_status\" already exists, skipping"
+      },
+      {
+        "file": "database/migrations/036_fix_missing_tables.sql",
+        "status": 3,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/migrations/036_fix_missing_tables.sql:33: NOTICE:  relation \"vendor_categories\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/migrations/036_fix_missing_tables.sql:59: NOTICE:  relation \"vendor_payments\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/migrations/036_fix_missing_tables.sql:61: NOTICE:  relation \"idx_vendor_payments_vendor\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/migrations/036_fix_missing_tables.sql:62: NOTICE:  relation \"idx_vendor_payments_date\" already exists, skipping\npsql:/Users/I557587/Personal/zohra-rms-v2/database/migrations/036_fix_missing_tables.sql:75: ERROR:  cannot drop columns from view"
+      },
+      {
+        "file": "database/migrations/11_payroll_audit_log.sql",
+        "status": 0,
+        "error": ""
+      },
+      {
+        "file": "database/migrations/12_advance_requests.sql",
+        "status": 3,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/database/migrations/12_advance_requests.sql:15: ERROR:  relation \"advance_requests\" already exists"
+      },
+      {
+        "file": "server/src/modules/finance/migrations/001_finance_updates.sql",
+        "status": 0,
+        "error": "psql:/Users/I557587/Personal/zohra-rms-v2/server/src/modules/finance/migrations/001_finance_updates.sql:34: NOTICE:  column \"category_id\" of relation \"transactions\" already exists, skipping"
+      },
+      {
+        "file": "server/src/modules/finance/migrations/002_expense_mappings.sql",
+        "status": 0,
+        "error": ""
+      }
+    ],
+    "interpretation": "Best-effort diagnostics, NOT a supported or successful migration procedure."
+  }
+]

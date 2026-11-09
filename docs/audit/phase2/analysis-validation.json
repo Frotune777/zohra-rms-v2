@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-11-09T10:23:23.110057+00:00",
+  "completed_run": "2026-11-09T10:21:08.405Z",
+  "executed_test_hashes_match_current": true,
+  "mismatched_test_files": [],
+  "combined_coverage_server_hashes_match_current": true,
+  "combined_coverage_server_hashes": 73,
+  "maintained_local_links_checked": 984,
+  "missing_links": [],
+  "standalone_jest_source_test_hashes_match_current": true,
+  "knowledge_source_hashes": 381,
+  "knowledge_source_hashes_match_current": true,
+  "result_analysis_and_coverage_match": true,
+  "scope": "Final executed test/harness hashes, default Jest source/test and combined V8 server hashes, knowledge checkpoint and maintained local links; feature checklist scope remains partial."
+}

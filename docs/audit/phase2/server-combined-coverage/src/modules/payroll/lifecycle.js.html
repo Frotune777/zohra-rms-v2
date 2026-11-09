@@ -1,0 +1,343 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/modules/payroll/lifecycle.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/modules/payroll</a> lifecycle.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>86/86</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">87.93% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>51/58</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>3/3</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>86/86</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line high'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">80x</span>
+<span class="cline-any cline-yes">80x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">78x</span>
+<span class="cline-any cline-yes">78x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">80x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">43x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const JournalService = require('../finance/JournalService');
+const PaymentModeService = require('../finance/PaymentModeService');
+const AdvanceService = require('../employees/AdvanceService');
+const { DomainError, finite } = require('../../utils/domain');
+const { assertWritable } = require('../finance/writeGuard');
+&nbsp;
+async function pay(client, id, data, actor) {
+    const date = data.payment_date || new Date();
+    const account = await PaymentModeService.getAccountCode(data.payment_mode || 'Cash',client);
+    await assertWritable(client,date,[account]);
+    const candidate=(await client.query('SELECT employee_id FROM salary_history WHERE id=$1',[id])).rows[0];
+    if(!candidate) throw new DomainError('Payroll record not found',404);
+    await client.query('SELECT id FROM employees WHERE id=$1 FOR UPDATE',[candidate.employee_id]);
+    const record=(await client.query('SELECT * FROM salary_history WHERE id=$1 FOR UPDATE',[id])).rows[0];
+    if(!record) <span class="branch-0 cbranch-no" title="branch not covered" >throw new DomainError('Payroll record not found',404);</span>
+    if(record.status !== 'Approved') throw new DomainError('Payroll must be Approved before payout',409);
+    const deduction=finite(record.advance_deduction || 0,'Advance deduction');
+    const net=finite(record.net_pay,'Net pay',{min:-Infinity});
+    let repaymentJeId=null;
+    if(deduction &gt; 0) {
+        const balance=await AdvanceService.getEmployeeBalance(record.employee_id,client);
+        if(deduction &gt; balance) <span class="branch-0 cbranch-no" title="branch not covered" >throw new DomainError('Advance recovery exceeds outstanding balance',409);</span>
+        const advances=await client.query('SELECT * FROM salary_advances WHERE employee_id=$1 AND balance_remaining &gt; 0 ORDER BY created_at,id FOR UPDATE',[record.employee_id]);
+        const je=await JournalService.createJournalEntry({date,description:'Advance recovery for payroll #'+id,reference_type:'AdvanceRepayment',reference_id:id,
+            lines:[{account_code:6100,debit:deduction},{account_code:1100,credit:deduction}]},client);
+        repaymentJeId=je.id;
+        let remaining=deduction;
+        for(const advance of advances.rows) {
+            if(remaining &lt;= 0) <span class="branch-0 cbranch-no" title="branch not covered" >break;</span>
+            const amount=Math.min(remaining,Number(advance.balance_remaining));
+            await client.query("UPDATE salary_advances SET total_repaid=COALESCE(total_repaid,0)+$1,recovered_amount=COALESCE(recovered_amount,0)+$1,balance_remaining=balance_remaining-$1,is_recovered=(balance_remaining-$1 &lt;= 0),status=CASE WHEN balance_remaining-$1 &lt;= 0 THEN 'Recovered' ELSE 'Active' END WHERE id=$2",[amount,advance.id]);
+            await client.query('INSERT INTO payroll_recovery_allocations(salary_history_id,advance_id,journal_entry_id,amount) VALUES($1,$2,$3,$4)',[id,advance.id,je.id,amount]);
+            await require('../employees/advanceSchedule').recover(client,advance,amount,je.id);
+            remaining=Number((remaining-amount).toFixed(2));
+        }
+        // Older ledger-only advances remain recoverable; partially populated models are rejected.
+        if(advances.rowCount &amp;&amp; remaining &gt; 0) <span class="branch-0 cbranch-no" title="branch not covered" >throw new DomainError('Advance models disagree on outstanding balance',409);</span>
+        await client.query("INSERT INTO advance_ledger(employee_id,transaction_type,amount,transaction_date,notes,balance_after,journal_entry_id,repayment_source) VALUES($1,'Repayment',$2,$3,$4,$5,$6,'Payroll')",[record.employee_id,deduction,date,'Payroll deduction #'+id,balance-deduction,je.id]);
+    }
+    if(net &gt; 0) await JournalService.createJournalEntry({date,description:'Payroll payout #'+id,reference_type:'SalaryPayment',reference_id:id,
+        lines:[{account_code:6100,debit:net},{account_code:account,credit:net}]},client);
+    if(net &lt; 0) {
+        const je=await JournalService.createJournalEntry({date,description:'Negative payroll payout #'+id,reference_type:'PayrollShortfall',reference_id:id,lines:[{account_code:1110,debit:-net},{account_code:6100,credit:-net}]},client);
+        await client.query('INSERT INTO payroll_shortfalls(salary_history_id,employee_id,amount,journal_entry_id,created_by) VALUES($1,$2,$3,$4,$5)',[id,record.employee_id,-net,je.id,actor.id]);
+    }
+    const updated=(await client.query("UPDATE salary_history SET status='Paid',payment_mode=$2,payment_date=$3,paid_by=$4,paid_by_user_id=$5 WHERE id=$1 RETURNING *",[id,data.payment_mode || 'Cash',date,data.paid_by ?? actor.full_name,actor.id])).rows[0];
+    return {success:true,record:updated,repayment_journal_id:repaymentJeId};
+}
+&nbsp;
+async function reversePaid(client, payroll, reason) {
+    await assertWritable(client,payroll.payment_date);
+    await client.query('SELECT id FROM employees WHERE id=$1 FOR UPDATE',[payroll.employee_id]);
+    const shortfalls=await client.query("SELECT * FROM payroll_shortfalls WHERE salary_history_id=$1 AND status&lt;&gt;'Reversed' FOR UPDATE",[payroll.id]);
+    if(shortfalls.rows.some(s=&gt;Number(s.settled_amount)&gt;0)) throw new DomainError('Reverse shortfall settlements before correcting payroll',409);
+    const sources=await client.query("SELECT j.* FROM journal_entries j WHERE reference_id=$1 AND (reference_type IN ('SalaryPayment','PayrollShortfall') OR (reference_type='AdvanceRepayment' AND EXISTS(SELECT 1 FROM advance_ledger a WHERE a.journal_entry_id=j.id AND a.employee_id=$2 AND a.repayment_source='Payroll'))) AND NOT EXISTS(SELECT 1 FROM journal_entries r WHERE r.reference_type='Reversal' AND r.reference_id=j.id::text)",[String(payroll.id),payroll.employee_id]);
+    for(const source of sources.rows) {
+        const reversal=await JournalService.reverseJournalEntry(source.id,reason,source.transaction_date,client);
+        if(source.reference_type === 'AdvanceRepayment') {
+            await require('../employees/advanceSchedule').reverse(client,source.id);
+            const recovered=(await client.query("SELECT amount FROM advance_ledger WHERE journal_entry_id=$1 AND transaction_type='Repayment'",[source.id])).rows.reduce((sum,r)=&gt;sum+Number(r.amount),0);
+            if(recovered &gt; 0) {
+                const balance=await AdvanceService.getEmployeeBalance(payroll.employee_id,client);
+                await client.query("INSERT INTO advance_ledger(employee_id,transaction_type,amount,transaction_date,notes,balance_after,journal_entry_id) VALUES($1,'Advance',$2,$3,$4,$5,$6)",[payroll.employee_id,recovered,source.transaction_date,'Payroll recovery reversal #'+payroll.id,balance+recovered,reversal.id]);
+            }
+            const allocations=await client.query('SELECT * FROM payroll_recovery_allocations WHERE journal_entry_id=$1 AND reversed=FALSE FOR UPDATE',[source.id]);
+            for(const allocation of allocations.rows) {
+                await client.query("UPDATE salary_advances SET total_repaid=total_repaid-$1,recovered_amount=recovered_amount-$1,balance_remaining=balance_remaining+$1,is_recovered=FALSE,status='Active' WHERE id=$2",[allocation.amount,allocation.advance_id]);
+                await client.query('UPDATE payroll_recovery_allocations SET reversed=TRUE WHERE id=$1',[allocation.id]);
+            }
+        }
+    }
+    await client.query("UPDATE payroll_shortfalls SET status='Reversed' WHERE salary_history_id=$1 AND status&lt;&gt;'Reversed'",[payroll.id]);
+}
+// Read the date without taking a source-row lock, then follow the same day -&gt;
+// employee -&gt; salary order used by payout. A concurrent date change is retried.
+async function lockForCorrection(client,id) {
+    const candidate=(await client.query('SELECT * FROM salary_history WHERE id=$1',[id])).rows[0];
+    if(!candidate) <span class="branch-0 cbranch-no" title="branch not covered" >throw new DomainError('Payroll record not found',404);</span>
+    const day=await assertWritable(client,candidate.payment_date || new Date());
+    await client.query('SELECT id FROM employees WHERE id=$1 FOR UPDATE',[candidate.employee_id]);
+    const record=(await client.query('SELECT * FROM salary_history WHERE id=$1 FOR UPDATE',[id])).rows[0];
+    if(!record) <span class="branch-0 cbranch-no" title="branch not covered" >throw new DomainError('Payroll record not found',404);</span>
+    if(record.payment_date &amp;&amp; new Date(record.payment_date).toISOString().slice(0,10)!==day) <span class="branch-0 cbranch-no" title="branch not covered" >throw new DomainError('Payroll changed during correction; retry',409);</span>
+    return record;
+}
+module.exports={pay,reversePaid,lockForCorrection};
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-11-09T10:21:12.300Z
+            </div>
+        <script src="../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
+    </body>
+</html>
+    

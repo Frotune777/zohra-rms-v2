@@ -1,0 +1,11 @@
+{
+  "parsed": 223,
+  "javascript_errors": [
+    {
+      "file": "client/src/pages/BATCH_UPDATE_REFERENCE.js",
+      "message": "Unexpected token (56:36)"
+    }
+  ],
+  "shell_checked": 7,
+  "shell_errors": []
+}

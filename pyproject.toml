@@ -1,0 +1,41 @@
+[project]
+name = "al-zohra-rms-v2"
+version = "2.3.0"
+description = "A comprehensive full-stack restaurant management system"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas==3.1.1",
+    "pandas-stubs==3.1.0.261029",
+    "sqlalchemy==2.1.8",
+    "psycopg2-binary==2.9.13",
+    "openpyxl==3.1.5",
+    "xlrd==2.0.2",
+    "python-dotenv==1.2.4",
+    "psycopg[binary]==3.3.8",
+]
+
+[tool.uv]
+managed = true
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.app]
+# Application configuration
+port = 5000
+client_port = 3002
+db_port = 5432
+jwt_secret = "your-secret-key-change-this-in-production"
+vite_api_url = "http://localhost:5001/api"
+
+[dependency-groups]
+dev = [
+    "mypy==2.4.1",
+    "pypdf>=7.0.0",
+    "pytest==9.2.0",
+    "ruff==0.17.4",
+]

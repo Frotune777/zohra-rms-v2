@@ -1,3 +1,4 @@
+const {sqlMock}=require('./helpers/sql-mock');
 const {
     getAllAdvances,
     getEmployeeAdvanceHistory,
@@ -28,10 +29,15 @@ jest.mock('../src/config/db', () => {
 describe('Advances and Payroll Module', () => {
     let req, res;
 
-    beforeEach(() => {
-        req = global.testUtils.mockRequest();
+    beforeEach(async () => {
+        req = global.testUtils.mockRequest({user:{id:1,role:"owner",employee_id:null}});
         res = global.testUtils.mockResponse();
         jest.clearAllMocks();
+        db.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        if(db.pool) {
+            const isolatedClient=await db.pool.connect();
+            if(isolatedClient.query !== db.query) isolatedClient.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        }
         // Default mock implementation to prevent "Cannot read property of undefined"
         db.query.mockResolvedValue(mockQueryResult([]));
     });
@@ -207,6 +213,17 @@ describe('Advances and Payroll Module', () => {
                 .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
             req.user = { id: 1 };
+            sqlMock(db.query,(sql,p)=>{
+                if(sql.includes('FROM employees'))return mockQueryResult([employee]);
+                if(sql.includes('FROM employee_salary_structure'))return mockQueryResult([]);
+                if(sql.includes('FROM advance_ledger'))return mockQueryResult([{outstanding_balance:0}]);
+                if(sql.startsWith('SELECT status FROM salary_history'))return mockQueryResult([]);
+                if(sql.startsWith('UPDATE salary_history SET total_days'))return mockQueryResult([]);
+                if(sql.startsWith('INSERT INTO salary_history '))return mockQueryResult([{id:1,net_pay:p[6],calculated_salary:p[4],status:'Pending'}]);
+                if(sql.includes('salary_history_components'))return mockQueryResult([]);
+                if(sql.includes('FROM users'))return mockQueryResult([]);
+            });
+
             await runPayroll(req, res);
 
             // December has 31 days, so 30/31 * 30000 = 29032.26
@@ -250,6 +267,17 @@ describe('Advances and Payroll Module', () => {
                 .mockResolvedValueOnce(mockQueryResult([])) // Ledger 2
                 .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
+            sqlMock(db.query,(sql,p)=>{
+                if(sql.includes('FROM employees'))return mockQueryResult([employee]);
+                if(sql.includes('FROM employee_salary_structure'))return mockQueryResult([]);
+                if(sql.includes('FROM advance_ledger'))return mockQueryResult([{outstanding_balance:0}]);
+                if(sql.startsWith('SELECT status FROM salary_history'))return mockQueryResult([]);
+                if(sql.startsWith('UPDATE salary_history SET total_days'))return mockQueryResult([]);
+                if(sql.startsWith('INSERT INTO salary_history '))return mockQueryResult([{id:1,net_pay:p[6],calculated_salary:p[4],status:'Pending'}]);
+                if(sql.includes('salary_history_components'))return mockQueryResult([]);
+                if(sql.includes('FROM users'))return mockQueryResult([]);
+            });
+
             await runPayroll(req, res);
 
             expect(res.json).toHaveBeenCalledWith(
@@ -287,6 +315,17 @@ describe('Advances and Payroll Module', () => {
                 .mockResolvedValueOnce(mockQueryResult([])) // Ledger 1
                 .mockResolvedValueOnce(mockQueryResult([])) // Ledger 2
                 .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
+
+            sqlMock(db.query,(sql,p)=>{
+                if(sql.includes('FROM employees'))return mockQueryResult([employee]);
+                if(sql.includes('FROM employee_salary_structure'))return mockQueryResult([]);
+                if(sql.includes('FROM advance_ledger'))return mockQueryResult([{outstanding_balance:0}]);
+                if(sql.startsWith('SELECT status FROM salary_history'))return mockQueryResult([]);
+                if(sql.startsWith('UPDATE salary_history SET total_days'))return mockQueryResult([]);
+                if(sql.startsWith('INSERT INTO salary_history '))return mockQueryResult([{id:1,net_pay:p[6],calculated_salary:p[4],status:'Pending'}]);
+                if(sql.includes('salary_history_components'))return mockQueryResult([]);
+                if(sql.includes('FROM users'))return mockQueryResult([]);
+            });
 
             await runPayroll(req, res);
 

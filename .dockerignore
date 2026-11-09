@@ -31,3 +31,13 @@ Thumbs.db
 # Build
 dist
 build
+
+**/node_modules
+**/.env
+**/.env.*
+.venv
+test-results
+playwright-report
+.agents
+.codex
+.aws

@@ -1,0 +1,50 @@
+{
+  "database": "zohra_pw_case_ac18ccf750f5_1794209081272",
+  "date": "2026-11-09",
+  "business_instant": "2026-11-09T12:00:00Z",
+  "calls": [
+    {
+      "method": "POST",
+      "endpoint": "inventory/po",
+      "role": "owner",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "endpoint": "inventory/po/1/status",
+      "role": "owner",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "endpoint": "orders",
+      "role": "owner",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "endpoint": "orders",
+      "role": "owner",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "endpoint": "orders",
+      "role": "owner",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "endpoint": "orders",
+      "role": "owner",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "endpoint": "orders",
+      "role": "owner",
+      "status": 200
+    }
+  ],
+  "checks": []
+}

@@ -1,0 +1,1 @@
+27/27 POS browser cases passed on the final authenticated draft implementation, including the two legacy committed-checkout retries and real owner/staff account switching. Filtered scope; full regression follows.

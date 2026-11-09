@@ -1,0 +1,34 @@
+{
+  "verified_at": "2026-11-09T03:41:48.810Z",
+  "database": "zohra_pw_diagnose_1794195708043",
+  "scope": "Real API calls and independent PostgreSQL observer in a separate disposable diagnostic database; the manual-testing database and full audit artifacts were untouched.",
+  "records": [
+    {
+      "name": "Float screen integration",
+      "status": 500,
+      "error": "null value in column \"account_code\" of relation \"daily_balances\" violates not-null constraint"
+    },
+    {
+      "name": "Markup deletion before bill creation",
+      "status": 200,
+      "observer_rows": 0
+    },
+    {
+      "name": "Bill response versus independent connection",
+      "status": 200,
+      "returned_bill": 1,
+      "observer_bills": 0
+    },
+    {
+      "name": "Markup deletion after bill creation",
+      "status": 200,
+      "observer_rows": 1
+    },
+    {
+      "name": "Unrelated POS transaction commits earlier bill and deletion",
+      "status": 200,
+      "observer_bills": 1,
+      "observer_markup_rows": 0
+    }
+  ]
+}

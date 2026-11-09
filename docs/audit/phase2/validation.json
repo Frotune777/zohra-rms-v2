@@ -1,0 +1,86 @@
+{
+  "verified_at": "2026-11-09T10:23:23.110057+00:00",
+  "playwright": {
+    "counts": {
+      "passed": 466
+    },
+    "total": 466,
+    "finished_at": "2026-11-09T10:21:08.405Z",
+    "skipped": 0,
+    "timed_out": 0,
+    "evidence": "results.json"
+  },
+  "server_unit": {
+    "passed": 590,
+    "failed": 0,
+    "total": 590,
+    "suites": 26,
+    "suite_count": 26,
+    "evidence": "pos-tables/jest-results.json"
+  },
+  "client_unit": {
+    "passed": 80,
+    "failed": 0,
+    "total": 80,
+    "file_count": 6,
+    "evidence": "pos-tables/client-results.json"
+  },
+  "server_coverage": {
+    "provider": "babel (standalone default)",
+    "threshold_percent": 70,
+    "actual_percent": {
+      "statements": 82.01,
+      "branches": 74.67,
+      "lines": 82.93,
+      "functions": 78.35
+    },
+    "status": "passed",
+    "exit_code": 0,
+    "evidence": "pos-tables/jest-verification.json",
+    "note": "All assertions and all four original global thresholds passed; unchanged exclusions and thresholds."
+  },
+  "server_combined_coverage": {
+    "provider": "V8 unit plus same-run real API/Playwright",
+    "threshold_percent": 70,
+    "actual_percent": {
+      "statements": 94.36,
+      "branches": 91.41,
+      "lines": 94.36,
+      "functions": 89.21
+    },
+    "status": "passed",
+    "exit_code": 0,
+    "evidence": "server-combined-coverage/summary.json"
+  },
+  "production_build": {
+    "status": "passed",
+    "warning": "Existing main chunk exceeds 500 kB.",
+    "log": "pos-tables/build.log"
+  },
+  "dependencies": {
+    "evidence": "remaining-dependencies.json",
+    "outdated_registry_packages": 0,
+    "root_advisories": 0,
+    "client_advisories": 0,
+    "server_advisories": 5,
+    "mitigation": "Checksum-verified deepmerge postinstall patch; no newer upstream release."
+  },
+  "container": {
+    "evidence": "container-verification.json",
+    "status": "passed",
+    "note": "Previous canonical PostgreSQL15 container smoke; not rerun in the Jest expansion. See its recorded source/date scope."
+  },
+  "scope": "Current completed POS table/optional-phone change, full Playwright and distinct default Babel/same-run V8 coverage providers. Historical dependency/container evidence retains its original date and scope; all feature checklist IDs remain partial.",
+  "manual_application": {
+    "frontend": "http://localhost:3002",
+    "backend": "http://127.0.0.1:5001",
+    "database": "zohra_pw_manual_1794203722910",
+    "verified_at": "2026-11-09T10:06:50.738Z",
+    "evidence": "pos-tables/manual-verification.json",
+    "scope": "Three real role logins, table home/selection and read-only route/API checks; sample data preserved."
+  },
+  "whitespace_check": {
+    "status": "passed_for_changed_POS_sources_and_docs",
+    "note": "Existing whitespace in unrelated prior dirty sources was preserved."
+  }
+}

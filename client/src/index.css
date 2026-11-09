@@ -1,9 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@utility glass-panel {
+  @apply bg-glass backdrop-blur-md border border-white/10 rounded-xl shadow-xl;
+}
 
 @layer components {
-  .glass-panel { @apply bg-glass backdrop-blur-md border border-white/10 rounded-xl shadow-xl; }
   .btn-primary { @apply px-3 py-2 rounded-lg bg-zohra-blue text-white font-semibold hover:bg-blue-600 transition text-sm; }
   .btn-secondary { @apply px-3 py-2 rounded-lg bg-white/10 text-white font-semibold hover:bg-white/20 transition text-sm; }
   
@@ -282,3 +284,12 @@
 
 html, body, #root { @apply h-full w-full; }
 body { @apply bg-midnight text-gray-200; }
+
+.workflow input, .workflow select, .workflow textarea { background: #1f2937; color: white; border: 1px solid #64748b; border-radius: .375rem; padding: .5rem; max-width: 100%; }
+.workflow button { background: #1e40af; color: white; padding: .5rem .8rem; border-radius: .375rem; margin-right: .5rem; }
+.workflow button:disabled { opacity: .5; }
+.workflow td, .workflow th { padding: .6rem; border-bottom: 1px solid #334155; }
+@media print {
+  header, aside, .pos-screen > :not(.pos-receipt) { display: none !important; }
+  .pos-receipt { display: block !important; color: black; background: white; padding: 1rem; }
+}

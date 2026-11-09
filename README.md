@@ -1,8 +1,12 @@
 # Al Zohra RMS v2 - Restaurant Management System
 
-A comprehensive full-stack restaurant management system built with **React**, **Node.js**, and **PostgreSQL**. Al Zohra RMS provides complete solutions for POS operations, detailed financial tracking, employee management with payroll, and specialized inventory tracking for chicken stock.
+A full-stack restaurant management system built with **React**, **Node.js**, and **PostgreSQL**, covering POS operations, financial tracking, employee management, payroll, and chicken inventory.
 
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen)](https://nodejs.org/)
+For development, start with the [repository knowledge index](docs/repository/README.md). It links source maps, financial/HR contracts, migration and import notes, open decisions, and repository skills. [AGENTS.md](AGENTS.md) provides the entrypoints and knowledge-maintenance workflow.
+
+**Current audit (9 November 2026):** [Verification and remaining scenarios](docs/audit/phase2/README.md) record executed Chromium/API/PostgreSQL checks, unit assertions, build results, standalone and combined coverage, dependencies and canonical migration evidence. The sample-data app is at http://localhost:3002; see [manual testing](docs/repository/manual-testing.md). Older setup instructions below remain historical until independently verified.
+
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D24.0.0-brightgreen)](https://nodejs.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)](https://www.postgresql.org/)
 
 ---
@@ -56,9 +60,11 @@ A comprehensive full-stack restaurant management system built with **React**, **
 
 ## 🚀 Quick Start
 
+The verified sample-data workflow is documented in [manual testing](docs/repository/manual-testing.md): `npm run dev:demo` uses the guarded disposable PostgreSQL cluster and ports 3002/5001. Canonical initialization contains lookup defaults and no sample users; the credentials below apply to the separately seeded demo. [Migration contracts](docs/repository/corrections-and-valuation.md) describe explicit-target CLI initialization and the isolated `npm run test:docker` smoke. The historical `start.sh` wrapper has not been runtime verified and kills processes on its default ports; it is not the verified demo entrypoint.
+
 ### Prerequisites
 - **Docker** and **Docker Compose** (recommended) - [Install Docker](https://docs.docker.com/get-docker/)
-- **Node.js** 20+ (if running without Docker)
+- **Node.js** 24+; the dependency upgrade was verified with 26.13.0 (see `.nvmrc`)
 - **PostgreSQL** 15+ (if running without Docker)
 - **Git**
 
@@ -128,13 +134,16 @@ docker-compose up -d --build
 git clone <repository-url>
 cd zohra-rms-v2
 
+# Install root test/audit dependencies from the lockfile
+npm ci
+
 # Install backend dependencies
 cd server
-npm install
+npm ci
 
 # Install frontend dependencies
 cd ../client
-npm install
+npm ci
 
 # Setup database (see Database Setup section)
 
@@ -248,17 +257,17 @@ Use the included helper script:
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **React 18** - UI framework
-- **Vite** - Build tool and dev server
-- **Tailwind CSS** - Utility-first CSS framework
-- **React Router** - Client-side routing
+- **React 19.3.1** - UI framework
+- **Vite 8.3.6** - Build tool and dev server
+- **Tailwind CSS 4.3.5** - Utility-first CSS framework
+- **React Router 7.18.5** - Client-side routing
 - **Recharts** - Data visualization
 - **React Hot Toast** - Notifications
 - **Axios** - HTTP client (centralized API utility)
 
 ### Backend
-- **Node.js** - Runtime environment
-- **Express.js** - Web framework
+- **Node.js 26.13.0** - Verified runtime environment
+- **Express.js 5.3.0** - Web framework
 - **PostgreSQL 15** - Relational database
 - **JWT** - Authentication
 - **bcryptjs** - Password hashing
@@ -295,8 +304,8 @@ zohra-rms-v2/
 │   │   └── app.js         # Express app
 │   └── package.json
 ├── database/               # SQL Scripts
-│   ├── schema.sql         # Database schema
-│   └── seed.sql           # Initial data
+│   ├── canonical/         # Immutable schema baseline and lookup defaults
+│   └── migrations/        # Recorded legacy upgrades
 ├── documentation/          # Project documentation
 ├── docker-compose.yml     # Container orchestration
 └── README.md              # This file
@@ -454,6 +463,8 @@ For issues and questions:
 
 ---
 
-**Version**: 2.3.0  
-**Last Updated**: December 18, 2025  
-**Status**: Production Ready ✅
+**Version**: 2.3.0
+
+**Last Updated**: November 9, 2026
+
+**Status**: Audit findings open; full feature verification pending — see [current audit](docs/audit/README.md).

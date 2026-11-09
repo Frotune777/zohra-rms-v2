@@ -1,0 +1,2231 @@
+{
+  "started_at": "2026-11-09T04:22:30.415Z",
+  "finished_at": "2026-11-09T04:23:10.505Z",
+  "planned_tests": [
+    {
+      "title": "FIN-001 revenue persists exact cent-balanced journal with configured accounts",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 20
+    },
+    {
+      "title": "FIN-001 expense persists exact cent-balanced journal with configured accounts",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 20
+    },
+    {
+      "title": "FIN-002 invalid mapping and a failure during ledger insertion roll back the header",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 26
+    },
+    {
+      "title": "TRACK-001 Cash tracker cash and GL accounts reconcile without false revenue",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "TRACK-001 Bank tracker cash and GL accounts reconcile without false revenue",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "TRACK-001 Bank_Cash tracker cash and GL accounts reconcile without false revenue",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "TRACK-002 amount/date/mode corrections and deletion never leave stale journals",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 38
+    },
+    {
+      "title": "TRACK-003 repeated paid status and paid-to-pending keep vendor liability and GL consistent",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 46
+    },
+    {
+      "title": "TRACK-004 locked-period journal failure leaves no successful partial tracker write",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 54
+    },
+    {
+      "title": "TRACK-005 denomination counts reject negative fractional values in the tracker",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 58
+    },
+    {
+      "title": "MAP-001 mapping history changes only matching expense records and preserves sales",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 66
+    },
+    {
+      "title": "MAP-002 applying mappings cannot rewrite a closed day",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 73
+    },
+    {
+      "title": "TRANSFER-001 Cash wallet round trip conserves total assets",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 79
+    },
+    {
+      "title": "TRANSFER-001 Bank wallet round trip conserves total assets",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 79
+    },
+    {
+      "title": "TRANSFER-001 UPI wallet round trip conserves total assets",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 79
+    },
+    {
+      "title": "TRANSFER-001 Card wallet round trip conserves total assets",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 79
+    },
+    {
+      "title": "TRANSFER-002 missing wallet, nonfinite amount and same-account transfers are rejected atomically",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 83
+    },
+    {
+      "title": "TRANSFER-003 concurrent excessive wallet returns cannot create negative float",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 88
+    },
+    {
+      "title": "TRANSFER-004 employee advance and repayment reconcile receivable, ledger and cash",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 92
+    },
+    {
+      "title": "CLOSE-001 default schema supports a cash variance without missing accounts",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 97
+    },
+    {
+      "title": "CLOSE-001 actual 0 reports exact variance and carry-forward",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 101
+    },
+    {
+      "title": "CLOSE-001 actual 90 reports exact variance and carry-forward",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 101
+    },
+    {
+      "title": "CLOSE-001 actual 100 reports exact variance and carry-forward",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 101
+    },
+    {
+      "title": "CLOSE-001 actual 110 reports exact variance and carry-forward",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 101
+    },
+    {
+      "title": "CLOSE-001 first summary includes journal movements with time on the selected day",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 106
+    },
+    {
+      "title": "CLOSE-002 concurrent close produces one closure and uninitialized close fails without changes",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 109
+    },
+    {
+      "title": "CLOSE-003 closed-day revenue is blocked atomically",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 114
+    },
+    {
+      "title": "CLOSE-003 closed-day tracker-add is blocked atomically",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 114
+    },
+    {
+      "title": "CLOSE-003 closed-day tracker-edit is blocked atomically",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 114
+    },
+    {
+      "title": "CLOSE-003 closed-day tracker-delete is blocked atomically",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 114
+    },
+    {
+      "title": "CLOSE-004 owner reason and single reopen are enforced with role denial",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 119
+    },
+    {
+      "title": "CLOSE-005 audit insertion failure rolls back variance reversal and closed state together",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 125
+    },
+    {
+      "title": "CLOSE-006 reopening one account preserves a second account with the same type/date",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 129
+    },
+    {
+      "title": "CLOSE-006 custom account summary and close honor the requested wallet account",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 135
+    },
+    {
+      "title": "CLOSE-007 December close never overwrites an already closed January opening",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 140
+    },
+    {
+      "title": "GL-001 each journal has balanced cents, source references and at least two valid lines",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 144
+    },
+    {
+      "title": "GL-002 NaN rejected by journal entity/service without persistence",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 150
+    },
+    {
+      "title": "GL-002 Infinity rejected by journal entity/service without persistence",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 150
+    },
+    {
+      "title": "GL-002 invalid date rejected by journal entity/service without persistence",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 150
+    },
+    {
+      "title": "GL-002 same account rejected by journal entity/service without persistence",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 150
+    },
+    {
+      "title": "GL-002 cent imbalance rejected by journal entity/service without persistence",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 150
+    },
+    {
+      "title": "GL-003 signed balances include equity and zero activity before an as-of cutoff",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 154
+    },
+    {
+      "title": "GL-004 repeated reversal is idempotent and locked reversal leaves originals immutable",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 158
+    }
+  ],
+  "source_sha256": {
+    "playwright.audit.config.cjs": "a71db4d943a18608429fca9fe6f33014d4a87d69d4a12572aeff2b724fe12cad",
+    "tests/audit/auth.spec.cjs": "95fae9609d8a778dc2280a346d62e86197491236a1fa216a407cc5227381bc57",
+    "tests/audit/clock.cjs": "d610bc5db42c3f5ca22a04380af278baa79c80e528636da8fc068e1f3b7bf740",
+    "tests/audit/data-roundtrip.spec.cjs": "7d94671537178e3d032210d71dd69e4e1a6d985ecac811488a4b1a79a45ee2f9",
+    "tests/audit/database.cjs": "cbfa494e2a645cd7c7896f609f4bbfb7801b597150f71920d42fe2eef35553ad",
+    "tests/audit/exports.spec.cjs": "98cd06087cdfbf2bef7d94858704d23db5fe823539ecf89e35962ff60a436820",
+    "tests/audit/finance.spec.cjs": "12ea0397a98f73d4778b258d9d648005022ee6caa4596afff13cce53d932f2e3",
+    "tests/audit/fixtures.cjs": "754e4b030497b681c9b8a0bcf177e78201f07a8fa2aa815eb2b98bdda14ab14a",
+    "tests/audit/global-setup.cjs": "0193336d5a2c9c384ff79b1d7d4f39a64b5d6ca733f3411264958e6c51a05d38",
+    "tests/audit/global-teardown.cjs": "05fe5aef9cd5e4e0c7187257d4177f20e3fbafe790268e12448a402c310c509d",
+    "tests/audit/harness.spec.cjs": "09ecde360e4257c4e43df2cbdb65fd280a36314f14eb17fd055243f6329451d6",
+    "tests/audit/helpers.cjs": "41922596bef71690777ab88108ce74fe31ff5410e91650aa3d454b70dddf167a",
+    "tests/audit/hr.spec.cjs": "3ebbadd9a9ab34102de274d6bd0f75d258ab98e250f96858960b619f06065ca5",
+    "tests/audit/import-runner.py": "99eb69b02bf882a6255c7bddc1251466edb6cade53cc4d1af563fcd53b114331",
+    "tests/audit/payroll-ui.spec.cjs": "77ced4163432777ac05ca72028dc3ca1fa032337d2977df79895602166e2e4e6",
+    "tests/audit/pos-inventory.spec.cjs": "36812fccaf454a1b2a8a8cb5228b7440ab16a1919a834bf8a9d6020d78adadef",
+    "tests/audit/procurement.spec.cjs": "0f711d50e9bf22a7bafb473f388b64c3ca903387433d1e6fa6de6ca410b5e089",
+    "tests/audit/reporter.cjs": "2c5903c8e445544dccefaeff47521650f78652ace907e35ae68a9127f8f259f0",
+    "tests/audit/reports-config-ai.spec.cjs": "24b19eea59aff75842d92282ef56dd7c23c79ddf242efef52b38b4958eae7fa9",
+    "tests/audit/screen-states.spec.cjs": "36b3c238aaacfb96945afe0ba37e1302bf683d51ba04c637b0a68d29feb3a7ab",
+    "tests/audit/screens.cjs": "d1a775987958f7a4ea7951f1c67e4aaeee2171e9a5b758b465dc0de207a1ae17",
+    "tests/audit/screens.spec.cjs": "daede1a5e376ea623c767960d84f6b50b74015bd090fdbca18379cb1ec38da4c",
+    "tests/audit/service-runner.cjs": "b946717a5c368f4f20d46887489a5c4d4aa361ebcf08c1390963efaf17241c3b"
+  },
+  "status": "failed",
+  "counts": {
+    "passed": 40,
+    "failed": 3
+  },
+  "results": [
+    {
+      "title": "FIN-001 revenue persists exact cent-balanced journal with configured accounts",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 20,
+      "ids": [
+        "FIN-001"
+      ],
+      "status": "passed",
+      "duration_ms": 986,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-FIN-001-revenue-pe-c1be3-al-with-configured-accounts/attachments/audit-evidence-3f8d3b5bd7fd6a46dfa7ce48db984b410036f945.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_989c251ea060_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/revenue",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/journal/907b9622-9059-4d23-81fc-b09e0da68fb4",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "FIN-001 expense persists exact cent-balanced journal with configured accounts",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 20,
+      "ids": [
+        "FIN-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1047,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-FIN-001-expense-pe-9f406-al-with-configured-accounts/attachments/audit-evidence-c7803628e7143adc20ba8022b5b7c3edb1aba863.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e608a4869cab_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/expense",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/journal/5cc590f6-5cba-4a48-8c16-95c2f256765b",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "FIN-002 invalid mapping and a failure during ledger insertion roll back the header",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 26,
+      "ids": [
+        "FIN-002"
+      ],
+      "status": "passed",
+      "duration_ms": 856,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-FIN-002-invalid-ma-ba196-ertion-roll-back-the-header/attachments/audit-evidence-f601d0cd9d919a83eacce952bd08e68d0557d035.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_efab1b6d0849_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/revenue",
+            "role": "owner",
+            "status": 400,
+            "error": "Invalid or inactive payment mode: invalid"
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/revenue",
+            "role": "owner",
+            "status": 500,
+            "error": "audit injected write failure"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "TRACK-001 Cash tracker cash and GL accounts reconcile without false revenue",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 31,
+      "ids": [
+        "TRACK-001"
+      ],
+      "status": "passed",
+      "duration_ms": 840,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRACK-001-Cash-tra-836c2-ncile-without-false-revenue/attachments/audit-evidence-9809080cd4f07023050b0ecad27ca10774ed5fb1.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ad6f96be02d1_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          }
+        ],
+        "checks": [
+          {
+            "name": "Tracker ledger",
+            "actual": [
+              {
+                "account_code": 1000,
+                "debit": "100.00",
+                "credit": "0.00"
+              },
+              {
+                "account_code": 4000,
+                "debit": "0.00",
+                "credit": "100.00"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "TRACK-001 Bank tracker cash and GL accounts reconcile without false revenue",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 31,
+      "ids": [
+        "TRACK-001"
+      ],
+      "status": "passed",
+      "duration_ms": 861,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRACK-001-Bank-tra-86c67-ncile-without-false-revenue/attachments/audit-evidence-c9d3def25b6b1f65c04efec447c4f773bc172099.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_93a52f0b5e3d_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          }
+        ],
+        "checks": [
+          {
+            "name": "Tracker ledger",
+            "actual": [
+              {
+                "account_code": 1010,
+                "debit": "100.00",
+                "credit": "0.00"
+              },
+              {
+                "account_code": 4000,
+                "debit": "0.00",
+                "credit": "100.00"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "TRACK-001 Bank_Cash tracker cash and GL accounts reconcile without false revenue",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 31,
+      "ids": [
+        "TRACK-001"
+      ],
+      "status": "passed",
+      "duration_ms": 878,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRACK-001-Bank-Cas-4adb5-ncile-without-false-revenue/attachments/audit-evidence-017c9ceaab36fc04f0a2e6e52fec9de2461007b3.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_80438ddd704f_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          }
+        ],
+        "checks": [
+          {
+            "name": "Tracker ledger",
+            "actual": [
+              {
+                "account_code": 1000,
+                "debit": "0.00",
+                "credit": "100.00"
+              },
+              {
+                "account_code": 1030,
+                "debit": "100.00",
+                "credit": "0.00"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "TRACK-002 amount/date/mode corrections and deletion never leave stale journals",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 38,
+      "ids": [
+        "TRACK-002"
+      ],
+      "status": "passed",
+      "duration_ms": 904,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRACK-002-amount-d-39092--never-leave-stale-journals/attachments/audit-evidence-f525043cd436a812fa2c84d57a1b4fbeb488b741.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e22ab95c3d13_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "PUT",
+            "endpoint": "finance/tracker/transaction/1f5991e7-fbd1-440a-829c-b5e2ac23aa56",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "DELETE",
+            "endpoint": "finance/tracker/transaction/1f5991e7-fbd1-440a-829c-b5e2ac23aa56",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "TRACK-003 repeated paid status and paid-to-pending keep vendor liability and GL consistent",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 46,
+      "ids": [
+        "TRACK-003"
+      ],
+      "status": "passed",
+      "duration_ms": 944,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRACK-003-repeated-84864-liability-and-GL-consistent/attachments/audit-evidence-abe5b73691f9ca93d1f5add32593964193e0265a.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_2d57e32b8657_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "PUT",
+            "endpoint": "finance/tracker/transaction/718a91ee-0fda-4c2a-ad5e-726ef9082047",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "finance/tracker/transaction/718a91ee-0fda-4c2a-ad5e-726ef9082047",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "finance/tracker/transaction/718a91ee-0fda-4c2a-ad5e-726ef9082047",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "TRACK-004 locked-period journal failure leaves no successful partial tracker write",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 54,
+      "ids": [
+        "TRACK-004"
+      ],
+      "status": "passed",
+      "duration_ms": 869,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRACK-004-locked-p-c5989-ssful-partial-tracker-write/attachments/audit-evidence-8111ec94bcd05ea66cc038b7cceff43c6bd2abc0.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_0783d79f3bba_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 400,
+            "error": "Financial period is locked"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "TRACK-005 denomination counts reject negative fractional values in the tracker",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 58,
+      "ids": [
+        "TRACK-005"
+      ],
+      "status": "failed",
+      "duration_ms": 1564,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m",
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRACK-005-denomina-c50c0-ional-values-in-the-tracker/test-failed-1.png",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRACK-005-denomina-c50c0-ional-values-in-the-tracker/attachments/audit-evidence-112a6b13880246c86511887ad57bbd1309a369e7.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRACK-005-denomina-c50c0-ional-values-in-the-tracker/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRACK-005-denomina-c50c0-ional-values-in-the-tracker/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_eef54a43d738_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "MAP-001 mapping history changes only matching expense records and preserves sales",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 66,
+      "ids": [
+        "MAP-001"
+      ],
+      "status": "failed",
+      "duration_ms": 960,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeNull\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m3\u001b[39m",
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m3\u001b[39m\nReceived: \u001b[31mnull\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-MAP-001-mapping-hi-6df4e-records-and-preserves-sales/attachments/audit-evidence-44ebd196c69040a45e221df0bee5256b640d0d67.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-MAP-001-mapping-hi-6df4e-records-and-preserves-sales/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-MAP-001-mapping-hi-6df4e-records-and-preserves-sales/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_57f824978086_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/mappings",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/mappings/1/apply",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "MAP-002 applying mappings cannot rewrite a closed day",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 73,
+      "ids": [
+        "MAP-002"
+      ],
+      "status": "passed",
+      "duration_ms": 823,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-MAP-002-applying-m-34ddb-cannot-rewrite-a-closed-day/attachments/audit-evidence-faf71681033e4bc62e381b5b66eb0bdfb2cb359f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_6a0a76f7044d_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/mappings",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/mappings/1/apply",
+            "role": "owner",
+            "status": 409,
+            "error": "This financial day is closed"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "TRANSFER-001 Cash wallet round trip conserves total assets",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 79,
+      "ids": [
+        "TRANSFER-001"
+      ],
+      "status": "passed",
+      "duration_ms": 852,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRANSFER-001-Cash--aad6d-trip-conserves-total-assets/attachments/audit-evidence-53ab00834f7eccc2008c296de48cd9d2e15b2d10.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a9397bd1961f_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/safe-to-user",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/user-to-safe",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "TRANSFER-001 Bank wallet round trip conserves total assets",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 79,
+      "ids": [
+        "TRANSFER-001"
+      ],
+      "status": "passed",
+      "duration_ms": 872,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRANSFER-001-Bank--0cd85-trip-conserves-total-assets/attachments/audit-evidence-d05c8d959572995d9b0550fbbcf055e6a04377b4.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e970bd6a1784_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/safe-to-user",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/user-to-safe",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "TRANSFER-001 UPI wallet round trip conserves total assets",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 79,
+      "ids": [
+        "TRANSFER-001"
+      ],
+      "status": "passed",
+      "duration_ms": 852,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRANSFER-001-UPI-w-b9853-trip-conserves-total-assets/attachments/audit-evidence-5d83e6786e99a7431078736dfe1b8397448f75b4.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_fd86c1f81fce_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/safe-to-user",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/user-to-safe",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "TRANSFER-001 Card wallet round trip conserves total assets",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 79,
+      "ids": [
+        "TRANSFER-001"
+      ],
+      "status": "passed",
+      "duration_ms": 857,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRANSFER-001-Card--10632-trip-conserves-total-assets/attachments/audit-evidence-e0061251de30c5a8d6e0a6d7cb3468329e38ca80.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ab2b42c6ebd3_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/safe-to-user",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/user-to-safe",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "TRANSFER-002 missing wallet, nonfinite amount and same-account transfers are rejected atomically",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 83,
+      "ids": [
+        "TRANSFER-002"
+      ],
+      "status": "passed",
+      "duration_ms": 864,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRANSFER-002-missi-acfd8-ers-are-rejected-atomically/attachments/audit-evidence-6c90d562029bd1d50e733f9916d8b3cbd0dd2328.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_52748f876ae3_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/safe-to-user",
+            "role": "owner",
+            "status": 400,
+            "error": "User ID 999 does not have a linked wallet."
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/safe-to-user",
+            "role": "owner",
+            "status": 400,
+            "error": "Journal entry requires at least two distinct accounts"
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/safe-to-user",
+            "role": "owner",
+            "status": 400,
+            "error": "Debit and credit values must be finite numbers"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "TRANSFER-003 concurrent excessive wallet returns cannot create negative float",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 88,
+      "ids": [
+        "TRANSFER-003"
+      ],
+      "status": "failed",
+      "duration_ms": 891,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoHaveLength\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected length: \u001b[32m1\u001b[39m\nReceived length: \u001b[31m2\u001b[39m\nReceived array:  \u001b[31m[{\"body\": {\"created_at\": \"2026-11-09T09:52:47.631Z\", \"date\": \"2026-11-09T12:00:00.000Z\", \"description\": \"Return via Cash\", \"id\": \"16cf6aeb-7f1e-4186-af68-861ea8ffcb24\", \"total_amount\": 60}, \"response\": {\"_apiName\": \"APIResponse\", \"_headers\": {\"_headersArray\": [{\"name\": \"Content-Security-Policy\", \"value\": \"default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\"}, {\"name\": \"Cross-Origin-Opener-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Cross-Origin-Resource-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Origin-Agent-Cluster\", \"value\": \"?1\"}, {\"name\": \"Referrer-Policy\", \"value\": \"no-referrer\"}, {\"name\": \"Strict-Transport-Security\", \"value\": \"max-age=31536000; includeSubDomains\"}, {\"name\": \"X-Content-Type-Options\", \"value\": \"nosniff\"}, {\"name\": \"X-DNS-Prefetch-Control\", \"value\": \"off\"}, {\"name\": \"X-Download-Options\", \"value\": \"noopen\"}, {\"name\": \"X-Frame-Options\", \"value\": \"SAMEORIGIN\"}, …], \"_headersMap\": {\"_map\": Map {\"content-security-policy\" => [\"default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\"], \"cross-origin-opener-policy\" => [\"same-origin\"], \"cross-origin-resource-policy\" => [\"same-origin\"], \"origin-agent-cluster\" => [\"?1\"], \"referrer-policy\" => [\"no-referrer\"], \"strict-transport-security\" => [\"max-age=31536000; includeSubDomains\"], \"x-content-type-options\" => [\"nosniff\"], \"x-dns-prefetch-control\" => [\"off\"], \"x-download-options\" => [\"noopen\"], \"x-frame-options\" => [\"SAMEORIGIN\"], …}}}, \"_initializer\": {\"fetchUid\": \"f605592bcd08f8ab241f1811bf29f785\", \"headers\": [{\"name\": \"Content-Security-Policy\", \"value\": \"default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\"}, {\"name\": \"Cross-Origin-Opener-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Cross-Origin-Resource-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Origin-Agent-Cluster\", \"value\": \"?1\"}, {\"name\": \"Referrer-Policy\", \"value\": \"no-referrer\"}, {\"name\": \"Strict-Transport-Security\", \"value\": \"max-age=31536000; includeSubDomains\"}, {\"name\": \"X-Content-Type-Options\", \"value\": \"nosniff\"}, {\"name\": \"X-DNS-Prefetch-Control\", \"value\": \"off\"}, {\"name\": \"X-Download-Options\", \"value\": \"noopen\"}, {\"name\": \"X-Frame-Options\", \"value\": \"SAMEORIGIN\"}, …], \"responseEndTiming\": 14.606999999999971, \"serverAddr\": {\"ipAddress\": \"127.0.0.1\", \"port\": 33130}, \"status\": 200, \"statusText\": \"OK\", \"timing\": {\"connectEnd\": -1, \"connectStart\": -1, \"domainLookupEnd\": -1, \"domainLookupStart\": -1, \"requestStart\": 0.09000000000014552, \"responseStart\": 14.522000000000844, \"secureConnectionStart\": -1, \"startTime\": 1794198167626}, \"url\": \"http://127.0.0.1:33130/api/finance/transfer/user-to-safe\"}, \"_request\": {\"_guid\": \"request-context@f7c601128ac9e243073b7ed4925202c8\", \"_type\": \"APIRequestContext\"}, Symbol(nodejs.util.inspect.custom): [Function anonymous]}, \"status\": 200}, {\"body\": {\"created_at\": \"2026-11-09T09:52:47.633Z\", \"date\": \"2026-11-09T12:00:00.000Z\", \"description\": \"Return via Cash\", \"id\": \"ff0be94b-e074-4c23-a145-fbdf3e908fd2\", \"total_amount\": 60}, \"response\": {\"_apiName\": \"APIResponse\", \"_headers\": {\"_headersArray\": [{\"name\": \"Content-Security-Policy\", \"value\": \"default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\"}, {\"name\": \"Cross-Origin-Opener-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Cross-Origin-Resource-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Origin-Agent-Cluster\", \"value\": \"?1\"}, {\"name\": \"Referrer-Policy\", \"value\": \"no-referrer\"}, {\"name\": \"Strict-Transport-Security\", \"value\": \"max-age=31536000; includeSubDomains\"}, {\"name\": \"X-Content-Type-Options\", \"value\": \"nosniff\"}, {\"name\": \"X-DNS-Prefetch-Control\", \"value\": \"off\"}, {\"name\": \"X-Download-Options\", \"value\": \"noopen\"}, {\"name\": \"X-Frame-Options\", \"value\": \"SAMEORIGIN\"}, …], \"_headersMap\": {\"_map\": Map {\"content-security-policy\" => [\"default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\"], \"cross-origin-opener-policy\" => [\"same-origin\"], \"cross-origin-resource-policy\" => [\"same-origin\"], \"origin-agent-cluster\" => [\"?1\"], \"referrer-policy\" => [\"no-referrer\"], \"strict-transport-security\" => [\"max-age=31536000; includeSubDomains\"], \"x-content-type-options\" => [\"nosniff\"], \"x-dns-prefetch-control\" => [\"off\"], \"x-download-options\" => [\"noopen\"], \"x-frame-options\" => [\"SAMEORIGIN\"], …}}}, \"_initializer\": {\"fetchUid\": \"f8229d33d442fd487bc10a200622d42a\", \"headers\": [{\"name\": \"Content-Security-Policy\", \"value\": \"default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\"}, {\"name\": \"Cross-Origin-Opener-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Cross-Origin-Resource-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Origin-Agent-Cluster\", \"value\": \"?1\"}, {\"name\": \"Referrer-Policy\", \"value\": \"no-referrer\"}, {\"name\": \"Strict-Transport-Security\", \"value\": \"max-age=31536000; includeSubDomains\"}, {\"name\": \"X-Content-Type-Options\", \"value\": \"nosniff\"}, {\"name\": \"X-DNS-Prefetch-Control\", \"value\": \"off\"}, {\"name\": \"X-Download-Options\", \"value\": \"noopen\"}, {\"name\": \"X-Frame-Options\", \"value\": \"SAMEORIGIN\"}, …], \"responseEndTiming\": 18.997999999999593, \"serverAddr\": {\"ipAddress\": \"127.0.0.1\", \"port\": 33130}, \"status\": 200, \"statusText\": \"OK\", \"timing\": {\"connectEnd\": 0.3539999999993597, \"connectStart\": 0, \"domainLookupEnd\": -1, \"domainLookupStart\": -1, \"requestStart\": 0.3539999999993597, \"responseStart\": 18.932999999997264, \"secureConnectionStart\": -1, \"startTime\": 1794198167626}, \"url\": \"http://127.0.0.1:33130/api/finance/transfer/user-to-safe\"}, \"_request\": {\"_guid\": \"request-context@f7c601128ac9e243073b7ed4925202c8\", \"_type\": \"APIRequestContext\"}, Symbol(nodejs.util.inspect.custom): [Function anonymous]}, \"status\": 200}]\u001b[39m",
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m0\u001b[39m\nReceived:    \u001b[31m-20\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRANSFER-003-concu-f5cdc-annot-create-negative-float/attachments/audit-evidence-bb14eb6f7f25150b299c7476538557e5accb4db5.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRANSFER-003-concu-f5cdc-annot-create-negative-float/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRANSFER-003-concu-f5cdc-annot-create-negative-float/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_c75a74fb1320_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/user-to-safe",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/user-to-safe",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "TRANSFER-004 employee advance and repayment reconcile receivable, ledger and cash",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 92,
+      "ids": [
+        "TRANSFER-004"
+      ],
+      "status": "passed",
+      "duration_ms": 913,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-TRANSFER-004-emplo-f7523--receivable-ledger-and-cash/attachments/audit-evidence-cdb060bbd0c117bc29c171efea8ec1bddf21af99.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_89486dbe0183_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/safe-to-user",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/user-to-safe",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CLOSE-001 default schema supports a cash variance without missing accounts",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 97,
+      "ids": [
+        "CLOSE-001"
+      ],
+      "status": "passed",
+      "duration_ms": 868,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-001-default--926ff-ce-without-missing-accounts/attachments/audit-evidence-cec9289feb27b31933a678916b1fb28177e95749.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d1c471cc2345_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CLOSE-001 actual 0 reports exact variance and carry-forward",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 101,
+      "ids": [
+        "CLOSE-001"
+      ],
+      "status": "passed",
+      "duration_ms": 887,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-001-actual-0-65b19--variance-and-carry-forward/attachments/audit-evidence-5c8dca5f7a5e722b23f23210dcbc305c2e94d592.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_2b2f36f3345f_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Supplemental variance accounts",
+            "actual": [
+              7000,
+              7100
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "CLOSE-001 actual 90 reports exact variance and carry-forward",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 101,
+      "ids": [
+        "CLOSE-001"
+      ],
+      "status": "passed",
+      "duration_ms": 899,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-001-actual-9-ac055--variance-and-carry-forward/attachments/audit-evidence-af84524b4d3cf3688e1fc10507f87fa29304181c.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d68e275bfb12_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Supplemental variance accounts",
+            "actual": [
+              7000,
+              7100
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "CLOSE-001 actual 100 reports exact variance and carry-forward",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 101,
+      "ids": [
+        "CLOSE-001"
+      ],
+      "status": "passed",
+      "duration_ms": 886,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-001-actual-1-be1ea--variance-and-carry-forward/attachments/audit-evidence-ca4ec0e93c855df92e2fd271767d47e1aa60486b.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_9c2787f23117_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Supplemental variance accounts",
+            "actual": [
+              7000,
+              7100
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "CLOSE-001 actual 110 reports exact variance and carry-forward",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 101,
+      "ids": [
+        "CLOSE-001"
+      ],
+      "status": "passed",
+      "duration_ms": 887,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-001-actual-1-5052e--variance-and-carry-forward/attachments/audit-evidence-0b7643c2c7663f98a985a01909480e6f8f1ae6a6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d4039212d88d_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Supplemental variance accounts",
+            "actual": [
+              7000,
+              7100
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "CLOSE-001 first summary includes journal movements with time on the selected day",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 106,
+      "ids": [
+        "CLOSE-001"
+      ],
+      "status": "passed",
+      "duration_ms": 855,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-001-first-su-d7d84-th-time-on-the-selected-day/attachments/audit-evidence-ef2a5e9f4b52a907d190047dd069030e32f97c25.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ee058c19d0a0_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CLOSE-002 concurrent close produces one closure and uninitialized close fails without changes",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 109,
+      "ids": [
+        "CLOSE-002"
+      ],
+      "status": "passed",
+      "duration_ms": 893,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-002-concurre-28250-close-fails-without-changes/attachments/audit-evidence-252e39946dac4a6159c8e3b8177f814619d54166.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_007e1d76f7a5_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 400,
+            "error": "Daily balance record not initialized for 2026-11-09 (Account: 1000)"
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 400,
+            "error": "Day 2026-11-09 already closed for this account"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CLOSE-003 closed-day revenue is blocked atomically",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 114,
+      "ids": [
+        "CLOSE-003"
+      ],
+      "status": "passed",
+      "duration_ms": 890,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-003-closed-day-revenue-is-blocked-atomically/attachments/audit-evidence-6b5ce35202dfd8e5855b256e8305078742a605e1.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d485c147caf6_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/revenue",
+            "role": "owner",
+            "status": 409,
+            "error": "This financial day is closed"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CLOSE-003 closed-day tracker-add is blocked atomically",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 114,
+      "ids": [
+        "CLOSE-003"
+      ],
+      "status": "passed",
+      "duration_ms": 892,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-003-closed-d-485b6-r-add-is-blocked-atomically/attachments/audit-evidence-718781a4b57e9138b749c774ed255b51422e7c5c.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_27b245215350_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 409,
+            "error": "This financial day is closed"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CLOSE-003 closed-day tracker-edit is blocked atomically",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 114,
+      "ids": [
+        "CLOSE-003"
+      ],
+      "status": "passed",
+      "duration_ms": 925,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-003-closed-d-3866a--edit-is-blocked-atomically/attachments/audit-evidence-345171b74351f2e7b22deb83abc594c711185d9a.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1e9d671f7462_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "finance/tracker/transaction/b5f14840-5ede-442b-b929-073e9a4e5c6c",
+            "role": "owner",
+            "status": 409,
+            "error": "This financial day is closed"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CLOSE-003 closed-day tracker-delete is blocked atomically",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 114,
+      "ids": [
+        "CLOSE-003"
+      ],
+      "status": "passed",
+      "duration_ms": 911,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-003-closed-d-eae23-elete-is-blocked-atomically/attachments/audit-evidence-9974291f32835ac463499a6302ce5a9a33ef2e49.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_7e71634e747d_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "DELETE",
+            "endpoint": "finance/tracker/transaction/34593864-82e0-47fe-996b-06a548386d6b",
+            "role": "owner",
+            "status": 409,
+            "error": "This financial day is closed"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CLOSE-004 owner reason and single reopen are enforced with role denial",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 119,
+      "ids": [
+        "CLOSE-004"
+      ],
+      "status": "passed",
+      "duration_ms": 903,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-004-owner-re-0efce-e-enforced-with-role-denial/attachments/audit-evidence-f7872477b8805591f8aefdf26c0b54a862126421.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_3ff7b2c0d655_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/reopen",
+            "role": "manager",
+            "status": 403,
+            "error": "Insufficient permissions"
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/reopen",
+            "role": "staff",
+            "status": 403,
+            "error": "Insufficient permissions"
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/reopen",
+            "role": "owner",
+            "status": 400,
+            "error": "Date, type, and reason are required"
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/reopen",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Reason/reopen responses",
+            "actual": {
+              "success": true,
+              "date": "2026-11-09",
+              "type": "Counter",
+              "reopen_count": 1,
+              "reason": "Audit recount"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "CLOSE-005 audit insertion failure rolls back variance reversal and closed state together",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 125,
+      "ids": [
+        "CLOSE-005"
+      ],
+      "status": "passed",
+      "duration_ms": 889,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-005-audit-in-7545b-l-and-closed-state-together/attachments/audit-evidence-97dfb6b7157319f257b5eabca1796b7049ecdd2c.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_92dfa284f846_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/reopen",
+            "role": "owner",
+            "status": 400,
+            "error": "audit injected write failure"
+          }
+        ],
+        "checks": [
+          {
+            "name": "Supplemental variance accounts",
+            "actual": [
+              7000,
+              7100
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "CLOSE-006 reopening one account preserves a second account with the same type/date",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 129,
+      "ids": [
+        "CLOSE-006"
+      ],
+      "status": "passed",
+      "duration_ms": 859,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-006-reopenin-1ab2c-unt-with-the-same-type-date/attachments/audit-evidence-3e2d6c3f7d55247de14c60e7412cc792200a79aa.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_82881c15ccce_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/reopen",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CLOSE-006 custom account summary and close honor the requested wallet account",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 135,
+      "ids": [
+        "CLOSE-006"
+      ],
+      "status": "passed",
+      "duration_ms": 861,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-006-custom-a-76957-he-requested-wallet-account/attachments/audit-evidence-e0273295905819d3d3bf004fbb668d0eb628ff0a.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ab9a23d12fb9_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09?type=Counter&accountCode=1071",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CLOSE-007 December close never overwrites an already closed January opening",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 140,
+      "ids": [
+        "CLOSE-007"
+      ],
+      "status": "passed",
+      "duration_ms": 863,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-CLOSE-007-December-818bb-eady-closed-January-opening/attachments/audit-evidence-e0a8fae3611f969d6380cf5e7143a68d2f2339f5.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_c1eb533cc37d_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "GL-001 each journal has balanced cents, source references and at least two valid lines",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 144,
+      "ids": [
+        "GL-001"
+      ],
+      "status": "passed",
+      "duration_ms": 844,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-GL-001-each-journa-52704-nd-at-least-two-valid-lines/attachments/audit-evidence-3a9b4926f6803568a7f3336e428a7852faca217d.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_21f46599ea43_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/tracker/transaction",
+            "role": "owner",
+            "status": 201
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "GL-002 NaN rejected by journal entity/service without persistence",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 150,
+      "ids": [
+        "GL-002"
+      ],
+      "status": "passed",
+      "duration_ms": 902,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-GL-002-NaN-rejecte-5075b-service-without-persistence/attachments/audit-evidence-8c1ceeabf6eac99cd806d042775694d6cafed677.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_095f7cc9baad_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "JournalService.createJournalEntry",
+            "actual": {
+              "ok": false,
+              "error": "Debit and credit values must be finite numbers"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "GL-002 Infinity rejected by journal entity/service without persistence",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 150,
+      "ids": [
+        "GL-002"
+      ],
+      "status": "passed",
+      "duration_ms": 884,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-GL-002-Infinity-re-44344-service-without-persistence/attachments/audit-evidence-266049e5455a96bc814d142e3863be59b0503954.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b5730f29ad80_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "JournalService.createJournalEntry",
+            "actual": {
+              "ok": false,
+              "error": "Debit and credit values must be finite numbers"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "GL-002 invalid date rejected by journal entity/service without persistence",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 150,
+      "ids": [
+        "GL-002"
+      ],
+      "status": "passed",
+      "duration_ms": 893,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-GL-002-invalid-dat-89020-service-without-persistence/attachments/audit-evidence-5f5893bb2207228ddad8e3f935560ea8e47d296e.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_87feb8f29828_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "JournalService.createJournalEntry",
+            "actual": {
+              "ok": false,
+              "error": "Invalid journal entry date"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "GL-002 same account rejected by journal entity/service without persistence",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 150,
+      "ids": [
+        "GL-002"
+      ],
+      "status": "passed",
+      "duration_ms": 882,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-GL-002-same-accoun-6321c-service-without-persistence/attachments/audit-evidence-48673a816f4834fd72a2ce570cdcc32a4a6bf3a0.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1098a2cf102b_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "JournalService.createJournalEntry",
+            "actual": {
+              "ok": false,
+              "error": "Journal entry requires at least two distinct accounts"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "GL-002 cent imbalance rejected by journal entity/service without persistence",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 150,
+      "ids": [
+        "GL-002"
+      ],
+      "status": "passed",
+      "duration_ms": 892,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-GL-002-cent-imbala-40661-service-without-persistence/attachments/audit-evidence-e6d40fd8d1c4746ca30fdba5a3b0a19b63f39d09.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_9429af085447_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "JournalService.createJournalEntry",
+            "actual": {
+              "ok": false,
+              "error": "Unbalanced Journal Entry: Total Debits (1.00) does not equal Total Credits (1.01)"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "GL-003 signed balances include equity and zero activity before an as-of cutoff",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 154,
+      "ids": [
+        "GL-003"
+      ],
+      "status": "passed",
+      "duration_ms": 862,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-GL-003-signed-bala-2c579-vity-before-an-as-of-cutoff/attachments/audit-evidence-0e1dde89a2d8da88051a8bebaf280e085ee964c5.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_5f85edeac8ba_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "finance/account-balance/3009",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/account-balance/1000?asOfDate=2026-11-09",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/account-balance/1030?asOfDate=2026-11-09",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "GL-004 repeated reversal is idempotent and locked reversal leaves originals immutable",
+      "file": "tests/audit/finance.spec.cjs",
+      "line": 158,
+      "ids": [
+        "GL-004"
+      ],
+      "status": "passed",
+      "duration_ms": 941,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/finance-GL-004-repeated-re-3e407--leaves-originals-immutable/attachments/audit-evidence-fda8e67f966802259294ff6efea599ef5ae940d8.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_6b552b92536e_1794198149957",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "JournalService.reverseJournalEntry",
+            "actual": {
+              "ok": true,
+              "value": {
+                "id": "190bd132-e1c9-4dc5-bf08-2f288aa09177",
+                "date": "2026-11-09T00:00:00.000Z",
+                "description": "REVERSAL: Fixture | Reason: First",
+                "total_amount": 100,
+                "created_at": "2026-11-09T09:53:10.114Z"
+              }
+            }
+          },
+          {
+            "name": "JournalService.reverseJournalEntry",
+            "actual": {
+              "ok": true,
+              "value": {
+                "id": "190bd132-e1c9-4dc5-bf08-2f288aa09177"
+              }
+            }
+          },
+          {
+            "name": "JournalService.reverseJournalEntry",
+            "actual": {
+              "ok": false,
+              "error": "Financial period is locked"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
