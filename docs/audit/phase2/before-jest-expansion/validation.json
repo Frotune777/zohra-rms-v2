@@ -1,0 +1,78 @@
+{
+  "verified_at": "2026-11-09T07:40:11.577746+00:00",
+  "playwright": {
+    "counts": {
+      "passed": 439
+    },
+    "total": 439,
+    "finished_at": "2026-11-09T07:38:47.116Z",
+    "skipped": 0,
+    "timed_out": 0
+  },
+  "server_unit": {
+    "passed": 190,
+    "failed": 0,
+    "total": 190,
+    "suite_count": 16
+  },
+  "client_unit": {
+    "passed": 65,
+    "failed": 0,
+    "total": 65,
+    "file_count": 6,
+    "evidence": "client-unit-results.json"
+  },
+  "server_coverage": {
+    "provider": "babel (standalone default)",
+    "threshold_percent": 70,
+    "actual_percent": {
+      "statements": 51.57,
+      "branches": 35.66,
+      "lines": 53.34,
+      "functions": 45.78
+    },
+    "status": "failed",
+    "exit_code": 1,
+    "note": "All 190 assertions pass; the standalone command exits nonzero because the unchanged global coverage requirement is not met."
+  },
+  "server_combined_coverage": {
+    "provider": "V8 unit plus same-run real API/Playwright",
+    "threshold_percent": 70,
+    "actual_percent": {
+      "statements": 89.8,
+      "branches": 83.43,
+      "lines": 89.8,
+      "functions": 78.36
+    },
+    "status": "passed",
+    "exit_code": 0,
+    "evidence": "server-combined-coverage/summary.json"
+  },
+  "production_build": {
+    "status": "passed",
+    "warning": "Existing main chunk exceeds 500 kB.",
+    "log": "build-verification.txt"
+  },
+  "dependencies": {
+    "evidence": "remaining-dependencies.json",
+    "outdated_registry_packages": 0,
+    "root_advisories": 0,
+    "client_advisories": 0,
+    "server_advisories": 5,
+    "mitigation": "Checksum-verified deepmerge postinstall patch; no newer upstream release."
+  },
+  "container": {
+    "evidence": "container-verification.json",
+    "status": "passed"
+  },
+  "scope": "Full guarded PostgreSQL 14/Chromium audit plus separate fresh Docker/PostgreSQL 15 smoke. All 174 checklist IDs retain partial scope. No production deployment or business-data migration.",
+  "manual_application": {
+    "evidence": "manual-startup-verification.json",
+    "verified_at": "2026-11-09T07:41:13.304Z",
+    "frontend": "http://localhost:3002",
+    "backend": "http://127.0.0.1:5001",
+    "database_preserved": "zohra_pw_manual_1794203722910",
+    "all_three_browser_api_logins": "passed",
+    "page_errors": 0
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "checked_at": "2026-11-09T03:56:32.639Z",
+  "failed_test_records": 194,
+  "recorded_error_objects": 312,
+  "earlier_unit_failure_records": 41,
+  "analysis_matches_original_results_sha256": true,
+  "original_execution_test_hashes": "all 23 unchanged",
+  "documentation_links": "716 local links resolve across 17 documents",
+  "skills": "all four pass bundled validation",
+  "repository_source_checkpoint": "327 sources match",
+  "npm_dependencies": "root/client/server manifests match lockfiles",
+  "startup": {
+    "checked_at": "2026-11-09T03:56:32.637Z",
+    "frontend": "http://localhost:3002",
+    "api": "http://127.0.0.1:5001",
+    "frontend_status": 200,
+    "api_status": 200,
+    "initial_role_browser_checks": [
+      {
+        "role": "owner",
+        "api_login": 200,
+        "menu_status": 200,
+        "menu_items": 21,
+        "browser_url": "http://localhost:3002/",
+        "browser_errors": []
+      },
+      {
+        "role": "manager",
+        "api_login": 200,
+        "menu_status": 200,
+        "menu_items": 21,
+        "browser_url": "http://localhost:3002/",
+        "browser_errors": []
+      },
+      {
+        "role": "staff",
+        "api_login": 200,
+        "menu_status": 200,
+        "menu_items": 21,
+        "browser_url": "http://localhost:3002/",
+        "browser_errors": []
+      }
+    ],
+    "opening_journal_balanced": true,
+    "scope": "Current readiness and earlier role-login/initial POS checks on disposable sample data. Feature failures remain as analysed."
+  },
+  "diagnostic": "Separate disposable DB reproduced cross-request bill/markup commit; manual-testing DB untouched"
+}

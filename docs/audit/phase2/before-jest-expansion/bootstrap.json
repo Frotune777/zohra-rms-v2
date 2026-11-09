@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "migrations": [
+    "database/canonical/001_baseline.sql",
+    "database/canonical/002_lookup_seed.sql"
+  ],
+  "applied": 2,
+  "repeat_run": "passed",
+  "cluster": "/private/tmp/zohra-audit-pg",
+  "database": "zohra_pw_template_1794209129368",
+  "postgres": "14.20 (Homebrew)",
+  "scope": "Canonical schema and required lookup defaults, no business samples. Docker execution and PostgreSQL 15 require separate verification."
+}

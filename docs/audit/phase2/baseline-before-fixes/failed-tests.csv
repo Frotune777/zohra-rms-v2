@@ -1,0 +1,3590 @@
+primary_id,ids,title,test_file,test_line,kind,diagnosis,source_files,assertion_errors
+AUTH-002,AUTH-002,"AUTH-002 wrong passwords, unknown users and omitted fields never create a session",tests/audit/auth.spec.cjs,3,feedback,"Axios redirects every HTTP 401 to /login, clearing wrong-password feedback.",server/src/modules/auth/controller.js; server/src/modules/auth/routes.js; server/src/middleware/auth.js; server/src/config/permissions.js; client/src/utils/api.js; client/src/App.jsx; server/src/socket.js,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText('Invalid credentials', { exact: true })
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""toBeVisible"" getByText('Invalid credentials', { exact: true }) with timeout 5000ms
+  - waiting for getByText('Invalid credentials', { exact: true })
+"
+AUTH-003,AUTH-003,AUTH-003 changed passwords invalidate every default demo password,tests/audit/auth.spec.cjs,14,authorization,Hardcoded demo-password fallback bypasses the changed bcrypt password.,server/src/modules/auth/controller.js; server/src/modules/auth/routes.js; server/src/middleware/auth.js; server/src/config/permissions.js; client/src/utils/api.js; client/src/App.jsx; server/src/socket.js,"Error: owner old password
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: expect(received).toBeUndefined()
+
+Received: ""[synthetic JWT omitted]""
+
+Error: manager old password
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: expect(received).toBeUndefined()
+
+Received: ""[synthetic JWT omitted]""
+
+Error: staff old password
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: expect(received).toBeUndefined()
+
+Received: ""[synthetic JWT omitted]"""
+AUTH-004,AUTH-004,AUTH-004 inactive and deleted accounts lose login and existing-token access,tests/audit/auth.spec.cjs,24,authorization,Account status/existence is not checked on login and each JWT-protected request.,server/src/modules/auth/controller.js; server/src/modules/auth/routes.js; server/src/middleware/auth.js; server/src/config/permissions.js; client/src/utils/api.js; client/src/App.jsx; server/src/socket.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200"
+AUTH-005,AUTH-005,"AUTH-005 malformed, expired, wrong-signature and wrong-scheme JWTs are rejected",tests/audit/auth.spec.cjs,31,authorization,JWT extraction does not enforce Bearer and accepts Basic followed by a JWT.,server/src/modules/auth/controller.js; server/src/modules/auth/routes.js; server/src/middleware/auth.js; server/src/config/permissions.js; client/src/utils/api.js; client/src/App.jsx; server/src/socket.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200"
+AUTH-006,AUTH-006,AUTH-006 staff cannot open sensitive pages directly or read their APIs,tests/audit/auth.spec.cjs,38,authorization,Authenticated browser routes lack required roles; staff can open sensitive screens directly.,server/src/modules/auth/controller.js; server/src/modules/auth/routes.js; server/src/middleware/auth.js; server/src/config/permissions.js; client/src/utils/api.js; client/src/App.jsx; server/src/socket.js,"Error: Staff direct access /finance
+
+expect(received).not.toContain(expected) // indexOf
+
+Expected substring: not ""Financial Dashboard""
+Received string:        ""Al Zohra RMS
+Al Zohra
+
+Staff • Audit Staff
+
+Dashboard
+HR & Payroll
+Employees
+Advances
+Attendance
+Leaves
+Inventory & Procurement
+Chicken Dashboard
+Stock Management
+Chicken Bills
+Daily Rates
+Vendors
+Vendor Payments
+Logout
+Financial Dashboard
+Monthly
+Yearly
+Export
+Transfer
+Tracker
+Float
+
+November 2026
+
+Period 11/2026
+
+Last updated: 8:44:29 am
+
+REVENUE
+
+₹0.00
+
+↑ 0.00% from last
+
+NET PROFIT
+
+₹0.00
+
+↑ 0.00% from last
+
+FOOD COST %
+
+0.0%
+
+LABOR COST %
+
+0.0%
+
+P&L Statement
+Revenue
++₹0.00
+Total Expenses
+-₹0.00
+Cost of Goods Sold (Grocery):
+₹0.00
+Labor/Payroll:
+₹0.00
+Other Expenses:
+₹0.00
+Net Profit
++₹0.00
+Margin:
+0.00%
+Summary
+
+✓ Profitable
+
+You earned ₹0.00 this period
+
+vs Oct
+Revenue
+↑ 0.0%
+Expenses
+↑ 0.0%
+Cost Breakdown
+Food Cost
+0.0%
+Labor
+0.0%""
+
+Error: Staff direct access /config
+
+expect(received).not.toContain(expected) // indexOf
+
+Expected substring: not ""Configuration Management""
+Received string:        ""Al Zohra RMS
+Al Zohra
+
+Staff • Audit Staff
+
+Dashboard
+HR & Payroll
+Employees
+Advances
+Attendance
+Leaves
+Inventory & Procurement
+Chicken Dashboard
+Stock Management
+Chicken Bills
+Daily Rates
+Vendors
+Vendor Payments
+Logout
+Configuration Management
+Item Categories(6)
+Units of Measurement(6)
+Payment Types(5)
+Vendor Types(5)
+Bill Status(4)
+Employee Roles(5)
+Base Rate Types(3)
+Markup Operations(4)
+Threshold Operations(5)
+Item Categories (6)
+Add New
+Export
+Import
+Vegetables
+vegetables
+Order: 1
+Dairy Products
+dairy
+Order: 2
+Meat & Poultry
+meat
+Order: 3
+Spices & Condiments
+spices
+Order: 4
+Grains & Cereals
+grains
+Order: 5
+Beverages
+beverages
+Order: 6""
+
+Error: Staff direct access /reports/financial
+
+expect(received).not.toContain(expected) // indexOf
+
+Expected substring: not ""Financial Reports""
+Received string:        ""Al Zohra RMS
+Al Zohra
+
+Staff • Audit Staff
+
+Dashboard
+HR & Payroll
+Employees
+Advances
+Attendance
+Leaves
+Inventory & Procurement
+Chicken Dashboard
+Stock Management
+Chicken Bills
+Daily Rates
+Vendors
+Vendor Payments
+Logout
+Financial Reports
+
+Revenue, expenses, and profitability analysis
+
+Today
+This Week
+This Month
+This Quarter
+This Year
+Custom
+Export
+Total Revenue
+₹0
+Total Expenses
+₹0
+Net Profit
+₹0
+Revenue vs Expenses Trend
+ExpensesRevenue
+Expense Breakdown by Category
+Expense Amounts by Category
+Detailed Expense Breakdown
+CATEGORY	AMOUNT	TRANSACTIONS	PERCENTAGE
+Spending by Person
+PERSON	TOTAL SPENT	CALCULATED TRANSACTIONS	% OF TOTAL
+No spending data available.""
+
+Error: config/payment_mode
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: reports/financial/overview
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200"
+AUTH-007,AUTH-007,AUTH-007 manager cannot create owners and staff cannot register accounts,tests/audit/auth.spec.cjs,48,authorization,Registration allows a manager to submit role=owner and persist an owner.,server/src/modules/auth/controller.js; server/src/modules/auth/routes.js; server/src/middleware/auth.js; server/src/config/permissions.js; client/src/utils/api.js; client/src/App.jsx; server/src/socket.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: expect(received).toHaveLength(expected)
+
+Expected length: 0
+Received length: 1
+Received array:  [{""id"": 4}]"
+AUTH-010,AUTH-010,"AUTH-010 all financial, HR, operational and inventory reports enforce authentication",tests/audit/auth.spec.cjs,69,authorization,Reports routes lack JWT and role middleware; anonymous/staff requests succeed.,server/src/modules/reports/controller.js; server/src/modules/reports/routes.js; client/src/pages/reports/FinancialReports.jsx; server/src/modules/dashboard/controller.js; server/src/modules/ai/controller.js,"Error: Anonymous reports/financial/overview
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: Staff reports/financial/overview
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: Anonymous reports/financial/expense-breakdown
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: Staff reports/financial/expense-breakdown
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: Anonymous reports/financial/revenue-trends
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: Staff reports/financial/revenue-trends
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: Anonymous reports/financial/balance-sheet
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: Staff reports/financial/balance-sheet
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: Anonymous reports/hr/payroll-summary
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: Staff reports/hr/payroll-summary
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: Anonymous reports/hr/advances
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: Staff reports/hr/advances
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: Anonymous reports/hr/attendance
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: Staff reports/hr/attendance
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: Anonymous reports/operations/chicken-analytics
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: Staff reports/operations/chicken-analytics
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: Anonymous reports/operations/vendor-performance
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: Staff reports/operations/vendor-performance
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: Anonymous reports/inventory/stock-status
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: Staff reports/inventory/stock-status
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: Anonymous reports/inventory/wastage
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: Staff reports/inventory/wastage
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: Anonymous reports/dashboard/kpis
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200
+
+Error: Staff reports/dashboard/kpis
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200"
+AUTH-011,AUTH-011,AUTH-011 an unlisted browser origin receives no credentialed CORS authorization,tests/audit/auth.spec.cjs,78,authorization,Untrusted CORS origins receive credentialed permission; kitchen socket connections do not require authentication.,server/src/modules/auth/controller.js; server/src/modules/auth/routes.js; server/src/middleware/auth.js; server/src/config/permissions.js; client/src/utils/api.js; client/src/App.jsx; server/src/socket.js,"Error: expect(received).toBeUndefined()
+
+Received: ""https://untrusted.example.invalid"""
+AUTH-011,AUTH-011,AUTH-011 unauthenticated kitchen sockets cannot connect,tests/audit/auth.spec.cjs,82,authorization,Untrusted CORS origins receive credentialed permission; kitchen socket connections do not require authentication.,server/src/modules/auth/controller.js; server/src/modules/auth/routes.js; server/src/middleware/auth.js; server/src/config/permissions.js; client/src/utils/api.js; client/src/App.jsx; server/src/socket.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: ""denied""
+Received: ""connected"""
+DATA-001,DATA-001,DATA-001 repeated bill import does not duplicate financial source rows,tests/audit/data-roundtrip.spec.cjs,29,idempotency,Repeat bill import persists a second source row; ON CONFLICT has no matching source identity constraint.,migration_tool.py,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  0
++ Received  + 18
+
+@@ -16,7 +16,25 @@
+        ""updated_at"": null,
+        ""updated_by"": null,
+        ""variance"": 0,
+        ""vendor_rate"": 0,
+      },
++     Object {
++       ""approval_notes"": null,
++       ""approved_at"": null,
++       ""approved_by"": null,
++       ""created_at"": ""2026-11-09T08:44:52.424904"",
++       ""date"": ""2026-10-15"",
++       ""expected_rate"": 0,
++       ""id"": 2,
++       ""item_name"": ""Tandoori"",
++       ""journal_entry_id"": null,
++       ""qty"": 2,
++       ""status"": ""Pending"",
++       ""supplier_id"": 3,
++       ""updated_at"": null,
++       ""updated_by"": null,
++       ""variance"": 0,
++       ""vendor_rate"": 0,
++     },
+    ],
+  }"
+DATA-001,DATA-001,DATA-001 repeated CSV import is idempotent and malformed source rows are reported,tests/audit/data-roundtrip.spec.cjs,33,idempotency,Malformed rows produce zero discrepancy entries; repeated valid input adds duplicate direct journals.,migration_tool.py,"Error: expect(received).toBeGreaterThan(expected)
+
+Expected: > 0
+Received:   0
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  0
++ Received  + 23
+
+@@ -7,13 +7,29 @@
+        ""id"": ""9de80528-2aa0-4135-8036-2f9ca93b15d9"",
+        ""reference_id"": null,
+        ""reference_type"": null,
+        ""transaction_date"": ""2026-11-09T00:00:00"",
+      },
++     Object {
++       ""created_at"": ""2026-11-09T08:44:55.40677"",
++       ""created_by_user_id"": null,
++       ""description"": ""Synthetic Sale - Audit"",
++       ""id"": ""b403a375-2ac8-4068-95c9-7fb6d02e882e"",
++       ""reference_id"": null,
++       ""reference_type"": null,
++       ""transaction_date"": ""2026-11-09T00:00:00"",
++     },
+    ],
+    ""ledger_lines"": Array [
+      Object {
++       ""account_code"": 4000,
++       ""credit"": 100,
++       ""debit"": 0,
++       ""id"": ""263516ca-ef33-4847-9f7d-2c4bc261567c"",
++       ""journal_entry_id"": ""b403a375-2ac8-4068-95c9-7fb6d02e882e"",
++     },
++     Object {
+        ""account_code"": 1000,
+        ""credit"": 0,
+        ""debit"": 100,
+        ""id"": ""3be9d39d-06ab-48f9-8b56-6437abfa26fb"",
+        ""journal_entry_id"": ""9de80528-2aa0-4135-8036-2f9ca93b15d9"",
+@@ -22,8 +38,15 @@
+        ""account_code"": 4000,
+        ""credit"": 100,
+        ""debit"": 0,
+        ""id"": ""748b5cf8-a8c4-42e4-9c33-24ef495838e9"",
+        ""journal_entry_id"": ""9de80528-2aa0-4135-8036-2f9ca93b15d9"",
++     },
++     Object {
++       ""account_code"": 1000,
++       ""credit"": 0,
++       ""debit"": 100,
++       ""id"": ""f6b13bbb-c59f-4b55-88d3-2634cd5d2e06"",
++       ""journal_entry_id"": ""b403a375-2ac8-4068-95c9-7fb6d02e882e"",
+      },
+    ],
+  }"
+DATA-001,DATA-001,DATA-001 missing attendance is reported before changing active employee statuses,tests/audit/data-roundtrip.spec.cjs,38,state_integrity,Missing attendance is reported but active employees are still changed to inactive and history is written.,migration_tool.py,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  7
++ Received  + 35
+
+@@ -1,7 +1,35 @@
+  Object {
+-   ""employee_history"": Array [],
++   ""employee_history"": Array [
++     Object {
++       ""changed_at"": ""2026-11-09T08:44:57.233544"",
++       ""changed_by"": ""system_migration"",
++       ""employee_id"": 1,
++       ""field_changed"": ""status"",
++       ""id"": 1,
++       ""new_value"": ""inactive"",
++       ""old_value"": ""active"",
++     },
++     Object {
++       ""changed_at"": ""2026-11-09T08:44:57.233544"",
++       ""changed_by"": ""system_migration"",
++       ""employee_id"": 2,
++       ""field_changed"": ""status"",
++       ""id"": 2,
++       ""new_value"": ""inactive"",
++       ""old_value"": ""active"",
++     },
++     Object {
++       ""changed_at"": ""2026-11-09T08:44:57.233544"",
++       ""changed_by"": ""system_migration"",
++       ""employee_id"": 3,
++       ""field_changed"": ""status"",
++       ""id"": 3,
++       ""new_value"": ""inactive"",
++       ""old_value"": ""active"",
++     },
++   ],
+    ""employees"": Array [
+      Object {
+        ""age"": null,
+        ""bank_account_no"": null,
+        ""base_salary"": 30000,
+@@ -22,12 +50,12 @@
+        ""payout_method"": ""Cash"",
+        ""phone_number"": null,
+        ""position"": ""Cook"",
+        ""role"": ""staff"",
+        ""shift_id"": null,
+-       ""status"": ""active"",
+-       ""updated_at"": ""2026-11-09T08:44:56.323066"",
++       ""status"": ""inactive"",
++       ""updated_at"": ""2026-11-09T08:44:57.233544"",
+        ""updated_by"": null,
+        ""visa_expiry"": null,
+        ""work_permit_expiry"": null,
+      },
+      Object {
+@@ -51,12 +79,12 @@
+        ""payout_method"": ""Cash"",
+        ""phone_number"": null,
+        ""position"": ""Manager"",
+        ""role"": ""staff"",
+        ""shift_id"": null,
+-       ""status"": ""active"",
+-       ""updated_at"": ""2026-11-09T08:44:56.323066"",
++       ""status"": ""inactive"",
++       ""updated_at"": ""2026-11-09T08:44:57.233544"",
+        ""updated_by"": null,
+        ""visa_expiry"": null,
+        ""work_permit_expiry"": null,
+      },
+      Object {
+@@ -80,12 +108,12 @@
+        ""payout_method"": ""Cash"",
+        ""phone_number"": null,
+        ""position"": ""Cook"",
+        ""role"": ""staff"",
+        ""shift_id"": null,
+-       ""status"": ""active"",
+-       ""updated_at"": ""2026-11-09T08:44:56.323066"",
++       ""status"": ""inactive"",
++       ""updated_at"": ""2026-11-09T08:44:57.233544"",
+        ""updated_by"": null,
+        ""visa_expiry"": null,
+        ""work_permit_expiry"": null,
+      },
+    ],"
+E2E-002,E2E-002,E2E-002 purchase approval settlement and closure reconcile after each committed stage,tests/audit/data-roundtrip.spec.cjs,42,transaction_leak,createBillEntry returns without COMMIT. Independent observer finds no bill. Variance/financial round-trip failures follow from the missing persisted source; later round-trip stages are not reached.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: Purchase must commit before subsequent stages
+
+expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 0
+Received array:  []"
+E2E-003,E2E-003,E2E-003 attendance advance payroll payout revert and repay conserve source balances,tests/audit/data-roundtrip.spec.cjs,53,state_integrity,HR round trip fails cash conservation (-1500 rather than -1000); later planned repayments/reports are not certified.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: -1000
+Received: -1500"
+EXPORT-001,EXPORT-001,"EXPORT-001 CSV preserves quotes, Unicode and embedded newlines without executable formula cells",tests/audit/exports.spec.cjs,7,validation,CSV quoting does not neutralize formula prefixes.,client/src/components/reports/ExportButton.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: false
+Received: true"
+EXPORT-002,EXPORT-002,EXPORT-002 /reports/financial JSON download matches the report input,tests/audit/exports.spec.cjs,13,cascade,FinancialReports calls an unregistered spending-by-person route; failed fetch leaves the JSON export dataset empty.,server/src/modules/reports/controller.js; server/src/modules/reports/routes.js; client/src/pages/reports/FinancialReports.jsx; server/src/modules/dashboard/controller.js; server/src/modules/ai/controller.js,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 7
++ Received  + 1
+
+- Array [
+-   Object {
+-     ""date"": ""9 Nov"",
+-     ""expenses"": 50,
+-     ""revenue"": 100,
+-   },
+- ]
++ Array []"
+EXPORT-003,EXPORT-003,EXPORT-003 /reports/financial PDF placeholder is clear and never throws an unavailable toast method,tests/audit/exports.spec.cjs,23,integration,Four PDF placeholders invoke nonexistent toast.info; repeated downloads never revoke Blob URLs.,client/src/components/reports/ExportButton.jsx,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText('PDF export coming soon!', { exact: true })
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText('PDF export coming soon!', { exact: true }) with timeout 5000ms
+  - waiting for getByText('PDF export coming soon!', { exact: true })
+
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 3
+
+- Array []
++ Array [
++   ""toast.info is not a function"",
++ ]"
+EXPORT-003,EXPORT-003,EXPORT-003 /reports/hr PDF placeholder is clear and never throws an unavailable toast method,tests/audit/exports.spec.cjs,23,integration,Four PDF placeholders invoke nonexistent toast.info; repeated downloads never revoke Blob URLs.,client/src/components/reports/ExportButton.jsx,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText('PDF export coming soon!', { exact: true })
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText('PDF export coming soon!', { exact: true }) with timeout 5000ms
+  - waiting for getByText('PDF export coming soon!', { exact: true })
+
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 3
+
+- Array []
++ Array [
++   ""toast.info is not a function"",
++ ]"
+EXPORT-003,EXPORT-003,EXPORT-003 /reports/operations PDF placeholder is clear and never throws an unavailable toast method,tests/audit/exports.spec.cjs,23,integration,Four PDF placeholders invoke nonexistent toast.info; repeated downloads never revoke Blob URLs.,client/src/components/reports/ExportButton.jsx,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText('PDF export coming soon!', { exact: true })
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText('PDF export coming soon!', { exact: true }) with timeout 5000ms
+  - waiting for getByText('PDF export coming soon!', { exact: true })
+
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 3
+
+- Array []
++ Array [
++   ""toast.info is not a function"",
++ ]"
+EXPORT-003,EXPORT-003,EXPORT-003 /reports/inventory PDF placeholder is clear and never throws an unavailable toast method,tests/audit/exports.spec.cjs,23,integration,Four PDF placeholders invoke nonexistent toast.info; repeated downloads never revoke Blob URLs.,client/src/components/reports/ExportButton.jsx,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText('PDF export coming soon!', { exact: true })
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText('PDF export coming soon!', { exact: true }) with timeout 5000ms
+  - waiting for getByText('PDF export coming soon!', { exact: true })
+
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 3
+
+- Array []
++ Array [
++   ""toast.info is not a function"",
++ ]"
+EXPORT-003,EXPORT-003,EXPORT-003 repeated downloads release their Blob URLs,tests/audit/exports.spec.cjs,27,resource_cleanup,"Two Blob URLs are created, zero revoked.",client/src/components/reports/ExportButton.jsx,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+  Object {
+    ""created"": 2,
+-   ""revoked"": 2,
++   ""revoked"": 0,
+  }"
+FIN-002,FIN-002,FIN-002 invalid mapping and a failure during ledger insertion roll back the header,tests/audit/finance.spec.cjs,26,status_contract,Invalid mapping returns 500 instead of 400. Invalid-mapping and injected ledger-failure snapshots both prove rollback; no partial journal is reproduced here.,server/src/modules/finance/service.js; server/src/modules/finance/TransactionService.js; server/src/modules/finance/controller.js; client/src/pages/finance/DailyTracker.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500"
+TRACK-001,TRACK-001,TRACK-001 Cash tracker cash and GL accounts reconcile without false revenue,tests/audit/finance.spec.cjs,31,state_integrity,Cash/Bank post to employee receivable 1100; Bank_Cash creates no asset-transfer journal.,server/src/modules/finance/service.js; server/src/modules/finance/TransactionService.js; server/src/modules/finance/controller.js; client/src/pages/finance/DailyTracker.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 1000
+Received: 1100"
+TRACK-001,TRACK-001,TRACK-001 Bank tracker cash and GL accounts reconcile without false revenue,tests/audit/finance.spec.cjs,31,state_integrity,Cash/Bank post to employee receivable 1100; Bank_Cash creates no asset-transfer journal.,server/src/modules/finance/service.js; server/src/modules/finance/TransactionService.js; server/src/modules/finance/controller.js; client/src/pages/finance/DailyTracker.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 1010
+Received: 1100"
+TRACK-001,TRACK-001,TRACK-001 Bank_Cash tracker cash and GL accounts reconcile without false revenue,tests/audit/finance.spec.cjs,31,state_integrity,Cash/Bank post to employee receivable 1100; Bank_Cash creates no asset-transfer journal.,server/src/modules/finance/service.js; server/src/modules/finance/TransactionService.js; server/src/modules/finance/controller.js; client/src/pages/finance/DailyTracker.jsx,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 12
++ Received  +  1
+
+- Array [
+-   Object {
+-     ""account"": 1000,
+-     ""credit"": 100,
+-     ""debit"": 0,
+-   },
+-   Object {
+-     ""account"": 1030,
+-     ""credit"": 0,
+-     ""debit"": 100,
+-   },
+- ]
++ Array []"
+TRACK-002,TRACK-002,TRACK-002 amount/date/mode corrections and deletion never leave stale journals,tests/audit/finance.spec.cjs,38,state_integrity,Tracker edit/delete leaves old journal effects; update ignores mode.,server/src/modules/finance/service.js; server/src/modules/finance/TransactionService.js; server/src/modules/finance/controller.js; client/src/pages/finance/DailyTracker.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 100
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: ""Bank""
+Received: ""Cash""
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 0
+Received: 100"
+TRACK-003,TRACK-003,TRACK-003 repeated paid status and paid-to-pending keep vendor liability and GL consistent,tests/audit/finance.spec.cjs,46,state_integrity,Paid-to-Pending does not reverse the existing vendor settlement effect.,server/src/modules/finance/service.js; server/src/modules/finance/TransactionService.js; server/src/modules/finance/controller.js; client/src/pages/finance/DailyTracker.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 100
+Received: 0"
+TRACK-004,TRACK-004,TRACK-004 locked-period journal failure leaves no successful partial tracker write,tests/audit/finance.spec.cjs,54,transaction_integrity,Tracker commits independent source writes despite a locked-period journal failure that is swallowed.,server/src/modules/finance/service.js; server/src/modules/finance/TransactionService.js; server/src/modules/finance/controller.js; client/src/pages/finance/DailyTracker.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 201
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 20
+
+@@ -35,9 +35,28 @@
+    ""orders"": Array [],
+    ""payment_transactions"": Array [],
+    ""salary_advances"": Array [],
+    ""salary_history"": Array [],
+    ""stock_movements"": Array [],
+-   ""transactions"": Array [],
++   ""transactions"": Array [
++     Object {
++       ""amount"": 100,
++       ""category_id"": null,
++       ""created_at"": ""2026-11-09T08:45:47.657408"",
++       ""created_by_user_id"": null,
++       ""date"": ""2026-11-09"",
++       ""description"": ""Audit tracker"",
++       ""id"": ""3ed7bee9-16fb-494a-a8a0-599e043dd761"",
++       ""metadata"": Object {},
++       ""mode"": ""Cash"",
++       ""paid_by"": null,
++       ""paid_date"": null,
++       ""payment_method"": ""Cash"",
++       ""status"": ""Paid"",
++       ""type"": ""Sales"",
++       ""updated_at"": ""2026-11-09T08:45:47.657408"",
++       ""vendor_id"": null,
++     },
++   ],
+    ""vendor_ledger"": Array [],
+    ""vendor_payments"": Array [],
+  }"
+TRACK-005,TRACK-005,TRACK-005 denomination counts reject negative fractional values in the tracker,tests/audit/finance.spec.cjs,58,validation,Cash-calculator inputs accept negative and fractional denomination counts.,server/src/modules/finance/service.js; server/src/modules/finance/TransactionService.js; server/src/modules/finance/controller.js; client/src/pages/finance/DailyTracker.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: false
+Received: true
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: false
+Received: true"
+MAP-001,MAP-001,MAP-001 mapping history changes only matching expense records and preserves sales,tests/audit/finance.spec.cjs,66,state_integrity,Description matching has no Expense-only filter and changes matching Sales category history.,server/src/modules/finance/service.js,"Error: expect(received).toBeNull()
+
+Received: 3"
+MAP-002,MAP-002,MAP-002 applying mappings cannot rewrite a closed day,tests/audit/finance.spec.cjs,73,period_lock,Historical mapping updates lack an effective closed-day guard.,server/src/modules/finance/service.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 200
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+@@ -63,11 +63,11 @@
+    ""salary_history"": Array [],
+    ""stock_movements"": Array [],
+    ""transactions"": Array [
+      Object {
+        ""amount"": 100,
+-       ""category_id"": null,
++       ""category_id"": 3,
+        ""created_at"": ""2026-11-09T08:45:52.116188"",
+        ""created_by_user_id"": null,
+        ""date"": ""2026-11-09"",
+        ""description"": ""Audit tracker"",
+        ""id"": ""60750648-08a3-4290-9e59-78cd9fc9c88b"","
+TRANSFER-002,TRANSFER-002,"TRANSFER-002 missing wallet, nonfinite amount and same-account transfers are rejected atomically",tests/audit/finance.spec.cjs,83,validation,Same-account transfer succeeds; missing-wallet and NaN rejection checks are distinct reached assertions.,server/src/modules/employees/AdvanceService.js; server/src/modules/advance-requests/controller.js; server/src/modules/finance/TransferService.js; server/src/config/permissions.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  2
++ Received  + 27
+
+@@ -27,12 +27,37 @@
+        ""updated_at"": ""2026-11-09T08:45:56.372106"",
+        ""updated_by"": null,
+      },
+    ],
+    ""inventory_transactions"": Array [],
+-   ""journal_entries"": Array [],
+-   ""ledger_lines"": Array [],
++   ""journal_entries"": Array [
++     Object {
++       ""created_at"": ""2026-11-09T08:45:56.74952"",
++       ""created_by_user_id"": null,
++       ""description"": ""Invalid"",
++       ""id"": ""de36b742-1ce4-4cdb-a3f0-446dded1a8ca"",
++       ""reference_id"": ""1"",
++       ""reference_type"": ""Transfer"",
++       ""transaction_date"": ""2026-11-09T12:00:00"",
++     },
++   ],
++   ""ledger_lines"": Array [
++     Object {
++       ""account_code"": 1000,
++       ""credit"": 0,
++       ""debit"": 10,
++       ""id"": ""80305125-1b14-4dd1-a725-52065fca9638"",
++       ""journal_entry_id"": ""de36b742-1ce4-4cdb-a3f0-446dded1a8ca"",
++     },
++     Object {
++       ""account_code"": 1000,
++       ""credit"": 10,
++       ""debit"": 0,
++       ""id"": ""b43e9181-5cb3-4657-9070-1097105816f8"",
++       ""journal_entry_id"": ""de36b742-1ce4-4cdb-a3f0-446dded1a8ca"",
++     },
++   ],
+    ""order_items"": Array [],
+    ""orders"": Array [],
+    ""payment_transactions"": Array [],
+    ""salary_advances"": Array [],
+    ""salary_history"": Array [],"
+TRANSFER-003,TRANSFER-003,TRANSFER-003 concurrent excessive wallet returns cannot create negative float,tests/audit/finance.spec.cjs,88,policy_assumption,Concurrent wallet returns produce -20 because funds are not checked. Whether overdrafts must be blocked remains an unresolved business policy.,server/src/modules/employees/AdvanceService.js; server/src/modules/advance-requests/controller.js; server/src/modules/finance/TransferService.js; server/src/config/permissions.js,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 2
+Received array:  [{""body"": {""created_at"": ""2026-11-09T08:45:57.948Z"", ""date"": ""2026-11-09T12:00:00.000Z"", ""description"": ""Return via Cash"", ""id"": ""287c9181-d32e-45ee-96e0-01934a1c18a1"", ""total_amount"": 60}, ""response"": {""_apiName"": ""APIResponse"", ""_headers"": {""_headersArray"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""_headersMap"": {""_map"": Map {""content-security-policy"" => [""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""], ""cross-origin-opener-policy"" => [""same-origin""], ""cross-origin-resource-policy"" => [""same-origin""], ""origin-agent-cluster"" => [""?1""], ""referrer-policy"" => [""no-referrer""], ""strict-transport-security"" => [""max-age=31536000; includeSubDomains""], ""x-content-type-options"" => [""nosniff""], ""x-dns-prefetch-control"" => [""off""], ""x-download-options"" => [""noopen""], ""x-frame-options"" => [""SAMEORIGIN""], …}}}, ""_initializer"": {""fetchUid"": ""4729d17e8363a999be54a6ef0172e313"", ""headers"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""responseEndTiming"": 13.998000000006869, ""serverAddr"": {""ipAddress"": ""127.0.0.1"", ""port"": 33130}, ""status"": 200, ""statusText"": ""OK"", ""timing"": {""connectEnd"": -1, ""connectStart"": -1, ""domainLookupEnd"": -1, ""domainLookupStart"": -1, ""requestStart"": 0.1760000000067521, ""responseStart"": 13.915000000008149, ""secureConnectionStart"": -1, ""startTime"": 1794194157943}, ""url"": ""http://127.0.0.1:33130/api/finance/transfer/user-to-safe""}, ""_request"": {""_guid"": ""request-context@6c41f4f592c4c108ac2a069a72189837"", ""_type"": ""APIRequestContext""}, Symbol(nodejs.util.inspect.custom): [Function anonymous]}, ""status"": 200}, {""body"": {""created_at"": ""2026-11-09T08:45:57.950Z"", ""date"": ""2026-11-09T12:00:00.000Z"", ""description"": ""Return via Cash"", ""id"": ""db290273-6a4b-4163-943d-8db3b8a87d49"", ""total_amount"": 60}, ""response"": {""_apiName"": ""APIResponse"", ""_headers"": {""_headersArray"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""_headersMap"": {""_map"": Map {""content-security-policy"" => [""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""], ""cross-origin-opener-policy"" => [""same-origin""], ""cross-origin-resource-policy"" => [""same-origin""], ""origin-agent-cluster"" => [""?1""], ""referrer-policy"" => [""no-referrer""], ""strict-transport-security"" => [""max-age=31536000; includeSubDomains""], ""x-content-type-options"" => [""nosniff""], ""x-dns-prefetch-control"" => [""off""], ""x-download-options"" => [""noopen""], ""x-frame-options"" => [""SAMEORIGIN""], …}}}, ""_initializer"": {""fetchUid"": ""be548fa9c590bbc56c7142b5e4b4b25e"", ""headers"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""responseEndTiming"": 12.58200000000943, ""serverAddr"": {""ipAddress"": ""127.0.0.1"", ""port"": 33130}, ""status"": 200, ""statusText"": ""OK"", ""timing"": {""connectEnd"": 0.5210000000079162, ""connectStart"": 0, ""domainLookupEnd"": -1, ""domainLookupStart"": -1, ""requestStart"": 0.5210000000079162, ""responseStart"": 12.446000000010827, ""secureConnectionStart"": -1, ""startTime"": 1794194157944}, ""url"": ""http://127.0.0.1:33130/api/finance/transfer/user-to-safe""}, ""_request"": {""_guid"": ""request-context@6c41f4f592c4c108ac2a069a72189837"", ""_type"": ""APIRequestContext""}, Symbol(nodejs.util.inspect.custom): [Function anonymous]}, ""status"": 200}]
+
+Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+Expected: >= 0
+Received:    -20"
+CLOSE-001,CLOSE-001,CLOSE-001 default schema supports a cash variance without missing accounts,tests/audit/finance.spec.cjs,97,integration,Variance account 7100 is missing from default schema; positive variance fails before closure.,server/src/modules/finance/ClosureService.js; server/src/modules/finance/ReconciliationService.js; server/migrations/040_fix_closure_schema.sql,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 400"
+CLOSE-001,CLOSE-001,CLOSE-001 first summary includes journal movements with time on the selected day,tests/audit/finance.spec.cjs,106,aggregation,First read initializes zero; later exact-timestamp comparison still omits the 12:00 movement.,server/src/modules/finance/ClosureService.js; server/src/modules/finance/ReconciliationService.js; server/migrations/040_fix_closure_schema.sql,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 100
+Received: 0
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 100
+Received: 0"
+CLOSE-003,CLOSE-003,CLOSE-003 closed-day revenue is blocked atomically,tests/audit/finance.spec.cjs,114,period_lock,Revenue/tracker create/edit/delete bypass day-closure guards and change persisted snapshots.,server/src/modules/finance/service.js; server/src/modules/finance/TransactionService.js; server/src/modules/finance/controller.js; client/src/pages/finance/DailyTracker.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 200
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  0
++ Received  + 23
+
+@@ -37,10 +37,19 @@
+        ""id"": ""325641e5-196d-43d2-a02c-79ba4b17e49e"",
+        ""reference_id"": null,
+        ""reference_type"": null,
+        ""transaction_date"": ""2026-11-09T00:00:00"",
+      },
++     Object {
++       ""created_at"": ""2026-11-09T08:46:07.170234"",
++       ""created_by_user_id"": null,
++       ""description"": ""Closed"",
++       ""id"": ""83fce660-9246-46dc-920c-02039e6be44e"",
++       ""reference_id"": null,
++       ""reference_type"": ""Revenue"",
++       ""transaction_date"": ""2026-11-09T00:00:00"",
++     },
+    ],
+    ""ledger_lines"": Array [
+      Object {
+        ""account_code"": 4000,
+        ""credit"": 100,
+@@ -52,10 +61,24 @@
+        ""account_code"": 1100,
+        ""credit"": 0,
+        ""debit"": 100,
+        ""id"": ""4da173ea-486d-4541-ae9d-f5c1a238e067"",
+        ""journal_entry_id"": ""325641e5-196d-43d2-a02c-79ba4b17e49e"",
++     },
++     Object {
++       ""account_code"": 1000,
++       ""credit"": 0,
++       ""debit"": 100,
++       ""id"": ""a2c7f326-9c59-42df-a671-d0c3d9c4fad4"",
++       ""journal_entry_id"": ""83fce660-9246-46dc-920c-02039e6be44e"",
++     },
++     Object {
++       ""account_code"": 4000,
++       ""credit"": 100,
++       ""debit"": 0,
++       ""id"": ""d658ec15-3278-4cc8-a6d2-a608c04d9bfd"",
++       ""journal_entry_id"": ""83fce660-9246-46dc-920c-02039e6be44e"",
+      },
+    ],
+    ""order_items"": Array [],
+    ""orders"": Array [],
+    ""payment_transactions"": Array [],"
+CLOSE-003,CLOSE-003,CLOSE-003 closed-day tracker-add is blocked atomically,tests/audit/finance.spec.cjs,114,period_lock,Revenue/tracker create/edit/delete bypass day-closure guards and change persisted snapshots.,server/src/modules/finance/service.js; server/src/modules/finance/TransactionService.js; server/src/modules/finance/controller.js; client/src/pages/finance/DailyTracker.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 201
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  0
++ Received  + 41
+
+@@ -37,20 +37,43 @@
+        ""id"": ""2d199f4d-8174-4106-be12-043b2e037e4c"",
+        ""reference_id"": null,
+        ""reference_type"": null,
+        ""transaction_date"": ""2026-11-09T00:00:00"",
+      },
++     Object {
++       ""created_at"": ""2026-11-09T08:46:08.490615"",
++       ""created_by_user_id"": null,
++       ""description"": ""Tracker: Audit tracker (Sales)"",
++       ""id"": ""f04e2c7a-29cd-45c3-aa94-6b05e574feb6"",
++       ""reference_id"": null,
++       ""reference_type"": null,
++       ""transaction_date"": ""2026-11-09T00:00:00"",
++     },
+    ],
+    ""ledger_lines"": Array [
++     Object {
++       ""account_code"": 1100,
++       ""credit"": 0,
++       ""debit"": 100,
++       ""id"": ""b4ba6cb6-6b7b-4b05-808e-1d2354bec72f"",
++       ""journal_entry_id"": ""f04e2c7a-29cd-45c3-aa94-6b05e574feb6"",
++     },
+      Object {
+        ""account_code"": 4000,
+        ""credit"": 100,
+        ""debit"": 0,
+        ""id"": ""ee555157-1e78-4054-ab10-af1beea270f8"",
+        ""journal_entry_id"": ""2d199f4d-8174-4106-be12-043b2e037e4c"",
+      },
+      Object {
++       ""account_code"": 4000,
++       ""credit"": 100,
++       ""debit"": 0,
++       ""id"": ""f5782567-289b-4d98-b8d6-3f05382475d3"",
++       ""journal_entry_id"": ""f04e2c7a-29cd-45c3-aa94-6b05e574feb6"",
++     },
++     Object {
+        ""account_code"": 1100,
+        ""credit"": 0,
+        ""debit"": 100,
+        ""id"": ""ff737e28-efae-4f51-b6a2-ddb4cbf48278"",
+        ""journal_entry_id"": ""2d199f4d-8174-4106-be12-043b2e037e4c"",
+@@ -61,10 +84,28 @@
+    ""payment_transactions"": Array [],
+    ""salary_advances"": Array [],
+    ""salary_history"": Array [],
+    ""stock_movements"": Array [],
+    ""transactions"": Array [
++     Object {
++       ""amount"": 100,
++       ""category_id"": null,
++       ""created_at"": ""2026-11-09T08:46:08.490193"",
++       ""created_by_user_id"": null,
++       ""date"": ""2026-11-09"",
++       ""description"": ""Audit tracker"",
++       ""id"": ""166b5fdb-40e6-4858-aa6d-45249d29623f"",
++       ""metadata"": Object {},
++       ""mode"": ""Cash"",
++       ""paid_by"": null,
++       ""paid_date"": null,
++       ""payment_method"": ""Cash"",
++       ""status"": ""Paid"",
++       ""type"": ""Sales"",
++       ""updated_at"": ""2026-11-09T08:46:08.490193"",
++       ""vendor_id"": null,
++     },
+      Object {
+        ""amount"": 100,
+        ""category_id"": null,
+        ""created_at"": ""2026-11-09T08:46:08.452499"",
+        ""created_by_user_id"": null,"
+CLOSE-003,CLOSE-003,CLOSE-003 closed-day tracker-edit is blocked atomically,tests/audit/finance.spec.cjs,114,period_lock,Revenue/tracker create/edit/delete bypass day-closure guards and change persisted snapshots.,server/src/modules/finance/service.js; server/src/modules/finance/TransactionService.js; server/src/modules/finance/controller.js; client/src/pages/finance/DailyTracker.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 200
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 2
++ Received  + 2
+
+@@ -62,11 +62,11 @@
+    ""salary_advances"": Array [],
+    ""salary_history"": Array [],
+    ""stock_movements"": Array [],
+    ""transactions"": Array [
+      Object {
+-       ""amount"": 100,
++       ""amount"": 200,
+        ""category_id"": null,
+        ""created_at"": ""2026-11-09T08:46:09.764183"",
+        ""created_by_user_id"": null,
+        ""date"": ""2026-11-09"",
+        ""description"": ""Audit tracker"",
+@@ -76,11 +76,11 @@
+        ""paid_by"": null,
+        ""paid_date"": null,
+        ""payment_method"": ""Cash"",
+        ""status"": ""Paid"",
+        ""type"": ""Sales"",
+-       ""updated_at"": ""2026-11-09T08:46:09.764183"",
++       ""updated_at"": ""2026-11-09T08:46:09.799831"",
+        ""vendor_id"": null,
+      },
+    ],
+    ""vendor_ledger"": Array [],
+    ""vendor_payments"": Array [],"
+CLOSE-003,CLOSE-003,CLOSE-003 closed-day tracker-delete is blocked atomically,tests/audit/finance.spec.cjs,114,period_lock,Revenue/tracker create/edit/delete bypass day-closure guards and change persisted snapshots.,server/src/modules/finance/service.js; server/src/modules/finance/TransactionService.js; server/src/modules/finance/controller.js; client/src/pages/finance/DailyTracker.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 200
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 20
++ Received  +  1
+
+@@ -60,28 +60,9 @@
+    ""orders"": Array [],
+    ""payment_transactions"": Array [],
+    ""salary_advances"": Array [],
+    ""salary_history"": Array [],
+    ""stock_movements"": Array [],
+-   ""transactions"": Array [
+-     Object {
+-       ""amount"": 100,
+-       ""category_id"": null,
+-       ""created_at"": ""2026-11-09T08:46:11.015631"",
+-       ""created_by_user_id"": null,
+-       ""date"": ""2026-11-09"",
+-       ""description"": ""Audit tracker"",
+-       ""id"": ""9f100195-27e3-4b93-ad4d-6161441257e9"",
+-       ""metadata"": Object {},
+-       ""mode"": ""Cash"",
+-       ""paid_by"": null,
+-       ""paid_date"": null,
+-       ""payment_method"": ""Cash"",
+-       ""status"": ""Paid"",
+-       ""type"": ""Sales"",
+-       ""updated_at"": ""2026-11-09T08:46:11.015631"",
+-       ""vendor_id"": null,
+-     },
+-   ],
++   ""transactions"": Array [],
+    ""vendor_ledger"": Array [],
+    ""vendor_payments"": Array [],
+  }"
+CLOSE-005,CLOSE-005,CLOSE-005 audit insertion failure rolls back variance reversal and closed state together,tests/audit/finance.spec.cjs,125,transaction_integrity,Reversal commits on another connection before reopen/audit; injected audit failure leaves a committed reversal.,server/src/modules/finance/ClosureService.js; server/src/modules/finance/ReconciliationService.js; server/migrations/040_fix_closure_schema.sql,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  0
++ Received  + 23
+
+@@ -45,23 +45,46 @@
+        ""id"": ""4a73c792-3417-48e8-afda-2f370f3c272f"",
+        ""reference_id"": null,
+        ""reference_type"": ""CashVariance"",
+        ""transaction_date"": ""2026-11-09T00:00:00"",
+      },
++     Object {
++       ""created_at"": ""2026-11-09T08:46:13.17271"",
++       ""created_by_user_id"": null,
++       ""description"": ""REVERSAL: Cash Excess - Counter | Reason: Day reopened: Audit recount"",
++       ""id"": ""596d8435-fb9b-448c-8816-3b3084a45800"",
++       ""reference_id"": ""4a73c792-3417-48e8-afda-2f370f3c272f"",
++       ""reference_type"": ""Reversal"",
++       ""transaction_date"": ""2026-11-09T12:00:00"",
++     },
+    ],
+    ""ledger_lines"": Array [
+      Object {
+        ""account_code"": 1000,
+        ""credit"": 0,
+        ""debit"": 10,
+        ""id"": ""24f31e5b-d802-458e-bb85-8c35d288a9e9"",
+        ""journal_entry_id"": ""4a73c792-3417-48e8-afda-2f370f3c272f"",
+      },
+      Object {
++       ""account_code"": 1000,
++       ""credit"": 10,
++       ""debit"": 0,
++       ""id"": ""5a1b61f2-0391-491e-9fba-ae55de56997c"",
++       ""journal_entry_id"": ""596d8435-fb9b-448c-8816-3b3084a45800"",
++     },
++     Object {
+        ""account_code"": 7100,
+        ""credit"": 10,
+        ""debit"": 0,
+        ""id"": ""8559ad2e-f010-4e66-87e4-18ef96b78cee"",
+        ""journal_entry_id"": ""4a73c792-3417-48e8-afda-2f370f3c272f"",
++     },
++     Object {
++       ""account_code"": 7100,
++       ""credit"": 0,
++       ""debit"": 10,
++       ""id"": ""ea810468-1a67-4e71-ba11-352a0246d89d"",
++       ""journal_entry_id"": ""596d8435-fb9b-448c-8816-3b3084a45800"",
+      },
+    ],
+  }"
+CLOSE-006,CLOSE-006,CLOSE-006 reopening one account preserves a second account with the same type/date,tests/audit/finance.spec.cjs,129,state_integrity,Custom accountCode is dropped; reopen uses date/type and changes multiple accounts.,server/src/modules/finance/ClosureService.js; server/src/modules/finance/ReconciliationService.js; server/migrations/040_fix_closure_schema.sql,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: ""Closed""
+Received: ""Open"""
+CLOSE-006,CLOSE-006,CLOSE-006 custom account summary and close honor the requested wallet account,tests/audit/finance.spec.cjs,135,state_integrity,Custom accountCode is dropped; reopen uses date/type and changes multiple accounts.,server/src/modules/finance/ClosureService.js; server/src/modules/finance/ReconciliationService.js; server/migrations/040_fix_closure_schema.sql,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 1071
+Received: 1000
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: ""Closed""
+Received: undefined"
+CLOSE-007,CLOSE-007,CLOSE-007 December close never overwrites an already closed January opening,tests/audit/finance.spec.cjs,140,state_integrity,Carry-forward upsert overwrites an already closed next-day opening across December/January.,server/src/modules/finance/ClosureService.js; server/src/modules/finance/ReconciliationService.js; server/migrations/040_fix_closure_schema.sql,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+@@ -7,11 +7,11 @@
+      ""closing_balance"": ""99.00"",
+      ""created_at"": 2026-11-09T03:16:16.944Z,
+      ""created_by_user_id"": null,
+      ""date"": 2026-12-31T18:30:00.000Z,
+      ""id"": 2,
+-     ""opening_balance"": ""99.00"",
++     ""opening_balance"": ""10.00"",
+      ""reopen_count"": 0,
+      ""status"": ""Closed"",
+      ""type"": ""Counter"",
+      ""updated_at"": 2026-11-09T03:16:16.944Z,
+      ""updated_by_user_id"": null,"
+GL-001,GL-001,"GL-001 each journal has balanced cents, source references and at least two valid lines",tests/audit/finance.spec.cjs,144,state_integrity,Tracker bypasses central posting and creates journals without source references.,server/src/modules/finance/JournalService.js; server/src/modules/finance/entities/LedgerLine.js; server/src/modules/finance/entities/JournalEntry.js,"Error: expect(received).not.toBeNull()
+
+Received: null
+
+Error: expect(received).not.toBeNull()
+
+Received: null"
+GL-002,GL-002,GL-002 NaN rejected by journal entity/service without persistence,tests/audit/finance.spec.cjs,150,validation,Entity/line checks lack finite-number and distinct-account validation; NaN and same-account journals persist.,server/src/modules/finance/JournalService.js; server/src/modules/finance/entities/LedgerLine.js; server/src/modules/finance/entities/JournalEntry.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: false
+Received: true
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  2
++ Received  + 27
+
+@@ -27,12 +27,37 @@
+        ""updated_at"": ""2026-11-09T08:46:18.968844"",
+        ""updated_by"": null,
+      },
+    ],
+    ""inventory_transactions"": Array [],
+-   ""journal_entries"": Array [],
+-   ""ledger_lines"": Array [],
++   ""journal_entries"": Array [
++     Object {
++       ""created_at"": ""2026-11-09T08:46:19.286288"",
++       ""created_by_user_id"": null,
++       ""description"": ""Invalid"",
++       ""id"": ""0c800920-3d5b-4b05-811e-d985b8f5098c"",
++       ""reference_id"": ""invalid"",
++       ""reference_type"": ""Audit"",
++       ""transaction_date"": ""2026-11-09T00:00:00"",
++     },
++   ],
++   ""ledger_lines"": Array [
++     Object {
++       ""account_code"": 4000,
++       ""credit"": 1,
++       ""debit"": 0,
++       ""id"": ""c7993f68-a2c2-4e81-b22e-6a5be2e03fb7"",
++       ""journal_entry_id"": ""0c800920-3d5b-4b05-811e-d985b8f5098c"",
++     },
++     Object {
++       ""account_code"": 1000,
++       ""credit"": 0,
++       ""debit"": ""NaN"",
++       ""id"": ""e1d09750-c176-4612-8871-e1f0a01beeaa"",
++       ""journal_entry_id"": ""0c800920-3d5b-4b05-811e-d985b8f5098c"",
++     },
++   ],
+    ""order_items"": Array [],
+    ""orders"": Array [],
+    ""payment_transactions"": Array [],
+    ""salary_advances"": Array [],
+    ""salary_history"": Array [],"
+GL-002,GL-002,GL-002 same account rejected by journal entity/service without persistence,tests/audit/finance.spec.cjs,150,validation,Entity/line checks lack finite-number and distinct-account validation; NaN and same-account journals persist.,server/src/modules/finance/JournalService.js; server/src/modules/finance/entities/LedgerLine.js; server/src/modules/finance/entities/JournalEntry.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: false
+Received: true
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  2
++ Received  + 27
+
+@@ -27,12 +27,37 @@
+        ""updated_at"": ""2026-11-09T08:46:22.051199"",
+        ""updated_by"": null,
+      },
+    ],
+    ""inventory_transactions"": Array [],
+-   ""journal_entries"": Array [],
+-   ""ledger_lines"": Array [],
++   ""journal_entries"": Array [
++     Object {
++       ""created_at"": ""2026-11-09T08:46:22.36317"",
++       ""created_by_user_id"": null,
++       ""description"": ""Invalid"",
++       ""id"": ""437aa770-0591-413b-8794-a16da29b486d"",
++       ""reference_id"": ""invalid"",
++       ""reference_type"": ""Audit"",
++       ""transaction_date"": ""2026-11-09T00:00:00"",
++     },
++   ],
++   ""ledger_lines"": Array [
++     Object {
++       ""account_code"": 1000,
++       ""credit"": 0,
++       ""debit"": 1,
++       ""id"": ""44fd30ff-4677-44b9-a74f-1cb754eaadb1"",
++       ""journal_entry_id"": ""437aa770-0591-413b-8794-a16da29b486d"",
++     },
++     Object {
++       ""account_code"": 1000,
++       ""credit"": 1,
++       ""debit"": 0,
++       ""id"": ""678a4310-3be9-4b38-8c1b-445afb569f2c"",
++       ""journal_entry_id"": ""437aa770-0591-413b-8794-a16da29b486d"",
++     },
++   ],
+    ""order_items"": Array [],
+    ""orders"": Array [],
+    ""payment_transactions"": Array [],
+    ""salary_advances"": Array [],
+    ""salary_history"": Array [],"
+GL-003,GL-003,GL-003 signed balances include equity and zero activity before an as-of cutoff,tests/audit/finance.spec.cjs,154,aggregation,Equity sign is wrong; cutoff WHERE conditions remove existing accounts without eligible activity and return false account-not-found errors.,server/src/modules/finance/JournalService.js; server/src/modules/finance/entities/LedgerLine.js; server/src/modules/finance/entities/JournalEntry.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 100
+Received: -100
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 0
+Received: undefined
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 0
+Received: undefined"
+GL-004,GL-004,GL-004 repeated reversal is idempotent and locked reversal leaves originals immutable,tests/audit/finance.spec.cjs,158,idempotency,Reversal has no uniqueness/processed guard; repeated calls create repeated effects.,server/src/modules/finance/JournalService.js; server/src/modules/finance/entities/LedgerLine.js; server/src/modules/finance/entities/JournalEntry.js,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 2
+Received array:  [{""id"": ""cf5b35d6-e327-4d1d-bfb6-8017b4acdbc6""}, {""id"": ""fbc49374-63ee-40c3-9ec3-cc1ee76cde76""}]"
+EMP-002,EMP-002,EMP-002 zero salary edits and clearing optional fields do not silently retain old values,tests/audit/hr.spec.cjs,21,state_integrity,"value || null/COALESCE retains zero/cleared fields, while history records submitted values and disagrees with persisted salary.",server/src/modules/employees/EmployeeService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 0
+Received: 30000
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: """"
+Received: ""123""
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 30000
+Received: 0"
+EMP-003,EMP-003,EMP-003 concurrent creation produces two unique employee codes,tests/audit/hr.spec.cjs,29,concurrency,MAX-ID based employee-code allocation races and one creation fails.,server/src/modules/employees/EmployeeService.js,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+  Array [
+-   201,
++   500,
+    201,
+  ]
+
+Error: expect(received).toHaveLength(expected)
+
+Expected length: 2
+Received length: 1
+Received array:  [{""employee_code"": ""EMP004""}]
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 2
+Received: 1"
+EMP-004,EMP-004,EMP-004 manager/staff cannot delete; owner receives a conflict for historical payroll dependencies,tests/audit/hr.spec.cjs,35,status_contract,Role denial and unchanged-state assertions pass; dependency conflict returns 500 instead of 409.,server/src/modules/employees/EmployeeService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 500"
+ATT-003,ATT-003,ATT-003 calendar completeness counts active staff and excludes inactive attendance,tests/audit/hr.spec.cjs,53,aggregation,Calendar numerator includes inactive attendance while employee denominator is active-only.,server/src/modules/attendance/service.js; server/src/modules/employees/AttendanceService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 2
+Received: 3"
+ATT-004,ATT-004,ATT-004 attendance/bulk rejects invalid statuses and preserves locked attendance,tests/audit/hr.spec.cjs,61,state_integrity,Both bulk namespaces accept arbitrary status and overwrite locked attendance.,server/src/modules/attendance/service.js; server/src/modules/employees/AttendanceService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 200
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: ""Absent""
+Received: ""Present"""
+ATT-004,ATT-004,ATT-004 employees/attendance/bulk rejects invalid statuses and preserves locked attendance,tests/audit/hr.spec.cjs,61,state_integrity,Both bulk namespaces accept arbitrary status and overwrite locked attendance.,server/src/modules/attendance/service.js; server/src/modules/employees/AttendanceService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 200
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: ""Absent""
+Received: ""Present"""
+LEAVE-002,LEAVE-002,LEAVE-002 reversed ranges are validation errors and valid cross-year dates retain exact day count,tests/audit/hr.spec.cjs,75,status_contract,Range CHECK rejects invalid input with 500 instead of 400; cross-year calculation assertions are separately reached.,server/src/modules/leaves/controller.js; server/src/modules/leaves/routes.js; server/src/config/permissions.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500"
+LEAVE-003,LEAVE-003,LEAVE-003 manager approval works and simultaneous owner approvals create one attendance event,tests/audit/hr.spec.cjs,79,authorization,Undefined HR_WRITE denies managers. Concurrent repeated owner approval returns 500 instead of 409; effect-count checks distinguish this from duplicate attendance.,server/src/modules/leaves/controller.js; server/src/modules/leaves/routes.js; server/src/config/permissions.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 403
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+  Array [
+    200,
+-   409,
++   500,
+  ]"
+LEAVE-004,LEAVE-004,LEAVE-004 bulk edits cannot overwrite approved leave attendance,tests/audit/hr.spec.cjs,84,state_integrity,Bulk save overwrites attendance associated with approved leave.,server/src/modules/attendance/service.js; server/src/modules/employees/AttendanceService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 200
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: ""Absent""
+Received: ""Present"""
+LEAVE-005,LEAVE-005,"LEAVE-005 staff cannot read, submit or delete another employee request",tests/audit/hr.spec.cjs,89,authorization,Staff token-only endpoints have no employee ownership checks for read/create/delete.,server/src/modules/leaves/controller.js; server/src/modules/leaves/routes.js; server/src/config/permissions.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 200"
+LEAVE-006,LEAVE-006,LEAVE-006 Paid leave earns pay while Unpaid leave does not,tests/audit/hr.spec.cjs,95,policy_assumption,Approved leave becomes Absent and earns no pay. Paid-versus-Unpaid expected behavior is provisional pending business confirmation.,server/src/modules/leaves/controller.js; server/src/modules/leaves/routes.js; server/src/config/permissions.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 1000
+Received: 0"
+ADV-002,ADV-002,ADV-002 manager approves a legacy request once with a source-linked ledger and journal,tests/audit/hr.spec.cjs,106,status_contract,First legacy approval and source journal pass; repeat returns 500 rather than 409 and snapshot proves no change.,server/src/modules/employees/AdvanceService.js; server/src/modules/advance-requests/controller.js; server/src/modules/finance/TransferService.js; server/src/config/permissions.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 500"
+ADV-002,ADV-002,ADV-002 manager can approve the standalone repayment-schedule request,tests/audit/hr.spec.cjs,112,authorization,Standalone manager approval fails at 403 because HR_WRITE is undefined; later schedule checks are not reached.,server/src/modules/employees/AdvanceService.js; server/src/modules/advance-requests/controller.js; server/src/modules/finance/TransferService.js; server/src/config/permissions.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 403"
+ADV-003,ADV-003,ADV-003 jointly excessive concurrent repayments cannot produce negative employee receivables,tests/audit/hr.spec.cjs,116,concurrency,Outstanding is read outside the request transaction; different repayments for one employee leave -200 receivable.,server/src/modules/employees/AdvanceService.js; server/src/modules/advance-requests/controller.js; server/src/modules/finance/TransferService.js; server/src/config/permissions.js,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 2
+Received array:  [{""body"": {""jeId"": ""4dbc1554-e485-433c-99f8-ba8c78cf93a8"", ""ledgerEntry"": {""advance_request_id"": 1, ""amount"": ""600.00"", ""approved_at"": ""2026-11-09T08:46:51.055Z"", ""approved_by"": 1, ""balance_after"": ""400.00"", ""employee_id"": 1, ""id"": 3, ""journal_entry_id"": ""4dbc1554-e485-433c-99f8-ba8c78cf93a8"", ""notes"": ""Audit advance"", ""paid_by"": ""Audit owner"", ""payment_mode"": ""Cash"", ""repayment_source"": null, ""salary_advance_id"": null, ""transaction_date"": ""2026-11-09T08:46:51.055Z"", ""transaction_type"": ""Repayment""}, ""message"": ""Approved successfully"", ""success"": true}, ""response"": {""_apiName"": ""APIResponse"", ""_headers"": {""_headersArray"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""_headersMap"": {""_map"": Map {""content-security-policy"" => [""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""], ""cross-origin-opener-policy"" => [""same-origin""], ""cross-origin-resource-policy"" => [""same-origin""], ""origin-agent-cluster"" => [""?1""], ""referrer-policy"" => [""no-referrer""], ""strict-transport-security"" => [""max-age=31536000; includeSubDomains""], ""x-content-type-options"" => [""nosniff""], ""x-dns-prefetch-control"" => [""off""], ""x-download-options"" => [""noopen""], ""x-frame-options"" => [""SAMEORIGIN""], …}}}, ""_initializer"": {""fetchUid"": ""e547e35a433e68c1f3d5669d781bd995"", ""headers"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""responseEndTiming"": 117.60599999999977, ""serverAddr"": {""ipAddress"": ""127.0.0.1"", ""port"": 33130}, ""status"": 200, ""statusText"": ""OK"", ""timing"": {""connectEnd"": -1, ""connectStart"": -1, ""domainLookupEnd"": -1, ""domainLookupStart"": -1, ""requestStart"": 0.16300000000046566, ""responseStart"": 117.51600000000326, ""secureConnectionStart"": -1, ""startTime"": 1794194211053}, ""url"": ""http://127.0.0.1:33130/api/employees/payroll/requests/1/approve""}, ""_request"": {""_guid"": ""request-context@dbc96c1e63bc9a70301642ea4ec1f010"", ""_type"": ""APIRequestContext""}, Symbol(nodejs.util.inspect.custom): [Function anonymous]}, ""status"": 200}, {""body"": {""jeId"": ""b8b87a50-47d3-482d-ba9e-11b51105e9e7"", ""ledgerEntry"": {""advance_request_id"": 2, ""amount"": ""600.00"", ""approved_at"": ""2026-11-09T08:46:51.058Z"", ""approved_by"": 1, ""balance_after"": ""400.00"", ""employee_id"": 1, ""id"": 2, ""journal_entry_id"": ""b8b87a50-47d3-482d-ba9e-11b51105e9e7"", ""notes"": ""Audit advance"", ""paid_by"": ""Audit owner"", ""payment_mode"": ""Cash"", ""repayment_source"": null, ""salary_advance_id"": null, ""transaction_date"": ""2026-11-09T08:46:51.058Z"", ""transaction_type"": ""Repayment""}, ""message"": ""Approved successfully"", ""success"": true}, ""response"": {""_apiName"": ""APIResponse"", ""_headers"": {""_headersArray"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""_headersMap"": {""_map"": Map {""content-security-policy"" => [""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""], ""cross-origin-opener-policy"" => [""same-origin""], ""cross-origin-resource-policy"" => [""same-origin""], ""origin-agent-cluster"" => [""?1""], ""referrer-policy"" => [""no-referrer""], ""strict-transport-security"" => [""max-age=31536000; includeSubDomains""], ""x-content-type-options"" => [""nosniff""], ""x-dns-prefetch-control"" => [""off""], ""x-download-options"" => [""noopen""], ""x-frame-options"" => [""SAMEORIGIN""], …}}}, ""_initializer"": {""fetchUid"": ""b80fed7955d8563c85055db1239b0c0a"", ""headers"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""responseEndTiming"": 116.09399999998277, ""serverAddr"": {""ipAddress"": ""127.0.0.1"", ""port"": 33130}, ""status"": 200, ""statusText"": ""OK"", ""timing"": {""connectEnd"": 0.510999999998603, ""connectStart"": 0, ""domainLookupEnd"": -1, ""domainLookupStart"": -1, ""requestStart"": 0.510999999998603, ""responseStart"": 115.93899999998393, ""secureConnectionStart"": -1, ""startTime"": 1794194211054}, ""url"": ""http://127.0.0.1:33130/api/employees/payroll/requests/2/approve""}, ""_request"": {""_guid"": ""request-context@dbc96c1e63bc9a70301642ea4ec1f010"", ""_type"": ""APIRequestContext""}, Symbol(nodejs.util.inspect.custom): [Function anonymous]}, ""status"": 200}]
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: -200"
+ADV-004,ADV-004,ADV-004 invalid amounts and negative repayment months are rejected without schedules,tests/audit/hr.spec.cjs,121,validation,Standalone amount/month inputs lack positive/finite validation.,server/src/modules/employees/AdvanceService.js; server/src/modules/advance-requests/controller.js; server/src/modules/finance/TransferService.js; server/src/config/permissions.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200
+
+Error: expect(received).toHaveLength(expected)
+
+Expected length: 0
+Received length: 1
+Received array:  [{""id"": 1}]"
+ADV-005,ADV-005,ADV-005 installment cents sum exactly to the approved amount,tests/audit/hr.spec.cjs,126,arithmetic,Independent installment rounding totals 999.99 for 1000/3; Date.setMonth overflows January 31 to March 3.,server/src/modules/employees/AdvanceService.js; server/src/modules/advance-requests/controller.js; server/src/modules/finance/TransferService.js; server/src/config/permissions.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 100000
+Received: 99999"
+ADV-005,ADV-005,ADV-005 January 31 schedules use February month-end instead of overflowing to March,tests/audit/hr.spec.cjs,134,arithmetic,Independent installment rounding totals 999.99 for 1000/3; Date.setMonth overflows January 31 to March 3.,server/src/modules/employees/AdvanceService.js; server/src/modules/advance-requests/controller.js; server/src/modules/finance/TransferService.js; server/src/config/permissions.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: ""2026-02-28""
+Received: ""2026-03-03"""
+ADV-006,ADV-006,ADV-006 failure to auto-approve a transfer leaves no partial advance request,tests/audit/hr.spec.cjs,140,transaction_integrity,Request creation commits before auto-approval; failed payment-mode approval leaves a Pending request.,server/src/modules/employees/AdvanceService.js; server/src/modules/advance-requests/controller.js; server/src/modules/finance/TransferService.js; server/src/config/permissions.js,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 21
+
+@@ -1,8 +1,28 @@
+  Object {
+    ""advance_ledger"": Array [],
+-   ""advance_requests"": Array [],
++   ""advance_requests"": Array [
++     Object {
++       ""approved_amount"": null,
++       ""approved_at"": null,
++       ""approved_by"": null,
++       ""employee_id"": 1,
++       ""id"": 1,
++       ""monthly_deduction"": null,
++       ""paid_by"": ""1"",
++       ""payment_mode"": ""invalid"",
++       ""reason"": ""Must roll back"",
++       ""rejection_reason"": null,
++       ""repayment_months"": 3,
++       ""requested_amount"": 1000,
++       ""requested_at"": ""2026-11-09T08:46:55.998217"",
++       ""requested_by"": 1,
++       ""status"": ""Pending"",
++       ""type"": ""Advance"",
++       ""urgency"": ""Normal"",
++     },
++   ],
+    ""bill_entries"": Array [],
+    ""inventory_items"": Array [
+      Object {
+        ""created_at"": ""2026-11-09T08:46:55.612198"",
+        ""created_by"": null,"
+PAY-004,PAY-004,PAY-004 explicit advance deductions never exceed gross salary or the outstanding balance,tests/audit/hr.spec.cjs,164,policy_assumption,Explicit recovery is capped at outstanding rather than gross: 40000 instead of expected 30000. Maximum deduction/zero-net policy still needs confirmation.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 30000
+Received: 40000"
+PAY-005,PAY-005,PAY-005 regenerating an approved record does not silently change its locked salary,tests/audit/hr.spec.cjs,168,state_integrity,Upsert changes salary/components while retaining Approved status.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+  Object {
+-   ""net_pay"": ""30000.00"",
++   ""net_pay"": ""15000.00"",
+    ""status"": ""Approved"",
+  }"
+PAY-006,PAY-006,PAY-006 approval and payout reject repeated or out-of-order transitions,tests/audit/hr.spec.cjs,172,status_contract,Repeated/out-of-order transitions return 200/500 rather than 409; the no-journal assertion passes.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 500
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 200"
+PAY-007,PAY-007,"PAY-007 FIFO partial recovery reconciles both advance models, ledger and source journals",tests/audit/hr.spec.cjs,178,state_integrity,"Recovered legacy fields update, but balance_remaining stays [600,800] instead of [0,400]; aggregate balance and source journals are separately verified.",server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 2
++ Received  + 2
+
+  Array [
+-   0,
+-   400,
++   600,
++   800,
+  ]"
+PAY-008,PAY-008,PAY-008 zero-net payroll completes advance recovery without invalid zero payment lines,tests/audit/hr.spec.cjs,188,integration,Zero-net payout attempts invalid zero-valued salary journal lines and prevents recovery completion.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500"
+PAY-009,PAY-009,PAY-009 Cash payout commits once despite concurrent repeated submissions,tests/audit/hr.spec.cjs,193,status_contract,Exactly one SalaryPayment journal is verified; the rejected repeated submission returns 500 instead of 409. This is not a reproduced double payout.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+  Array [
+    200,
+-   409,
++   500,
+  ]"
+PAY-009,PAY-009,PAY-009 UPI payout commits once despite concurrent repeated submissions,tests/audit/hr.spec.cjs,193,status_contract,Exactly one SalaryPayment journal is verified; the rejected repeated submission returns 500 instead of 409. This is not a reproduced double payout.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+  Array [
+    200,
+-   409,
++   500,
+  ]"
+PAY-009,PAY-009,PAY-009 Card payout commits once despite concurrent repeated submissions,tests/audit/hr.spec.cjs,193,status_contract,Exactly one SalaryPayment journal is verified; the rejected repeated submission returns 500 instead of 409. This is not a reproduced double payout.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+  Array [
+    200,
+-   409,
++   500,
+  ]"
+PAY-009,PAY-009,PAY-009 Bank Transfer payout commits once despite concurrent repeated submissions,tests/audit/hr.spec.cjs,193,integration,Bank Transfer does not resolve canonical bank; both calls return 500 and zero SalaryPayment journals are persisted.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 2
++ Received  + 2
+
+  Array [
+-   200,
+-   409,
++   500,
++   500,
+  ]
+
+Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 0
+Received array:  []"
+PAY-010,PAY-010,PAY-010 reverting one of two same-date payouts preserves the other and reverses cash exactly,tests/audit/hr.spec.cjs,197,state_integrity,Revert changes another employee payout description by date and leaves cash -75000 instead of -45000.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+@@ -1,10 +1,10 @@
+  Array [
+    Object {
+      ""created_at"": 2026-11-09T03:17:14.446Z,
+      ""created_by_user_id"": null,
+-     ""description"": ""Payroll Payout - Employee"",
++     ""description"": ""Payroll Payout - Employee [REVERSED - Payment Reverted]"",
+      ""id"": ""f3c6b356-4b13-43ea-803d-e64896379ab1"",
+      ""reference_id"": ""2"",
+      ""reference_type"": ""SalaryPayment"",
+      ""transaction_date"": 2026-11-08T18:30:00.000Z,
+    },
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: -45000
+Received: -75000"
+PAY-011,PAY-011,PAY-011 paid to approved to paid restores one net payout across the complete round trip,tests/audit/hr.spec.cjs,204,state_integrity,Revert does not reverse cash lines; another payout produces -60000 instead of one net -30000 payout.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: -30000
+Received: -60000"
+PAY-012,PAY-012,PAY-012 legacy zero-days payroll never substitutes a full month,tests/audit/hr.spec.cjs,210,integration,Legacy payroll inserts missing total_days_in_month and returns 500. Zero-day salary assertions are not reached.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500"
+PAY-009,PAY-009,PAY-009 payer name entered in the payout UI is accepted and persisted,tests/audit/payroll-ui.spec.cjs,3,integration,UI sends freeform paid_by but schema uses INTEGER; invalid integer input returns 500. The later persisted-state assertion is not reached.,server/src/modules/payroll/controller.js; server/src/modules/employees/PayrollService.js; client/src/pages/Payroll.jsx,"Error: {""error"":""invalid input syntax for type integer: \""Audit owner\""""}
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500"
+POS-003,POS-003,POS-003 the server uses stored prices and rejects unknown menu IDs atomically,tests/audit/pos-inventory.spec.cjs,25,state_integrity,Order service trusts submitted item price; unknown item rejection also has an internal-error status.,server/src/modules/pos/service.js; client/src/pages/POS.jsx; client/src/pages/MenuManagement.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 250
+Received: 1
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500"
+POS-004,POS-004,POS-004 Card UI checkout persists its payment mode and matching journal,tests/audit/pos-inventory.spec.cjs,33,integration,UI sends paymentMode; service reads paymentMethod. Card checkout therefore persists Cash and a cash journal.,server/src/modules/pos/service.js; client/src/pages/POS.jsx; client/src/pages/MenuManagement.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: ""Card""
+Received: ""Cash""
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: ""Card""
+Received: ""Cash""
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+@@ -1,8 +1,8 @@
+  Array [
+    Object {
+-     ""account"": 1010,
++     ""account"": 1000,
+      ""credit"": 0,
+      ""debit"": 250,
+    },
+    Object {
+      ""account"": 4000,"
+POS-005,POS-005,"POS-005 invalid quantity 0 is rejected without stock, payment or journal writes",tests/audit/pos-inventory.spec.cjs,46,status_contract,Invalid quantity rejection returns 500 instead of 400. All five persisted-state snapshots stay unchanged.,server/src/modules/pos/service.js; client/src/pages/POS.jsx; client/src/pages/MenuManagement.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500"
+POS-005,POS-005,"POS-005 invalid quantity -1 is rejected without stock, payment or journal writes",tests/audit/pos-inventory.spec.cjs,46,status_contract,Invalid quantity rejection returns 500 instead of 400. All five persisted-state snapshots stay unchanged.,server/src/modules/pos/service.js; client/src/pages/POS.jsx; client/src/pages/MenuManagement.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500"
+POS-005,POS-005,"POS-005 invalid quantity 0.5 is rejected without stock, payment or journal writes",tests/audit/pos-inventory.spec.cjs,46,status_contract,Invalid quantity rejection returns 500 instead of 400. All five persisted-state snapshots stay unchanged.,server/src/modules/pos/service.js; client/src/pages/POS.jsx; client/src/pages/MenuManagement.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500"
+POS-005,POS-005,"POS-005 invalid quantity NaN is rejected without stock, payment or journal writes",tests/audit/pos-inventory.spec.cjs,46,status_contract,Invalid quantity rejection returns 500 instead of 400. All five persisted-state snapshots stay unchanged.,server/src/modules/pos/service.js; client/src/pages/POS.jsx; client/src/pages/MenuManagement.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500"
+POS-005,POS-005,"POS-005 invalid quantity Infinity is rejected without stock, payment or journal writes",tests/audit/pos-inventory.spec.cjs,46,status_contract,Invalid quantity rejection returns 500 instead of 400. All five persisted-state snapshots stay unchanged.,server/src/modules/pos/service.js; client/src/pages/POS.jsx; client/src/pages/MenuManagement.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500"
+POS-008,POS-008,POS-008 simultaneous last-stock orders cannot overdraw ingredients,tests/audit/pos-inventory.spec.cjs,68,concurrency,Unconditional stock subtraction has no availability guard. Both orders commit; observed ingredient stock is -0.25.,server/src/modules/pos/service.js; client/src/pages/POS.jsx; client/src/pages/MenuManagement.jsx,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 2
+Received array:  [{""body"": {""orderId"": 1, ""success"": true, ""totalAmount"": 250}, ""response"": {""_apiName"": ""APIResponse"", ""_headers"": {""_headersArray"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""_headersMap"": {""_map"": Map {""content-security-policy"" => [""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""], ""cross-origin-opener-policy"" => [""same-origin""], ""cross-origin-resource-policy"" => [""same-origin""], ""origin-agent-cluster"" => [""?1""], ""referrer-policy"" => [""no-referrer""], ""strict-transport-security"" => [""max-age=31536000; includeSubDomains""], ""x-content-type-options"" => [""nosniff""], ""x-dns-prefetch-control"" => [""off""], ""x-download-options"" => [""noopen""], ""x-frame-options"" => [""SAMEORIGIN""], …}}}, ""_initializer"": {""fetchUid"": ""17a02d06b07f11bddff708844cb50b74"", ""headers"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""responseEndTiming"": 26.881999999983236, ""serverAddr"": {""ipAddress"": ""127.0.0.1"", ""port"": 33130}, ""status"": 200, ""statusText"": ""OK"", ""timing"": {""connectEnd"": -1, ""connectStart"": -1, ""domainLookupEnd"": -1, ""domainLookupStart"": -1, ""requestStart"": 0.08499999999185093, ""responseStart"": 26.706999999994878, ""secureConnectionStart"": -1, ""startTime"": 1794194255019}, ""url"": ""http://127.0.0.1:33130/api/orders""}, ""_request"": {""_guid"": ""request-context@6373a1e400833586e6e08d0155cc90c9"", ""_type"": ""APIRequestContext""}, Symbol(nodejs.util.inspect.custom): [Function anonymous]}, ""status"": 200}, {""body"": {""orderId"": 2, ""success"": true, ""totalAmount"": 250}, ""response"": {""_apiName"": ""APIResponse"", ""_headers"": {""_headersArray"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""_headersMap"": {""_map"": Map {""content-security-policy"" => [""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""], ""cross-origin-opener-policy"" => [""same-origin""], ""cross-origin-resource-policy"" => [""same-origin""], ""origin-agent-cluster"" => [""?1""], ""referrer-policy"" => [""no-referrer""], ""strict-transport-security"" => [""max-age=31536000; includeSubDomains""], ""x-content-type-options"" => [""nosniff""], ""x-dns-prefetch-control"" => [""off""], ""x-download-options"" => [""noopen""], ""x-frame-options"" => [""SAMEORIGIN""], …}}}, ""_initializer"": {""fetchUid"": ""5a5c58ab2a038a63ed91c58e300c6392"", ""headers"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""responseEndTiming"": 38.813999999983935, ""serverAddr"": {""ipAddress"": ""127.0.0.1"", ""port"": 33130}, ""status"": 200, ""statusText"": ""OK"", ""timing"": {""connectEnd"": 0.33999999999650754, ""connectStart"": 0, ""domainLookupEnd"": -1, ""domainLookupStart"": -1, ""requestStart"": 0.33999999999650754, ""responseStart"": 38.70799999998417, ""secureConnectionStart"": -1, ""startTime"": 1794194255020}, ""url"": ""http://127.0.0.1:33130/api/orders""}, ""_request"": {""_guid"": ""request-context@6373a1e400833586e6e08d0155cc90c9"", ""_type"": ""APIRequestContext""}, Symbol(nodejs.util.inspect.custom): [Function anonymous]}, ""status"": 200}]
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 0
+Received: -0.25"
+POS-009,POS-009,POS-009 retrying one idempotency key creates one durable order/payment/source journal,tests/audit/pos-inventory.spec.cjs,74,idempotency,"Idempotency-Key is not persisted/enforced; retry creates two orders, payments and sale journals.",server/src/modules/pos/service.js; client/src/pages/POS.jsx; client/src/pages/MenuManagement.jsx,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 2
+Received array:  [{""id"": 1}, {""id"": 2}]
+
+Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 2
+Received array:  [{""id"": ""114f15a5-2b9d-4137-a3ce-b14405e8f71b""}, {""id"": ""7d372c01-6c08-4380-8436-addbbd9e16b9""}]
+
+Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 2
+Received array:  [{""id"": ""f27cd202-73ed-4a0c-aa93-bd6693ad841d""}, {""id"": ""dcc5f8b0-76a6-400b-9a38-72e3247d9524""}]"
+POS-010,POS-010,POS-010 advertised SAVE & PRINT actually invokes printing after a committed sale,tests/audit/pos-inventory.spec.cjs,81,feature_gap,SAVE & PRINT changes success text but does not call window.print.,server/src/modules/pos/service.js; client/src/pages/POS.jsx; client/src/pages/MenuManagement.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 1
+Received: 0"
+MENU-001,MENU-001,MENU-001 supported menu creation/deletion persists and edit availability is explicit,tests/audit/pos-inventory.spec.cjs,89,feature_gap,Creation/deletion assertions pass; menu editing is absent from the routed UI.,server/src/modules/pos/service.js; client/src/pages/POS.jsx; client/src/pages/MenuManagement.jsx,"Error: Advertised menu editing
+
+expect(received).toBeGreaterThan(expected)
+
+Expected: > 0
+Received:   0"
+MENU-002,MENU-002,MENU-002 deleting a sold menu item preserves historical order details and recipes,tests/audit/pos-inventory.spec.cjs,97,status_contract,Sold menu item deletion hits a foreign key and returns 500 instead of 409.,server/src/modules/pos/service.js; client/src/pages/POS.jsx; client/src/pages/MenuManagement.jsx,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 500"
+INV-003,INV-003,"INV-003 invalid inventory values {""stock_qty"":-1,""unit_cost"":150} leave no partial changes",tests/audit/pos-inventory.spec.cjs,120,state_integrity,Values lack finite/nonnegative validation; negative inventory/cost and NaN persist.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  3
++ Received  + 14
+
+@@ -7,14 +7,14 @@
+        ""created_at"": ""2026-11-09T08:47:43.844588"",
+        ""created_by"": null,
+        ""created_by_user_id"": null,
+        ""id"": 1,
+        ""name"": ""Audit Chicken"",
+-       ""stock_qty"": 20,
++       ""stock_qty"": -1,
+        ""unit"": ""kg"",
+        ""unit_cost"": 150,
+-       ""updated_at"": ""2026-11-09T08:47:43.844588"",
++       ""updated_at"": ""2026-11-09T08:47:44.103936"",
+        ""updated_by"": null,
+      },
+      Object {
+        ""created_at"": ""2026-11-09T08:47:43.844588"",
+        ""created_by"": null,
+@@ -34,10 +34,21 @@
+    ""order_items"": Array [],
+    ""orders"": Array [],
+    ""payment_transactions"": Array [],
+    ""salary_advances"": Array [],
+    ""salary_history"": Array [],
+-   ""stock_movements"": Array [],
++   ""stock_movements"": Array [
++     Object {
++       ""created_at"": ""2026-11-09T08:47:44.103936"",
++       ""created_by_user_id"": 1,
++       ""details"": ""Manual Adjustment"",
++       ""id"": 1,
++       ""inventory_item_id"": 1,
++       ""movement_type"": ""ADJ_OUT"",
++       ""quantity_change"": 21,
++       ""related_document_id"": null,
++     },
++   ],
+    ""transactions"": Array [],
+    ""vendor_ledger"": Array [],
+    ""vendor_payments"": Array [],
+  }"
+INV-003,INV-003,"INV-003 invalid inventory values {""stock_qty"":20,""unit_cost"":-1} leave no partial changes",tests/audit/pos-inventory.spec.cjs,120,state_integrity,Values lack finite/nonnegative validation; negative inventory/cost and NaN persist.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 2
++ Received  + 2
+
+@@ -9,12 +9,12 @@
+        ""created_by_user_id"": null,
+        ""id"": 1,
+        ""name"": ""Audit Chicken"",
+        ""stock_qty"": 20,
+        ""unit"": ""kg"",
+-       ""unit_cost"": 150,
+-       ""updated_at"": ""2026-11-09T08:47:44.982041"",
++       ""unit_cost"": -1,
++       ""updated_at"": ""2026-11-09T08:47:45.369761"",
+        ""updated_by"": null,
+      },
+      Object {
+        ""created_at"": ""2026-11-09T08:47:44.982041"",
+        ""created_by"": null,"
+INV-003,INV-003,"INV-003 invalid inventory values {""stock_qty"":""NaN"",""unit_cost"":150} leave no partial changes",tests/audit/pos-inventory.spec.cjs,120,state_integrity,Values lack finite/nonnegative validation; negative inventory/cost and NaN persist.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 2
++ Received  + 2
+
+@@ -7,14 +7,14 @@
+        ""created_at"": ""2026-11-09T08:47:46.145193"",
+        ""created_by"": null,
+        ""created_by_user_id"": null,
+        ""id"": 1,
+        ""name"": ""Audit Chicken"",
+-       ""stock_qty"": 20,
++       ""stock_qty"": ""NaN"",
+        ""unit"": ""kg"",
+        ""unit_cost"": 150,
+-       ""updated_at"": ""2026-11-09T08:47:46.145193"",
++       ""updated_at"": ""2026-11-09T08:47:46.416148"",
+        ""updated_by"": null,
+      },
+      Object {
+        ""created_at"": ""2026-11-09T08:47:46.145193"",
+        ""created_by"": null,"
+INV-004,INV-004,INV-004 deleting inventory with historical wastage preserves dependencies,tests/audit/pos-inventory.spec.cjs,124,status_contract,Historical dependencies block deletion but produce HTTP 500 instead of conflict.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 409
+Received: 500"
+INV-005,INV-005,"INV-005 fractional wastage links the log, stock deduction and journal",tests/audit/pos-inventory.spec.cjs,130,state_integrity,Wastage lacks its persisted journal link and stock_movements record.,server/src/modules/operations/OperationsService.js; server/src/modules/operations/kds.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: ""ebc2572a-4ff8-460d-b0bd-29dc1ec168b5""
+Received: null
+
+Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 0
+Received array:  []"
+INV-006,INV-006,INV-006 excessive wastage is rejected and preserves inventory and accounting,tests/audit/pos-inventory.spec.cjs,138,state_integrity,Excessive wastage succeeds without checking available stock and leaves negative inventory.,server/src/modules/operations/OperationsService.js; server/src/modules/operations/kds.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  4
++ Received  + 29
+
+@@ -7,14 +7,14 @@
+        ""created_at"": ""2026-11-09T08:47:49.662767"",
+        ""created_by"": null,
+        ""created_by_user_id"": null,
+        ""id"": 1,
+        ""name"": ""Audit Chicken"",
+-       ""stock_qty"": 20,
++       ""stock_qty"": -1,
+        ""unit"": ""kg"",
+        ""unit_cost"": 150,
+-       ""updated_at"": ""2026-11-09T08:47:49.662767"",
++       ""updated_at"": ""2026-11-09T08:47:49.929847"",
+        ""updated_by"": null,
+      },
+      Object {
+        ""created_at"": ""2026-11-09T08:47:49.662767"",
+        ""created_by"": null,
+@@ -27,12 +27,37 @@
+        ""updated_at"": ""2026-11-09T08:47:49.662767"",
+        ""updated_by"": null,
+      },
+    ],
+    ""inventory_transactions"": Array [],
+-   ""journal_entries"": Array [],
+-   ""ledger_lines"": Array [],
++   ""journal_entries"": Array [
++     Object {
++       ""created_at"": ""2026-11-09T08:47:49.929847"",
++       ""created_by_user_id"": null,
++       ""description"": ""Wastage Logging: Excess"",
++       ""id"": ""f76d3aca-f653-4114-aabb-3fdab4404f64"",
++       ""reference_id"": ""1"",
++       ""reference_type"": ""Wastage"",
++       ""transaction_date"": ""2026-11-09T12:00:00"",
++     },
++   ],
++   ""ledger_lines"": Array [
++     Object {
++       ""account_code"": 6000,
++       ""credit"": 0,
++       ""debit"": 3150,
++       ""id"": ""889c00b9-6bd2-4a38-a37e-eea464504e0f"",
++       ""journal_entry_id"": ""f76d3aca-f653-4114-aabb-3fdab4404f64"",
++     },
++     Object {
++       ""account_code"": 1200,
++       ""credit"": 3150,
++       ""debit"": 0,
++       ""id"": ""fd015b53-40b0-43d0-a3f5-cd2fecb48c45"",
++       ""journal_entry_id"": ""f76d3aca-f653-4114-aabb-3fdab4404f64"",
++     },
++   ],
+    ""order_items"": Array [],
+    ""orders"": Array [],
+    ""payment_transactions"": Array [],
+    ""salary_advances"": Array [],
+    ""salary_history"": Array [],"
+RATES-002,RATES-002,RATES-002 invalid rate -1 is rejected without changing stored rates,tests/audit/procurement.spec.cjs,24,validation,Negative/NaN rates persist; Infinity fails at the database with 500 rather than validation.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 4
++ Received  + 4
+
+@@ -3,12 +3,12 @@
+      Object {
+        ""boiler_rate"": 100,
+        ""created_at"": ""2026-11-09T08:47:51.720505"",
+        ""date"": ""2026-11-09"",
+        ""egg_rate"": 6,
+-       ""status"": ""confirmed"",
+-       ""tandoor_rate"": 150,
+-       ""updated_at"": null,
+-       ""updated_by"": null,
++       ""status"": ""pending"",
++       ""tandoor_rate"": -1,
++       ""updated_at"": ""2026-11-09T08:47:51.973903"",
++       ""updated_by"": 1,
+      },
+    ],
+  }"
+RATES-002,RATES-002,RATES-002 invalid rate NaN is rejected without changing stored rates,tests/audit/procurement.spec.cjs,24,validation,Negative/NaN rates persist; Infinity fails at the database with 500 rather than validation.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 4
++ Received  + 4
+
+@@ -3,12 +3,12 @@
+      Object {
+        ""boiler_rate"": 100,
+        ""created_at"": ""2026-11-09T08:47:52.854247"",
+        ""date"": ""2026-11-09"",
+        ""egg_rate"": 6,
+-       ""status"": ""confirmed"",
+-       ""tandoor_rate"": 150,
+-       ""updated_at"": null,
+-       ""updated_by"": null,
++       ""status"": ""pending"",
++       ""tandoor_rate"": ""NaN"",
++       ""updated_at"": ""2026-11-09T08:47:53.133744"",
++       ""updated_by"": 1,
+      },
+    ],
+  }"
+RATES-002,RATES-002,RATES-002 invalid rate Infinity is rejected without changing stored rates,tests/audit/procurement.spec.cjs,24,validation,Negative/NaN rates persist; Infinity fails at the database with 500 rather than validation.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500"
+MARKUP-002,MARKUP-002,MARKUP-002 zero second operands are retained and division by zero is rejected,tests/audit/procurement.spec.cjs,43,validation,Zero operands become null through value || null; division by zero is silently ignored.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).not.toBeNull()
+
+Received: null
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 0
+Received: 160
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200"
+MARKUP-004,MARKUP-004,"MARKUP-004 negative results clamp to zero, decimals round, and duplicate rules update once",tests/audit/procurement.spec.cjs,56,cascade,Arithmetic/upsert checks passed. Earlier bill BEGIN without COMMIT hides later markup deletion. Independent reproduction proves standalone deletion commits normally.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 0
+Received length: 1
+Received array:  [{""id"": 1}]"
+BILL-001,BILL-001,BILL-001 bill success commits on an independent connection for Audit Chicken,tests/audit/procurement.spec.cjs,65,transaction_leak,createBillEntry returns without COMMIT. Independent observer finds no bill. Variance/financial round-trip failures follow from the missing persisted source; later round-trip stages are not reached.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 0
+Received array:  []"
+BILL-001,BILL-001,BILL-001 bill success commits on an independent connection for Unmatched stock item,tests/audit/procurement.spec.cjs,65,transaction_leak,createBillEntry returns without COMMIT. Independent observer finds no bill. Variance/financial round-trip failures follow from the missing persisted source; later round-trip stages are not reached.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 0
+Received array:  []"
+BILL-002,BILL-002,BILL-002 missing rates and nonexistent suppliers are rejected without partial writes,tests/audit/procurement.spec.cjs,70,status_contract,Missing-rate/nonexistent-supplier errors return internal errors instead of validation/not-found statuses.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 404
+Received: 500"
+BILL-003,BILL-003,BILL-003 fractional quantity and vendor rate 150 persist the exact variance,tests/audit/procurement.spec.cjs,77,transaction_leak,createBillEntry returns without COMMIT. Independent observer finds no bill. Variance/financial round-trip failures follow from the missing persisted source; later round-trip stages are not reached.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 5
++ Received  + 1
+
+- Array [
+-   Object {
+-     ""variance"": ""-12.50"",
+-   },
+- ]
++ Array []"
+BILL-003,BILL-003,BILL-003 fractional quantity and vendor rate 160 persist the exact variance,tests/audit/procurement.spec.cjs,77,transaction_leak,createBillEntry returns without COMMIT. Independent observer finds no bill. Variance/financial round-trip failures follow from the missing persisted source; later round-trip stages are not reached.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 5
++ Received  + 1
+
+- Array [
+-   Object {
+-     ""variance"": ""0.00"",
+-   },
+- ]
++ Array []"
+BILL-003,BILL-003,BILL-003 fractional quantity and vendor rate 170 persist the exact variance,tests/audit/procurement.spec.cjs,77,transaction_leak,createBillEntry returns without COMMIT. Independent observer finds no bill. Variance/financial round-trip failures follow from the missing persisted source; later round-trip stages are not reached.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 5
++ Received  + 1
+
+- Array [
+-   Object {
+-     ""variance"": ""12.50"",
+-   },
+- ]
++ Array []"
+BILL-004,BILL-004,BILL-004 repeated and concurrent approvals post one liability and source journal,tests/audit/procurement.spec.cjs,82,state_integrity,Repeat approval appends two liabilities and no source-linked Bill journal.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 2
+Received array:  [{""id"": 1}, {""id"": 2}]
+
+Error: Exactly one source-linked Bill journal
+
+expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 0
+Received array:  []"
+BILL-005,BILL-005,BILL-005 approved bill rejection preserves the original liability and posts a reversing event,tests/audit/procurement.spec.cjs,89,state_integrity,Rejection deletes the posted liability without a reversing source journal.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 6
++ Received  + 1
+
+- Array [
+-   Object {
+-     ""amount"": ""320.00"",
+-     ""id"": 1,
+-   },
+- ]
++ Array []
+
+Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 0
+Received array:  []"
+BILL-006,BILL-006,BILL-006 partly settled bill rejection cannot produce negative supplier outstanding,tests/audit/procurement.spec.cjs,96,state_integrity,Rejecting a partly paid bill leaves supplier outstanding -100.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+Expected: >= 0
+Received:    -100"
+BILL-007,BILL-007,BILL-007 closed-period bill creation is rejected without bill or inventory changes,tests/audit/procurement.spec.cjs,104,period_lock,The bill writer has no effective closed-period guard and returns success for a locked date.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200"
+VENDOR-001,VENDOR-001,VENDOR-001 supplier profile edits preserve opening balance and linked account,tests/audit/procurement.spec.cjs,109,state_integrity,Supplier SQL drops the requested opening balance; stored 0 disagrees with requested 500.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 500
+Received: 0"
+VENDOR-002,VENDOR-002,VENDOR-002 concurrent supplier creation assigns two distinct durable accounts,tests/audit/procurement.spec.cjs,114,concurrency,MAX(code)+1 account allocation races; one supplier creation fails with a unique collision.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+  Array [
+    200,
+-   200,
++   500,
+  ]
+
+Error: expect(received).toHaveLength(expected)
+
+Expected length: 2
+Received length: 1
+Received array:  [{""ledger_account_code"": 2001}]
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 2
+Received: 1"
+VENDOR-003,VENDOR-003,"VENDOR-003 partial and full Bank Transfer settlements reconcile payment, supplier and journal",tests/audit/procurement.spec.cjs,121,integration,Bank Transfer does not resolve canonical bank; Card fails the vendor payment CHECK. Settlement stages stop at those failures.,server/src/modules/vendors/VendorPaymentService.js; server/src/modules/vendors/ledger.service.js; server/src/modules/finance/PaymentModeService.js,"Error: {""error"":""Invalid or inactive payment mode: Bank Transfer""}
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500"
+VENDOR-003,VENDOR-003,"VENDOR-003 partial and full Card settlements reconcile payment, supplier and journal",tests/audit/procurement.spec.cjs,121,integration,Bank Transfer does not resolve canonical bank; Card fails the vendor payment CHECK. Settlement stages stop at those failures.,server/src/modules/vendors/VendorPaymentService.js; server/src/modules/vendors/ledger.service.js; server/src/modules/finance/PaymentModeService.js,"Error: {""error"":""new row for relation \""vendor_payments\"" violates check constraint \""vendor_payments_payment_mode_check\""""}
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500"
+VENDOR-004,VENDOR-004,"VENDOR-004 invalid settlement 0 leaves payment, supplier and GL unchanged",tests/audit/procurement.spec.cjs,128,status_contract,Invalid amounts return 500 instead of 400; persisted snapshots confirm no partial settlement.,server/src/modules/vendors/VendorPaymentService.js; server/src/modules/vendors/ledger.service.js; server/src/modules/finance/PaymentModeService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500"
+VENDOR-004,VENDOR-004,"VENDOR-004 invalid settlement -1 leaves payment, supplier and GL unchanged",tests/audit/procurement.spec.cjs,128,status_contract,Invalid amounts return 500 instead of 400; persisted snapshots confirm no partial settlement.,server/src/modules/vendors/VendorPaymentService.js; server/src/modules/vendors/ledger.service.js; server/src/modules/finance/PaymentModeService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500"
+VENDOR-004,VENDOR-004,"VENDOR-004 invalid settlement 1001 leaves payment, supplier and GL unchanged",tests/audit/procurement.spec.cjs,128,status_contract,Invalid amounts return 500 instead of 400; persisted snapshots confirm no partial settlement.,server/src/modules/vendors/VendorPaymentService.js; server/src/modules/vendors/ledger.service.js; server/src/modules/finance/PaymentModeService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500"
+VENDOR-005,VENDOR-005,VENDOR-005 two jointly excessive concurrent payments cannot over-settle a supplier,tests/audit/procurement.spec.cjs,131,concurrency,Outstanding read is not serialized; two 600 payments against 1000 commit and leave -200 outstanding.,server/src/modules/vendors/VendorPaymentService.js; server/src/modules/vendors/ledger.service.js; server/src/modules/finance/PaymentModeService.js,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 2
+Received array:  [{""body"": {""newBalance"": 400, ""payment"": {""amount"": ""600.00"", ""attachment_url"": null, ""created_at"": ""2026-11-09T08:48:23.023Z"", ""created_by"": 1, ""created_by_user_id"": null, ""id"": 2, ""journal_entry_id"": null, ""notes"": ""Audit settlement"", ""paid_by"": ""Audit owner"", ""payment_date"": ""2026-11-09T00:00:00.000Z"", ""payment_mode"": ""Cash"", ""reference_number"": ""one"", ""vendor_id"": 1}, ""success"": true}, ""response"": {""_apiName"": ""APIResponse"", ""_headers"": {""_headersArray"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""_headersMap"": {""_map"": Map {""content-security-policy"" => [""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""], ""cross-origin-opener-policy"" => [""same-origin""], ""cross-origin-resource-policy"" => [""same-origin""], ""origin-agent-cluster"" => [""?1""], ""referrer-policy"" => [""no-referrer""], ""strict-transport-security"" => [""max-age=31536000; includeSubDomains""], ""x-content-type-options"" => [""nosniff""], ""x-dns-prefetch-control"" => [""off""], ""x-download-options"" => [""noopen""], ""x-frame-options"" => [""SAMEORIGIN""], …}}}, ""_initializer"": {""fetchUid"": ""1d97fb7a3df0bf50376ae9526384b50b"", ""headers"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""responseEndTiming"": 132.1150000000198, ""serverAddr"": {""ipAddress"": ""127.0.0.1"", ""port"": 33130}, ""status"": 200, ""statusText"": ""OK"", ""timing"": {""connectEnd"": -1, ""connectStart"": -1, ""domainLookupEnd"": -1, ""domainLookupStart"": -1, ""requestStart"": 0.14600000000791624, ""responseStart"": 131.96100000001024, ""secureConnectionStart"": -1, ""startTime"": 1794194303022}, ""url"": ""http://127.0.0.1:33130/api/vendors/payments""}, ""_request"": {""_guid"": ""request-context@ab00d111dcdb0bc8e979a4878ff2569e"", ""_type"": ""APIRequestContext""}, Symbol(nodejs.util.inspect.custom): [Function anonymous]}, ""status"": 200}, {""body"": {""newBalance"": -200, ""payment"": {""amount"": ""600.00"", ""attachment_url"": null, ""created_at"": ""2026-11-09T08:48:23.026Z"", ""created_by"": 1, ""created_by_user_id"": null, ""id"": 1, ""journal_entry_id"": null, ""notes"": ""Audit settlement"", ""paid_by"": ""Audit owner"", ""payment_date"": ""2026-11-09T00:00:00.000Z"", ""payment_mode"": ""Cash"", ""reference_number"": ""two"", ""vendor_id"": 1}, ""success"": true}, ""response"": {""_apiName"": ""APIResponse"", ""_headers"": {""_headersArray"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""_headersMap"": {""_map"": Map {""content-security-policy"" => [""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""], ""cross-origin-opener-policy"" => [""same-origin""], ""cross-origin-resource-policy"" => [""same-origin""], ""origin-agent-cluster"" => [""?1""], ""referrer-policy"" => [""no-referrer""], ""strict-transport-security"" => [""max-age=31536000; includeSubDomains""], ""x-content-type-options"" => [""nosniff""], ""x-dns-prefetch-control"" => [""off""], ""x-download-options"" => [""noopen""], ""x-frame-options"" => [""SAMEORIGIN""], …}}}, ""_initializer"": {""fetchUid"": ""86e8eabfa5b6cf3c421015f162399239"", ""headers"": [{""name"": ""Content-Security-Policy"", ""value"": ""default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests""}, {""name"": ""Cross-Origin-Opener-Policy"", ""value"": ""same-origin""}, {""name"": ""Cross-Origin-Resource-Policy"", ""value"": ""same-origin""}, {""name"": ""Origin-Agent-Cluster"", ""value"": ""?1""}, {""name"": ""Referrer-Policy"", ""value"": ""no-referrer""}, {""name"": ""Strict-Transport-Security"", ""value"": ""max-age=31536000; includeSubDomains""}, {""name"": ""X-Content-Type-Options"", ""value"": ""nosniff""}, {""name"": ""X-DNS-Prefetch-Control"", ""value"": ""off""}, {""name"": ""X-Download-Options"", ""value"": ""noopen""}, {""name"": ""X-Frame-Options"", ""value"": ""SAMEORIGIN""}, …], ""responseEndTiming"": 155.07699999999022, ""serverAddr"": {""ipAddress"": ""127.0.0.1"", ""port"": 33130}, ""status"": 200, ""statusText"": ""OK"", ""timing"": {""connectEnd"": 0.31900000001769513, ""connectStart"": 0, ""domainLookupEnd"": -1, ""domainLookupStart"": -1, ""requestStart"": 0.31900000001769513, ""responseStart"": 154.90100000001257, ""secureConnectionStart"": -1, ""startTime"": 1794194303022}, ""url"": ""http://127.0.0.1:33130/api/vendors/payments""}, ""_request"": {""_guid"": ""request-context@ab00d111dcdb0bc8e979a4878ff2569e"", ""_type"": ""APIRequestContext""}, Symbol(nodejs.util.inspect.custom): [Function anonymous]}, ""status"": 200}]
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: -200"
+VENDOR-006,VENDOR-006,VENDOR-006 retrying a settlement reference never duplicates payment or journal,tests/audit/procurement.spec.cjs,136,idempotency,Repeated reference number is accepted; two payments and source journals persist.,server/src/modules/vendors/VendorPaymentService.js; server/src/modules/vendors/ledger.service.js; server/src/modules/finance/PaymentModeService.js,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 2
+Received array:  [{""id"": 1}, {""id"": 2}]
+
+Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 2
+Received array:  [{""id"": ""5076e564-620e-4198-b85b-02dda01d0ad6""}, {""id"": ""a6eb2fcc-775d-46aa-8938-4a96df2cdd44""}]"
+VENDOR-007,VENDOR-007,VENDOR-007 date-filtered running balance includes prior bills and subtracts payments,tests/audit/procurement.spec.cjs,141,aggregation,Date-filtered running balance loses prior activity and mishandles payment signs.,server/src/modules/vendors/VendorPaymentService.js; server/src/modules/vendors/ledger.service.js; server/src/modules/finance/PaymentModeService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 600
+Received: 100
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 300"
+VENDOR-008,VENDOR-008,VENDOR-008 a fully settled supplier has zero outstanding aged debt,tests/audit/procurement.spec.cjs,147,aggregation,Aging sums old bills without allocating payments; a settled supplier still shows 1000 aged debt.,server/src/modules/vendors/VendorPaymentService.js; server/src/modules/vendors/ledger.service.js; server/src/modules/finance/PaymentModeService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 0
+Received: 1000"
+VENDOR-009,VENDOR-009,VENDOR-009 supplier settlements use that supplier account instead of a shared payable,tests/audit/procurement.spec.cjs,152,state_integrity,Settlement debits shared 2000 rather than dedicated supplier payable 2011.,server/src/modules/vendors/VendorPaymentService.js; server/src/modules/vendors/ledger.service.js; server/src/modules/finance/PaymentModeService.js,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+@@ -3,10 +3,10 @@
+      ""account"": 1000,
+      ""credit"": 100,
+      ""debit"": 0,
+    },
+    Object {
+-     ""account"": 2011,
++     ""account"": 2000,
+      ""credit"": 0,
+      ""debit"": 100,
+    },
+  ]"
+PO-001,PO-001,"PO-001 receiving multiple items records quantities, movements, liability and source journal",tests/audit/procurement.spec.cjs,158,state_integrity,Receipt changes stock/liability without required stock movements or PurchaseOrder journal.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 2
+Received length: 0
+Received array:  []
+
+Error: Exactly one source-linked PurchaseOrder journal
+
+expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 0
+Received array:  []"
+PO-002,PO-002,PO-002 resetting and re-receiving a PO never adds its stock or liability twice,tests/audit/procurement.spec.cjs,166,idempotency,Reset/re-receive reapplies stock/liability: stock 24 instead of 22 and two liability rows.,server/src/modules/inventory/service.js; server/src/modules/inventory/po.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 22
+Received: 24
+
+Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 2
+Received array:  [{""id"": 1}, {""id"": 2}]"
+KDS-001,KDS-001,KDS-001 ticket transitions persist timestamps and reject unsupported status values,tests/audit/procurement.spec.cjs,172,validation,Ticket update accepts unsupported status values.,server/src/modules/operations/OperationsService.js; server/src/modules/operations/kds.controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200"
+KDS-002,KDS-002,KDS-002 a POS sale appears automatically as one kitchen ticket,tests/audit/procurement.spec.cjs,180,feature_gap,POS createOrder never creates a kitchen ticket.,server/src/modules/operations/OperationsService.js; server/src/modules/operations/kds.controller.js,"Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 0
+Received array:  []"
+REPORT-001,REPORT-001,"REPORT-001 overview, expense breakdown and revenue trends reconcile reversals to GL",tests/audit/reports-config-ai.spec.cjs,7,aggregation,Aggregates exclude opposing reversal lines; date-only end timestamps exclude late-day transactions.,server/src/modules/reports/controller.js; server/src/modules/reports/routes.js; client/src/pages/reports/FinancialReports.jsx; server/src/modules/dashboard/controller.js; server/src/modules/ai/controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 800
+Received: 1000
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 250
+Received: 300
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 550
+Received: 700
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 250
+Received: 300
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 800
+Received: 1000
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 800
+Received: 1000
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 800
+Received: 1000"
+REPORT-001,REPORT-001,REPORT-001 inclusive end date contains transactions at 23:59:59,tests/audit/reports-config-ai.spec.cjs,14,aggregation,Aggregates exclude opposing reversal lines; date-only end timestamps exclude late-day transactions.,server/src/modules/reports/controller.js; server/src/modules/reports/routes.js; client/src/pages/reports/FinancialReports.jsx; server/src/modules/dashboard/controller.js; server/src/modules/ai/controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 123
+Received: 0"
+REPORT-002,REPORT-002,REPORT-002 historical balance sheet excludes future account movements and satisfies equation,tests/audit/reports-config-ai.spec.cjs,18,aggregation,"The cutoff on a LEFT JOIN to headers does not constrain already joined ledger amounts, including future movements.",server/src/modules/reports/controller.js; server/src/modules/reports/routes.js; client/src/pages/reports/FinancialReports.jsx; server/src/modules/dashboard/controller.js; server/src/modules/ai/controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 100
+Received: 1000
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 0
+Received: 900"
+REPORT-003,REPORT-003,REPORT-003 capitalized advances and repayments agree in employee report and summary,tests/audit/reports-config-ai.spec.cjs,22,aggregation,Details normalize advance type but summary exact-lowercase comparisons lose capitalized ledger rows.,server/src/modules/reports/controller.js; server/src/modules/reports/routes.js; client/src/pages/reports/FinancialReports.jsx; server/src/modules/dashboard/controller.js; server/src/modules/ai/controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 1000
+Received: 0
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 0"
+REPORT-004,REPORT-004,REPORT-004 attendance percentage includes the earned half-day proportion,tests/audit/reports-config-ai.spec.cjs,26,aggregation,Attendance percentage excludes Half-Day weighting.,server/src/modules/reports/controller.js; server/src/modules/reports/routes.js; client/src/pages/reports/FinancialReports.jsx; server/src/modules/dashboard/controller.js; server/src/modules/ai/controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 50
+Received: 33.33
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 50
+Received: 33.33"
+DASH-001,DASH-001,DASH-001 dashboard KPIs agree with net financial and advance balances,tests/audit/reports-config-ai.spec.cjs,41,aggregation,Dashboard KPI queries repeat reversal/sign/case aggregation defects.,server/src/modules/reports/controller.js; server/src/modules/reports/routes.js; client/src/pages/reports/FinancialReports.jsx; server/src/modules/dashboard/controller.js; server/src/modules/ai/controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 800
+Received: 1000
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 550
+Received: 700
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 600
+Received: -1400"
+AI-001,AI-001,AI-001 no history yields zero and weighted completed recipes retain ingredient units,tests/audit/reports-config-ai.spec.cjs,48,integration,Forecast returns generic units instead of the inventory ingredient unit.,server/src/modules/reports/controller.js; server/src/modules/reports/routes.js; client/src/pages/reports/FinancialReports.jsx; server/src/modules/dashboard/controller.js; server/src/modules/ai/controller.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: ""kg""
+Received: ""units"""
+CFG-001,CFG-001,CFG-001 inactive options remain reachable in the management screen for reactivation,tests/audit/reports-config-ai.spec.cjs,66,integration,"Management uses active-only option reads, hiding disabled options needed for reactivation.",server/src/modules/config/routes.js; server/src/modules/config/controller.js; server/src/modules/config/service.js; client/src/pages/config/ConfigManager.jsx; server/src/modules/finance/PaymentModeService.js,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText('Audit Inactive Option', { exact: true })
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""toBeVisible"" getByText('Audit Inactive Option', { exact: true }) with timeout 5000ms
+  - waiting for getByText('Audit Inactive Option', { exact: true })
+"
+CFG-002,CFG-002,CFG-002 staff cannot mutate and an ID from another category cannot be deleted,tests/audit/reports-config-ai.spec.cjs,70,authorization,JWT-only routes permit staff/cross-category writes; partial update overwrites omitted fields instead of merging.,server/src/modules/config/routes.js; server/src/modules/config/controller.js; server/src/modules/config/service.js; client/src/pages/config/ConfigManager.jsx; server/src/modules/finance/PaymentModeService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 201
+
+Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  0
++ Received  + 12
+
+@@ -455,10 +455,22 @@
+        ""metadata"": Object {},
+        ""updated_at"": ""2026-11-09T08:44:17.835845"",
+        ""value"": ""=="",
+      },
+      Object {
++       ""category"": ""units"",
++       ""created_at"": ""2026-11-09T08:48:53.833544"",
++       ""created_by"": 3,
++       ""display_order"": 0,
++       ""id"": 44,
++       ""is_active"": true,
++       ""label"": ""Unauthorized"",
++       ""metadata"": Object {},
++       ""updated_at"": ""2026-11-09T08:48:53.833544"",
++       ""value"": ""unauthorized"",
++     },
++     Object {
+        ""category"": ""item_categories"",
+        ""created_at"": ""2026-11-09T08:44:17.835845"",
+        ""created_by"": null,
+        ""display_order"": 5,
+        ""id"": 5,
+
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 404
+Received: 200
+
+Error: expect(received).toHaveLength(expected)
+
+Expected length: 1
+Received length: 0
+Received array:  []"
+CFG-002,CFG-002,"CFG-002 partial label update retains value, activation, metadata and display order",tests/audit/reports-config-ai.spec.cjs,75,integration,Partial SQL update replaces omitted value/is_active fields rather than retaining them and returns 500; later field-preservation assertions are not reached.,server/src/modules/config/routes.js; server/src/modules/config/controller.js; server/src/modules/config/service.js; client/src/pages/config/ConfigManager.jsx; server/src/modules/finance/PaymentModeService.js,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500"
+CFG-003,CFG-003,CFG-003 configured active payment label is accepted by financial services,tests/audit/reports-config-ai.spec.cjs,79,integration,Display labels differ from canonical payment names accepted by the resolver.,server/src/modules/config/routes.js; server/src/modules/config/controller.js; server/src/modules/config/service.js; client/src/pages/config/ConfigManager.jsx; server/src/modules/finance/PaymentModeService.js,"Error: Bank Transfer
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500
+
+Error: Card/POS
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500
+
+Error: Manager Float
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500
+
+Error: UPI Payment
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500"
+UI-001,SCREEN-001; UI-001,UI-001 SCREEN-001 visible buttons and form fields have programmatic accessible names /login,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 16
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": ""you@example.com"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""email"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""••••••••"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""password"",
++   },
++ ]"
+SCREEN-002,SCREEN-002,SCREEN-002 failed data requests show feedback and recover after reload /,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-002; UI-001,UI-001 SCREEN-002 visible buttons and form fields have programmatic accessible names /,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 30
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""Search item..."",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""text"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+UI-001,SCREEN-003; UI-001,UI-001 SCREEN-003 visible buttons and form fields have programmatic accessible names /dashboard,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+UI-001,SCREEN-004; UI-001,UI-001 SCREEN-004 visible buttons and form fields have programmatic accessible names /employees,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+UI-001,SCREEN-005; UI-001,UI-001 SCREEN-005 visible buttons and form fields have programmatic accessible names /menu,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-006,SCREEN-006,SCREEN-006 failed data requests show feedback and recover after reload /payroll,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-006; UI-001,UI-001 SCREEN-006 visible buttons and form fields have programmatic accessible names /payroll,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 23
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": ""payroll-month"",
++     ""placeholder"": null,
++     ""tag"": ""SELECT"",
++     ""text"": ""JanuaryFebruaryMarchAprilMayJuneJulyAugustSeptemberOctoberNo"",
++     ""type"": null,
++   },
++   Object {
++     ""id"": ""payroll-year"",
++     ""placeholder"": null,
++     ""tag"": ""SELECT"",
++     ""text"": ""20242025"",
++     ""type"": null,
++   },
++ ]"
+UI-001,SCREEN-007; UI-001,UI-001 SCREEN-007 visible buttons and form fields have programmatic accessible names /advances,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 16
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""SELECT"",
++     ""text"": ""All EmployeesAudit ManagerAudit StaffOther Employee"",
++     ""type"": null,
++   },
++ ]"
+SCREEN-008,SCREEN-008,SCREEN-008 failed data requests show feedback and recover after reload /vendor-payments,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-008; UI-001,UI-001 SCREEN-008 visible buttons and form fields have programmatic accessible names /vendor-payments,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+UI-001,SCREEN-009; UI-001,UI-001 SCREEN-009 visible buttons and form fields have programmatic accessible names /inventory,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-010,SCREEN-010,SCREEN-010 failed data requests show feedback and recover after reload /finance,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-010; UI-001,UI-001 SCREEN-010 visible buttons and form fields have programmatic accessible names /finance,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 23
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-011,SCREEN-011,SCREEN-011 failed data requests show feedback and recover after reload /finance/payments,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-011; UI-001,UI-001 SCREEN-011 visible buttons and form fields have programmatic accessible names /finance/payments,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 37
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""SELECT"",
++     ""text"": ""-- Select Supplier --Audit Chicken Supplier (Chicken)Other S"",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""0.00"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""number"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""SELECT"",
++     ""text"": ""Select an optionCashUPIBank TransferCheque"",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""Transaction ID, Cheque No, etc."",
++     ""tag"": ""TEXTAREA"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+UI-001,SCREEN-012; UI-001,UI-001 SCREEN-012 visible buttons and form fields have programmatic accessible names /finance/summary,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 16
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""date"",
++   },
++ ]"
+UI-001,SCREEN-013; UI-001,UI-001 SCREEN-013 visible buttons and form fields have programmatic accessible names /finance/daily-tracker,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 58
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""date"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""Description"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""text"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""0.00"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""number"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""SELECT"",
++     ""text"": ""- Category -ConsultingSales"",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""SELECT"",
++     ""text"": ""- Method -Bank TransferCard/POSCashChequeManager FloatUPI Pa"",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+UI-001,SCREEN-014; UI-001,UI-001 SCREEN-014 visible buttons and form fields have programmatic accessible names /finance/float,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 16
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""date"",
++   },
++ ]"
+SCREEN-015,SCREEN-015,SCREEN-015 failed data requests show feedback and recover after reload /finance/mappings,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-015; UI-001,UI-001 SCREEN-015 visible buttons and form fields have programmatic accessible names /finance/mappings,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-016,SCREEN-016,SCREEN-016 failed data requests show feedback and recover after reload /finance/transfer,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-016; UI-001,UI-001 SCREEN-016 visible buttons and form fields have programmatic accessible names /finance/transfer,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 30
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""SELECT"",
++     ""text"": ""Select UserAudit manager (manager)Audit owner (owner)Audit s"",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""0.00"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""number"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""e.g., Shopping Advance, Salary Advance"",
++     ""tag"": ""TEXTAREA"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-017,SCREEN-017,SCREEN-017 failed data requests show feedback and recover after reload /attendance/bulk,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-017; UI-001,UI-001 SCREEN-017 visible buttons and form fields have programmatic accessible names /attendance/bulk,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 30
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""date"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-018,SCREEN-018,SCREEN-018 failed data requests show feedback and recover after reload /attendance/leaves,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-018; UI-001,UI-001 SCREEN-018 visible buttons and form fields have programmatic accessible names /attendance/leaves,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+UI-001,SCREEN-019; UI-001,UI-001 SCREEN-019 visible buttons and form fields have programmatic accessible names /advances/approvals,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-020,SCREEN-020,SCREEN-020 failed data requests show feedback and recover after reload /ai-dashboard,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-020; UI-001,UI-001 SCREEN-020 visible buttons and form fields have programmatic accessible names /ai-dashboard,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 16
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""SELECT"",
++     ""text"": ""Audit ChickenAudit Rice"",
++     ""type"": null,
++   },
++ ]"
+SCREEN-021,SCREEN-021,SCREEN-021 failed data requests show feedback and recover after reload /chicken,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-021; UI-001,UI-001 SCREEN-021 visible buttons and form fields have programmatic accessible names /chicken,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-022,SCREEN-022,SCREEN-022 failed data requests show feedback and recover after reload /chicken/rates,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-022; UI-001,UI-001 SCREEN-022 visible buttons and form fields have programmatic accessible names /chicken/rates,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 51
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""date"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""0.00"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""number"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""0.00"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""number"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""0.00"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""number"",
++   },
++ ]"
+SCREEN-023,SCREEN-023,SCREEN-023 failed data requests show feedback and recover after reload /chicken/bills,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-023; UI-001,UI-001 SCREEN-023 visible buttons and form fields have programmatic accessible names /chicken/bills,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 44
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""date"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""SELECT"",
++     ""text"": ""Select SupplierAudit Chicken SupplierOther Supplier"",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""SELECT"",
++     ""text"": ""Select Item"",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""Qty"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""number"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""₹"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""number"",
++   },
++ ]"
+SCREEN-024,SCREEN-024,SCREEN-024 failed data requests show feedback and recover after reload /chicken/vendors,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-024; UI-001,UI-001 SCREEN-024 visible buttons and form fields have programmatic accessible names /chicken/vendors,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 44
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""0.00"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""number"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""0.00"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""number"",
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": ""0.00"",
++     ""tag"": ""INPUT"",
++     ""text"": """",
++     ""type"": ""number"",
++   },
++ ]"
+SCREEN-025,SCREEN-025,SCREEN-025 failed data requests show feedback and recover after reload /reports,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-025; UI-001,UI-001 SCREEN-025 visible buttons and form fields have programmatic accessible names /reports,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-026,SCREEN-026,SCREEN-026 failed data requests show feedback and recover after reload /reports/financial,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-026; UI-001,UI-001 SCREEN-026 visible buttons and form fields have programmatic accessible names /reports/financial,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-027,SCREEN-027,SCREEN-027 failed data requests show feedback and recover after reload /reports/hr,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-027; UI-001,UI-001 SCREEN-027 visible buttons and form fields have programmatic accessible names /reports/hr,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-028,SCREEN-028,SCREEN-028 failed data requests show feedback and recover after reload /reports/operations,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-028; UI-001,UI-001 SCREEN-028 visible buttons and form fields have programmatic accessible names /reports/operations,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-029,SCREEN-029,SCREEN-029 failed data requests show feedback and recover after reload /reports/inventory,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-029; UI-001,UI-001 SCREEN-029 visible buttons and form fields have programmatic accessible names /reports/inventory,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-030,SCREEN-030,SCREEN-030 failed data requests show feedback and recover after reload /config,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-030; UI-001,UI-001 SCREEN-030 visible buttons and form fields have programmatic accessible names /config,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 93
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-031,SCREEN-031,SCREEN-031 failed data requests show feedback and recover after reload /approvals,tests/audit/screen-states.spec.cjs,21,feedback,Injected HTTP 500 produces no visible error/retry message. All 21 failing feedback cases still reach and pass reload recovery/no-uncaught-error assertions.,client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/failed|error|unable|try again/i).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""soft toBeVisible"" getByText(/failed|error|unable|try again/i).first() with timeout 5000ms
+  - waiting for getByText(/failed|error|unable|try again/i).first()
+"
+UI-001,SCREEN-031; UI-001,UI-001 SCREEN-031 visible buttons and form fields have programmatic accessible names /approvals,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+UI-001,SCREEN-032; UI-001,UI-001 SCREEN-032 visible buttons and form fields have programmatic accessible names /development-status,tests/audit/screen-states.spec.cjs,31,accessibility,"Unlabeled controls are recorded. The shared menu-close button contributes across protected routes, and Login labels lack association. getClientRects is not a viewport visibility/full accessibility check.",client/src/layouts/DashboardLayout.jsx; client/src/pages/Login.jsx; tests/audit/screen-states.spec.cjs,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 9
+
+- Array []
++ Array [
++   Object {
++     ""id"": """",
++     ""placeholder"": null,
++     ""tag"": ""BUTTON"",
++     ""text"": """",
++     ""type"": null,
++   },
++ ]"
+SCREEN-014,SCREEN-014,"SCREEN-014 direct navigation, session restore, reload and phone/tablet/desktop rendering /finance/float",tests/audit/screens.spec.cjs,4,integration,"ManagerFloat legacy getDailyBalance INSERT omits required account_code and returns HTTP 500; this is an integration failure, not document overflow.",server/src/modules/finance/ClosureService.js; server/src/modules/finance/ReconciliationService.js; server/migrations/040_fix_closure_schema.sql,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 18
+
+- Array []
++ Array [
++   Object {
++     ""status"": 500,
++     ""url"": ""http://127.0.0.1:33130/api/finance/reconciliation/float?date=2026-11-09"",
++   },
++   Object {
++     ""status"": 500,
++     ""url"": ""http://127.0.0.1:33130/api/finance/reconciliation/float?date=2026-11-09"",
++   },
++   Object {
++     ""status"": 500,
++     ""url"": ""http://127.0.0.1:33130/api/finance/reconciliation/float?date=2026-11-09"",
++   },
++   Object {
++     ""status"": 500,
++     ""url"": ""http://127.0.0.1:33130/api/finance/reconciliation/float?date=2026-11-09"",
++   },
++ ]"
+SCREEN-026,SCREEN-026,"SCREEN-026 direct navigation, session restore, reload and phone/tablet/desktop rendering /reports/financial",tests/audit/screens.spec.cjs,4,integration,FinancialReports spending-by-person URL is absent from reports routes and returns 404; an existing route is mounted under finance.,server/src/modules/reports/controller.js; server/src/modules/reports/routes.js; client/src/pages/reports/FinancialReports.jsx; server/src/modules/dashboard/controller.js; server/src/modules/ai/controller.js,"Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 18
+
+- Array []
++ Array [
++   Object {
++     ""status"": 404,
++     ""url"": ""http://127.0.0.1:33130/api/reports/financial/spending-by-person?startDate=2026-10-10&endDate=2026-11-09"",
++   },
++   Object {
++     ""status"": 404,
++     ""url"": ""http://127.0.0.1:33130/api/reports/financial/spending-by-person?startDate=2026-10-10&endDate=2026-11-09"",
++   },
++   Object {
++     ""status"": 404,
++     ""url"": ""http://127.0.0.1:33130/api/reports/financial/spending-by-person?startDate=2026-10-10&endDate=2026-11-09"",
++   },
++   Object {
++     ""status"": 404,
++     ""url"": ""http://127.0.0.1:33130/api/reports/financial/spending-by-person?startDate=2026-10-10&endDate=2026-11-09"",
++   },
++ ]"

@@ -47,7 +47,7 @@ SET account_code = 6800
 WHERE name = 'Marketing' AND type = 'Expense';
 
 UPDATE transaction_categories 
-SET account_code = 1010 
+SET account_code = 6900
 WHERE name = 'Bank Transfer' AND type = 'Expense';
 
 UPDATE transaction_categories 

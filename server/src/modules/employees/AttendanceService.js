@@ -1,4 +1,5 @@
 const db = require('../../config/db');
+const validateBulk = require('../attendance/validateBulk');
 
 class AttendanceService {
     /**
@@ -20,6 +21,7 @@ class AttendanceService {
      * Save Bulk Attendance
      */
     async saveBulkAttendance(date, records, client) {
+        await validateBulk(client,date,records);
         for (const record of records) {
             await client.query(
                 `INSERT INTO attendance (date, employee_id, status)

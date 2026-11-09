@@ -1,0 +1,80 @@
+
+> test:audit
+> playwright test --config=playwright.audit.config.cjs tests/audit/completion.spec.cjs --grep distinct user|zero-cost bill
+
+[WebServer] (node:6293) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:6296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/audit/completion.spec.cjs:134:1 › VENDOR-004 supplier settlement tracks distinct user identity and normalized cent retries (1.1s)
+(node:6310) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 tests/audit/completion.spec.cjs:172:1 › BILL-001 BILL-005 zero-cost bill approval and rejection create no fictitious liability (989ms)
+
+
+  1) tests/audit/completion.spec.cjs:134:1 › VENDOR-004 supplier settlement tracks distinct user identity and normalized cent retries 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 409
+
+      152 |   };
+      153 |   const r = await audit.api("POST", "vendors/payments", values);
+    > 154 |   expect(r.status).toBe(200);
+          |                    ^
+      155 |   expect(
+      156 |     (
+      157 |       await audit.rows(
+        at /Users/I557587/Personal/zohra-rms-v2/tests/audit/completion.spec.cjs:154:20
+
+    attachment #1: audit-evidence (application/json) ───────────────────────────────────────────────
+    test-results/audit/completion-VENDOR-004-supp-c2949-and-normalized-cent-retries/attachments/audit-evidence-81546ec0096cf9984949412418d40e45310b8512.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/audit/completion-VENDOR-004-supp-c2949-and-normalized-cent-retries/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/audit/completion-VENDOR-004-supp-c2949-and-normalized-cent-retries/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/audit/completion-VENDOR-004-supp-c2949-and-normalized-cent-retries/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/audit/completion.spec.cjs:172:1 › BILL-001 BILL-005 zero-cost bill approval and rejection create no fictitious liability 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 400
+
+      188 |         })
+      189 |       ).status,
+    > 190 |     ).toBe(200);
+          |       ^
+      191 |   expect(await audit.rows("SELECT id FROM vendor_ledger")).toHaveLength(0);
+      192 |   expect(await audit.rows("SELECT id FROM journal_entries")).toHaveLength(0);
+      193 | });
+        at /Users/I557587/Personal/zohra-rms-v2/tests/audit/completion.spec.cjs:190:7
+
+    attachment #1: audit-evidence (application/json) ───────────────────────────────────────────────
+    test-results/audit/completion-BILL-001-BILL-0-409d7-ate-no-fictitious-liability/attachments/audit-evidence-b30245f916891d42539bd3eacee2f1f58bcaf517.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/audit/completion-BILL-001-BILL-0-409d7-ate-no-fictitious-liability/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/audit/completion-BILL-001-BILL-0-409d7-ate-no-fictitious-liability/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/audit/completion-BILL-001-BILL-0-409d7-ate-no-fictitious-liability/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests/audit/completion.spec.cjs:134:1 › VENDOR-004 supplier settlement tracks distinct user identity and normalized cent retries 
+    tests/audit/completion.spec.cjs:172:1 › BILL-001 BILL-005 zero-cost bill approval and rejection create no fictitious liability 

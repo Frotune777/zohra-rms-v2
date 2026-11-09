@@ -1,3 +1,4 @@
+const {sqlMock}=require('./helpers/sql-mock');
 const vendorsController = require('../src/modules/vendors/payments.controller');
 const db = require('../src/config/db');
 const { mockQueryResult } = require('./helpers/db-mock');
@@ -20,10 +21,15 @@ jest.mock('../src/config/db', () => {
 describe('Vendors Module', () => {
     let req, res;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         req = global.testUtils.mockRequest();
         res = global.testUtils.mockResponse();
         jest.clearAllMocks();
+        db.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        if(db.pool) {
+            const isolatedClient=await db.pool.connect();
+            if(isolatedClient.query !== db.query) isolatedClient.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        }
     });
 
     describe('processPayment', () => {
@@ -60,6 +66,14 @@ describe('Vendors Module', () => {
                 .mockResolvedValueOnce(mockQueryResult([])) // Insert transaction
                 .mockResolvedValueOnce(mockQueryResult([])) // COMMIT
                 .mockResolvedValueOnce(mockQueryResult([{ outstanding_balance: 5000 }])); // Get new balance
+
+            sqlMock(db.query,(sql,p)=>{
+                if(sql.includes('FROM suppliers'))return mockQueryResult([mockVendor]);
+                if(sql.includes('FROM vendor_payments'))return mockQueryResult([]);
+                if(sql.includes('FROM vendor_outstanding'))return mockQueryResult([{outstanding_balance:db.query.mock.calls.some(([q])=>q.includes('INSERT INTO vendor_payments'))?5000:10000}]);
+                if(sql.startsWith('INSERT INTO vendor_payments'))return mockQueryResult([mockPayment]);
+                if(sql.startsWith('INSERT INTO vendor_ledger') || sql.startsWith('UPDATE vendor_payments'))return mockQueryResult([]);
+            });
 
             await vendorsController.processPayment(req, res);
 
@@ -108,6 +122,11 @@ describe('Vendors Module', () => {
                 .mockResolvedValueOnce(mockQueryResult([mockVendor])) // Get vendor
                 .mockResolvedValueOnce(mockQueryResult([{ outstanding_balance: 10000 }])) // Balance
                 .mockResolvedValueOnce(mockQueryResult([])); // ROLLBACK
+
+            sqlMock(db.query,(sql)=>{
+                if(sql.includes('FROM suppliers'))return mockQueryResult([mockVendor]);
+                if(sql.includes('FROM vendor_outstanding'))return mockQueryResult([{outstanding_balance:10000}]);
+            });
 
             await vendorsController.processPayment(req, res);
 
@@ -309,6 +328,8 @@ describe('Vendors Module', () => {
                 .mockResolvedValueOnce(mockQueryResult([{ date: '2024-12-15', amount: 5000 }])) // Last payment
                 .mockResolvedValueOnce(mockQueryResult([])) // Recent payments
                 .mockResolvedValueOnce(mockQueryResult([{ days_0_30: 5000 }])); // Aging
+
+            db.query.mockReset().mockResolvedValueOnce(mockQueryResult([{...mockVendor,total_bill_amount:15000,total_payment_amount:10000}])).mockResolvedValueOnce(mockQueryResult([{days_0_30:15000}]));
 
             await vendorsController.getVendorDetails(req, res);
 

@@ -1,3 +1,4 @@
+const {sqlMock}=require('./helpers/sql-mock');
 const {
     getMenu,
     addMenuItem,
@@ -12,10 +13,15 @@ jest.mock('../src/config/db');
 describe('POS Module', () => {
     let req, res;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         req = global.testUtils.mockRequest();
         res = global.testUtils.mockResponse();
         jest.clearAllMocks();
+        db.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        if(db.pool) {
+            const isolatedClient=await db.pool.connect();
+            if(isolatedClient.query !== db.query) isolatedClient.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        }
     });
 
     describe('getMenu', () => {
@@ -246,6 +252,17 @@ describe('POS Module', () => {
                 .mockResolvedValueOnce({ rows: [] }) // Ledger 4 (COGS)
                 .mockResolvedValueOnce({ rows: [] }); // COMMIT
 
+            sqlMock(db._mockClient.query,(sql,p)=>{
+                if(sql.includes('FROM menu_items m'))return mockQueryResult(req.body.items.map(i=>({id:i.id,name:i.name||'Menu item',price:i.id===1?250:i.price,rate_percentage:0})));
+                if(sql.startsWith('INSERT INTO customers'))return mockQueryResult([{id:1}]);
+                if(sql.startsWith('INSERT INTO orders'))return mockQueryResult([{id:100,total_amount:p[0]}]);
+                if(sql.startsWith('INSERT INTO order_items') || sql.startsWith('UPDATE orders') || sql.startsWith('INSERT INTO payment_transactions') || sql.startsWith('INSERT INTO kds_tickets') || sql.startsWith('INSERT INTO inventory_transactions'))return mockQueryResult([]);
+                if(sql.includes('FROM recipe_ingredients'))return mockQueryResult(p[0]===1?[{inventory_item_id:1,quantity_required:0.1,unit_cost:50}]:[]);
+                if(sql.startsWith('SELECT * FROM inventory_items'))return mockQueryResult([{id:1,stock_qty:20,unit_cost:50,stock_value:1000}]);
+                if(sql.startsWith('UPDATE inventory_items'))return mockQueryResult([{id:1,stock_qty:p[1],stock_value:p[2],unit_cost:p[3]}]);
+                if(sql.startsWith('INSERT INTO stock_movements'))return mockQueryResult([]);
+            });
+
             await createOrder(req, res);
 
             expect(res.json).toHaveBeenCalledWith(
@@ -270,11 +287,22 @@ describe('POS Module', () => {
                 .mockResolvedValueOnce({ rows: [] }) // INSERT item
                 .mockResolvedValueOnce(mockQueryResult([])); // SELECT recipe (empty)
 
+            sqlMock(db._mockClient.query,(sql,p)=>{
+                if(sql.includes('FROM menu_items m'))return mockQueryResult(req.body.items.map(i=>({id:i.id,name:i.name||'Menu item',price:i.id===1?250:i.price,rate_percentage:0})));
+                if(sql.startsWith('INSERT INTO customers'))return mockQueryResult([{id:1}]);
+                if(sql.startsWith('INSERT INTO orders'))return mockQueryResult([{id:100,total_amount:p[0]}]);
+                if(sql.startsWith('INSERT INTO order_items') || sql.startsWith('UPDATE orders') || sql.startsWith('INSERT INTO payment_transactions') || sql.startsWith('INSERT INTO kds_tickets') || sql.startsWith('INSERT INTO inventory_transactions'))return mockQueryResult([]);
+                if(sql.includes('FROM recipe_ingredients'))return mockQueryResult(p[0]===1?[{inventory_item_id:1,quantity_required:0.1,unit_cost:50}]:[]);
+                if(sql.startsWith('SELECT * FROM inventory_items'))return mockQueryResult([{id:1,stock_qty:20,unit_cost:50,stock_value:1000}]);
+                if(sql.startsWith('UPDATE inventory_items'))return mockQueryResult([{id:1,stock_qty:p[1],stock_value:p[2],unit_cost:p[3]}]);
+                if(sql.startsWith('INSERT INTO stock_movements'))return mockQueryResult([]);
+            });
+
             await createOrder(req, res);
 
             // We can check if orders insert had correct total
             expect(q).toHaveBeenCalledWith(
-                expect.stringContaining('INSERT INTO orders'),
+                expect.stringContaining('INSERT INTO orders(total_amount'),
                 expect.arrayContaining([500]) // 250 * 2
             );
         });

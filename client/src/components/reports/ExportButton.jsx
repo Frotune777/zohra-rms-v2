@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FiDownload, FiFileText, FiFile } from 'react-icons/fi';
-import { SiMicrosoftexcel } from 'react-icons/si';
 import toast from 'react-hot-toast';
 
 export default function ExportButton({ data, filename, reportType }) {
@@ -22,9 +21,10 @@ export default function ExportButton({ data, filename, reportType }) {
                 headers.join(','),
                 ...data.map(row =>
                     headers.map(header => {
-                        const value = row[header];
+                        let value = row[header];
+                        if(typeof value === 'string' && /^[\s]*[=+@-]/.test(value)) value = "'" + value;
                         // Escape commas and quotes
-                        if (typeof value === 'string' && (value.includes(',') || value.includes('"'))) {
+                        if (typeof value === 'string' && (value.includes(',') || value.includes('"') || /[\r\n]/.test(value))) {
                             return `"${value.replace(/"/g, '""')}"`;
                         }
                         return value;
@@ -38,6 +38,7 @@ export default function ExportButton({ data, filename, reportType }) {
             link.href = URL.createObjectURL(blob);
             link.download = `${filename}_${new Date().toISOString().split('T')[0]}.csv`;
             link.click();
+            URL.revokeObjectURL(link.href);
 
             toast.success('CSV exported successfully');
         } catch (error) {
@@ -59,6 +60,7 @@ export default function ExportButton({ data, filename, reportType }) {
             link.href = URL.createObjectURL(blob);
             link.download = `${filename}_${new Date().toISOString().split('T')[0]}.json`;
             link.click();
+            URL.revokeObjectURL(link.href);
 
             toast.success('JSON exported successfully');
         } catch (error) {
@@ -70,9 +72,18 @@ export default function ExportButton({ data, filename, reportType }) {
         }
     };
 
-    const exportToPDF = () => {
-        toast.info('PDF export coming soon!');
-        setShowMenu(false);
+    const exportToPDF = async () => {
+        setIsExporting(true);
+        try {
+            if(!Array.isArray(data) || !data.length){toast.error('No data to export');return;}
+            const {reportPdf}=await import('../../utils/reportPdf');
+            const blob=await reportPdf(data,reportType || filename || 'Al Zohra Report');
+            const link=document.createElement('a');link.href=URL.createObjectURL(blob);
+            link.download=filename+'_'+new Date().toISOString().slice(0,10)+'.pdf';link.click();
+            setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+            toast.success('PDF exported successfully');
+        }catch(e){console.error('PDF export error:',e);toast.error('Failed to export PDF');}
+        finally{setIsExporting(false);setShowMenu(false);}
     };
 
     return (
@@ -97,7 +108,7 @@ export default function ExportButton({ data, filename, reportType }) {
                         Export as JSON
                     </button>
                     <button onClick={exportToPDF} className="export-menu-item">
-                        <SiMicrosoftexcel className="inline mr-2" />
+                        <FiFileText className="inline mr-2" />
                         Export as PDF
                     </button>
                 </div>

@@ -1,41 +1,29 @@
-const fs = require('fs');
-const path = require('path');
-const { Pool } = require('pg');
-require('dotenv').config();
-
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || 'postgres://admin:password@localhost:5432/alzohra_db'
+const { Pool } = require("pg");
+const { migrate } = require("./migration-engine");
+// No .env loading or implicit business database. Caller must select the target.
+(async () => {
+  if (!process.env.DATABASE_URL)
+    throw new Error("Explicit DATABASE_URL is required.");
+  const allowed = new Set(["--check", "--adopt-verified"]);
+  for (const arg of process.argv.slice(2))
+    if (!allowed.has(arg)) throw new Error("Unknown migration option: " + arg);
+  const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    connectionTimeoutMillis: 5000,
+  });
+  try {
+    console.log(
+      JSON.stringify(
+        await migrate(pool, {
+          checkOnly: process.argv.includes("--check"),
+          adoptVerified: process.argv.includes("--adopt-verified"),
+        }),
+      ),
+    );
+  } finally {
+    await pool.end();
+  }
+})().catch((e) => {
+  console.error("Migration failed: " + e.message);
+  process.exitCode = 1;
 });
-
-async function runMigrations() {
-    console.log('🔄 Running database migrations...\n');
-
-    try {
-        const client = await pool.connect();
-
-        // Read schema file
-        const schemaPath = path.join(__dirname, '../../database/schema.sql');
-
-        if (!fs.existsSync(schemaPath)) {
-            console.error('✗ schema.sql not found at:', schemaPath);
-            process.exit(1);
-        }
-
-        const schema = fs.readFileSync(schemaPath, 'utf8');
-
-        console.log('📝 Executing schema...');
-        await client.query(schema);
-
-        console.log('✓ Database migrations completed successfully');
-
-        client.release();
-        await pool.end();
-        process.exit(0);
-    } catch (error) {
-        console.error('✗ Migration failed:', error.message);
-        console.error(error.stack);
-        process.exit(1);
-    }
-}
-
-runMigrations();

@@ -1,0 +1,232 @@
+{
+  "verified_at": "2026-11-09T10:06:50.738Z",
+  "runtime": {
+    "started_at": "2026-11-09T09:40:46.552Z",
+    "pid": 77367,
+    "api_pid": 77370,
+    "client_pid": 77372,
+    "database": "zohra_pw_manual_1794203722910",
+    "frontend": "http://localhost:3002",
+    "backend": "http://127.0.0.1:5001"
+  },
+  "health": 200,
+  "roles": [
+    {
+      "role": "owner",
+      "api_login": 200,
+      "password_hash_verified": true,
+      "routes": [
+        {
+          "path": "/orders",
+          "heading": "Orders & Payments",
+          "status": "passed"
+        },
+        {
+          "path": "/kitchen",
+          "heading": "Kitchen Display",
+          "status": "passed"
+        },
+        {
+          "path": "/recipes",
+          "heading": "Recipe Management",
+          "status": "passed"
+        },
+        {
+          "path": "/purchase-orders",
+          "heading": "Purchase Orders",
+          "status": "passed"
+        },
+        {
+          "path": "/wastage",
+          "heading": "Wastage",
+          "status": "passed"
+        },
+        {
+          "path": "/stock-adjustments",
+          "heading": "Stock Adjustments",
+          "status": "passed"
+        },
+        {
+          "path": "/employee-balances",
+          "heading": "Employee Balances",
+          "status": "passed"
+        }
+      ],
+      "api_reads": [
+        {
+          "endpoint": "tables",
+          "status": 200
+        },
+        {
+          "endpoint": "orders",
+          "status": 200
+        },
+        {
+          "endpoint": "kds/tickets",
+          "status": 200
+        },
+        {
+          "endpoint": "inventory/recipes",
+          "status": 200
+        },
+        {
+          "endpoint": "inventory/po",
+          "status": 200
+        },
+        {
+          "endpoint": "wastage",
+          "status": 200
+        },
+        {
+          "endpoint": "inventory/adjustments",
+          "status": 200
+        },
+        {
+          "endpoint": "payroll/shortfalls",
+          "status": 200
+        },
+        {
+          "endpoint": "finance/transfer/history",
+          "status": 200
+        }
+      ],
+      "page_errors": [],
+      "pos": {
+        "table_count": 12,
+        "selected_table": "12",
+        "manual_table_input": false,
+        "phone_optional": true
+      },
+      "browser_login": "passed"
+    },
+    {
+      "role": "manager",
+      "api_login": 200,
+      "password_hash_verified": true,
+      "routes": [
+        {
+          "path": "/orders",
+          "heading": "Orders & Payments",
+          "status": "passed"
+        },
+        {
+          "path": "/kitchen",
+          "heading": "Kitchen Display",
+          "status": "passed"
+        },
+        {
+          "path": "/recipes",
+          "heading": "Recipe Management",
+          "status": "passed"
+        },
+        {
+          "path": "/purchase-orders",
+          "heading": "Purchase Orders",
+          "status": "passed"
+        },
+        {
+          "path": "/wastage",
+          "heading": "Wastage",
+          "status": "passed"
+        },
+        {
+          "path": "/stock-adjustments",
+          "heading": "Stock Adjustments",
+          "status": "passed"
+        },
+        {
+          "path": "/employee-balances",
+          "heading": "Employee Balances",
+          "status": "passed"
+        }
+      ],
+      "api_reads": [
+        {
+          "endpoint": "tables",
+          "status": 200
+        },
+        {
+          "endpoint": "orders",
+          "status": 200
+        },
+        {
+          "endpoint": "kds/tickets",
+          "status": 200
+        },
+        {
+          "endpoint": "inventory/recipes",
+          "status": 200
+        },
+        {
+          "endpoint": "inventory/po",
+          "status": 200
+        },
+        {
+          "endpoint": "wastage",
+          "status": 200
+        },
+        {
+          "endpoint": "inventory/adjustments",
+          "status": 200
+        },
+        {
+          "endpoint": "payroll/shortfalls",
+          "status": 200
+        },
+        {
+          "endpoint": "finance/transfer/history",
+          "status": 200
+        }
+      ],
+      "page_errors": [],
+      "pos": {
+        "table_count": 12,
+        "selected_table": "12",
+        "manual_table_input": false,
+        "phone_optional": true
+      },
+      "browser_login": "passed"
+    },
+    {
+      "role": "staff",
+      "api_login": 200,
+      "password_hash_verified": true,
+      "routes": [
+        {
+          "path": "/orders",
+          "heading": "Orders & Payments",
+          "status": "passed"
+        },
+        {
+          "path": "/kitchen",
+          "heading": "Kitchen Display",
+          "status": "passed"
+        }
+      ],
+      "api_reads": [
+        {
+          "endpoint": "tables",
+          "status": 200
+        },
+        {
+          "endpoint": "orders",
+          "status": 200
+        },
+        {
+          "endpoint": "kds/tickets",
+          "status": 200
+        }
+      ],
+      "page_errors": [],
+      "pos": {
+        "table_count": 12,
+        "selected_table": "12",
+        "manual_table_input": false,
+        "phone_optional": true
+      },
+      "browser_login": "passed"
+    }
+  ],
+  "scope": "Resumed existing sample database; preserved user entries, real logins, new routes and initial API reads; not complete feature flows.",
+  "migrations": 2
+}

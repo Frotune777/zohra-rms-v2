@@ -111,14 +111,14 @@ const RatesCalendar = ({ onDateSelect, selectedDate }) => {
         <div className="glass-panel p-3">
             {/* Header */}
             <div className="flex items-center justify-between mb-3">
-                <button
+                <button aria-label="Previous"
                     onClick={previousMonth}
                     className="p-1 hover:bg-white/10 rounded-md transition"
                 >
                     <FiChevronLeft className="text-white text-lg" />
                 </button>
                 <h3 className="text-base font-semibold text-white">{monthYear}</h3>
-                <button
+                <button aria-label="Next"
                     onClick={nextMonth}
                     className="p-1 hover:bg-white/10 rounded-md transition"
                 >

@@ -155,7 +155,7 @@ const Inventory = () => {
         <form onSubmit={handleAddEdit} className="glass-panel p-6 mb-6 rounded-xl space-y-4">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-bold">{editingId ? 'Edit Item' : 'Add New Item'}</h3>
-            <button
+            <button aria-label="Close"
               type="button"
               onClick={handleCancel}
               className="text-gray-400 hover:text-white transition"
@@ -167,7 +167,7 @@ const Inventory = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Item Name *</label>
-              <input
+              <input aria-label="Name"
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -179,7 +179,7 @@ const Inventory = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Quantity *</label>
-              <input
+              <input aria-label="Stock qty"
                 type="number"
                 step="0.01"
                 min="0"
@@ -193,7 +193,7 @@ const Inventory = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Unit *</label>
-              <select
+              <select aria-label="Unit"
                 value={formData.unit}
                 onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
                 className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:border-zohra-blue"
@@ -210,7 +210,7 @@ const Inventory = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Unit Cost (₹) *</label>
-              <input
+              <input aria-label="Unit cost"
                 type="number"
                 step="0.01"
                 min="0"

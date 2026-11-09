@@ -1,0 +1,660 @@
+{
+  "started_at": "2026-11-09T06:33:59.180Z",
+  "finished_at": "2026-11-09T06:34:12.197Z",
+  "planned_tests": [
+    {
+      "title": "POS-004 POS-009 Cash full refund preserves source history and returns exact untouched stock",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 19
+    },
+    {
+      "title": "POS-004 POS-009 Due full refund preserves source history and returns exact untouched stock",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 19
+    },
+    {
+      "title": "POS-004 POS-009 Part full refund preserves source history and returns exact untouched stock",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 19
+    },
+    {
+      "title": "POS-007 cooked refund retains consumed stock; competing retries refund once",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 101
+    },
+    {
+      "title": "INV-002 INV-005 adjustment browser correction restores exact value after subsequent receipts",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 166
+    },
+    {
+      "title": "INV-002 INV-005 wastage browser correction restores exact value after subsequent receipts",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 166
+    },
+    {
+      "title": "ADV-004 ADV-005 manual repayment reversal restores FIFO and installments after payroll recovery",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 228
+    },
+    {
+      "title": "BILL-006 BILL-007 pending approval and rejection conserve quantity, book value and vendor debt",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 316
+    },
+    {
+      "title": "PO-001 INV-002 weighted receipt and complete depletion conserve every cent",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 370
+    },
+    {
+      "title": "AUTH-006 CLOSE-003 corrections reject staff and locked periods without writes",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 407
+    }
+  ],
+  "source_sha256": {
+    "playwright.audit.config.cjs": "a71db4d943a18608429fca9fe6f33014d4a87d69d4a12572aeff2b724fe12cad",
+    "tests/audit/auth.spec.cjs": "95fae9609d8a778dc2280a346d62e86197491236a1fa216a407cc5227381bc57",
+    "tests/audit/clock.cjs": "d610bc5db42c3f5ca22a04380af278baa79c80e528636da8fc068e1f3b7bf740",
+    "tests/audit/completion.spec.cjs": "3d37d912920981148a4848c16cf2b25b31cafa4694aee93ab6637b4597a95445",
+    "tests/audit/corrections.spec.cjs": "ad40fd2dc350b2d6d7909beacaf433d3d839fbcadf9f8afc982ee8e9a4c492d4",
+    "tests/audit/data-roundtrip.spec.cjs": "6fa80c53d2e33b20c09c70d943e1292d41adf99a6e0fc4b05394f19994ab94f4",
+    "tests/audit/database.cjs": "7c0310d67f3c7e73213503ebe357cde12c7b42d836aa2a2bfb9ec39b722e6099",
+    "tests/audit/exports.spec.cjs": "2f0aa94e423f13f5be3e4f8ed5c4f2551f4c097c74e5bd9801d1f7bb61e54cdf",
+    "tests/audit/finance.spec.cjs": "862cbb92d8b2b5a30cd15db9a9adb53816ab47753b755d33db5e622f436b8288",
+    "tests/audit/fixtures.cjs": "754e4b030497b681c9b8a0bcf177e78201f07a8fa2aa815eb2b98bdda14ab14a",
+    "tests/audit/global-setup.cjs": "0193336d5a2c9c384ff79b1d7d4f39a64b5d6ca733f3411264958e6c51a05d38",
+    "tests/audit/global-teardown.cjs": "b14a9876a13d97938f25e966956ab035e69996f83e1b0049c513a85fdc9be0ab",
+    "tests/audit/harness.spec.cjs": "09ecde360e4257c4e43df2cbdb65fd280a36314f14eb17fd055243f6329451d6",
+    "tests/audit/helpers.cjs": "92ef44f8f556b7d36f49dae0bb255e63f1c43ec3ee394cb6a67c58833e93eec3",
+    "tests/audit/hr.spec.cjs": "e3d4d9666bd679b0ba9c750b4b3e32f7da59f41a32d7d04a3ff77844d5a6f4b2",
+    "tests/audit/import-runner.py": "99eb69b02bf882a6255c7bddc1251466edb6cade53cc4d1af563fcd53b114331",
+    "tests/audit/integrity-regressions.spec.cjs": "e4bb8219aa424e5337a46872b4412a6d666dae391bf8fe00b851af8cf3e87c41",
+    "tests/audit/payroll-ui.spec.cjs": "77ced4163432777ac05ca72028dc3ca1fa032337d2977df79895602166e2e4e6",
+    "tests/audit/pos-inventory.spec.cjs": "88b2ebf6046d8fc0cccf99bb1bb8dcd30edfb5c7c599b1e6415ba94d03bfbd28",
+    "tests/audit/procurement.spec.cjs": "0f711d50e9bf22a7bafb473f388b64c3ca903387433d1e6fa6de6ca410b5e089",
+    "tests/audit/reporter.cjs": "2c5903c8e445544dccefaeff47521650f78652ace907e35ae68a9127f8f259f0",
+    "tests/audit/reports-config-ai.spec.cjs": "24b19eea59aff75842d92282ef56dd7c23c79ddf242efef52b38b4958eae7fa9",
+    "tests/audit/screen-states.spec.cjs": "36b3c238aaacfb96945afe0ba37e1302bf683d51ba04c637b0a68d29feb3a7ab",
+    "tests/audit/screens.cjs": "30e34effadb6404b5e5d24f74bbfb9183e1af1f1006e99991261d5848769395a",
+    "tests/audit/screens.spec.cjs": "daede1a5e376ea623c767960d84f6b50b74015bd090fdbca18379cb1ec38da4c",
+    "tests/audit/service-runner.cjs": "b946717a5c368f4f20d46887489a5c4d4aa361ebcf08c1390963efaf17241c3b"
+  },
+  "status": "passed",
+  "counts": {
+    "passed": 10
+  },
+  "results": [
+    {
+      "title": "POS-004 POS-009 Cash full refund preserves source history and returns exact untouched stock",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 19,
+      "ids": [
+        "POS-004",
+        "POS-009"
+      ],
+      "status": "passed",
+      "duration_ms": 1529,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/corrections-POS-004-POS-00-0cb0f-turns-exact-untouched-stock/attachments/audit-evidence-936fc099d14648b15f6bcc15eab0bc68b06ff757.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_56749ff29ca2_1794206038610",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/payments",
+            "role": "staff",
+            "status": 409,
+            "error": "Cancelled orders cannot receive payments"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "POS-004 POS-009 Due full refund preserves source history and returns exact untouched stock",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 19,
+      "ids": [
+        "POS-004",
+        "POS-009"
+      ],
+      "status": "passed",
+      "duration_ms": 1397,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/corrections-POS-004-POS-00-8e308-turns-exact-untouched-stock/attachments/audit-evidence-8b05512a669a953ef82c88b261d2dd9309e4a107.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_64f9d08f0ae7_1794206038610",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/payments",
+            "role": "staff",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/payments",
+            "role": "staff",
+            "status": 409,
+            "error": "Cancelled orders cannot receive payments"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "POS-004 POS-009 Part full refund preserves source history and returns exact untouched stock",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 19,
+      "ids": [
+        "POS-004",
+        "POS-009"
+      ],
+      "status": "passed",
+      "duration_ms": 1405,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/corrections-POS-004-POS-00-d6d3c-turns-exact-untouched-stock/attachments/audit-evidence-9257f1b365ae9eda6db501e23b61ded2ecf694f5.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_5725d29393f5_1794206038610",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/payments",
+            "role": "staff",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/payments",
+            "role": "staff",
+            "status": 409,
+            "error": "Cancelled orders cannot receive payments"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "POS-007 cooked refund retains consumed stock; competing retries refund once",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 101,
+      "ids": [
+        "POS-007"
+      ],
+      "status": "passed",
+      "duration_ms": 843,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/corrections-POS-007-cooked-e386a-mpeting-retries-refund-once/attachments/audit-evidence-7952c3d1bba84b15da127598d7f4ab9c57a57795.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_c0e4fd1efa70_1794206038610",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "kds/tickets/1",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/refund",
+            "role": "owner",
+            "status": 409,
+            "error": "Stock can only be returned before preparation starts"
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/refund",
+            "role": "manager",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/refund",
+            "role": "manager",
+            "status": 409,
+            "error": "Order already refunded"
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/refund",
+            "role": "manager",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "INV-002 INV-005 adjustment browser correction restores exact value after subsequent receipts",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 166,
+      "ids": [
+        "INV-002",
+        "INV-005"
+      ],
+      "status": "passed",
+      "duration_ms": 1414,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/corrections-INV-002-INV-00-abfd0-e-after-subsequent-receipts/attachments/audit-evidence-573bac61d02e19ca01062b39873b6ce3df5212e3.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a826d1183d32_1794206038610",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "inventory/adjustments",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "inventory/po",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "inventory/po/1/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "inventory/adjustments/1/reverse",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "INV-002 INV-005 wastage browser correction restores exact value after subsequent receipts",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 166,
+      "ids": [
+        "INV-002",
+        "INV-005"
+      ],
+      "status": "passed",
+      "duration_ms": 1475,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/corrections-INV-002-INV-00-a9f31-e-after-subsequent-receipts/attachments/audit-evidence-85b343442517d290c0129c7a295c9a093868f51f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d18a0d4e75df_1794206038610",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "wastage",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "inventory/po",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "inventory/po/1/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "wastage/1/reverse",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ADV-004 ADV-005 manual repayment reversal restores FIFO and installments after payroll recovery",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 228,
+      "ids": [
+        "ADV-004",
+        "ADV-005"
+      ],
+      "status": "passed",
+      "duration_ms": 1685,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/corrections-ADV-004-ADV-00-db766-ents-after-payroll-recovery/attachments/audit-evidence-120d65f8249eab2753bb5ec2c8e536e74b292074.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_8653aae6ba56_1794206038610",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "advance-requests",
+            "role": "staff",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "advance-requests/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/2/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/2/reverse",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "BILL-006 BILL-007 pending approval and rejection conserve quantity, book value and vendor debt",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 316,
+      "ids": [
+        "BILL-006",
+        "BILL-007"
+      ],
+      "status": "passed",
+      "duration_ms": 948,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/corrections-BILL-006-BILL--5a9bb--book-value-and-vendor-debt/attachments/audit-evidence-e8940eb171e64d1e7659034c1db467d80215bb19.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_8470523a56f3_1794206038610",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "inventory/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "endpoint": "inventory/bills/1/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "endpoint": "inventory/bills/1/status",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PO-001 INV-002 weighted receipt and complete depletion conserve every cent",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 370,
+      "ids": [
+        "PO-001",
+        "INV-002"
+      ],
+      "status": "passed",
+      "duration_ms": 882,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/corrections-PO-001-INV-002-6c06b-pletion-conserve-every-cent/attachments/audit-evidence-d0346f6e8b2d11286f7baf6281ca59d70aba61b2.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ac18ccf750f5_1794206038610",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "inventory/po",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "inventory/po/1/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "AUTH-006 CLOSE-003 corrections reject staff and locked periods without writes",
+      "file": "tests/audit/corrections.spec.cjs",
+      "line": 407,
+      "ids": [
+        "AUTH-006",
+        "CLOSE-003"
+      ],
+      "status": "passed",
+      "duration_ms": 989,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/corrections-AUTH-006-CLOSE-dd092-cked-periods-without-writes/attachments/audit-evidence-2562072cb0e90daaf342c7733fd2ac671c77f5a1.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_5e40bade4942_1794206038610",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "inventory/adjustments",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/refund",
+            "role": "staff",
+            "status": 403,
+            "error": "Insufficient permissions"
+          },
+          {
+            "method": "POST",
+            "endpoint": "inventory/adjustments/1/reverse",
+            "role": "staff",
+            "status": 403,
+            "error": "Insufficient permissions"
+          },
+          {
+            "method": "POST",
+            "endpoint": "orders/1/refund",
+            "role": "owner",
+            "status": 400,
+            "error": "Financial period is locked"
+          },
+          {
+            "method": "POST",
+            "endpoint": "inventory/adjustments/1/reverse",
+            "role": "owner",
+            "status": 400,
+            "error": "Financial period is locked"
+          }
+        ],
+        "checks": []
+      }
+    }
+  ]
+}

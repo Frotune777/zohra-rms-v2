@@ -25,6 +25,7 @@ const PaymentModeSelect = ({ value, onChange, className = '', disabledValue = ''
     return (
         <div className={`relative ${className}`}>
             <select
+                aria-label="Payment method"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 className="w-full bg-gray-900 border border-white/10 rounded px-2 py-1 text-xs text-gray-300 focus:border-blue-500 outline-none appearance-none pr-8"

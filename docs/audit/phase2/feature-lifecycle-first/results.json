@@ -1,0 +1,890 @@
+{
+  "started_at": "2026-11-09T05:40:51.778Z",
+  "finished_at": "2026-11-09T05:41:09.501Z",
+  "planned_tests": [
+    {
+      "title": "PAY-004 PAY-010 PAY-011 negative payout recovers full debt and tracks settlement, reversal, repayout and deletion",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 8
+    },
+    {
+      "title": "ADV-002 ADV-005 PAY-007 PAY-011 scheduled advance disburses once and payroll recovery restores exact installments",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 108
+    },
+    {
+      "title": "PAY-004 subcent shortfall settlements normalize before status and retry comparisons",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 122
+    },
+    {
+      "title": "ADV-005 installment cents sum exactly to the approved amount",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 126
+    },
+    {
+      "title": "ADV-005 January 31 schedules use February month-end instead of overflowing to March",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 134
+    },
+    {
+      "title": "PAY-007 FIFO partial recovery reconciles both advance models, ledger and source journals",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 179
+    },
+    {
+      "title": "PAY-008 zero-net payroll completes advance recovery without invalid zero payment lines",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 189
+    },
+    {
+      "title": "PAY-010 reverting one of two same-date payouts preserves the other and reverses cash exactly",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 198
+    },
+    {
+      "title": "PAY-011 paid to approved to paid restores one net payout across the complete round trip",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 205
+    },
+    {
+      "title": "PAY-011 deduction payout revert payout restores exact FIFO allocations and journals",
+      "file": "tests/audit/integrity-regressions.spec.cjs",
+      "line": 14
+    },
+    {
+      "title": "PAY-010 payroll reversal leaves a colliding manual repayment and its employee intact",
+      "file": "tests/audit/integrity-regressions.spec.cjs",
+      "line": 25
+    }
+  ],
+  "source_sha256": {
+    "playwright.audit.config.cjs": "a71db4d943a18608429fca9fe6f33014d4a87d69d4a12572aeff2b724fe12cad",
+    "tests/audit/auth.spec.cjs": "95fae9609d8a778dc2280a346d62e86197491236a1fa216a407cc5227381bc57",
+    "tests/audit/clock.cjs": "d610bc5db42c3f5ca22a04380af278baa79c80e528636da8fc068e1f3b7bf740",
+    "tests/audit/completion.spec.cjs": "c567254e03bcaee921aab28229c72b88c9f42c539407340dc339b5d4444cc5f5",
+    "tests/audit/data-roundtrip.spec.cjs": "6fa80c53d2e33b20c09c70d943e1292d41adf99a6e0fc4b05394f19994ab94f4",
+    "tests/audit/database.cjs": "60a2649829d97bcb371ad75367d4ddbc835df054cf33c8bf9e99453bb300a011",
+    "tests/audit/exports.spec.cjs": "2f0aa94e423f13f5be3e4f8ed5c4f2551f4c097c74e5bd9801d1f7bb61e54cdf",
+    "tests/audit/finance.spec.cjs": "862cbb92d8b2b5a30cd15db9a9adb53816ab47753b755d33db5e622f436b8288",
+    "tests/audit/fixtures.cjs": "754e4b030497b681c9b8a0bcf177e78201f07a8fa2aa815eb2b98bdda14ab14a",
+    "tests/audit/global-setup.cjs": "0193336d5a2c9c384ff79b1d7d4f39a64b5d6ca733f3411264958e6c51a05d38",
+    "tests/audit/global-teardown.cjs": "05fe5aef9cd5e4e0c7187257d4177f20e3fbafe790268e12448a402c310c509d",
+    "tests/audit/harness.spec.cjs": "09ecde360e4257c4e43df2cbdb65fd280a36314f14eb17fd055243f6329451d6",
+    "tests/audit/helpers.cjs": "67fc561265db5cd9ea784215729f7c8a1cff3714b36e6f73a256e919e61d5c25",
+    "tests/audit/hr.spec.cjs": "e3d4d9666bd679b0ba9c750b4b3e32f7da59f41a32d7d04a3ff77844d5a6f4b2",
+    "tests/audit/import-runner.py": "99eb69b02bf882a6255c7bddc1251466edb6cade53cc4d1af563fcd53b114331",
+    "tests/audit/integrity-regressions.spec.cjs": "e4bb8219aa424e5337a46872b4412a6d666dae391bf8fe00b851af8cf3e87c41",
+    "tests/audit/payroll-ui.spec.cjs": "77ced4163432777ac05ca72028dc3ca1fa032337d2977df79895602166e2e4e6",
+    "tests/audit/pos-inventory.spec.cjs": "36812fccaf454a1b2a8a8cb5228b7440ab16a1919a834bf8a9d6020d78adadef",
+    "tests/audit/procurement.spec.cjs": "0f711d50e9bf22a7bafb473f388b64c3ca903387433d1e6fa6de6ca410b5e089",
+    "tests/audit/reporter.cjs": "2c5903c8e445544dccefaeff47521650f78652ace907e35ae68a9127f8f259f0",
+    "tests/audit/reports-config-ai.spec.cjs": "24b19eea59aff75842d92282ef56dd7c23c79ddf242efef52b38b4958eae7fa9",
+    "tests/audit/screen-states.spec.cjs": "36b3c238aaacfb96945afe0ba37e1302bf683d51ba04c637b0a68d29feb3a7ab",
+    "tests/audit/screens.cjs": "30e34effadb6404b5e5d24f74bbfb9183e1af1f1006e99991261d5848769395a",
+    "tests/audit/screens.spec.cjs": "daede1a5e376ea623c767960d84f6b50b74015bd090fdbca18379cb1ec38da4c",
+    "tests/audit/service-runner.cjs": "b946717a5c368f4f20d46887489a5c4d4aa361ebcf08c1390963efaf17241c3b"
+  },
+  "status": "failed",
+  "counts": {
+    "failed": 2,
+    "passed": 9
+  },
+  "results": [
+    {
+      "title": "PAY-004 PAY-010 PAY-011 negative payout recovers full debt and tracks settlement, reversal, repayout and deletion",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 8,
+      "ids": [
+        "PAY-004",
+        "PAY-010",
+        "PAY-011"
+      ],
+      "status": "failed",
+      "duration_ms": 6903,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Shortfall settlement recorded', { exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Shortfall settlement recorded', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Shortfall settlement recorded', { exact: true })\u001b[22m\n"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-PAY-004-PAY-010-a3525-ersal-repayout-and-deletion/test-failed-1.png",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-PAY-004-PAY-010-a3525-ersal-repayout-and-deletion/attachments/audit-evidence-2c8ac31385d40029534968010338dc04a4644c1b.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-PAY-004-PAY-010-a3525-ersal-repayout-and-deletion/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-PAY-004-PAY-010-a3525-ersal-repayout-and-deletion/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_62b08ebeb83b_1794202850570",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "payroll/shortfalls",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal PayrollShortfall 1",
+            "actual": {
+              "header": {
+                "id": "c867011c-63cf-4174-9dc5-81593935136a",
+                "transaction_date": "2026-11-08T18:30:00.000Z",
+                "description": "Negative payroll payout #1",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "PayrollShortfall",
+                "created_at": "2026-11-09T05:40:53.119Z"
+              },
+              "lines": [
+                {
+                  "account": 1110,
+                  "debit": 10000,
+                  "credit": 0
+                },
+                {
+                  "account": 6100,
+                  "debit": 0,
+                  "credit": 10000
+                }
+              ]
+            }
+          },
+          {
+            "name": "Journal AdvanceRepayment 1",
+            "actual": {
+              "header": {
+                "id": "c66e5c81-14ca-4be1-aea2-ca3deafb4966",
+                "transaction_date": "2026-11-08T18:30:00.000Z",
+                "description": "Advance recovery for payroll #1",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "AdvanceRepayment",
+                "created_at": "2026-11-09T05:40:53.119Z"
+              },
+              "lines": [
+                {
+                  "account": 1100,
+                  "debit": 0,
+                  "credit": 40000
+                },
+                {
+                  "account": 6100,
+                  "debit": 40000,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "ADV-002 ADV-005 PAY-007 PAY-011 scheduled advance disburses once and payroll recovery restores exact installments",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 108,
+      "ids": [
+        "ADV-002",
+        "ADV-005",
+        "PAY-007",
+        "PAY-011"
+      ],
+      "status": "failed",
+      "duration_ms": 1179,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-ADV-002-ADV-005-42178-restores-exact-installments/attachments/audit-evidence-1c2a4c27d62c241fefd0c5dc856999885db511b2.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-ADV-002-ADV-005-42178-restores-exact-installments/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-ADV-002-ADV-005-42178-restores-exact-installments/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_7741dfd95882_1794202850570",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "advance-requests",
+            "role": "staff",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "advance-requests/1/approve",
+            "role": "manager",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "advance-requests/1/repayment-schedule",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "advance-requests/1/approve",
+            "role": "owner",
+            "status": 409,
+            "error": "Request already processed"
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/2/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "advance-requests/1/repayment-schedule",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "advance-requests/1/repayment-schedule",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal AdvanceAdvance 1",
+            "actual": {
+              "header": {
+                "id": "183779e4-6ed8-4ac5-af8d-c53fdd75982f",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Salary Advance - Scheduled advance",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "AdvanceAdvance",
+                "created_at": "2026-11-09T05:41:00.188Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 0,
+                  "credit": 1000
+                },
+                {
+                  "account": 1100,
+                  "debit": 1000,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "PAY-004 subcent shortfall settlements normalize before status and retry comparisons",
+      "file": "tests/audit/completion.spec.cjs",
+      "line": 122,
+      "ids": [
+        "PAY-004"
+      ],
+      "status": "passed",
+      "duration_ms": 946,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/completion-PAY-004-subcent-122b5-tatus-and-retry-comparisons/attachments/audit-evidence-058877f121b172fab37864c9e2844cc59f54d06e.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b7ca7ef1cf94_1794202850570",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "payroll/shortfalls",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/shortfalls/1/settle",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/shortfalls/1/settle",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ADV-005 installment cents sum exactly to the approved amount",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 126,
+      "ids": [
+        "ADV-005"
+      ],
+      "status": "passed",
+      "duration_ms": 936,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ADV-005-installment-cen-f523b-ctly-to-the-approved-amount/attachments/audit-evidence-5c2cb5cba67d1f3d21032ca68b97f6e5ead47e6f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_24d38e36c705_1794202850570",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "advance-requests",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "advance-requests/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "advance-requests/1/repayment-schedule",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ADV-005 January 31 schedules use February month-end instead of overflowing to March",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 134,
+      "ids": [
+        "ADV-005"
+      ],
+      "status": "passed",
+      "duration_ms": 939,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ADV-005-month-end-sched-c3035-ead-of-overflowing-to-March/attachments/audit-evidence-d4ca93977e817900fa4c9550905dc4ca9a0906b9.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_65f174e4bcf4_1794202850570",
+        "date": "2026-11-09",
+        "business_instant": "2026-01-31T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "advance-requests",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "advance-requests/1/approve",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-007 FIFO partial recovery reconciles both advance models, ledger and source journals",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 179,
+      "ids": [
+        "PAY-007"
+      ],
+      "status": "passed",
+      "duration_ms": 944,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-007-FIFO-partial-re-9c6f2--ledger-and-source-journals/attachments/audit-evidence-5ccf7eee79cdaf8c13125715acd8645a0ca7cca4.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_dba3d2a4c9e6_1794202850570",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal AdvanceRepayment 1",
+            "actual": {
+              "header": {
+                "id": "a2c06fc1-5e8d-42a9-9c5d-227d53736094",
+                "transaction_date": "2026-11-08T18:30:00.000Z",
+                "description": "Advance recovery for payroll #1",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "AdvanceRepayment",
+                "created_at": "2026-11-09T05:41:04.217Z"
+              },
+              "lines": [
+                {
+                  "account": 1100,
+                  "debit": 0,
+                  "credit": 1000
+                },
+                {
+                  "account": 6100,
+                  "debit": 1000,
+                  "credit": 0
+                }
+              ]
+            }
+          },
+          {
+            "name": "Journal SalaryPayment 1",
+            "actual": {
+              "header": {
+                "id": "a971bf9a-2d78-43fe-be31-dd92a10c0211",
+                "transaction_date": "2026-11-08T18:30:00.000Z",
+                "description": "Payroll payout #1",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "SalaryPayment",
+                "created_at": "2026-11-09T05:41:04.217Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 0,
+                  "credit": 29000
+                },
+                {
+                  "account": 6100,
+                  "debit": 29000,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "PAY-008 zero-net payroll completes advance recovery without invalid zero payment lines",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 189,
+      "ids": [
+        "PAY-008"
+      ],
+      "status": "passed",
+      "duration_ms": 959,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-008-zero-net-payrol-64556--invalid-zero-payment-lines/attachments/audit-evidence-fa37aa9ba582e02a5817a9324368fbb6b5cc7641.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e15436601628_1794202850570",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-010 reverting one of two same-date payouts preserves the other and reverses cash exactly",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 198,
+      "ids": [
+        "PAY-010"
+      ],
+      "status": "passed",
+      "duration_ms": 980,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-010-reverting-one-o-5dfa1-r-and-reverses-cash-exactly/attachments/audit-evidence-8d0fc6abab8417bb97d5bc00f4550b4e23b65be0.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d63a0717d7a2_1794202850570",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/revert/1",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-011 paid to approved to paid restores one net payout across the complete round trip",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 205,
+      "ids": [
+        "PAY-011"
+      ],
+      "status": "passed",
+      "duration_ms": 943,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-011-paid-to-approve-6b04c-oss-the-complete-round-trip/attachments/audit-evidence-0b3421e588734e5f5a354e0a0183c826d19401d6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a14dd880497f_1794202850570",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/revert/1",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-011 deduction payout revert payout restores exact FIFO allocations and journals",
+      "file": "tests/audit/integrity-regressions.spec.cjs",
+      "line": 14,
+      "ids": [
+        "PAY-011"
+      ],
+      "status": "passed",
+      "duration_ms": 999,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/integrity-regressions-PAY--dbdb0-FO-allocations-and-journals/attachments/audit-evidence-cbe6ff4381d1e431208a10eb20f35d75cff7509a.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_38e422ebf1f6_1794202850570",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/2/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/revert/1",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-010 payroll reversal leaves a colliding manual repayment and its employee intact",
+      "file": "tests/audit/integrity-regressions.spec.cjs",
+      "line": 25,
+      "ids": [
+        "PAY-010"
+      ],
+      "status": "passed",
+      "duration_ms": 987,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/integrity-regressions-PAY--a84ef-ent-and-its-employee-intact/attachments/audit-evidence-b091f69cab47195d80a79eb07c4187c39496c239.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_f24a94876c03_1794202850570",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/2/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/revert/2",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    }
+  ]
+}

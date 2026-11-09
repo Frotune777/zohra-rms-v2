@@ -35,21 +35,10 @@ exports.getDemandForecast = async (req, res) => {
             ORDER BY completed_at ASC
         `);
 
+        const item=(await db.query('SELECT unit FROM inventory_items WHERE id=$1',[itemId])).rows[0];
+        if(!item) return res.status(404).json({error:'Inventory item not found'});
         // Map: Date -> Usage Count
         const dailyUsage = {};
-
-        for (const ticket of ticketsRes.rows) {
-            const date = ticket.completed_at.toISOString().split('T')[0];
-            const items = ticket.items; // Array of {id, qty, ...} (Menu Items)
-
-            for (const menuItem of items) {
-                // Find ingredients for this menu item
-                // Optimization: Cache recipe map or query DB once. 
-                // For now, let's query DB for this menu item's recipe if not cached? 
-                // Better: Get ALL recipes first.
-                // Let's do a separate query for recipes.
-            }
-        }
 
         // Optimized Approach:
         // 1. Get Recipe Map (Menu Item ID -> [{inventory_item_id, quantity_required}])
@@ -85,7 +74,7 @@ exports.getDemandForecast = async (req, res) => {
             itemId,
             dailyUsage,
             forecast: parseFloat(forecast.toFixed(2)),
-            unit: 'units' // We should fetch unit from inventory_items
+            unit: item.unit
         });
 
     } catch (err) {

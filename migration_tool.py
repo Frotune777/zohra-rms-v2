@@ -29,6 +29,10 @@ Related Files:
 - database/cleanup_samples.sql: Data wipe logic
 """
 
+from pathlib import Path
+import hashlib
+import math
+
 import logging
 import os
 from datetime import datetime
@@ -75,6 +79,7 @@ class DataMigrator:
         self.employee_map: Dict[str, int] = {}
         self.discrepancies: list[str] = []
         self.active_employee_ids: set[int] = set()
+        self.attendance_import_complete = False
 
     def run_migration(self) -> None:
         """
@@ -300,7 +305,8 @@ class DataMigrator:
                 "Egg",
             ]
 
-            for _, row in df.iterrows():
+            source_hash = hashlib.sha256(Path(file_path).read_bytes()).hexdigest()
+            for row_index, row in df.iterrows():
                 dt = row.get("Date")
                 if pd.isna(dt):
                     continue
@@ -309,7 +315,11 @@ class DataMigrator:
                     if cut in df.columns:
                         qty = row.get(cut)
                         if pd.notna(qty) and float(qty) > 0:
-                            with self.engine.connect() as conn:
+                            source_key = f"bill:{source_hash}:{row_index}:{cut}"
+                            with self.engine.begin() as conn:
+                                conn.execute(text("SELECT pg_advisory_xact_lock(hashtext(:key))"), {"key":source_key})
+                                if conn.execute(text("SELECT 1 FROM imported_source_rows WHERE source_key=:key"), {"key":source_key}).first():
+                                    continue
                                 conn.execute(
                                     text(
                                         "INSERT INTO bill_entries (date, supplier_id, item_name, qty, "
@@ -324,7 +334,7 @@ class DataMigrator:
                                         "qty": float(qty),
                                     },
                                 )
-                                conn.commit()
+                                conn.execute(text("INSERT INTO imported_source_rows(source_key,target_type) VALUES(:key,'Bill')"), {"key":source_key})
         except Exception as e:
             logger.error(f"Failed to migrate vendor bills: {e}")
             self.discrepancies.append(f"Vendor Bills Error: {e}")
@@ -341,6 +351,8 @@ class DataMigrator:
             Step 4: Iterate data rows, mapping to employees and constructing dates.
         """
         logger.info("Migrating attendance...")
+        self.attendance_import_complete = False
+        self.active_employee_ids.clear()
         try:
             xl = pd.ExcelFile(file_path)
             months = [
@@ -442,6 +454,10 @@ class DataMigrator:
                                 {"eid": emp_id, "dt": dt, "stat": status},
                             )
                             conn.commit()
+            if not self.active_employee_ids:
+                self.discrepancies.append("Attendance import found no matched employees; status sync is disabled")
+            else:
+                self.attendance_import_complete = True
         except Exception as e:
             logger.error(f"Failed to migrate attendance: {e}")
             self.discrepancies.append(f"Attendance Error: {e}")
@@ -464,24 +480,33 @@ class DataMigrator:
             df["Date"] = pd.to_datetime(
                 df["Date"], dayfirst=True, format="mixed", errors="coerce"
             )
+            for row_index in df.index[df["Date"].isnull()]:
+                self.discrepancies.append(f"Ledger row {row_index+2}: invalid date")
             df = df[df["Date"].notnull()]
+            source_hash = hashlib.sha256(Path(file_path).read_bytes()).hexdigest()
 
-            for _, row in df.iterrows():
+            for row_index, row in df.iterrows():
                 item_desc = str(row.get("Item/Description", ""))
                 remarks = str(row.get("Remarks", ""))
                 desc = f"{item_desc} - {remarks}".strip()
 
                 try:
                     amount = float(pd.to_numeric(row.get("Amount", 0), errors="coerce"))
-                    if pd.isna(amount) or amount == 0:
+                    if not math.isfinite(amount) or amount <= 0:
+                        self.discrepancies.append(f"Ledger row {row_index+2}: invalid amount")
                         continue
                 except Exception:
+                    self.discrepancies.append(f"Ledger row {row_index+2}: invalid amount")
                     continue
 
                 cat = str(row.get("Category", "Unknown"))
                 dt = row["Date"]
 
-                with self.engine.connect() as conn:
+                source_key = f"ledger:{source_hash}:{row_index}"
+                with self.engine.begin() as conn:
+                    conn.execute(text("SELECT pg_advisory_xact_lock(hashtext(:key))"), {"key":source_key})
+                    if conn.execute(text("SELECT 1 FROM imported_source_rows WHERE source_key=:key"), {"key":source_key}).first():
+                        continue
                     res = conn.execute(
                         text(
                             "INSERT INTO journal_entries (description, transaction_date) "
@@ -518,7 +543,7 @@ class DataMigrator:
                             {"id": je_id, "amt": amount},
                         )
 
-                    conn.commit()
+                    conn.execute(text("INSERT INTO imported_source_rows(source_key,target_type,target_id) VALUES(:key,'Journal',:id)"), {"key":source_key,"id":str(je_id)})
         except Exception as e:
             logger.error(f"Failed to migrate ledger: {e}")
             self.discrepancies.append(f"Ledger Error: {e}")
@@ -533,6 +558,9 @@ class DataMigrator:
             Step 3: Update employees.status and insert employee_history entry.
         """
         logger.info("Syncing employee statuses...")
+        if not self.attendance_import_complete:
+            self.discrepancies.append("Status sync refused because attendance import did not complete")
+            return
         try:
             with self.engine.connect() as conn:
                 res = conn.execute(text("SELECT id, status FROM employees"))
@@ -543,7 +571,9 @@ class DataMigrator:
                         "active" if emp_id in self.active_employee_ids else "inactive"
                     )
 
-                    # Update status if changed or if we want to force initial log
+                    if current_status == new_status:
+                        continue
+                    # Only record actual changes
                     conn.execute(
                         text("UPDATE employees SET status = :status WHERE id = :id"),
                         {"status": new_status, "id": emp_id},

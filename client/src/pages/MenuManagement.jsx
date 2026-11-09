@@ -7,6 +7,7 @@ import { FiPlus, FiTrash2, FiX, FiAlertCircle, FiCheckCircle } from 'react-icons
 const MenuManagement = () => {
   const [items, setItems] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -60,7 +61,9 @@ const MenuManagement = () => {
         category: formData.category
       };
 
-      await api.post('menu', payload);
+      if (editingId) await api.put('menu/' + editingId, payload);
+      else await api.post('menu', payload);
+      setEditingId(null);
       setSuccessMessage(`✓ Menu item "${formData.name}" added successfully`);
       setFormData({ name: '', price: '', category: '' });
       setShowForm(false);
@@ -86,6 +89,7 @@ const MenuManagement = () => {
 
   const handleCancel = () => {
     setShowForm(false);
+    setEditingId(null);
     setFormData({ name: '', price: '', category: '' });
     setError('');
   };
@@ -143,8 +147,8 @@ const MenuManagement = () => {
       {showForm && canManageMenu && (
         <form onSubmit={handleSubmit} className="glass-panel p-6 mb-6 rounded-xl space-y-4">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold">Add New Menu Item</h2>
-            <button
+            <h2 className="text-xl font-bold">{editingId ? "Edit Menu Item" : "Add New Menu Item"}</h2>
+            <button aria-label="Close"
               type="button"
               onClick={handleCancel}
               className="text-gray-400 hover:text-white transition"
@@ -156,7 +160,7 @@ const MenuManagement = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-300 mb-2">Item Name *</label>
-              <input
+              <input aria-label="Name"
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -168,7 +172,7 @@ const MenuManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Price (₹) *</label>
-              <input
+              <input aria-label="Price"
                 type="number"
                 step="0.01"
                 min="0"
@@ -182,7 +186,7 @@ const MenuManagement = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Category *</label>
-              <select
+              <select aria-label="Category"
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-zohra-blue"
@@ -212,7 +216,7 @@ const MenuManagement = () => {
               type="submit"
               className="btn-primary"
             >
-              Add Menu Item
+              {editingId ? "Save Changes" : "Add Menu Item"}
             </button>
           </div>
         </form>
@@ -233,6 +237,7 @@ const MenuManagement = () => {
                       <h4 className="font-semibold text-white mb-1">{item.name}</h4>
                       <p className="text-2xl font-bold text-zohra-blue">₹{parseFloat(item.price).toFixed(2)}</p>
                     </div>
+                    {canManageMenu && <button type="button" aria-label={"Edit " + item.name} className="btn-secondary" onClick={() => { setEditingId(item.id); setFormData({name:item.name,price:item.price,category:item.category}); setShowForm(true); }}>Edit</button>}
                     {canManageMenu && (
                       <button
                         onClick={() => handleDelete(item.id, item.name)}

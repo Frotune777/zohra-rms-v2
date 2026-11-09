@@ -1,4 +1,5 @@
 const db = require('../../config/db');
+const { statusFor } = require('../../utils/domain');
 const JournalService = require('../finance/JournalService');
 
 exports.getWastageLogs = async (req, res) => {
@@ -7,7 +8,7 @@ exports.getWastageLogs = async (req, res) => {
         const result = await OperationsService.getWastageLogs();
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -21,7 +22,7 @@ exports.logWastage = async (req, res) => {
         res.json(wastageLog);
     } catch (err) {
         await client.query('ROLLBACK');
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     } finally {
         client.release();
     }

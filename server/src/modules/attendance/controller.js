@@ -1,3 +1,4 @@
+const { statusFor } = require('../../utils/domain');
 const AttendanceService = require('./service');
 
 exports.getAttendance = async (req, res) => {
@@ -6,7 +7,7 @@ exports.getAttendance = async (req, res) => {
         const result = await AttendanceService.getAttendance(date);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -16,7 +17,7 @@ exports.saveBulkAttendance = async (req, res) => {
         await AttendanceService.saveBulkAttendance(date, records);
         res.json({ success: true, message: 'Attendance saved' });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -25,7 +26,7 @@ exports.getLastMarkedDates = async (req, res) => {
         const result = await AttendanceService.getLastMarkedDates();
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -35,6 +36,6 @@ exports.getCalendar = async (req, res) => {
         const result = await AttendanceService.getCalendar(startDate, endDate);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };

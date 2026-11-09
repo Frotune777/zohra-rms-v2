@@ -1,0 +1,2141 @@
+{
+  "started_at": "2026-11-09T04:40:42.425Z",
+  "finished_at": "2026-11-09T04:42:14.861Z",
+  "planned_tests": [
+    {
+      "title": "DATA-001 synthetic xls employee/rates/attendance round trip is repeatable",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 20
+    },
+    {
+      "title": "DATA-001 synthetic xlsx employee/rates/attendance round trip is repeatable",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 20
+    },
+    {
+      "title": "DATA-001 repeated bill import does not duplicate financial source rows",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 29
+    },
+    {
+      "title": "DATA-001 repeated CSV import is idempotent and malformed source rows are reported",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 33
+    },
+    {
+      "title": "DATA-001 missing attendance is reported before changing active employee statuses",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 38
+    },
+    {
+      "title": "E2E-002 purchase approval settlement and closure reconcile after each committed stage",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 42
+    },
+    {
+      "title": "E2E-003 attendance advance payroll payout revert and repay conserve source balances",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 53
+    },
+    {
+      "title": "EXPORT-001 CSV preserves quotes, Unicode and embedded newlines without executable formula cells",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 7
+    },
+    {
+      "title": "EXPORT-002 /reports/financial JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13
+    },
+    {
+      "title": "EXPORT-002 /reports/hr JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13
+    },
+    {
+      "title": "EXPORT-002 /reports/operations JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13
+    },
+    {
+      "title": "EXPORT-002 /reports/inventory JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13
+    },
+    {
+      "title": "EXPORT-003 /reports/financial PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23
+    },
+    {
+      "title": "EXPORT-003 /reports/hr PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23
+    },
+    {
+      "title": "EXPORT-003 /reports/operations PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23
+    },
+    {
+      "title": "EXPORT-003 /reports/inventory PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23
+    },
+    {
+      "title": "EXPORT-003 repeated downloads release their Blob URLs",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 27
+    },
+    {
+      "title": "UI-001 SCREEN-001 visible buttons and form fields have programmatic accessible names /login",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-002 visible buttons and form fields have programmatic accessible names /",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-003 visible buttons and form fields have programmatic accessible names /dashboard",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-004 visible buttons and form fields have programmatic accessible names /employees",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-005 visible buttons and form fields have programmatic accessible names /menu",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-006 visible buttons and form fields have programmatic accessible names /payroll",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-007 visible buttons and form fields have programmatic accessible names /advances",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-008 visible buttons and form fields have programmatic accessible names /vendor-payments",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-009 visible buttons and form fields have programmatic accessible names /inventory",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-010 visible buttons and form fields have programmatic accessible names /finance",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-011 visible buttons and form fields have programmatic accessible names /finance/payments",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-012 visible buttons and form fields have programmatic accessible names /finance/summary",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-013 visible buttons and form fields have programmatic accessible names /finance/daily-tracker",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-014 visible buttons and form fields have programmatic accessible names /finance/float",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-015 visible buttons and form fields have programmatic accessible names /finance/mappings",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-016 visible buttons and form fields have programmatic accessible names /finance/transfer",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-017 visible buttons and form fields have programmatic accessible names /attendance/bulk",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-018 visible buttons and form fields have programmatic accessible names /attendance/leaves",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-019 visible buttons and form fields have programmatic accessible names /advances/approvals",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-020 visible buttons and form fields have programmatic accessible names /ai-dashboard",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-021 visible buttons and form fields have programmatic accessible names /chicken",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-022 visible buttons and form fields have programmatic accessible names /chicken/rates",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-023 visible buttons and form fields have programmatic accessible names /chicken/bills",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-024 visible buttons and form fields have programmatic accessible names /chicken/vendors",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-025 visible buttons and form fields have programmatic accessible names /reports",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-026 visible buttons and form fields have programmatic accessible names /reports/financial",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-027 visible buttons and form fields have programmatic accessible names /reports/hr",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-028 visible buttons and form fields have programmatic accessible names /reports/operations",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-029 visible buttons and form fields have programmatic accessible names /reports/inventory",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-030 visible buttons and form fields have programmatic accessible names /config",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-031 visible buttons and form fields have programmatic accessible names /approvals",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    },
+    {
+      "title": "UI-001 SCREEN-032 visible buttons and form fields have programmatic accessible names /development-status",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31
+    }
+  ],
+  "source_sha256": {
+    "playwright.audit.config.cjs": "a71db4d943a18608429fca9fe6f33014d4a87d69d4a12572aeff2b724fe12cad",
+    "tests/audit/auth.spec.cjs": "95fae9609d8a778dc2280a346d62e86197491236a1fa216a407cc5227381bc57",
+    "tests/audit/clock.cjs": "d610bc5db42c3f5ca22a04380af278baa79c80e528636da8fc068e1f3b7bf740",
+    "tests/audit/data-roundtrip.spec.cjs": "6fa80c53d2e33b20c09c70d943e1292d41adf99a6e0fc4b05394f19994ab94f4",
+    "tests/audit/database.cjs": "cbfa494e2a645cd7c7896f609f4bbfb7801b597150f71920d42fe2eef35553ad",
+    "tests/audit/exports.spec.cjs": "98cd06087cdfbf2bef7d94858704d23db5fe823539ecf89e35962ff60a436820",
+    "tests/audit/finance.spec.cjs": "9b810e295f0a928d656ed628b868d244d43d59c76ca4efb030648a5064222d25",
+    "tests/audit/fixtures.cjs": "754e4b030497b681c9b8a0bcf177e78201f07a8fa2aa815eb2b98bdda14ab14a",
+    "tests/audit/global-setup.cjs": "0193336d5a2c9c384ff79b1d7d4f39a64b5d6ca733f3411264958e6c51a05d38",
+    "tests/audit/global-teardown.cjs": "05fe5aef9cd5e4e0c7187257d4177f20e3fbafe790268e12448a402c310c509d",
+    "tests/audit/harness.spec.cjs": "09ecde360e4257c4e43df2cbdb65fd280a36314f14eb17fd055243f6329451d6",
+    "tests/audit/helpers.cjs": "41922596bef71690777ab88108ce74fe31ff5410e91650aa3d454b70dddf167a",
+    "tests/audit/hr.spec.cjs": "3ebbadd9a9ab34102de274d6bd0f75d258ab98e250f96858960b619f06065ca5",
+    "tests/audit/import-runner.py": "99eb69b02bf882a6255c7bddc1251466edb6cade53cc4d1af563fcd53b114331",
+    "tests/audit/payroll-ui.spec.cjs": "77ced4163432777ac05ca72028dc3ca1fa032337d2977df79895602166e2e4e6",
+    "tests/audit/pos-inventory.spec.cjs": "36812fccaf454a1b2a8a8cb5228b7440ab16a1919a834bf8a9d6020d78adadef",
+    "tests/audit/procurement.spec.cjs": "0f711d50e9bf22a7bafb473f388b64c3ca903387433d1e6fa6de6ca410b5e089",
+    "tests/audit/reporter.cjs": "2c5903c8e445544dccefaeff47521650f78652ace907e35ae68a9127f8f259f0",
+    "tests/audit/reports-config-ai.spec.cjs": "24b19eea59aff75842d92282ef56dd7c23c79ddf242efef52b38b4958eae7fa9",
+    "tests/audit/screen-states.spec.cjs": "36b3c238aaacfb96945afe0ba37e1302bf683d51ba04c637b0a68d29feb3a7ab",
+    "tests/audit/screens.cjs": "d1a775987958f7a4ea7951f1c67e4aaeee2171e9a5b758b465dc0de207a1ae17",
+    "tests/audit/screens.spec.cjs": "daede1a5e376ea623c767960d84f6b50b74015bd090fdbca18379cb1ec38da4c",
+    "tests/audit/service-runner.cjs": "b946717a5c368f4f20d46887489a5c4d4aa361ebcf08c1390963efaf17241c3b"
+  },
+  "status": "failed",
+  "counts": {
+    "passed": 47,
+    "failed": 2
+  },
+  "results": [
+    {
+      "title": "DATA-001 synthetic xls employee/rates/attendance round trip is repeatable",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 20,
+      "ids": [
+        "DATA-001"
+      ],
+      "status": "passed",
+      "duration_ms": 6730,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/data-roundtrip-DATA-001-sy-4cb82-ce-round-trip-is-repeatable/attachments/audit-evidence-90af734b6313fe8c6fe759b81067633c4d449ca9.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1555ef4de44e_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Importer result",
+            "actual": {
+              "result": {
+                "ok": true,
+                "discrepancies": []
+              },
+              "stderr": "INFO:migration_tool:Preparing database...\nINFO:migration_tool:Migrating employees...\nINFO:migration_tool:Migrating paper rates...\nINFO:migration_tool:Migrating attendance...\n"
+            }
+          },
+          {
+            "name": "Importer result",
+            "actual": {
+              "result": {
+                "ok": true,
+                "discrepancies": []
+              },
+              "stderr": "INFO:migration_tool:Preparing database...\nINFO:migration_tool:Migrating employees...\nINFO:migration_tool:Migrating paper rates...\nINFO:migration_tool:Migrating attendance...\n"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "DATA-001 synthetic xlsx employee/rates/attendance round trip is repeatable",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 20,
+      "ids": [
+        "DATA-001"
+      ],
+      "status": "passed",
+      "duration_ms": 2705,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/data-roundtrip-DATA-001-sy-d99db-ce-round-trip-is-repeatable/attachments/audit-evidence-4f7ed93a614142f4b0379a55eba5edaa5b55a55d.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_99e6674bea8d_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Importer result",
+            "actual": {
+              "result": {
+                "ok": true,
+                "discrepancies": []
+              },
+              "stderr": "INFO:migration_tool:Preparing database...\nINFO:migration_tool:Migrating employees...\nINFO:migration_tool:Migrating paper rates...\nINFO:migration_tool:Migrating attendance...\n"
+            }
+          },
+          {
+            "name": "Importer result",
+            "actual": {
+              "result": {
+                "ok": true,
+                "discrepancies": []
+              },
+              "stderr": "INFO:migration_tool:Preparing database...\nINFO:migration_tool:Migrating employees...\nINFO:migration_tool:Migrating paper rates...\nINFO:migration_tool:Migrating attendance...\n"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "DATA-001 repeated bill import does not duplicate financial source rows",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 29,
+      "ids": [
+        "DATA-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1931,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/data-roundtrip-DATA-001-re-984a3-icate-financial-source-rows/attachments/audit-evidence-372fb6db7cbcda2931df1377212237764eb249f1.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e5f30f692f98_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Importer result",
+            "actual": {
+              "result": {
+                "ok": true,
+                "discrepancies": []
+              },
+              "stderr": "INFO:migration_tool:Preparing database...\nINFO:migration_tool:Migrating vendor bills (weights)...\n"
+            }
+          },
+          {
+            "name": "Importer result",
+            "actual": {
+              "result": {
+                "ok": true,
+                "discrepancies": []
+              },
+              "stderr": "INFO:migration_tool:Preparing database...\nINFO:migration_tool:Migrating vendor bills (weights)...\n"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "DATA-001 repeated CSV import is idempotent and malformed source rows are reported",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 33,
+      "ids": [
+        "DATA-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1786,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/data-roundtrip-DATA-001-re-47d5f-ed-source-rows-are-reported/attachments/audit-evidence-c11a7e845996867817b4745ce73c6c846b7fb622.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ecb366bc92fc_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Importer result",
+            "actual": {
+              "result": {
+                "ok": true,
+                "discrepancies": [
+                  "Ledger row 3: invalid date",
+                  "Ledger row 4: invalid amount"
+                ]
+              },
+              "stderr": "INFO:migration_tool:Preparing database...\nINFO:migration_tool:Migrating ledger...\n"
+            }
+          },
+          {
+            "name": "Importer result",
+            "actual": {
+              "result": {
+                "ok": true,
+                "discrepancies": [
+                  "Ledger row 3: invalid date",
+                  "Ledger row 4: invalid amount"
+                ]
+              },
+              "stderr": "INFO:migration_tool:Preparing database...\nINFO:migration_tool:Migrating ledger...\n"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "DATA-001 missing attendance is reported before changing active employee statuses",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 38,
+      "ids": [
+        "DATA-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1316,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/data-roundtrip-DATA-001-mi-088a1-ng-active-employee-statuses/attachments/audit-evidence-a0179a44224a3402102a2a98c3689fc12f599935.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_8c9e953b3af2_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Importer result",
+            "actual": {
+              "result": {
+                "ok": true,
+                "discrepancies": [
+                  "Attendance Error: [Errno 2] No such file or directory: '/Users/I557587/Personal/zohra-rms-v2/test-results/audit/data-roundtrip-DATA-001-mi-088a1-ng-active-employee-statuses/nonexistent.xlsx'",
+                  "Status sync refused because attendance import did not complete"
+                ]
+              },
+              "stderr": "INFO:migration_tool:Preparing database...\nINFO:migration_tool:Migrating attendance...\nERROR:migration_tool:Failed to migrate attendance: [Errno 2] No such file or directory: '/Users/I557587/Personal/zohra-rms-v2/test-results/audit/data-roundtrip-DATA-001-mi-088a1-ng-active-employee-statuses/nonexistent.xlsx'\nINFO:migration_tool:Syncing employee statuses...\n"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "E2E-002 purchase approval settlement and closure reconcile after each committed stage",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 42,
+      "ids": [
+        "E2E-002"
+      ],
+      "status": "passed",
+      "duration_ms": 940,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/data-roundtrip-E2E-002-pur-94997--after-each-committed-stage/attachments/audit-evidence-c78b05cdc4c8d95ffe87ea8995c8ec70071c45aa.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_35fff7662593_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "chicken/bills",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "endpoint": "chicken/bills/1/status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "vendors/payments",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "finance/daily-balance/2026-11-09",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/close",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/daily-balance/reopen",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Stage committed purchase",
+            "actual": [
+              {
+                "id": 1,
+                "date": "2026-11-08T18:30:00.000Z",
+                "supplier_id": 1,
+                "item_name": "Audit Chicken",
+                "qty": "2.00",
+                "vendor_rate": "160.00",
+                "expected_rate": "160.00",
+                "variance": "0.00",
+                "status": "Pending",
+                "created_at": "2026-11-09T04:40:57.729Z",
+                "approved_by": null,
+                "approved_at": null,
+                "approval_notes": null,
+                "journal_entry_id": null,
+                "updated_at": null,
+                "updated_by": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "E2E-003 attendance advance payroll payout revert and repay conserve source balances",
+      "file": "tests/audit/data-roundtrip.spec.cjs",
+      "line": 53,
+      "ids": [
+        "E2E-003"
+      ],
+      "status": "passed",
+      "duration_ms": 917,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/data-roundtrip-E2E-003-att-c6e42-ay-conserve-source-balances/attachments/audit-evidence-02008fd810c9d3d43f2d1d585376ece02aad7170.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_fa99442b157b_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "attendance/bulk",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/revert/1",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Stage payout balances",
+            "actual": [
+              {
+                "account_code": 1000,
+                "balance": "-1500.00"
+              },
+              {
+                "account_code": 1100,
+                "balance": "500.00"
+              },
+              {
+                "account_code": 6100,
+                "balance": "1000.00"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-001 CSV preserves quotes, Unicode and embedded newlines without executable formula cells",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 7,
+      "ids": [
+        "EXPORT-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1465,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-001-CSV-pre-1c94f-ut-executable-formula-cells/attachments/audit-evidence-92cf34ccfb047f4ae657276d61a426f9796da061.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_863a275f49d8_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "CSV content",
+            "actual": {
+              "name": "inventory_report_2026-11-09.csv",
+              "content": "id,name,stock_qty,unit_cost,unit,stock_value,stock_level\n1,'=1+1,20.0000,150.00,kg,3000.000000,medium\n2,\"Zohra, \"\"रसोई\"\"\nSecond line\",10.0000,50.00,kg,500.000000,low"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-002 /reports/financial JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13,
+      "ids": [
+        "EXPORT-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1487,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-002-reports-00ff3-ad-matches-the-report-input/attachments/audit-evidence-c3af6c227cd7f2ae63a9ca6dab20f107ff713f9d.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_37c8d2943356_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "JSON content",
+            "actual": [
+              {
+                "date": "9 Nov",
+                "revenue": 100,
+                "expenses": 50
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-002 /reports/hr JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13,
+      "ids": [
+        "EXPORT-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1435,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-002-reports-1a0b6-ad-matches-the-report-input/attachments/audit-evidence-3f435b5abbf27bf49589e2587995ffe71c73a680.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d3032b486112_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "reports/hr/advances?startDate=2026-10-10&endDate=2026-11-09",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "JSON content",
+            "actual": [
+              {
+                "employee_id": 1,
+                "full_name": "Audit Staff",
+                "position": "Cook",
+                "total_advances": "1000.00",
+                "total_recovered": "0",
+                "outstanding_balance": "1000.00"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-002 /reports/operations JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13,
+      "ids": [
+        "EXPORT-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1503,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-002-reports-acbe1-ad-matches-the-report-input/attachments/audit-evidence-c6e1801c7676d4b478b4c0e3edf3d9c3deea7fb7.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_cbfe0a36f559_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "reports/operations/chicken-analytics?startDate=2026-10-10&endDate=2026-11-09",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "JSON content",
+            "actual": [
+              {
+                "item_name": "Audit Chicken",
+                "total_qty": "2.00",
+                "avg_rate": "160.0000000000000000",
+                "total_amount": "320.0000",
+                "bill_count": "1"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-002 /reports/inventory JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13,
+      "ids": [
+        "EXPORT-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1447,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-002-reports-ae8c1-ad-matches-the-report-input/attachments/audit-evidence-4350a5c1e1d38fcee4021bd40c06b3a79e27c93b.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_444e3fbe7845_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "JSON content",
+            "actual": [
+              {
+                "id": 1,
+                "name": "Audit Chicken",
+                "stock_qty": "20.0000",
+                "unit_cost": "150.00",
+                "unit": "kg",
+                "stock_value": "3000.000000",
+                "stock_level": "medium"
+              },
+              {
+                "id": 2,
+                "name": "Audit Rice",
+                "stock_qty": "10.0000",
+                "unit_cost": "50.00",
+                "unit": "kg",
+                "stock_value": "500.000000",
+                "stock_level": "low"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-003 /reports/financial PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1563,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-11896-an-unavailable-toast-method/attachments/audit-evidence-5818e85dee42b481f938a203c9f9480af79fb4e4.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_50c33f33b66d_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "EXPORT-003 /reports/hr PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1469,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-5e22c-an-unavailable-toast-method/attachments/audit-evidence-8a4deb765bb7594fb032866ecb84d844724dff19.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d5be8be7008f_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "EXPORT-003 /reports/operations PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1498,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-a869c-an-unavailable-toast-method/attachments/audit-evidence-f56a1e76def1d96a3f8af0fba341937c60b47255.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d0884dcea4b6_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "EXPORT-003 /reports/inventory PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1377,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-33807-an-unavailable-toast-method/attachments/audit-evidence-97394f5f8534e111659f587ca2ad2766b34af1f6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_f070fdb6a663_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "EXPORT-003 repeated downloads release their Blob URLs",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 27,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1512,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-repeate-49600-ads-release-their-Blob-URLs/attachments/audit-evidence-e27fec6d8186f3ca4c54f334954a9caf575b01df.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_58ee35887dcf_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-001 visible buttons and form fields have programmatic accessible names /login",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1884,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-3f2d9-atic-accessible-names-login/attachments/audit-evidence-b5d912f6584d49a9b5352a4598262491da72f680.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_bfe444a6edbc_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-002 visible buttons and form fields have programmatic accessible names /",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1965,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-8239f-grammatic-accessible-names-/attachments/audit-evidence-f1126e32d06515004433e650156875a77a7d3cd3.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_5654f6605fe8_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-003 visible buttons and form fields have programmatic accessible names /dashboard",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1859,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-98c69--accessible-names-dashboard/attachments/audit-evidence-64f33c086bcda10ffb740d1fb2527c678c76fe5a.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_6e89d8eadd59_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-004 visible buttons and form fields have programmatic accessible names /employees",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-004"
+      ],
+      "status": "passed",
+      "duration_ms": 1847,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-1ea8f--accessible-names-employees/attachments/audit-evidence-1fb6b4c4e9bcb85a62bb1469d879d5e8cafa7f5a.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_dd555f9bcf47_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-005 visible buttons and form fields have programmatic accessible names /menu",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-005"
+      ],
+      "status": "passed",
+      "duration_ms": 1710,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-437c4-matic-accessible-names-menu/attachments/audit-evidence-4d8a65c68e43984f181caaa42fcf2284519e2276.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_462787a941cc_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-006 visible buttons and form fields have programmatic accessible names /payroll",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-006"
+      ],
+      "status": "passed",
+      "duration_ms": 1821,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-61b1a-ic-accessible-names-payroll/attachments/audit-evidence-8c22bbcc5cb58e846f7b0050b32db2a57e8228b5.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b0cf3fbfb641_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-007 visible buttons and form fields have programmatic accessible names /advances",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-007"
+      ],
+      "status": "passed",
+      "duration_ms": 1819,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-91c19-c-accessible-names-advances/attachments/audit-evidence-6305c841ade742594e234f3f59710e8b45d84456.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e54fd0fd6e2c_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-008 visible buttons and form fields have programmatic accessible names /vendor-payments",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-008"
+      ],
+      "status": "passed",
+      "duration_ms": 1981,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-539b1-sible-names-vendor-payments/attachments/audit-evidence-19a2e6f83c83e00d1261ac450f54db7152c6c162.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_5d650fac6125_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-009 visible buttons and form fields have programmatic accessible names /inventory",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-009"
+      ],
+      "status": "passed",
+      "duration_ms": 1988,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-08a73--accessible-names-inventory/attachments/audit-evidence-90dd75afd8ad40026266ddeed9f133255be7cad0.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e70c5ff1b2dc_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-010 visible buttons and form fields have programmatic accessible names /finance",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-010"
+      ],
+      "status": "passed",
+      "duration_ms": 2003,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-d2be5-ic-accessible-names-finance/attachments/audit-evidence-764d12651a1a5634110b2b7b94ffcb0af0639a32.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_9f380fdb1cca_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-011 visible buttons and form fields have programmatic accessible names /finance/payments",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-011"
+      ],
+      "status": "passed",
+      "duration_ms": 1880,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-c1529-ible-names-finance-payments/attachments/audit-evidence-54e560edbc4acc8efaa7be1ac57c0dfac32d929f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_bbd89ff8bb4c_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-012 visible buttons and form fields have programmatic accessible names /finance/summary",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-012"
+      ],
+      "status": "passed",
+      "duration_ms": 1915,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-bed1f-sible-names-finance-summary/attachments/audit-evidence-2cd16b54803cd561b718aee3f5fff538234a98c4.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_6e0d365f4770_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-013 visible buttons and form fields have programmatic accessible names /finance/daily-tracker",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-013"
+      ],
+      "status": "failed",
+      "duration_ms": 1941,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 9\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"id\": \"\",\u001b[39m\n\u001b[31m+     \"placeholder\": null,\u001b[39m\n\u001b[31m+     \"tag\": \"SELECT\",\u001b[39m\n\u001b[31m+     \"text\": \"- Method -Bank TransferCard/POSCashChequeManager FloatUPI Pa\",\u001b[39m\n\u001b[31m+     \"type\": null,\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+ ]\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-729c1-names-finance-daily-tracker/test-failed-1.png",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-729c1-names-finance-daily-tracker/attachments/audit-evidence-455d46879a8ed7b21ee337a4d6f9021f0ff05f37.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-729c1-names-finance-daily-tracker/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-729c1-names-finance-daily-tracker/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d43ab048fa2f_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": [
+              {
+                "tag": "SELECT",
+                "type": null,
+                "id": "",
+                "placeholder": null,
+                "text": "- Method -Bank TransferCard/POSCashChequeManager FloatUPI Pa"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-014 visible buttons and form fields have programmatic accessible names /finance/float",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-014"
+      ],
+      "status": "passed",
+      "duration_ms": 1875,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-8bd15-essible-names-finance-float/attachments/audit-evidence-29934e85e4a1205f82a0bb8ab94842032ff346d6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b47df9c312e1_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-015 visible buttons and form fields have programmatic accessible names /finance/mappings",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-015"
+      ],
+      "status": "passed",
+      "duration_ms": 1845,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-a070f-ible-names-finance-mappings/attachments/audit-evidence-7a4e19598e27e0527f17ba479f22d75826bb09fb.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_9c595100312f_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-016 visible buttons and form fields have programmatic accessible names /finance/transfer",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-016"
+      ],
+      "status": "passed",
+      "duration_ms": 1876,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-c4c82-ible-names-finance-transfer/attachments/audit-evidence-8275a0a2bdae3084296fe6785d212121b1faf18f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1c2190c363bd_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-017 visible buttons and form fields have programmatic accessible names /attendance/bulk",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-017"
+      ],
+      "status": "passed",
+      "duration_ms": 1861,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-11290-sible-names-attendance-bulk/attachments/audit-evidence-1241676d5031be29683aa5ddc48b6d2944b1b516.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_926d8122442a_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-018 visible buttons and form fields have programmatic accessible names /attendance/leaves",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-018"
+      ],
+      "status": "passed",
+      "duration_ms": 1987,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-4eae2-ble-names-attendance-leaves/attachments/audit-evidence-a504b54f7e7d6594f6024a8f5c2fc17edb42cef3.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_5e805d371654_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-019 visible buttons and form fields have programmatic accessible names /advances/approvals",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-019"
+      ],
+      "status": "passed",
+      "duration_ms": 1872,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-ada63-le-names-advances-approvals/attachments/audit-evidence-a1b7f6d06b2bce60a749aa11e96f218ba8e56367.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_933fc18da40f_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-020 visible buttons and form fields have programmatic accessible names /ai-dashboard",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-020"
+      ],
+      "status": "passed",
+      "duration_ms": 1852,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-4a5d4-cessible-names-ai-dashboard/attachments/audit-evidence-1c33e016aac46eec1914a370150456d5c3923624.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d4933f98153a_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-021 visible buttons and form fields have programmatic accessible names /chicken",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-021"
+      ],
+      "status": "passed",
+      "duration_ms": 1874,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-0273c-ic-accessible-names-chicken/attachments/audit-evidence-9615234e2bf178fb2c4b1cce19ae5ffa817bf9c3.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b8d139e946e1_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-022 visible buttons and form fields have programmatic accessible names /chicken/rates",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-022"
+      ],
+      "status": "passed",
+      "duration_ms": 1782,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-b8279-essible-names-chicken-rates/attachments/audit-evidence-c4b3a94dddeedfb68d15a19ffbe4120303a42d00.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_01677d65e63b_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-023 visible buttons and form fields have programmatic accessible names /chicken/bills",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-023"
+      ],
+      "status": "passed",
+      "duration_ms": 1886,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-962bc-essible-names-chicken-bills/attachments/audit-evidence-d9e57226b4bdfdf798491666c2763462b54e5e42.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_0663a6f8a0ab_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-024 visible buttons and form fields have programmatic accessible names /chicken/vendors",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-024"
+      ],
+      "status": "failed",
+      "duration_ms": 1922,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  -  1\u001b[39m\n\u001b[31m+ Received  + 23\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"id\": \"\",\u001b[39m\n\u001b[31m+     \"placeholder\": \"0.00\",\u001b[39m\n\u001b[31m+     \"tag\": \"INPUT\",\u001b[39m\n\u001b[31m+     \"text\": \"\",\u001b[39m\n\u001b[31m+     \"type\": \"number\",\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"id\": \"\",\u001b[39m\n\u001b[31m+     \"placeholder\": \"0.00\",\u001b[39m\n\u001b[31m+     \"tag\": \"INPUT\",\u001b[39m\n\u001b[31m+     \"text\": \"\",\u001b[39m\n\u001b[31m+     \"type\": \"number\",\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"id\": \"\",\u001b[39m\n\u001b[31m+     \"placeholder\": \"0.00\",\u001b[39m\n\u001b[31m+     \"tag\": \"INPUT\",\u001b[39m\n\u001b[31m+     \"text\": \"\",\u001b[39m\n\u001b[31m+     \"type\": \"number\",\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+ ]\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-465ce-sible-names-chicken-vendors/test-failed-1.png",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-465ce-sible-names-chicken-vendors/attachments/audit-evidence-d69806206064d448b1e247d9a488e54cda21a8f3.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-465ce-sible-names-chicken-vendors/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-465ce-sible-names-chicken-vendors/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_cf354c303e0c_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": [
+              {
+                "tag": "INPUT",
+                "type": "number",
+                "id": "",
+                "placeholder": "0.00",
+                "text": ""
+              },
+              {
+                "tag": "INPUT",
+                "type": "number",
+                "id": "",
+                "placeholder": "0.00",
+                "text": ""
+              },
+              {
+                "tag": "INPUT",
+                "type": "number",
+                "id": "",
+                "placeholder": "0.00",
+                "text": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-025 visible buttons and form fields have programmatic accessible names /reports",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-025"
+      ],
+      "status": "passed",
+      "duration_ms": 1987,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-87d8e-ic-accessible-names-reports/attachments/audit-evidence-13ae5d2af703db668c33ca784df3824a4e03cac6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d72c8d2d57a2_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-026 visible buttons and form fields have programmatic accessible names /reports/financial",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-026"
+      ],
+      "status": "passed",
+      "duration_ms": 1887,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-29dcf-ble-names-reports-financial/attachments/audit-evidence-05022e07c43e35878daabe27d2489382e4ff3948.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_65194fde3455_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-027 visible buttons and form fields have programmatic accessible names /reports/hr",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-027"
+      ],
+      "status": "passed",
+      "duration_ms": 1899,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-180fa-accessible-names-reports-hr/attachments/audit-evidence-9010f5ac82ac864b92219c9b55b9b5b43048e7c6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_759d3a6561cb_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-028 visible buttons and form fields have programmatic accessible names /reports/operations",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-028"
+      ],
+      "status": "passed",
+      "duration_ms": 1763,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-dea12-le-names-reports-operations/attachments/audit-evidence-94283a1eb1347ec99a55aeacd88c9682477eea26.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1b7ded494f82_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-029 visible buttons and form fields have programmatic accessible names /reports/inventory",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-029"
+      ],
+      "status": "passed",
+      "duration_ms": 1874,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-e9c8a-ble-names-reports-inventory/attachments/audit-evidence-3f2807b4effc5052bc31654fb6b70eda2b249297.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_85b84acb8c8f_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-030 visible buttons and form fields have programmatic accessible names /config",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-030"
+      ],
+      "status": "passed",
+      "duration_ms": 1742,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-2919f-tic-accessible-names-config/attachments/audit-evidence-baab66796c82f8059512848a89db527f1f67ec4c.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d8d978589e2c_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-031 visible buttons and form fields have programmatic accessible names /approvals",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-031"
+      ],
+      "status": "passed",
+      "duration_ms": 1847,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-ec13f--accessible-names-approvals/attachments/audit-evidence-b6e29ff8fd1a79e112859acedd25c8101d31c5e9.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_05f4ae617324_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "UI-001 SCREEN-032 visible buttons and form fields have programmatic accessible names /development-status",
+      "file": "tests/audit/screen-states.spec.cjs",
+      "line": 31,
+      "ids": [
+        "UI-001",
+        "SCREEN-032"
+      ],
+      "status": "passed",
+      "duration_ms": 1747,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/screen-states-UI-001-SCREE-99344-le-names-development-status/attachments/audit-evidence-9b81e9d9fd2db60169c2e611eba6f07ea3d38995.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ea39802a94cb_1794199241656",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Controls missing accessible names",
+            "actual": []
+          }
+        ]
+      }
+    }
+  ]
+}

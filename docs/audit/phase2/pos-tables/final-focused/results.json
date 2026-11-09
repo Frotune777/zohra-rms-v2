@@ -1,0 +1,1408 @@
+{
+  "started_at": "2026-11-09T10:05:06.810Z",
+  "finished_at": "2026-11-09T10:05:55.280Z",
+  "planned_tests": [
+    {
+      "title": "POS-002 table 1 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5
+    },
+    {
+      "title": "POS-002 table 2 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5
+    },
+    {
+      "title": "POS-002 table 3 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5
+    },
+    {
+      "title": "POS-002 table 4 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5
+    },
+    {
+      "title": "POS-002 table 5 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5
+    },
+    {
+      "title": "POS-002 table 6 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5
+    },
+    {
+      "title": "POS-002 table 7 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5
+    },
+    {
+      "title": "POS-002 table 8 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5
+    },
+    {
+      "title": "POS-002 table 9 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5
+    },
+    {
+      "title": "POS-002 table 10 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5
+    },
+    {
+      "title": "POS-002 table 11 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5
+    },
+    {
+      "title": "POS-002 table 12 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5
+    },
+    {
+      "title": "POS-004 owner Due checkout without a phone records debt and can collect payment later",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 22
+    },
+    {
+      "title": "POS-004 manager Part checkout without a phone records debt and can collect payment later",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 22
+    },
+    {
+      "title": "POS-004 staff Due checkout without a phone records debt and can collect payment later",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 22
+    },
+    {
+      "title": "POS-002 POS-009 table carts remain separate across navigation, browser back and reload",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 43
+    },
+    {
+      "title": "POS-002 Delivery stays accessible from home and does not inherit table cart or number",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 61
+    },
+    {
+      "title": "POS-002 Pick Up stays accessible from home and does not inherit table cart or number",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 61
+    },
+    {
+      "title": "POS-001 failed table and menu loads expose working retry controls",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 71
+    },
+    {
+      "title": "CFG-001 POS-002 manager can load, rename and deactivate dining tables without granting staff configuration access",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 82
+    },
+    {
+      "title": "SCREEN-002 POS-002 table home and phone-free checkout work at viewport 375",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 98
+    },
+    {
+      "title": "SCREEN-002 POS-002 table home and phone-free checkout work at viewport 768",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 98
+    },
+    {
+      "title": "SCREEN-002 POS-002 table home and phone-free checkout work at viewport 1440",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 98
+    },
+    {
+      "title": "POS-005 phone-free partial checkout with oversized payment still rejects atomically and keeps the cart",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 106
+    },
+    {
+      "title": "POS-009 legacy saved cart A7 resumes a committed checkout without duplicate writes",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 115
+    },
+    {
+      "title": "POS-009 legacy saved cart without a table resumes a committed checkout without duplicate writes",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 115
+    },
+    {
+      "title": "POS-002 POS-009 real account switching keeps table drafts scoped to the authenticated actor",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 132
+    }
+  ],
+  "source_sha256": {
+    "playwright.audit.config.cjs": "a71db4d943a18608429fca9fe6f33014d4a87d69d4a12572aeff2b724fe12cad",
+    "tests/audit/auth.spec.cjs": "95fae9609d8a778dc2280a346d62e86197491236a1fa216a407cc5227381bc57",
+    "tests/audit/clock.cjs": "d610bc5db42c3f5ca22a04380af278baa79c80e528636da8fc068e1f3b7bf740",
+    "tests/audit/completion.spec.cjs": "2002eed71bf2d35de0eb4cbdd6abf7b31a93737d00edc435f3ba81129a0b6aa0",
+    "tests/audit/corrections.spec.cjs": "a1ff66148feb47877b490f50455b5d8037d6160a1a7e2262e84d147df6ed8785",
+    "tests/audit/coverage-hook.cjs": "8448d7404261a60b43f6f1f0937fe7d6ae40d52eba0df07c143c2f1e35695f64",
+    "tests/audit/data-roundtrip.spec.cjs": "6fa80c53d2e33b20c09c70d943e1292d41adf99a6e0fc4b05394f19994ab94f4",
+    "tests/audit/database.cjs": "58b632e55c2dda8076e3de77d9355255fbc5e3249410016d8a5378e5cf579924",
+    "tests/audit/exports.spec.cjs": "2f0aa94e423f13f5be3e4f8ed5c4f2551f4c097c74e5bd9801d1f7bb61e54cdf",
+    "tests/audit/finance.spec.cjs": "3f784dbdd0c9ec50e95f1b941f0dccc0d3a891fbd1d20a063a9e2b059cc3a1d6",
+    "tests/audit/fixtures.cjs": "8fafbe2a6c1afc3703d0d86e6087031014bf83dc2c69f4d5dea42469ca4b224d",
+    "tests/audit/global-setup.cjs": "dd01e696741df5e6b58fa1fec31d0bf5a0d6c55b226d704c56210d8218644dbf",
+    "tests/audit/global-teardown.cjs": "b14a9876a13d97938f25e966956ab035e69996f83e1b0049c513a85fdc9be0ab",
+    "tests/audit/harness.spec.cjs": "09ecde360e4257c4e43df2cbdb65fd280a36314f14eb17fd055243f6329451d6",
+    "tests/audit/helpers.cjs": "62a453a8f54b1c9e902d9074c910b792918a97d0c27824c7c7169c5b8fe27a9f",
+    "tests/audit/hr.spec.cjs": "e3d4d9666bd679b0ba9c750b4b3e32f7da59f41a32d7d04a3ff77844d5a6f4b2",
+    "tests/audit/import-runner.py": "99eb69b02bf882a6255c7bddc1251466edb6cade53cc4d1af563fcd53b114331",
+    "tests/audit/integrity-regressions.spec.cjs": "e4bb8219aa424e5337a46872b4412a6d666dae391bf8fe00b851af8cf3e87c41",
+    "tests/audit/migrations.spec.cjs": "5a71814ffe0f1ab73ff4a24449b0c7abe0d0f2c94195ac08de975edf01fd2fbe",
+    "tests/audit/payroll-ui.spec.cjs": "77ced4163432777ac05ca72028dc3ca1fa032337d2977df79895602166e2e4e6",
+    "tests/audit/pos-inventory.spec.cjs": "4b1221341bdd3c9730957552d638248fa84c4cdd3e3408e973c4d0c5720613c3",
+    "tests/audit/pos-tables.spec.cjs": "0b5fbfc4bde9ad38f3b0ed9a39b651a42e56bbc8ca33b02357fb0ae5aa26e0f6",
+    "tests/audit/procurement.spec.cjs": "fa4d30a8f8ccae373c7c33aeb6337141e4514874e29d6d5175bc5e999ac35278",
+    "tests/audit/reporter.cjs": "2c5903c8e445544dccefaeff47521650f78652ace907e35ae68a9127f8f259f0",
+    "tests/audit/reports-config-ai.spec.cjs": "619be81df6b1b29a6c0cad97895e5df5d25f63eabe787194affdc007abb8a674",
+    "tests/audit/screen-states.spec.cjs": "36b3c238aaacfb96945afe0ba37e1302bf683d51ba04c637b0a68d29feb3a7ab",
+    "tests/audit/screens.cjs": "b16de921c30218313018a2dd6bb4f24bd310c67d749c256fe063f042a6a7d8f3",
+    "tests/audit/screens.spec.cjs": "537d8396320b8d6cc95ccc84d3144c7d1ec77d8c635fc4b67f1f42a1064b1e53",
+    "tests/audit/service-runner.cjs": "b946717a5c368f4f20d46887489a5c4d4aa361ebcf08c1390963efaf17241c3b"
+  },
+  "status": "passed",
+  "counts": {
+    "passed": 27
+  },
+  "results": [
+    {
+      "title": "POS-002 table 1 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1667,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-table-1-66abf-sists-the-table-at-checkout/attachments/audit-evidence-603dc6dba8fb429474020fef3b8576acf029520e.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1f38f9c28e90_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "b2329cd4-a3b5-4dc8-9f98-2d5688e38d3c",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-d3903096-e639-415d-b110-8f0bcb029791",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:08.525Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-002 table 2 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1484,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-table-2-e5d7d-sists-the-table-at-checkout/attachments/audit-evidence-cb510c689dd40197e3dec3b984004ceb0eece7fe.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_83109ec698c9_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "a62549a1-9271-4860-8b28-d9208a1c1d7b",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-39bff41e-809a-451a-a47b-c1de4adb29df",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:10.024Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-002 table 3 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1571,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-table-3-7fa60-sists-the-table-at-checkout/attachments/audit-evidence-7d633d82093a34ab4f100ac27b193b8aeef8063b.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1f50743ed62c_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "fee4b1e7-508c-40de-9675-670299dc4a5e",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-b93b746e-702d-471e-9579-8b1690c0545f",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:11.505Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-002 table 4 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1525,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-table-4-f58e3-sists-the-table-at-checkout/attachments/audit-evidence-f975e7e9cc7693bde27d289f1ee728a0dbf58a81.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_5e0a3694eb05_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "94e0972e-6fd4-4a11-99e8-c9c0c3c177dc",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-39ac10dd-d5ef-4a15-884e-e920efce8d8a",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:13.132Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-002 table 5 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1577,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-table-5-53a8f-sists-the-table-at-checkout/attachments/audit-evidence-b6bfd797e82dbbf8fa32db8a2963a7ba00d4ce98.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ffef50532b45_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "81aa00ee-dcf1-4199-ab50-154fbecd7e65",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-46c595dd-f06f-4354-ad20-5676fa570468",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:14.612Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-002 table 6 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1610,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-table-6-6f36a-sists-the-table-at-checkout/attachments/audit-evidence-6d2258cb142f49be3c689dbb178eb748829d4bb8.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_6805d4de411c_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "5dd2094a-745f-4adc-905d-e14d451e0c1f",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-2631016d-dd2e-432a-ab7d-5dd79f67bee4",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:16.223Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-002 table 7 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1626,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-table-7-22e99-sists-the-table-at-checkout/attachments/audit-evidence-e7ff7e10097d2775be900c3781cc73c02a34cfdc.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_9e7f55fe4392_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "8c988462-72b7-4f2e-b6f7-cb2fa6cb545d",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-71afb712-e4f3-4bdb-b671-7cd2fd089db8",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:17.853Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-002 table 8 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1507,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-table-8-cafa9-sists-the-table-at-checkout/attachments/audit-evidence-ac322c62b25aff4b372820d4c93b2b1a165d310f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_421cbd5708aa_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "af33c0bf-e457-4ad4-b249-769681a7a927",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-f982eeaa-0292-4de3-bb55-e2f7179f2d35",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:19.464Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-002 table 9 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1678,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-table-9-cce00-sists-the-table-at-checkout/attachments/audit-evidence-4a0e1ffb4f1834e81fefb5dfb8e29e1faa3781fe.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_f9ddaa57881e_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "5a06bd6d-dd48-4e94-a45a-5015240d1f99",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-b3731393-a496-4f44-9b91-2ab6f27ce2a7",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:21.051Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-002 table 10 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1590,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-table-1-c99d4-sists-the-table-at-checkout/attachments/audit-evidence-76b415c8ce5c96e259d87b60b2720b21035477f8.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_3d4125177f5e_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "64583972-aa36-4e90-b864-77dddf1f765b",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-7a4aa5c8-67ab-4254-b9e1-0f7c253dcf8e",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:22.629Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-002 table 11 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1596,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-table-1-068fc-sists-the-table-at-checkout/attachments/audit-evidence-c37f087be73d9289e0ee055e4261e5d245b69d17.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_9d01a1ba8f37_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "713735aa-a20c-44f2-8704-31151a460df0",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-28c3b1ae-3349-423f-b7c8-ee1cc3f8e999",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:24.242Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-002 table 12 opens its cart and automatically persists the table at checkout",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 5,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1539,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-table-1-f60ad-sists-the-table-at-checkout/attachments/audit-evidence-6e62bd172202dafcf31223469ca7fa0d4ace0137.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ab44bb17c05b_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "8de69d35-8cdc-4429-bb3d-8809ca21f8be",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-97e0e6d3-3c69-42f0-ba3a-4028bd2c8dfd",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:25.876Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-004 owner Due checkout without a phone records debt and can collect payment later",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 22,
+      "ids": [
+        "POS-004"
+      ],
+      "status": "passed",
+      "duration_ms": 2024,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-004-owner-D-db20d-d-can-collect-payment-later/attachments/audit-evidence-80f228f876146d6f87999cfca02738a43e245ba6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_873644a92048_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "18a3890d-e006-4b66-a07d-84231a4bace7",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-05262897-d925-4fde-96f1-66f3580c36d9",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:27.450Z"
+              },
+              "lines": [
+                {
+                  "account": 1120,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          },
+          {
+            "name": "Journal OrderSettlement 98db0f67-8470-4d6d-836a-6f3cbefcc354",
+            "actual": {
+              "header": {
+                "id": "cf63ccf8-4e84-441d-8074-76fc187c2fd6",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Order payment #1",
+                "created_by_user_id": null,
+                "reference_id": "98db0f67-8470-4d6d-836a-6f3cbefcc354",
+                "reference_type": "OrderSettlement",
+                "created_at": "2026-11-09T10:05:27.924Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 1120,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-004 manager Part checkout without a phone records debt and can collect payment later",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 22,
+      "ids": [
+        "POS-004"
+      ],
+      "status": "passed",
+      "duration_ms": 2085,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-004-manager-51b43-d-can-collect-payment-later/attachments/audit-evidence-6a8e5b4b3885cb500bcb8788f0cf49d6b4d50052.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_675a41fcd6fe_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "c2b1d0e9-88d1-4fc9-bd2a-709bfbcaa903",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-15fe614d-98b1-402b-873d-d741be697194",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:29.531Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 40,
+                  "credit": 0
+                },
+                {
+                  "account": 1120,
+                  "debit": 60,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          },
+          {
+            "name": "Journal OrderSettlement 3d3f5f07-c6dc-4c72-975b-8fcbda80cd5e",
+            "actual": {
+              "header": {
+                "id": "e91389fe-8424-4f8f-b33a-75e0b452a30a",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Order payment #1",
+                "created_by_user_id": null,
+                "reference_id": "3d3f5f07-c6dc-4c72-975b-8fcbda80cd5e",
+                "reference_type": "OrderSettlement",
+                "created_at": "2026-11-09T10:05:30.018Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 60,
+                  "credit": 0
+                },
+                {
+                  "account": 1120,
+                  "debit": 0,
+                  "credit": 60
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-004 staff Due checkout without a phone records debt and can collect payment later",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 22,
+      "ids": [
+        "POS-004"
+      ],
+      "status": "passed",
+      "duration_ms": 1975,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-004-staff-D-d84bb-d-can-collect-payment-later/attachments/audit-evidence-692bf8f30c49f5158a785a15d0f356f499933e9e.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b8a1e42c6860_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Journal POSOrder 1",
+            "actual": {
+              "header": {
+                "id": "7c872333-cc04-47c6-8c69-baea5d684fae",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "POS Order #ORD-e17be0da-5af3-4c91-82ca-4453f51ce47e",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "POSOrder",
+                "created_at": "2026-11-09T10:05:31.555Z"
+              },
+              "lines": [
+                {
+                  "account": 1120,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 4000,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          },
+          {
+            "name": "Journal OrderSettlement f0d006ad-e6d5-4985-bc57-0ec30f28b8bf",
+            "actual": {
+              "header": {
+                "id": "6cbfb702-ef6b-4b7d-9ea8-d299615104a9",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Order payment #1",
+                "created_by_user_id": null,
+                "reference_id": "f0d006ad-e6d5-4985-bc57-0ec30f28b8bf",
+                "reference_type": "OrderSettlement",
+                "created_at": "2026-11-09T10:05:31.987Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 100,
+                  "credit": 0
+                },
+                {
+                  "account": 1120,
+                  "debit": 0,
+                  "credit": 100
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "POS-002 POS-009 table carts remain separate across navigation, browser back and reload",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 43,
+      "ids": [
+        "POS-002",
+        "POS-009"
+      ],
+      "status": "passed",
+      "duration_ms": 2301,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-POS-009-1ad8f-ion-browser-back-and-reload/attachments/audit-evidence-ce6d974af8c413590d1133fce1e687ee9373bbe4.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_060af4751209_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "POS-002 Delivery stays accessible from home and does not inherit table cart or number",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 61,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1876,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-Deliver-9a28b-nherit-table-cart-or-number/attachments/audit-evidence-689c5644391a4737933b1f439db6ca9e0c349fe7.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_2267253eacbd_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "POS-002 Pick Up stays accessible from home and does not inherit table cart or number",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 61,
+      "ids": [
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1894,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-Pick-Up-3f2fb-nherit-table-cart-or-number/attachments/audit-evidence-60196a20c07edf783c458712d3d30101d414e903.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_96c7646090a1_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "POS-001 failed table and menu loads expose working retry controls",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 71,
+      "ids": [
+        "POS-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1478,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-001-failed--27f5a-pose-working-retry-controls/attachments/audit-evidence-7d45d8d65b387dff260ebc21ab37e964f75166d2.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_2a9301c0d58f_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "CFG-001 POS-002 manager can load, rename and deactivate dining tables without granting staff configuration access",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 82,
+      "ids": [
+        "CFG-001",
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 2801,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-CFG-001-POS-002-55c01--staff-configuration-access/attachments/audit-evidence-3686ce94f445aac6d5e15bd647a274bbaa81d07e.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d7226ffbc1bb_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "PATCH",
+            "endpoint": "config/dining_tables/55/toggle",
+            "role": "manager",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "tables",
+            "role": "staff",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "config/dining_tables",
+            "role": "staff",
+            "status": 403,
+            "error": "Insufficient permissions"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "SCREEN-002 POS-002 table home and phone-free checkout work at viewport 375",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 98,
+      "ids": [
+        "SCREEN-002",
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1610,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-SCREEN-002-POS--d5fb2-eckout-work-at-viewport-375/attachments/audit-evidence-48a9830e9f96cecba4c0c1fcf78a7dfb15b89f9f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e438e8c96e41_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "SCREEN-002 POS-002 table home and phone-free checkout work at viewport 768",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 98,
+      "ids": [
+        "SCREEN-002",
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1609,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-SCREEN-002-POS--1b13d-eckout-work-at-viewport-768/attachments/audit-evidence-336d069121686d5116b0f54cea5c0fe500621586.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_f4e86049e00b_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "SCREEN-002 POS-002 table home and phone-free checkout work at viewport 1440",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 98,
+      "ids": [
+        "SCREEN-002",
+        "POS-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1608,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-SCREEN-002-POS--17d22-ckout-work-at-viewport-1440/attachments/audit-evidence-d95387bfb0ef139688d4281438d8bf9338ce323e.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_580b8c58937f_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "POS-005 phone-free partial checkout with oversized payment still rejects atomically and keeps the cart",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 106,
+      "ids": [
+        "POS-005"
+      ],
+      "status": "passed",
+      "duration_ms": 1554,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-005-phone-f-ebb9a-omically-and-keeps-the-cart/attachments/audit-evidence-c8e0ea712529dc49f75334a996660df761c40a89.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d98aaeaba560_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "POS-009 legacy saved cart A7 resumes a committed checkout without duplicate writes",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 115,
+      "ids": [
+        "POS-009"
+      ],
+      "status": "passed",
+      "duration_ms": 1838,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-009-legacy--eb346-ut-without-duplicate-writes/attachments/audit-evidence-1497377e97f9a033d22f8a520506390b2d57c022.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a4604cb7873f_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "POS-009 legacy saved cart without a table resumes a committed checkout without duplicate writes",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 115,
+      "ids": [
+        "POS-009"
+      ],
+      "status": "passed",
+      "duration_ms": 1834,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-009-legacy--d8de3-ut-without-duplicate-writes/attachments/audit-evidence-7e148351748b839c99ed151bfe6db7086676d4c3.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_be7e07f4e894_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "POS-002 POS-009 real account switching keeps table drafts scoped to the authenticated actor",
+      "file": "tests/audit/pos-tables.spec.cjs",
+      "line": 132,
+      "ids": [
+        "POS-002",
+        "POS-009"
+      ],
+      "status": "passed",
+      "duration_ms": 2421,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/pos-tables-POS-002-POS-009-35452--to-the-authenticated-actor/attachments/audit-evidence-6e99049504ebbf0aeeca537da9a492b0f30bb682.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_bdc23f6ede5e_1794218706283",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    }
+  ]
+}

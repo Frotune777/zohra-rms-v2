@@ -281,7 +281,7 @@ export default function VendorPayments() {
                         <div className="glass-panel p-3 md:p-4 rounded-xl w-full max-w-xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto">
                             <div className="flex justify-between items-center mb-2 md:mb-3">
                                 <h3 className="text-lg md:text-xl font-bold">Process Payment</h3>
-                                <button onClick={() => setShowPaymentModal(false)} className="text-gray-400 hover:text-white">
+                                <button aria-label="Close" onClick={() => setShowPaymentModal(false)} className="text-gray-400 hover:text-white">
                                     <FiX size={20} />
                                 </button>
                             </div>
@@ -362,7 +362,7 @@ export default function VendorPayments() {
                             <form onSubmit={handlePaymentSubmit} className="space-y-2 md:space-y-3">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-300 mb-2">Vendor *</label>
-                                    <select
+                                    <select aria-label="Vendor id"
                                         value={formData.vendorId}
                                         onChange={(e) => {
                                             const vendorId = e.target.value;
@@ -390,7 +390,7 @@ export default function VendorPayments() {
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-sm font-medium text-gray-300 mb-2">Amount (₹) *</label>
-                                        <input
+                                        <input aria-label="Amount"
                                             type="number"
                                             step="0.01"
                                             value={formData.amount}
@@ -413,7 +413,7 @@ export default function VendorPayments() {
 
                                     <div>
                                         <label className="block text-sm font-medium text-gray-300 mb-2">Payment Mode *</label>
-                                        <select
+                                        <select aria-label="Payment mode"
                                             value={formData.paymentMode}
                                             onChange={(e) => setFormData({ ...formData, paymentMode: e.target.value })}
                                             className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
@@ -429,7 +429,7 @@ export default function VendorPayments() {
 
                                 <div>
                                     <label className="block text-sm font-medium text-gray-300 mb-2">Reference Number</label>
-                                    <input
+                                    <input aria-label="Reference"
                                         type="text"
                                         value={formData.reference}
                                         onChange={(e) => setFormData({ ...formData, reference: e.target.value })}
@@ -440,7 +440,7 @@ export default function VendorPayments() {
 
                                 <div>
                                     <label className="block text-sm font-medium text-gray-300 mb-2">Paid By *</label>
-                                    <select
+                                    <select aria-label="Paid by"
                                         value={formData.paidBy}
                                         onChange={(e) => setFormData({ ...formData, paidBy: e.target.value })}
                                         className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
@@ -454,14 +454,13 @@ export default function VendorPayments() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">Notes *</label>
-                                    <textarea
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">Notes</label>
+                                    <textarea aria-label="Notes"
                                         value={formData.notes}
                                         onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                                         className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
                                         rows="3"
                                         placeholder="Payment details / Bill reference"
-                                        required
                                     />
                                 </div>
 

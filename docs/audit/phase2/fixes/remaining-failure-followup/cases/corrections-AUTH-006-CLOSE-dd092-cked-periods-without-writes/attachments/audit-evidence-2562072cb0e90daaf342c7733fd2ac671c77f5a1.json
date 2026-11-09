@@ -1,0 +1,48 @@
+{
+  "database": "zohra_pw_case_5e40bade4942_1794209081272",
+  "date": "2026-11-09",
+  "business_instant": "2026-11-09T12:00:00Z",
+  "calls": [
+    {
+      "method": "POST",
+      "endpoint": "orders",
+      "role": "owner",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "endpoint": "inventory/adjustments",
+      "role": "owner",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "endpoint": "orders/1/refund",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions"
+    },
+    {
+      "method": "POST",
+      "endpoint": "inventory/adjustments/1/reverse",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions"
+    },
+    {
+      "method": "POST",
+      "endpoint": "orders/1/refund",
+      "role": "owner",
+      "status": 400,
+      "error": "Financial period is locked"
+    },
+    {
+      "method": "POST",
+      "endpoint": "inventory/adjustments/1/reverse",
+      "role": "owner",
+      "status": 400,
+      "error": "Financial period is locked"
+    }
+  ],
+  "checks": []
+}

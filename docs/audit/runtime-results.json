@@ -1,0 +1,5567 @@
+{
+  "database": "zohra_audit_diagnostic",
+  "limitation": "Schema is a best-effort diagnostic build. HTTP 200 proves only this request, not feature correctness.",
+  "probes": [
+    {
+      "source": "server/src/modules/advance-requests/routes.js",
+      "line": 7,
+      "endpoint": "/api/advance-requests",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/advance-requests/routes.js",
+      "line": 7,
+      "endpoint": "/api/advance-requests",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/advance-requests/routes.js",
+      "line": 7,
+      "endpoint": "/api/advance-requests",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/advance-requests/routes.js",
+      "line": 7,
+      "endpoint": "/api/advance-requests",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/advance-requests/routes.js",
+      "line": 11,
+      "endpoint": "/api/advance-requests/1/repayment-schedule",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/advance-requests/routes.js",
+      "line": 11,
+      "endpoint": "/api/advance-requests/1/repayment-schedule",
+      "role": "staff",
+      "status": 500,
+      "error": "relation \"advance_repayment_schedule\" does not exist",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/advance-requests/routes.js",
+      "line": 11,
+      "endpoint": "/api/advance-requests/1/repayment-schedule",
+      "role": "manager",
+      "status": 500,
+      "error": "relation \"advance_repayment_schedule\" does not exist",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/advance-requests/routes.js",
+      "line": 11,
+      "endpoint": "/api/advance-requests/1/repayment-schedule",
+      "role": "owner",
+      "status": 500,
+      "error": "relation \"advance_repayment_schedule\" does not exist",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/ai/routes.js",
+      "line": 6,
+      "endpoint": "/api/ai/forecast/1",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/ai/routes.js",
+      "line": 6,
+      "endpoint": "/api/ai/forecast/1",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/ai/routes.js",
+      "line": 6,
+      "endpoint": "/api/ai/forecast/1",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/ai/routes.js",
+      "line": 6,
+      "endpoint": "/api/ai/forecast/1",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/ai/routes.js",
+      "line": 7,
+      "endpoint": "/api/ai/suggested-orders",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/ai/routes.js",
+      "line": 7,
+      "endpoint": "/api/ai/suggested-orders",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/ai/routes.js",
+      "line": 7,
+      "endpoint": "/api/ai/suggested-orders",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/ai/routes.js",
+      "line": 7,
+      "endpoint": "/api/ai/suggested-orders",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/attendance/routes.js",
+      "line": 6,
+      "endpoint": "/api/attendance",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/attendance/routes.js",
+      "line": 6,
+      "endpoint": "/api/attendance",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/attendance/routes.js",
+      "line": 6,
+      "endpoint": "/api/attendance",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/attendance/routes.js",
+      "line": 6,
+      "endpoint": "/api/attendance",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/attendance/routes.js",
+      "line": 7,
+      "endpoint": "/api/attendance/last-dates",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/attendance/routes.js",
+      "line": 7,
+      "endpoint": "/api/attendance/last-dates",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/attendance/routes.js",
+      "line": 7,
+      "endpoint": "/api/attendance/last-dates",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/attendance/routes.js",
+      "line": 7,
+      "endpoint": "/api/attendance/last-dates",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/attendance/routes.js",
+      "line": 8,
+      "endpoint": "/api/attendance/calendar",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/attendance/routes.js",
+      "line": 8,
+      "endpoint": "/api/attendance/calendar",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/attendance/routes.js",
+      "line": 8,
+      "endpoint": "/api/attendance/calendar",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 9
+    },
+    {
+      "source": "server/src/modules/attendance/routes.js",
+      "line": 8,
+      "endpoint": "/api/attendance/calendar",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 9
+    },
+    {
+      "source": "server/src/modules/auth/routes.js",
+      "line": 8,
+      "endpoint": "/api/auth/me",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/auth/routes.js",
+      "line": 8,
+      "endpoint": "/api/auth/me",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/auth/routes.js",
+      "line": 8,
+      "endpoint": "/api/auth/me",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/auth/routes.js",
+      "line": 8,
+      "endpoint": "/api/auth/me",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/auth/routes.js",
+      "line": 9,
+      "endpoint": "/api/auth/users",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/auth/routes.js",
+      "line": 9,
+      "endpoint": "/api/auth/users",
+      "role": "staff",
+      "status": 500,
+      "error": "column \"ledger_account_code\" does not exist",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/auth/routes.js",
+      "line": 9,
+      "endpoint": "/api/auth/users",
+      "role": "manager",
+      "status": 500,
+      "error": "column \"ledger_account_code\" does not exist",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/auth/routes.js",
+      "line": 9,
+      "endpoint": "/api/auth/users",
+      "role": "owner",
+      "status": 500,
+      "error": "column \"ledger_account_code\" does not exist",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/config/routes.js",
+      "line": 10,
+      "endpoint": "/api/config/categories",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/config/routes.js",
+      "line": 10,
+      "endpoint": "/api/config/categories",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 10
+    },
+    {
+      "source": "server/src/modules/config/routes.js",
+      "line": 10,
+      "endpoint": "/api/config/categories",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 10
+    },
+    {
+      "source": "server/src/modules/config/routes.js",
+      "line": 10,
+      "endpoint": "/api/config/categories",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 10
+    },
+    {
+      "source": "server/src/modules/config/routes.js",
+      "line": 13,
+      "endpoint": "/api/config/payment_mode",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/config/routes.js",
+      "line": 13,
+      "endpoint": "/api/config/payment_mode",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/config/routes.js",
+      "line": 13,
+      "endpoint": "/api/config/payment_mode",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/config/routes.js",
+      "line": 13,
+      "endpoint": "/api/config/payment_mode",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/dashboard/routes.js",
+      "line": 6,
+      "endpoint": "/api/dashboard/stats",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/dashboard/routes.js",
+      "line": 6,
+      "endpoint": "/api/dashboard/stats",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/dashboard/routes.js",
+      "line": 6,
+      "endpoint": "/api/dashboard/stats",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/dashboard/routes.js",
+      "line": 6,
+      "endpoint": "/api/dashboard/stats",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 7,
+      "endpoint": "/api/employees",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 7,
+      "endpoint": "/api/employees",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 7,
+      "endpoint": "/api/employees",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 7,
+      "endpoint": "/api/employees",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 11,
+      "endpoint": "/api/employees/1/history",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 11,
+      "endpoint": "/api/employees/1/history",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 11,
+      "endpoint": "/api/employees/1/history",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 11,
+      "endpoint": "/api/employees/1/history",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 14,
+      "endpoint": "/api/employees/attendance",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 14,
+      "endpoint": "/api/employees/attendance",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 14,
+      "endpoint": "/api/employees/attendance",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 14,
+      "endpoint": "/api/employees/attendance",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 18,
+      "endpoint": "/api/employees/payroll/advances",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 18,
+      "endpoint": "/api/employees/payroll/advances",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 18,
+      "endpoint": "/api/employees/payroll/advances",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 18,
+      "endpoint": "/api/employees/payroll/advances",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 19,
+      "endpoint": "/api/employees/payroll/advances/1",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 19,
+      "endpoint": "/api/employees/payroll/advances/1",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 19,
+      "endpoint": "/api/employees/payroll/advances/1",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 19,
+      "endpoint": "/api/employees/payroll/advances/1",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 20,
+      "endpoint": "/api/employees/payroll/advances/1/balance",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 20,
+      "endpoint": "/api/employees/payroll/advances/1/balance",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 20,
+      "endpoint": "/api/employees/payroll/advances/1/balance",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 20,
+      "endpoint": "/api/employees/payroll/advances/1/balance",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 22,
+      "endpoint": "/api/employees/payroll/requests",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 22,
+      "endpoint": "/api/employees/payroll/requests",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 22,
+      "endpoint": "/api/employees/payroll/requests",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 22,
+      "endpoint": "/api/employees/payroll/requests",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 27,
+      "endpoint": "/api/employees/payroll/monthly",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 27,
+      "endpoint": "/api/employees/payroll/monthly",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 27,
+      "endpoint": "/api/employees/payroll/monthly",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 27,
+      "endpoint": "/api/employees/payroll/monthly",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 30,
+      "endpoint": "/api/employees/employees-payroll",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 30,
+      "endpoint": "/api/employees/employees-payroll",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 30,
+      "endpoint": "/api/employees/employees-payroll",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/employees/routes.js",
+      "line": 30,
+      "endpoint": "/api/employees/employees-payroll",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 7,
+      "endpoint": "/api/finance/pnl",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 7,
+      "endpoint": "/api/finance/pnl",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 7,
+      "endpoint": "/api/finance/pnl",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 7,
+      "endpoint": "/api/finance/pnl",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 8,
+      "endpoint": "/api/finance/pnl/yearly",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 8,
+      "endpoint": "/api/finance/pnl/yearly",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 8,
+      "endpoint": "/api/finance/pnl/yearly",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 12
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 8,
+      "endpoint": "/api/finance/pnl/yearly",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 12
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 9,
+      "endpoint": "/api/finance/transactions",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 9,
+      "endpoint": "/api/finance/transactions",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 9,
+      "endpoint": "/api/finance/transactions",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 9,
+      "endpoint": "/api/finance/transactions",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 13,
+      "endpoint": "/api/finance/daily-summary",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 13,
+      "endpoint": "/api/finance/daily-summary",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 13,
+      "endpoint": "/api/finance/daily-summary",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 13,
+      "endpoint": "/api/finance/daily-summary",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 15,
+      "endpoint": "/api/finance/reports/spending-by-person",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 15,
+      "endpoint": "/api/finance/reports/spending-by-person",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 15,
+      "endpoint": "/api/finance/reports/spending-by-person",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 15,
+      "endpoint": "/api/finance/reports/spending-by-person",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 18,
+      "endpoint": "/api/finance/daily-summary/2026-11-01",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 18,
+      "endpoint": "/api/finance/daily-summary/2026-11-01",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 18,
+      "endpoint": "/api/finance/daily-summary/2026-11-01",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 18,
+      "endpoint": "/api/finance/daily-summary/2026-11-01",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 20,
+      "endpoint": "/api/finance/tracker/transactions",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 20,
+      "endpoint": "/api/finance/tracker/transactions",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 20,
+      "endpoint": "/api/finance/tracker/transactions",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 20,
+      "endpoint": "/api/finance/tracker/transactions",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 23,
+      "endpoint": "/api/finance/tracker/categories",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 23,
+      "endpoint": "/api/finance/tracker/categories",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 23,
+      "endpoint": "/api/finance/tracker/categories",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 10
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 23,
+      "endpoint": "/api/finance/tracker/categories",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 10
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 26,
+      "endpoint": "/api/finance/reconciliation",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 26,
+      "endpoint": "/api/finance/reconciliation",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 26,
+      "endpoint": "/api/finance/reconciliation",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 26,
+      "endpoint": "/api/finance/reconciliation",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 28,
+      "endpoint": "/api/finance/reconciliation/float",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 28,
+      "endpoint": "/api/finance/reconciliation/float",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 28,
+      "endpoint": "/api/finance/reconciliation/float",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 28,
+      "endpoint": "/api/finance/reconciliation/float",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 31,
+      "endpoint": "/api/finance/mappings",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 31,
+      "endpoint": "/api/finance/mappings",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 31,
+      "endpoint": "/api/finance/mappings",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 5
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 31,
+      "endpoint": "/api/finance/mappings",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 5
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 42,
+      "endpoint": "/api/finance/daily-balance/2026-11-01",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 42,
+      "endpoint": "/api/finance/daily-balance/2026-11-01",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 42,
+      "endpoint": "/api/finance/daily-balance/2026-11-01",
+      "role": "manager",
+      "status": 500,
+      "error": "column db.closed_by does not exist",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 42,
+      "endpoint": "/api/finance/daily-balance/2026-11-01",
+      "role": "owner",
+      "status": 500,
+      "error": "column db.closed_by does not exist",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 50,
+      "endpoint": "/api/finance/payment-modes",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 50,
+      "endpoint": "/api/finance/payment-modes",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 50,
+      "endpoint": "/api/finance/payment-modes",
+      "role": "manager",
+      "status": 500,
+      "error": "relation \"payment_modes\" does not exist",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 50,
+      "endpoint": "/api/finance/payment-modes",
+      "role": "owner",
+      "status": 500,
+      "error": "relation \"payment_modes\" does not exist",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 53,
+      "endpoint": "/api/finance/journal/00000000-0000-0000-0000-000000000000",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 53,
+      "endpoint": "/api/finance/journal/00000000-0000-0000-0000-000000000000",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 53,
+      "endpoint": "/api/finance/journal/00000000-0000-0000-0000-000000000000",
+      "role": "manager",
+      "status": 404,
+      "error": "Journal entry 00000000-0000-0000-0000-000000000000 not found",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 53,
+      "endpoint": "/api/finance/journal/00000000-0000-0000-0000-000000000000",
+      "role": "owner",
+      "status": 404,
+      "error": "Journal entry 00000000-0000-0000-0000-000000000000 not found",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 54,
+      "endpoint": "/api/finance/account-balance/1000",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 54,
+      "endpoint": "/api/finance/account-balance/1000",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 54,
+      "endpoint": "/api/finance/account-balance/1000",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/finance/routes.js",
+      "line": 54,
+      "endpoint": "/api/finance/account-balance/1000",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 8,
+      "endpoint": "/api/inventory",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 8,
+      "endpoint": "/api/inventory",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 8,
+      "endpoint": "/api/inventory",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 8,
+      "endpoint": "/api/inventory",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 14,
+      "endpoint": "/api/inventory/rates",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 14,
+      "endpoint": "/api/inventory/rates",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 14,
+      "endpoint": "/api/inventory/rates",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 14,
+      "endpoint": "/api/inventory/rates",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 16,
+      "endpoint": "/api/inventory/rates/status",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 16,
+      "endpoint": "/api/inventory/rates/status",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 16,
+      "endpoint": "/api/inventory/rates/status",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 16,
+      "endpoint": "/api/inventory/rates/status",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 17,
+      "endpoint": "/api/inventory/rates/calendar",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 17,
+      "endpoint": "/api/inventory/rates/calendar",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 17,
+      "endpoint": "/api/inventory/rates/calendar",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 17,
+      "endpoint": "/api/inventory/rates/calendar",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 20,
+      "endpoint": "/api/inventory/suppliers",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 20,
+      "endpoint": "/api/inventory/suppliers",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 20,
+      "endpoint": "/api/inventory/suppliers",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 20,
+      "endpoint": "/api/inventory/suppliers",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 25,
+      "endpoint": "/api/inventory/markups",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 25,
+      "endpoint": "/api/inventory/markups",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 25,
+      "endpoint": "/api/inventory/markups",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 25,
+      "endpoint": "/api/inventory/markups",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 31,
+      "endpoint": "/api/inventory/bills",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 31,
+      "endpoint": "/api/inventory/bills",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 31,
+      "endpoint": "/api/inventory/bills",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 31,
+      "endpoint": "/api/inventory/bills",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 34,
+      "endpoint": "/api/inventory/bills/summary",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 34,
+      "endpoint": "/api/inventory/bills/summary",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 34,
+      "endpoint": "/api/inventory/bills/summary",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 34,
+      "endpoint": "/api/inventory/bills/summary",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 37,
+      "endpoint": "/api/inventory/ledger",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 37,
+      "endpoint": "/api/inventory/ledger",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 37,
+      "endpoint": "/api/inventory/ledger",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 37,
+      "endpoint": "/api/inventory/ledger",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 41,
+      "endpoint": "/api/inventory/po",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 41,
+      "endpoint": "/api/inventory/po",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 41,
+      "endpoint": "/api/inventory/po",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/inventory/routes.js",
+      "line": 41,
+      "endpoint": "/api/inventory/po",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/leaves/routes.js",
+      "line": 8,
+      "endpoint": "/api/leaves",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/leaves/routes.js",
+      "line": 8,
+      "endpoint": "/api/leaves",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/leaves/routes.js",
+      "line": 8,
+      "endpoint": "/api/leaves",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/leaves/routes.js",
+      "line": 8,
+      "endpoint": "/api/leaves",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/leaves/routes.js",
+      "line": 11,
+      "endpoint": "/api/leaves/employee/1",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/leaves/routes.js",
+      "line": 11,
+      "endpoint": "/api/leaves/employee/1",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/leaves/routes.js",
+      "line": 11,
+      "endpoint": "/api/leaves/employee/1",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/leaves/routes.js",
+      "line": 11,
+      "endpoint": "/api/leaves/employee/1",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/leaves/routes.js",
+      "line": 14,
+      "endpoint": "/api/leaves/date/2026-11-01",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/leaves/routes.js",
+      "line": 14,
+      "endpoint": "/api/leaves/date/2026-11-01",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/leaves/routes.js",
+      "line": 14,
+      "endpoint": "/api/leaves/date/2026-11-01",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/leaves/routes.js",
+      "line": 14,
+      "endpoint": "/api/leaves/date/2026-11-01",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/operations/routes.js",
+      "line": 8,
+      "endpoint": "/api/kds/tickets",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/operations/routes.js",
+      "line": 8,
+      "endpoint": "/api/kds/tickets",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/operations/routes.js",
+      "line": 8,
+      "endpoint": "/api/kds/tickets",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/operations/routes.js",
+      "line": 8,
+      "endpoint": "/api/kds/tickets",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/operations/routes.js",
+      "line": 13,
+      "endpoint": "/api/wastage",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/operations/routes.js",
+      "line": 13,
+      "endpoint": "/api/wastage",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/operations/routes.js",
+      "line": 13,
+      "endpoint": "/api/wastage",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/operations/routes.js",
+      "line": 13,
+      "endpoint": "/api/wastage",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/payroll/routes.js",
+      "line": 11,
+      "endpoint": "/api/payroll/monthly",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/payroll/routes.js",
+      "line": 11,
+      "endpoint": "/api/payroll/monthly",
+      "role": "staff",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/payroll/routes.js",
+      "line": 11,
+      "endpoint": "/api/payroll/monthly",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/payroll/routes.js",
+      "line": 11,
+      "endpoint": "/api/payroll/monthly",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/pos/routes.js",
+      "line": 7,
+      "endpoint": "/api/menu",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/pos/routes.js",
+      "line": 7,
+      "endpoint": "/api/menu",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 21
+    },
+    {
+      "source": "server/src/modules/pos/routes.js",
+      "line": 7,
+      "endpoint": "/api/menu",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 21
+    },
+    {
+      "source": "server/src/modules/pos/routes.js",
+      "line": 7,
+      "endpoint": "/api/menu",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 21
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 6,
+      "endpoint": "/api/reports/financial/overview",
+      "role": "anonymous",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 6,
+      "endpoint": "/api/reports/financial/overview",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 6,
+      "endpoint": "/api/reports/financial/overview",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 6,
+      "endpoint": "/api/reports/financial/overview",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 7,
+      "endpoint": "/api/reports/financial/expense-breakdown",
+      "role": "anonymous",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 7,
+      "endpoint": "/api/reports/financial/expense-breakdown",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 7,
+      "endpoint": "/api/reports/financial/expense-breakdown",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 7,
+      "endpoint": "/api/reports/financial/expense-breakdown",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 8,
+      "endpoint": "/api/reports/financial/revenue-trends",
+      "role": "anonymous",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 8,
+      "endpoint": "/api/reports/financial/revenue-trends",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 8,
+      "endpoint": "/api/reports/financial/revenue-trends",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 8,
+      "endpoint": "/api/reports/financial/revenue-trends",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 9,
+      "endpoint": "/api/reports/financial/balance-sheet",
+      "role": "anonymous",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 9,
+      "endpoint": "/api/reports/financial/balance-sheet",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 9,
+      "endpoint": "/api/reports/financial/balance-sheet",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 9,
+      "endpoint": "/api/reports/financial/balance-sheet",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 12,
+      "endpoint": "/api/reports/hr/payroll-summary",
+      "role": "anonymous",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 12,
+      "endpoint": "/api/reports/hr/payroll-summary",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 12,
+      "endpoint": "/api/reports/hr/payroll-summary",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 12,
+      "endpoint": "/api/reports/hr/payroll-summary",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 13,
+      "endpoint": "/api/reports/hr/advances",
+      "role": "anonymous",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 13,
+      "endpoint": "/api/reports/hr/advances",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 13,
+      "endpoint": "/api/reports/hr/advances",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 13,
+      "endpoint": "/api/reports/hr/advances",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 14,
+      "endpoint": "/api/reports/hr/attendance",
+      "role": "anonymous",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 14,
+      "endpoint": "/api/reports/hr/attendance",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 14,
+      "endpoint": "/api/reports/hr/attendance",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 14,
+      "endpoint": "/api/reports/hr/attendance",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 17,
+      "endpoint": "/api/reports/operations/chicken-analytics",
+      "role": "anonymous",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 17,
+      "endpoint": "/api/reports/operations/chicken-analytics",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 17,
+      "endpoint": "/api/reports/operations/chicken-analytics",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 17,
+      "endpoint": "/api/reports/operations/chicken-analytics",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 18,
+      "endpoint": "/api/reports/operations/vendor-performance",
+      "role": "anonymous",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 18,
+      "endpoint": "/api/reports/operations/vendor-performance",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 18,
+      "endpoint": "/api/reports/operations/vendor-performance",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 18,
+      "endpoint": "/api/reports/operations/vendor-performance",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 21,
+      "endpoint": "/api/reports/inventory/stock-status",
+      "role": "anonymous",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 21,
+      "endpoint": "/api/reports/inventory/stock-status",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 21,
+      "endpoint": "/api/reports/inventory/stock-status",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 21,
+      "endpoint": "/api/reports/inventory/stock-status",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 22,
+      "endpoint": "/api/reports/inventory/wastage",
+      "role": "anonymous",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 22,
+      "endpoint": "/api/reports/inventory/wastage",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 22,
+      "endpoint": "/api/reports/inventory/wastage",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 22,
+      "endpoint": "/api/reports/inventory/wastage",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 25,
+      "endpoint": "/api/reports/dashboard/kpis",
+      "role": "anonymous",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 25,
+      "endpoint": "/api/reports/dashboard/kpis",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 25,
+      "endpoint": "/api/reports/dashboard/kpis",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/reports/routes.js",
+      "line": 25,
+      "endpoint": "/api/reports/dashboard/kpis",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 12,
+      "endpoint": "/api/vendors/payments",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 12,
+      "endpoint": "/api/vendors/payments",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 12,
+      "endpoint": "/api/vendors/payments",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 12,
+      "endpoint": "/api/vendors/payments",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 13,
+      "endpoint": "/api/vendors/1/outstanding",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 13,
+      "endpoint": "/api/vendors/1/outstanding",
+      "role": "staff",
+      "status": 404,
+      "error": "Vendor not found",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 13,
+      "endpoint": "/api/vendors/1/outstanding",
+      "role": "manager",
+      "status": 404,
+      "error": "Vendor not found",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 13,
+      "endpoint": "/api/vendors/1/outstanding",
+      "role": "owner",
+      "status": 404,
+      "error": "Vendor not found",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 14,
+      "endpoint": "/api/vendors/1/ledger",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 14,
+      "endpoint": "/api/vendors/1/ledger",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 14,
+      "endpoint": "/api/vendors/1/ledger",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 14,
+      "endpoint": "/api/vendors/1/ledger",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 15,
+      "endpoint": "/api/vendors/1/details",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 15,
+      "endpoint": "/api/vendors/1/details",
+      "role": "staff",
+      "status": 404,
+      "error": "Vendor not found",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 15,
+      "endpoint": "/api/vendors/1/details",
+      "role": "manager",
+      "status": 404,
+      "error": "Vendor not found",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 15,
+      "endpoint": "/api/vendors/1/details",
+      "role": "owner",
+      "status": 404,
+      "error": "Vendor not found",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 18,
+      "endpoint": "/api/vendors/1/running-balance",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 18,
+      "endpoint": "/api/vendors/1/running-balance",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 18,
+      "endpoint": "/api/vendors/1/running-balance",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 18,
+      "endpoint": "/api/vendors/1/running-balance",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 28,
+      "endpoint": "/api/vendors/reports/category-aggregation",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 28,
+      "endpoint": "/api/vendors/reports/category-aggregation",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 6
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 28,
+      "endpoint": "/api/vendors/reports/category-aggregation",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 6
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 28,
+      "endpoint": "/api/vendors/reports/category-aggregation",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 6
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 38,
+      "endpoint": "/api/vendors/reports/payment-history",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 38,
+      "endpoint": "/api/vendors/reports/payment-history",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 38,
+      "endpoint": "/api/vendors/reports/payment-history",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 38,
+      "endpoint": "/api/vendors/reports/payment-history",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 48,
+      "endpoint": "/api/vendors/reports/date-range",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 48,
+      "endpoint": "/api/vendors/reports/date-range",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 48,
+      "endpoint": "/api/vendors/reports/date-range",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 48,
+      "endpoint": "/api/vendors/reports/date-range",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 61,
+      "endpoint": "/api/vendors/reports/aging",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 61,
+      "endpoint": "/api/vendors/reports/aging",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 61,
+      "endpoint": "/api/vendors/reports/aging",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 61,
+      "endpoint": "/api/vendors/reports/aging",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 71,
+      "endpoint": "/api/vendors/all-suppliers",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 71,
+      "endpoint": "/api/vendors/all-suppliers",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 71,
+      "endpoint": "/api/vendors/all-suppliers",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 71,
+      "endpoint": "/api/vendors/all-suppliers",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 74,
+      "endpoint": "/api/vendors/outstanding",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 74,
+      "endpoint": "/api/vendors/outstanding",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 74,
+      "endpoint": "/api/vendors/outstanding",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 74,
+      "endpoint": "/api/vendors/outstanding",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 0
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 77,
+      "endpoint": "/api/vendors/categories",
+      "role": "anonymous",
+      "status": 401,
+      "error": "No token provided",
+      "response_kind": "object"
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 77,
+      "endpoint": "/api/vendors/categories",
+      "role": "staff",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 6
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 77,
+      "endpoint": "/api/vendors/categories",
+      "role": "manager",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 6
+    },
+    {
+      "source": "server/src/modules/vendors/routes.js",
+      "line": 77,
+      "endpoint": "/api/vendors/categories",
+      "role": "owner",
+      "status": 200,
+      "error": null,
+      "response_kind": "array",
+      "rows": 6
+    }
+  ],
+  "checks": [
+    {
+      "name": "Demo password bypasses a different bcrypt hash and inactive status",
+      "status": 200,
+      "token_issued": true
+    },
+    {
+      "name": "Unlisted CORS origin",
+      "allow_origin": "https://untrusted.example.invalid"
+    },
+    {
+      "name": "Manager leave approval using undefined HR_WRITE permission",
+      "status": 403,
+      "error": "Insufficient permissions",
+      "permission_defined": false
+    },
+    {
+      "name": "Staff can write system configuration",
+      "status": 201,
+      "error": null
+    },
+    {
+      "name": "Bill creation returns before committing",
+      "returned_bill_id": 1,
+      "rows_visible_from_separate_connection": 0
+    },
+    {
+      "name": "Journal entity accepts NaN string",
+      "accepted": true,
+      "date_valid": true
+    },
+    {
+      "name": "Journal entity accepts Infinity",
+      "accepted": true,
+      "date_valid": true
+    },
+    {
+      "name": "Journal entity accepts Invalid date",
+      "accepted": true,
+      "date_valid": false
+    }
+  ],
+  "schema": [
+    {
+      "table_name": "advance_ledger",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "advance_ledger",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "advance_ledger",
+      "column_name": "transaction_type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "advance_ledger",
+      "column_name": "amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "advance_ledger",
+      "column_name": "payment_mode",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "advance_ledger",
+      "column_name": "paid_by",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "advance_ledger",
+      "column_name": "notes",
+      "data_type": "text"
+    },
+    {
+      "table_name": "advance_ledger",
+      "column_name": "transaction_date",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "advance_ledger",
+      "column_name": "balance_after",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "advance_ledger",
+      "column_name": "salary_advance_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "advance_ledger",
+      "column_name": "repayment_source",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "advance_ledger",
+      "column_name": "journal_entry_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "requested_amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "reason",
+      "data_type": "text"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "payment_mode",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "paid_by",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "requested_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "requested_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "approved_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "approved_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "advance_requests",
+      "column_name": "rejection_reason",
+      "data_type": "text"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "check_in",
+      "data_type": "time without time zone"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "check_out",
+      "data_type": "time without time zone"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "is_locked",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "locked_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "locked_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "leave_request_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "notes",
+      "data_type": "text"
+    },
+    {
+      "table_name": "attendance",
+      "column_name": "overtime_hours",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "attendance_audit_log",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_audit_log",
+      "column_name": "attendance_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_audit_log",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_audit_log",
+      "column_name": "date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "attendance_audit_log",
+      "column_name": "action",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance_audit_log",
+      "column_name": "old_value",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "attendance_audit_log",
+      "column_name": "new_value",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "attendance_audit_log",
+      "column_name": "changed_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_audit_log",
+      "column_name": "changed_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "attendance_audit_log",
+      "column_name": "ip_address",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance_audit_log",
+      "column_name": "user_agent",
+      "data_type": "text"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "attendance_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "old_status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "new_status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "old_overtime_hours",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "new_overtime_hours",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "reason",
+      "data_type": "text"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "requested_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "requested_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "reviewed_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "reviewed_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "attendance_change_requests",
+      "column_name": "review_notes",
+      "data_type": "text"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "check_in",
+      "data_type": "time without time zone"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "check_out",
+      "data_type": "time without time zone"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "is_locked",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "locked_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "locked_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "leave_request_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "notes",
+      "data_type": "text"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "overtime_hours",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "full_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "employee_code",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "position",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "role",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "leave_type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "leave_status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "leave_reason",
+      "data_type": "text"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "is_on_approved_leave",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "attendance_with_leaves",
+      "column_name": "has_pending_leave",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "table_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "record_id",
+      "data_type": "text"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "action",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "old_data",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "new_data",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "changed_by_user_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "changed_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "bank_accounts",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "bank_accounts",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "bank_accounts",
+      "column_name": "account_number",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "bank_accounts",
+      "column_name": "bank_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "bank_accounts",
+      "column_name": "currency",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "bank_accounts",
+      "column_name": "account_code",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "bank_accounts",
+      "column_name": "current_balance",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "bank_accounts",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "bank_accounts",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "supplier_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "item_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "qty",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "vendor_rate",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "expected_rate",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "variance",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "approved_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "approved_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "approval_notes",
+      "data_type": "text"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "journal_entry_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "bill_entries",
+      "column_name": "updated_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "chart_of_accounts",
+      "column_name": "code",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "chart_of_accounts",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "chart_of_accounts",
+      "column_name": "type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "config_options",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "config_options",
+      "column_name": "category",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "config_options",
+      "column_name": "value",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "config_options",
+      "column_name": "label",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "config_options",
+      "column_name": "display_order",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "config_options",
+      "column_name": "is_active",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "config_options",
+      "column_name": "metadata",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "config_options",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "config_options",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "config_options",
+      "column_name": "created_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "phone",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "email",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "address",
+      "data_type": "text"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "loyalty_points",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "daily_balances",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "daily_balances",
+      "column_name": "date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "daily_balances",
+      "column_name": "type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "daily_balances",
+      "column_name": "opening_balance",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "daily_balances",
+      "column_name": "closing_balance",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "daily_balances",
+      "column_name": "actual_closing_balance",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "daily_balances",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "daily_balances",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "daily_balances",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "daily_rates",
+      "column_name": "date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "daily_rates",
+      "column_name": "tandoor_rate",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "daily_rates",
+      "column_name": "boiler_rate",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "daily_rates",
+      "column_name": "egg_rate",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "daily_rates",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "daily_rates",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "daily_rates",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "daily_rates",
+      "column_name": "updated_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employee_documents",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employee_documents",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employee_documents",
+      "column_name": "document_type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employee_documents",
+      "column_name": "document_number",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employee_documents",
+      "column_name": "expiry_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "employee_documents",
+      "column_name": "file_path",
+      "data_type": "text"
+    },
+    {
+      "table_name": "employee_documents",
+      "column_name": "uploaded_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "employee_history",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employee_history",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employee_history",
+      "column_name": "field_changed",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employee_history",
+      "column_name": "old_value",
+      "data_type": "text"
+    },
+    {
+      "table_name": "employee_history",
+      "column_name": "new_value",
+      "data_type": "text"
+    },
+    {
+      "table_name": "employee_history",
+      "column_name": "changed_by",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employee_history",
+      "column_name": "changed_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "employee_salary_structure",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employee_salary_structure",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employee_salary_structure",
+      "column_name": "component_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employee_salary_structure",
+      "column_name": "amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "employee_salary_structure",
+      "column_name": "effective_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "full_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "first_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "last_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "position",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "age",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "gender",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "phone_number",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "role",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "base_salary",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "employee_code",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "govt_id_type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "govt_id_number",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "department",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "visa_expiry",
+      "data_type": "date"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "work_permit_expiry",
+      "data_type": "date"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "health_card_expiry",
+      "data_type": "date"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "shift_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "created_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "updated_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "bank_account_no",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "ifsc_code",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "payout_method",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "created_by_user_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "expense_mappings",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "expense_mappings",
+      "column_name": "item_keyword",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "expense_mappings",
+      "column_name": "category_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "expense_mappings",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "expense_mappings",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "financial_periods",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "financial_periods",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "financial_periods",
+      "column_name": "start_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "financial_periods",
+      "column_name": "end_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "financial_periods",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "financial_periods",
+      "column_name": "locked_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "financial_periods",
+      "column_name": "locked_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "financial_periods",
+      "column_name": "closed_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "inventory_items",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "inventory_items",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "inventory_items",
+      "column_name": "stock_qty",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "inventory_items",
+      "column_name": "unit_cost",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "inventory_items",
+      "column_name": "unit",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "inventory_items",
+      "column_name": "created_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "inventory_items",
+      "column_name": "updated_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "inventory_items",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "inventory_items",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "inventory_items",
+      "column_name": "created_by_user_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "inventory_transactions",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "inventory_transactions",
+      "column_name": "inventory_item_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "inventory_transactions",
+      "column_name": "transaction_type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "inventory_transactions",
+      "column_name": "quantity",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "inventory_transactions",
+      "column_name": "unit_cost",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "inventory_transactions",
+      "column_name": "reference_id",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "inventory_transactions",
+      "column_name": "reference_type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "inventory_transactions",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "journal_entries",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "journal_entries",
+      "column_name": "transaction_date",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "journal_entries",
+      "column_name": "description",
+      "data_type": "text"
+    },
+    {
+      "table_name": "kds_tickets",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "kds_tickets",
+      "column_name": "order_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "kds_tickets",
+      "column_name": "items",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "kds_tickets",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "kds_tickets",
+      "column_name": "station",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "kds_tickets",
+      "column_name": "started_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "kds_tickets",
+      "column_name": "completed_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "kds_tickets",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "leave_type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "start_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "end_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "total_days",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "reason",
+      "data_type": "text"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "approved_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "approved_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "rejection_reason",
+      "data_type": "text"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "leave_requests",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "ledger_lines",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "ledger_lines",
+      "column_name": "journal_entry_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "ledger_lines",
+      "column_name": "account_code",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "ledger_lines",
+      "column_name": "debit",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "ledger_lines",
+      "column_name": "credit",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "supplier_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "item_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "base_rate_type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "op1",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "val1",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "op2",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "val2",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "threshold_val",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "threshold_op",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "threshold_markup_op",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "threshold_markup_val",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "created_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "markup_rules",
+      "column_name": "updated_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "menu_items",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "menu_items",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "menu_items",
+      "column_name": "price",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "menu_items",
+      "column_name": "category",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "menu_items",
+      "column_name": "created_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "menu_items",
+      "column_name": "updated_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "menu_items",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "menu_items",
+      "column_name": "tax_rate_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "menu_items",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "menu_items",
+      "column_name": "created_by_user_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "order_items",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "order_items",
+      "column_name": "order_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "order_items",
+      "column_name": "menu_item_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "order_items",
+      "column_name": "item_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "order_items",
+      "column_name": "quantity",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "order_items",
+      "column_name": "unit_price",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "order_items",
+      "column_name": "total_price",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "order_items",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "order_number",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "total_amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "payment_mode",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "created_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "customer_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "payment_transactions",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "payment_transactions",
+      "column_name": "order_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "payment_transactions",
+      "column_name": "amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "payment_transactions",
+      "column_name": "payment_method",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "payment_transactions",
+      "column_name": "transaction_date",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "payment_transactions",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "payment_transactions",
+      "column_name": "reference_number",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "payment_transactions",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "payroll_audit_log",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "payroll_audit_log",
+      "column_name": "salary_history_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "payroll_audit_log",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "payroll_audit_log",
+      "column_name": "action",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "payroll_audit_log",
+      "column_name": "previous_status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "payroll_audit_log",
+      "column_name": "new_status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "payroll_audit_log",
+      "column_name": "performed_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "payroll_audit_log",
+      "column_name": "performed_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "payroll_audit_log",
+      "column_name": "reason",
+      "data_type": "text"
+    },
+    {
+      "table_name": "payroll_audit_log",
+      "column_name": "metadata",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "pos_transaction_items",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "pos_transaction_items",
+      "column_name": "transaction_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "pos_transaction_items",
+      "column_name": "menu_item_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "pos_transaction_items",
+      "column_name": "quantity",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "pos_transaction_items",
+      "column_name": "unit_price",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "pos_transaction_items",
+      "column_name": "total_price",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "pos_transaction_items",
+      "column_name": "kitchen_notes",
+      "data_type": "text"
+    },
+    {
+      "table_name": "pos_transactions",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "pos_transactions",
+      "column_name": "transaction_uuid",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "pos_transactions",
+      "column_name": "total_amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "pos_transactions",
+      "column_name": "tax_amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "pos_transactions",
+      "column_name": "discount_amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "pos_transactions",
+      "column_name": "payment_method",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "pos_transactions",
+      "column_name": "status",
+      "data_type": "USER-DEFINED"
+    },
+    {
+      "table_name": "pos_transactions",
+      "column_name": "customer_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "pos_transactions",
+      "column_name": "customer_phone",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "pos_transactions",
+      "column_name": "notes",
+      "data_type": "text"
+    },
+    {
+      "table_name": "pos_transactions",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "pos_transactions",
+      "column_name": "created_by_user_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "purchase_order_items",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "purchase_order_items",
+      "column_name": "po_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "purchase_order_items",
+      "column_name": "inventory_item_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "purchase_order_items",
+      "column_name": "qty_ordered",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "purchase_order_items",
+      "column_name": "qty_received",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "purchase_order_items",
+      "column_name": "unit_cost",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "purchase_orders",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "purchase_orders",
+      "column_name": "supplier_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "purchase_orders",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "purchase_orders",
+      "column_name": "total_amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "purchase_orders",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "purchase_orders",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "recipe_ingredients",
+      "column_name": "menu_item_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "recipe_ingredients",
+      "column_name": "inventory_item_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "recipe_ingredients",
+      "column_name": "quantity_required",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_advances",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "salary_advances",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "salary_advances",
+      "column_name": "amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_advances",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "salary_advances",
+      "column_name": "balance_remaining",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_advances",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "salary_advances",
+      "column_name": "total_repaid",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_advances",
+      "column_name": "recovered_amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_components",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "salary_components",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "salary_components",
+      "column_name": "type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "salary_components",
+      "column_name": "is_taxable",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "salary_components",
+      "column_name": "is_active",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "salary_components_master",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "salary_components_master",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "salary_components_master",
+      "column_name": "type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "salary_components_master",
+      "column_name": "is_active",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "salary_components_master",
+      "column_name": "default_amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "month",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "year",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "days_worked",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "calculated_salary",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "advance_deduction",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "net_pay",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "processed_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "manual_adjustment",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "adjustment_reason",
+      "data_type": "text"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "allowances",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "deductions",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "overtime_hours",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "overtime_amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "extra_days",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "extra_day_amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "payment_mode",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "payment_date",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "paid_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "salary_history",
+      "column_name": "payslip_url",
+      "data_type": "text"
+    },
+    {
+      "table_name": "salary_history_components",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "salary_history_components",
+      "column_name": "salary_history_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "salary_history_components",
+      "column_name": "component_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "salary_history_components",
+      "column_name": "amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "salary_history_components",
+      "column_name": "type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "salary_history_components",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "shifts",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "shifts",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "shifts",
+      "column_name": "start_time",
+      "data_type": "time without time zone"
+    },
+    {
+      "table_name": "shifts",
+      "column_name": "end_time",
+      "data_type": "time without time zone"
+    },
+    {
+      "table_name": "shifts",
+      "column_name": "is_overnight",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "inventory_item_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "movement_type",
+      "data_type": "USER-DEFINED"
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "quantity_change",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "related_document_id",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "details",
+      "data_type": "text"
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "created_by_user_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "supplier_items",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "supplier_items",
+      "column_name": "supplier_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "supplier_items",
+      "column_name": "item_code",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "supplier_items",
+      "column_name": "item_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "supplier_items",
+      "column_name": "default_price",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "supplier_items",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "phone",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "payment_type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "vendor_type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "markup_required",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "created_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "updated_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "contact_person",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "email",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "address",
+      "data_type": "text"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "gstin",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "category_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "opening_balance",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "notes",
+      "data_type": "text"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "created_by_user_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "tax_rates",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "tax_rates",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "tax_rates",
+      "column_name": "rate_percentage",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "tax_rates",
+      "column_name": "account_code",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "tax_rates",
+      "column_name": "is_active",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "transaction_categories",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "transaction_categories",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "transaction_categories",
+      "column_name": "type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "transaction_categories",
+      "column_name": "parent_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "transaction_categories",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "payment_method",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "description",
+      "data_type": "text"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "category_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "metadata",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "paid_by",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "paid_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "vendor_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "transactions",
+      "column_name": "mode",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "users",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "users",
+      "column_name": "email",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "users",
+      "column_name": "password_hash",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "users",
+      "column_name": "full_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "users",
+      "column_name": "role",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "users",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "users",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "users",
+      "column_name": "created_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "users",
+      "column_name": "updated_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "users",
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "users",
+      "column_name": "employee_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_categories",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_categories",
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "vendor_categories",
+      "column_name": "expense_account_code",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_categories",
+      "column_name": "description",
+      "data_type": "text"
+    },
+    {
+      "table_name": "vendor_categories",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "supplier_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "transaction_type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "details",
+      "data_type": "text"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "journal_entry_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "created_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "bill_entry_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "payment_mode",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "reference_number",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "category_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_ledger",
+      "column_name": "payment_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_outstanding",
+      "column_name": "vendor_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_outstanding",
+      "column_name": "vendor_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "vendor_outstanding",
+      "column_name": "vendor_type",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "vendor_outstanding",
+      "column_name": "category_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_outstanding",
+      "column_name": "category_name",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "vendor_outstanding",
+      "column_name": "outstanding_balance",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "vendor_outstanding",
+      "column_name": "total_bills",
+      "data_type": "bigint"
+    },
+    {
+      "table_name": "vendor_outstanding",
+      "column_name": "total_payments",
+      "data_type": "bigint"
+    },
+    {
+      "table_name": "vendor_outstanding",
+      "column_name": "last_transaction_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "vendor_outstanding",
+      "column_name": "oldest_bill_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "vendor_outstanding",
+      "column_name": "last_payment_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "vendor_outstanding",
+      "column_name": "days_outstanding",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_payments",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_payments",
+      "column_name": "vendor_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "vendor_payments",
+      "column_name": "payment_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "vendor_payments",
+      "column_name": "amount",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "vendor_payments",
+      "column_name": "payment_mode",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "vendor_payments",
+      "column_name": "reference_number",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "vendor_payments",
+      "column_name": "notes",
+      "data_type": "text"
+    },
+    {
+      "table_name": "vendor_payments",
+      "column_name": "paid_by",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "vendor_payments",
+      "column_name": "attachment_url",
+      "data_type": "text"
+    },
+    {
+      "table_name": "vendor_payments",
+      "column_name": "journal_entry_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "vendor_payments",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "vendor_payments",
+      "column_name": "created_by",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "wastage_logs",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "wastage_logs",
+      "column_name": "inventory_item_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "wastage_logs",
+      "column_name": "qty",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "wastage_logs",
+      "column_name": "reason",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "wastage_logs",
+      "column_name": "cost",
+      "data_type": "numeric"
+    },
+    {
+      "table_name": "wastage_logs",
+      "column_name": "reported_by",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "wastage_logs",
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    },
+    {
+      "table_name": "wastage_logs",
+      "column_name": "journal_entry_id",
+      "data_type": "uuid"
+    }
+  ]
+}

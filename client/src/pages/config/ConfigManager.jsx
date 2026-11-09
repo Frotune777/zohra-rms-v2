@@ -15,6 +15,7 @@ const ConfigManager = () => {
 
     // Category display names
     const categoryLabels = {
+        dining_tables: 'Dining Tables',
         item_categories: 'Item Categories',
         units: 'Units of Measurement',
         payment_types: 'Payment Types',
@@ -49,7 +50,7 @@ const ConfigManager = () => {
     const fetchOptions = async (category) => {
         setLoading(true);
         try {
-            const res = await api.get(`config/${category}`);
+            const res = await api.get(`config/${category}?includeInactive=true`);
             setOptions(res.data);
         } catch (err) {
             console.error(err);
@@ -190,13 +191,23 @@ const ConfigManager = () => {
                         </div>
                     </div>
 
+                    {activeCategory==='dining_tables' && !loading && options.length===0 && <div className="glass-panel p-4 mb-4 text-gray-300">
+                        <p>POS uses tables 1–12 until a dining table list is configured. Load them here to rename, reorder or deactivate tables.</p>
+                        <button onClick={async()=>{
+                            try {
+                                await api.post('config/dining_tables/bulk-import',{options:Array.from({length:12},(_,index)=>({value:String(index+1),label:'Table '+(index+1),display_order:index+1}))});
+                                toast.success('Dining tables loaded');
+                                fetchOptions(activeCategory);fetchCategories();
+                            } catch {toast.error('Failed to load dining tables');}
+                        }} className="mt-3 rounded bg-green-600 text-white px-4 py-2">Load tables 1–12</button>
+                    </div>}
                     {/* Add Form */}
                     {showAddForm && (
                         <div className="glass-panel p-4 mb-4">
                             <h3 className="text-white font-bold mb-3">Add New Option</h3>
                             <form onSubmit={handleAddOption} className="space-y-3">
                                 <div className="grid grid-cols-3 gap-3">
-                                    <input
+                                    <input aria-label="Value"
                                         type="text"
                                         placeholder="Value (internal)"
                                         value={newOption.value}
@@ -204,7 +215,7 @@ const ConfigManager = () => {
                                         className="bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm"
                                         required
                                     />
-                                    <input
+                                    <input aria-label="Label"
                                         type="text"
                                         placeholder="Label (display)"
                                         value={newOption.label}
@@ -212,7 +223,7 @@ const ConfigManager = () => {
                                         className="bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm"
                                         required
                                     />
-                                    <input
+                                    <input aria-label="Display order"
                                         type="number"
                                         placeholder="Display Order"
                                         value={newOption.display_order}
@@ -241,25 +252,25 @@ const ConfigManager = () => {
                         ) : (
                             <div className="space-y-2">
                                 {options.map(option => (
-                                    <div key={option.id} className="bg-white/5 border border-white/10 rounded-md p-3 hover:bg-white/10 transition">
+                                    <div key={option.id} role="group" aria-label={option.label} className="bg-white/5 border border-white/10 rounded-md p-3 hover:bg-white/10 transition">
                                         {editingOption?.id === option.id ? (
                                             <form onSubmit={handleUpdateOption} className="space-y-3">
                                                 <div className="grid grid-cols-3 gap-3">
-                                                    <input
+                                                    <input aria-label="Value"
                                                         type="text"
                                                         value={editingOption.value}
                                                         onChange={e => setEditingOption({ ...editingOption, value: e.target.value })}
                                                         className="bg-black/20 border border-white/20 rounded p-2 text-white text-sm"
                                                         required
                                                     />
-                                                    <input
+                                                    <input aria-label="Label"
                                                         type="text"
                                                         value={editingOption.label}
                                                         onChange={e => setEditingOption({ ...editingOption, label: e.target.value })}
                                                         className="bg-black/20 border border-white/20 rounded p-2 text-white text-sm"
                                                         required
                                                     />
-                                                    <input
+                                                    <input aria-label="Display order"
                                                         type="number"
                                                         value={editingOption.display_order}
                                                         onChange={e => setEditingOption({ ...editingOption, display_order: parseInt(e.target.value) })}
@@ -295,13 +306,13 @@ const ConfigManager = () => {
                                                     >
                                                         {option.is_active ? <FiToggleRight size={18} /> : <FiToggleLeft size={18} />}
                                                     </button>
-                                                    <button
+                                                    <button aria-label="Edit"
                                                         onClick={() => setEditingOption(option)}
                                                         className="p-2 text-blue-400 hover:bg-blue-600/20 rounded transition"
                                                     >
                                                         <FiEdit2 size={14} />
                                                     </button>
-                                                    <button
+                                                    <button aria-label="Delete"
                                                         onClick={() => handleDeleteOption(option.id)}
                                                         className="p-2 text-red-400 hover:bg-red-600/20 rounded transition"
                                                     >

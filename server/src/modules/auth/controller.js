@@ -26,19 +26,8 @@ const login = async (req, res) => {
         // Check password
         const passwordMatch = await bcrypt.compare(password, user.password_hash);
 
-        if (!passwordMatch) {
-            // For demo purposes, allow known passwords
-            const demoPasswords = {
-                'owner123': 'owner@alzohra.com',
-                'manager123': 'manager@alzohra.com',
-                'staff123': 'staff@alzohra.com'
-            };
-
-            if (demoPasswords[password] !== email) {
-                console.log(`Login failed: Password mismatch for email ${email}`);
-                return res.status(401).json({ error: 'Invalid credentials' });
-            }
-        }
+        if (!passwordMatch) return res.status(401).json({ error: 'Invalid credentials' });
+        if (user.status !== 'active') return res.status(403).json({ error: 'Account is inactive' });
 
         // Generate JWT token
         console.log(`Login successful for user: ${user.email} (${user.role})`);
@@ -77,7 +66,10 @@ const register = async (req, res) => {
             return res.status(400).json({ error: 'All fields required' });
         }
 
+        if (!['owner','manager','staff'].includes(role)) return res.status(400).json({ error: 'Invalid role' });
+        if (role === 'owner' && req.user.role !== 'owner') return res.status(403).json({ error: 'Only owners can create owners' });
         await client.query('BEGIN');
+        await client.query("SELECT pg_advisory_xact_lock(hashtext('user-account-code'))");
 
         // Check if user exists
         const existing = await client.query('SELECT id FROM users WHERE email = $1', [email]);

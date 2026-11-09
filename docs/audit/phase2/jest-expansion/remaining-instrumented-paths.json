@@ -1,0 +1,851 @@
+{
+  "scope": "Uncovered Babel statements/branches/functions from the completed standalone run; this is not a list of missing features.",
+  "files": [
+    {
+      "file": "server/src/app.js",
+      "statements": {
+        "covered": 63,
+        "total": 67,
+        "pct": 94.03
+      },
+      "branches": {
+        "covered": 4,
+        "total": 10,
+        "pct": 40.0
+      },
+      "functions": {
+        "covered": 4,
+        "total": 5,
+        "pct": 80.0
+      }
+    },
+    {
+      "file": "server/src/middleware/auth.js",
+      "statements": {
+        "covered": 32,
+        "total": 38,
+        "pct": 84.21
+      },
+      "branches": {
+        "covered": 17,
+        "total": 22,
+        "pct": 77.27
+      },
+      "functions": {
+        "covered": 5,
+        "total": 5,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/middleware/rbac.js",
+      "statements": {
+        "covered": 0,
+        "total": 13,
+        "pct": 0.0
+      },
+      "branches": {
+        "covered": 0,
+        "total": 8,
+        "pct": 0.0
+      },
+      "functions": {
+        "covered": 0,
+        "total": 2,
+        "pct": 0.0
+      }
+    },
+    {
+      "file": "server/src/modules/advance-requests/controller.js",
+      "statements": {
+        "covered": 69,
+        "total": 77,
+        "pct": 89.61
+      },
+      "branches": {
+        "covered": 28,
+        "total": 41,
+        "pct": 68.29
+      },
+      "functions": {
+        "covered": 5,
+        "total": 5,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/ai/controller.js",
+      "statements": {
+        "covered": 68,
+        "total": 69,
+        "pct": 98.55
+      },
+      "branches": {
+        "covered": 15,
+        "total": 22,
+        "pct": 68.18
+      },
+      "functions": {
+        "covered": 12,
+        "total": 12,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/attendance/controller.js",
+      "statements": {
+        "covered": 16,
+        "total": 25,
+        "pct": 64.0
+      },
+      "branches": {
+        "covered": 0,
+        "total": 0,
+        "pct": 100
+      },
+      "functions": {
+        "covered": 2,
+        "total": 4,
+        "pct": 50.0
+      }
+    },
+    {
+      "file": "server/src/modules/attendance/service.js",
+      "statements": {
+        "covered": 3,
+        "total": 26,
+        "pct": 11.54
+      },
+      "branches": {
+        "covered": 0,
+        "total": 4,
+        "pct": 0.0
+      },
+      "functions": {
+        "covered": 0,
+        "total": 5,
+        "pct": 0.0
+      }
+    },
+    {
+      "file": "server/src/modules/attendance/validateBulk.js",
+      "statements": {
+        "covered": 2,
+        "total": 15,
+        "pct": 13.33
+      },
+      "branches": {
+        "covered": 0,
+        "total": 14,
+        "pct": 0.0
+      },
+      "functions": {
+        "covered": 0,
+        "total": 3,
+        "pct": 0.0
+      }
+    },
+    {
+      "file": "server/src/modules/auth/controller.js",
+      "statements": {
+        "covered": 49,
+        "total": 66,
+        "pct": 74.24
+      },
+      "branches": {
+        "covered": 25,
+        "total": 32,
+        "pct": 78.12
+      },
+      "functions": {
+        "covered": 2,
+        "total": 4,
+        "pct": 50.0
+      }
+    },
+    {
+      "file": "server/src/modules/config/controller.js",
+      "statements": {
+        "covered": 66,
+        "total": 72,
+        "pct": 91.67
+      },
+      "branches": {
+        "covered": 11,
+        "total": 16,
+        "pct": 68.75
+      },
+      "functions": {
+        "covered": 8,
+        "total": 8,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/config/service.js",
+      "statements": {
+        "covered": 72,
+        "total": 72,
+        "pct": 100.0
+      },
+      "branches": {
+        "covered": 51,
+        "total": 56,
+        "pct": 91.07
+      },
+      "functions": {
+        "covered": 14,
+        "total": 14,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/employees/AdvanceService.js",
+      "statements": {
+        "covered": 63,
+        "total": 77,
+        "pct": 81.82
+      },
+      "branches": {
+        "covered": 44,
+        "total": 57,
+        "pct": 77.19
+      },
+      "functions": {
+        "covered": 4,
+        "total": 6,
+        "pct": 66.67
+      }
+    },
+    {
+      "file": "server/src/modules/employees/AttendanceService.js",
+      "statements": {
+        "covered": 3,
+        "total": 9,
+        "pct": 33.33
+      },
+      "branches": {
+        "covered": 0,
+        "total": 0,
+        "pct": 100
+      },
+      "functions": {
+        "covered": 0,
+        "total": 2,
+        "pct": 0.0
+      }
+    },
+    {
+      "file": "server/src/modules/employees/EmployeeService.js",
+      "statements": {
+        "covered": 43,
+        "total": 46,
+        "pct": 93.48
+      },
+      "branches": {
+        "covered": 47,
+        "total": 50,
+        "pct": 94.0
+      },
+      "functions": {
+        "covered": 6,
+        "total": 7,
+        "pct": 85.71
+      }
+    },
+    {
+      "file": "server/src/modules/employees/PayrollService.js",
+      "statements": {
+        "covered": 4,
+        "total": 4,
+        "pct": 100.0
+      },
+      "branches": {
+        "covered": 3,
+        "total": 4,
+        "pct": 75.0
+      },
+      "functions": {
+        "covered": 1,
+        "total": 1,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/employees/advanceSchedule.js",
+      "statements": {
+        "covered": 27,
+        "total": 29,
+        "pct": 93.1
+      },
+      "branches": {
+        "covered": 12,
+        "total": 14,
+        "pct": 85.71
+      },
+      "functions": {
+        "covered": 3,
+        "total": 3,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/employees/controller.js",
+      "statements": {
+        "covered": 98,
+        "total": 134,
+        "pct": 73.13
+      },
+      "branches": {
+        "covered": 26,
+        "total": 35,
+        "pct": 74.29
+      },
+      "functions": {
+        "covered": 13,
+        "total": 18,
+        "pct": 72.22
+      }
+    },
+    {
+      "file": "server/src/modules/employees/repaymentReversal.js",
+      "statements": {
+        "covered": 44,
+        "total": 49,
+        "pct": 89.8
+      },
+      "branches": {
+        "covered": 13,
+        "total": 18,
+        "pct": 72.22
+      },
+      "functions": {
+        "covered": 3,
+        "total": 3,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/finance/ClosureService.js",
+      "statements": {
+        "covered": 83,
+        "total": 87,
+        "pct": 95.4
+      },
+      "branches": {
+        "covered": 46,
+        "total": 62,
+        "pct": 74.19
+      },
+      "functions": {
+        "covered": 5,
+        "total": 5,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/finance/FinancialCalculator.js",
+      "statements": {
+        "covered": 2,
+        "total": 8,
+        "pct": 25.0
+      },
+      "branches": {
+        "covered": 0,
+        "total": 0,
+        "pct": 100
+      },
+      "functions": {
+        "covered": 0,
+        "total": 3,
+        "pct": 0.0
+      }
+    },
+    {
+      "file": "server/src/modules/finance/JournalService.js",
+      "statements": {
+        "covered": 73,
+        "total": 73,
+        "pct": 100.0
+      },
+      "branches": {
+        "covered": 48,
+        "total": 50,
+        "pct": 96.0
+      },
+      "functions": {
+        "covered": 7,
+        "total": 7,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/finance/ReconciliationService.js",
+      "statements": {
+        "covered": 27,
+        "total": 41,
+        "pct": 65.85
+      },
+      "branches": {
+        "covered": 7,
+        "total": 17,
+        "pct": 41.18
+      },
+      "functions": {
+        "covered": 3,
+        "total": 4,
+        "pct": 75.0
+      }
+    },
+    {
+      "file": "server/src/modules/finance/TransactionService.js",
+      "statements": {
+        "covered": 144,
+        "total": 147,
+        "pct": 97.96
+      },
+      "branches": {
+        "covered": 96,
+        "total": 106,
+        "pct": 90.57
+      },
+      "functions": {
+        "covered": 25,
+        "total": 25,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/finance/controller.js",
+      "statements": {
+        "covered": 104,
+        "total": 217,
+        "pct": 47.93
+      },
+      "branches": {
+        "covered": 24,
+        "total": 46,
+        "pct": 52.17
+      },
+      "functions": {
+        "covered": 13,
+        "total": 32,
+        "pct": 40.62
+      }
+    },
+    {
+      "file": "server/src/modules/finance/service.js",
+      "statements": {
+        "covered": 97,
+        "total": 156,
+        "pct": 62.18
+      },
+      "branches": {
+        "covered": 45,
+        "total": 67,
+        "pct": 67.16
+      },
+      "functions": {
+        "covered": 8,
+        "total": 22,
+        "pct": 36.36
+      }
+    },
+    {
+      "file": "server/src/modules/finance/entities/JournalEntry.js",
+      "statements": {
+        "covered": 28,
+        "total": 28,
+        "pct": 100.0
+      },
+      "branches": {
+        "covered": 20,
+        "total": 21,
+        "pct": 95.24
+      },
+      "functions": {
+        "covered": 8,
+        "total": 8,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/finance/entities/LedgerLine.js",
+      "statements": {
+        "covered": 18,
+        "total": 19,
+        "pct": 94.74
+      },
+      "branches": {
+        "covered": 25,
+        "total": 26,
+        "pct": 96.15
+      },
+      "functions": {
+        "covered": 2,
+        "total": 2,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/inventory/controller.js",
+      "statements": {
+        "covered": 83,
+        "total": 144,
+        "pct": 57.64
+      },
+      "branches": {
+        "covered": 20,
+        "total": 46,
+        "pct": 43.48
+      },
+      "functions": {
+        "covered": 13,
+        "total": 20,
+        "pct": 65.0
+      }
+    },
+    {
+      "file": "server/src/modules/inventory/corrections.js",
+      "statements": {
+        "covered": 43,
+        "total": 45,
+        "pct": 95.56
+      },
+      "branches": {
+        "covered": 22,
+        "total": 27,
+        "pct": 81.48
+      },
+      "functions": {
+        "covered": 4,
+        "total": 5,
+        "pct": 80.0
+      }
+    },
+    {
+      "file": "server/src/modules/inventory/po.controller.js",
+      "statements": {
+        "covered": 71,
+        "total": 72,
+        "pct": 98.61
+      },
+      "branches": {
+        "covered": 31,
+        "total": 32,
+        "pct": 96.88
+      },
+      "functions": {
+        "covered": 4,
+        "total": 4,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/inventory/service.js",
+      "statements": {
+        "covered": 157,
+        "total": 307,
+        "pct": 51.14
+      },
+      "branches": {
+        "covered": 71,
+        "total": 201,
+        "pct": 35.32
+      },
+      "functions": {
+        "covered": 16,
+        "total": 24,
+        "pct": 66.67
+      }
+    },
+    {
+      "file": "server/src/modules/inventory/valuation.js",
+      "statements": {
+        "covered": 31,
+        "total": 33,
+        "pct": 93.94
+      },
+      "branches": {
+        "covered": 20,
+        "total": 24,
+        "pct": 83.33
+      },
+      "functions": {
+        "covered": 7,
+        "total": 7,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/inventory/workflows.js",
+      "statements": {
+        "covered": 76,
+        "total": 77,
+        "pct": 98.7
+      },
+      "branches": {
+        "covered": 25,
+        "total": 26,
+        "pct": 96.15
+      },
+      "functions": {
+        "covered": 11,
+        "total": 12,
+        "pct": 91.67
+      }
+    },
+    {
+      "file": "server/src/modules/leaves/controller.js",
+      "statements": {
+        "covered": 105,
+        "total": 110,
+        "pct": 95.45
+      },
+      "branches": {
+        "covered": 48,
+        "total": 50,
+        "pct": 96.0
+      },
+      "functions": {
+        "covered": 7,
+        "total": 7,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/operations/OperationsService.js",
+      "statements": {
+        "covered": 30,
+        "total": 33,
+        "pct": 90.91
+      },
+      "branches": {
+        "covered": 6,
+        "total": 10,
+        "pct": 60.0
+      },
+      "functions": {
+        "covered": 2,
+        "total": 2,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/operations/kds.controller.js",
+      "statements": {
+        "covered": 34,
+        "total": 42,
+        "pct": 80.95
+      },
+      "branches": {
+        "covered": 13,
+        "total": 18,
+        "pct": 72.22
+      },
+      "functions": {
+        "covered": 3,
+        "total": 3,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/payroll/controller.js",
+      "statements": {
+        "covered": 74,
+        "total": 78,
+        "pct": 94.87
+      },
+      "branches": {
+        "covered": 12,
+        "total": 16,
+        "pct": 75.0
+      },
+      "functions": {
+        "covered": 6,
+        "total": 6,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/payroll/drafts.js",
+      "statements": {
+        "covered": 101,
+        "total": 102,
+        "pct": 99.02
+      },
+      "branches": {
+        "covered": 70,
+        "total": 74,
+        "pct": 94.59
+      },
+      "functions": {
+        "covered": 3,
+        "total": 3,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/payroll/lifecycle.js",
+      "statements": {
+        "covered": 72,
+        "total": 79,
+        "pct": 91.14
+      },
+      "branches": {
+        "covered": 38,
+        "total": 46,
+        "pct": 82.61
+      },
+      "functions": {
+        "covered": 5,
+        "total": 5,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/pos/controller.js",
+      "statements": {
+        "covered": 36,
+        "total": 43,
+        "pct": 83.72
+      },
+      "branches": {
+        "covered": 11,
+        "total": 11,
+        "pct": 100.0
+      },
+      "functions": {
+        "covered": 5,
+        "total": 7,
+        "pct": 71.43
+      }
+    },
+    {
+      "file": "server/src/modules/pos/service.js",
+      "statements": {
+        "covered": 153,
+        "total": 177,
+        "pct": 86.44
+      },
+      "branches": {
+        "covered": 84,
+        "total": 116,
+        "pct": 72.41
+      },
+      "functions": {
+        "covered": 20,
+        "total": 23,
+        "pct": 86.96
+      }
+    },
+    {
+      "file": "server/src/modules/reports/controller.js",
+      "statements": {
+        "covered": 141,
+        "total": 187,
+        "pct": 75.4
+      },
+      "branches": {
+        "covered": 17,
+        "total": 38,
+        "pct": 44.74
+      },
+      "functions": {
+        "covered": 14,
+        "total": 17,
+        "pct": 82.35
+      }
+    },
+    {
+      "file": "server/src/modules/vendors/VendorPaymentService.js",
+      "statements": {
+        "covered": 81,
+        "total": 81,
+        "pct": 100.0
+      },
+      "branches": {
+        "covered": 39,
+        "total": 41,
+        "pct": 95.12
+      },
+      "functions": {
+        "covered": 8,
+        "total": 8,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/vendors/ledger.service.js",
+      "statements": {
+        "covered": 101,
+        "total": 101,
+        "pct": 100.0
+      },
+      "branches": {
+        "covered": 45,
+        "total": 50,
+        "pct": 90.0
+      },
+      "functions": {
+        "covered": 12,
+        "total": 12,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/vendors/payments.controller.js",
+      "statements": {
+        "covered": 58,
+        "total": 64,
+        "pct": 90.62
+      },
+      "branches": {
+        "covered": 11,
+        "total": 12,
+        "pct": 91.67
+      },
+      "functions": {
+        "covered": 8,
+        "total": 8,
+        "pct": 100.0
+      }
+    },
+    {
+      "file": "server/src/modules/vendors/routes.js",
+      "statements": {
+        "covered": 21,
+        "total": 47,
+        "pct": 44.68
+      },
+      "branches": {
+        "covered": 0,
+        "total": 4,
+        "pct": 0.0
+      },
+      "functions": {
+        "covered": 0,
+        "total": 5,
+        "pct": 0.0
+      }
+    },
+    {
+      "file": "server/src/utils/logger.js",
+      "statements": {
+        "covered": 6,
+        "total": 6,
+        "pct": 100.0
+      },
+      "branches": {
+        "covered": 1,
+        "total": 2,
+        "pct": 50.0
+      },
+      "functions": {
+        "covered": 0,
+        "total": 0,
+        "pct": 100
+      }
+    }
+  ]
+}

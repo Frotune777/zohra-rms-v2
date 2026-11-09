@@ -1,27 +1,55 @@
-# Standard RMS Gap Analysis Report
+# Gap Analysis: Project vs Excel Tracker Requirements
 
-**Project:** Al Zohra RMS v2.0  
-**Date:** December 18, 2025
+## I. Input Sheet: Daily Transactions
 
-This report audits the current system against industry-standard Restaurant Management System (RMS) features to ensure production readiness.
-
-## 📋 Feature Comparison
-
-| Module | Standard RMS Feature | Al Zohra RMS Status | Gaps/Recommendations |
+| Feature | Requirement | Current Implementation | Status |
 | :--- | :--- | :--- | :--- |
-| **POS** | Quick Billing, Table Mgt, Split Bill | ✅ Core Billing & KDS implemented | Table management and split billing are candidates for Phase 2. |
-| **Inventory** | Stock Alerts, Recipe Costing, Wastage | ✅ Recipe Costing & Wastage | Stock level alerts (low stock notification) should be prioritized. |
-| **Finance** | P&L, Ledger, Day Closure | ✅ Journal Entries & Daily Summary | Daily closure enforcement is implemented but needs testing. |
-| **HR/Payroll** | Attendance, Advances, Payroll | ✅ Comprehensive Advance Ledger | Feature complete for standard operations. |
-| **Vendors** | Ledger, AP Tracking, Categories | ✅ Outstanding Balance View | Feature complete. |
+| **Date** | Biller records date | implemented (`DailyTracker.jsx` -> `transactions.date`) | ✅ Implemented |
+| **Amount** | Transaction Value | Implemented (`transactions.amount`) | ✅ Implemented |
+| **Mode** | Cash, Bank, Bank_Cash | Partially Implemented. 'Cash' & 'Bank' exist as payment methods. **'Bank_Cash' (Float)** is MISSING. | ⚠️ Partial |
+| **PnL Type** | Income (Sales) / Expense | Implemented as `type` ('Sales'/'Expense'). | ✅ Implemented |
+| **PnL Category** | Specific categories (COGS - Grocery, OpEx - Labor) | **MISSING**. database has `category_id` but UI does not allow selection. No standard category list. | ❌ Missing |
+| **Logic** | Income = Sales, Expense = PnL deduction | Implemented in `transactions` but **NOT linked to Financial P&L** (which reads `ledger_lines`). | ❌ Disconnected |
+| **Bank_Cash Logic** | Transfer logic (Counter -> Manager, Manager Spending) | **MISSING**. No distinction for transfers or float management. | ❌ Missing |
 
-## 🛠️ Production Readiness Status: **85%**
+## II. Reconciliation Sheet
 
-### Remaining Gaps for Production Deployment:
-1.  **Security Hardening**: Implementation of Helmet, Rate-limiting, and CORS restriction.
-2.  **Performance Polish**: Enabling compression and refined logging for troubleshooting.
-3.  **UI Consistency**: Fix reported accessibility issues in the Employee module.
-4.  **Operational Documentation**: Production Deployment Guide for the system administrator.
+### A. Biller Counter Cash
+| Feature | Requirement | Current Implementation | Status |
+| :--- | :--- | :--- | :--- |
+| **Opening Cash** | Carried from previous day | **MISSING**. No persistence of closing cash to next day's opening. | ❌ Missing |
+| **Cash Inflow** | Cash Sales | Implemented (`FinancialCalculator` sums Cash Sales). | ✅ Implemented |
+| **Cash Outflow** | Cash Expenses | Implemented (`FinancialCalculator` sums Cash Expenses). | ✅ Implemented |
+| **Transfer Out** | Cash to Manager | **MISSING**. No logic to track transfers to Manager. | ❌ Missing |
+| **Theoretical vs Actual** | Formula based verification | **MISSING**. UI shows "Remaining Cash" but no comparison against physical count input. | ❌ Missing |
 
-## 🎯 Conclusion
-The Al Zohra RMS v2.0 covers **100% of the core operational needs** of a modern restaurant. The system is structurally sound and follows professional double-entry accounting principles. Once the security and stability enhancements are implemented, the system will be ready for live deployment.
+### B. Manager Float Reconciliation
+| Feature | Requirement | Current Implementation | Status |
+| :--- | :--- | :--- | :--- |
+| **Manager Float** | Rolling balance of Manager's cash | **MISSING**. Completely absent. | ❌ Missing |
+
+## III. Monitoring Sheet (Management P&L)
+
+| Feature | Requirement | Current Implementation | Status |
+| :--- | :--- | :--- | :--- |
+| **True P&L** | Revenue - COGS - OpEx | Implemented in `Finance.jsx` but **reads from `ledger_lines`**, meaning it misses data from `DailyTracker`! | ⚠️ Critical Bug |
+| **KPIs** | Food Cost %, Labor Cost % | **MISSING**. Only "Profit Margin" is shown. | ❌ Missing |
+| **Accountability** | Report on "Who spent what" | **MISSING**. `paid_by` is captured but no report exists. | ❌ Missing |
+
+## Summary of Work Required
+1.  **Database Updates**:
+    *   Add `categories` table or enum.
+    *   Add `mode` or strictly define `payment_method` to include 'Bank_Cash'.
+    *   Add `opening_balance` tracking for Cash and Float.
+2.  **Daily Tracker UI**:
+    *   Add **Category Selection**.
+    *   Add **Transfer Mode** (Cash -> Bank_Cash).
+3.  **Reconciliation Logic**:
+    *   Implement "Opening Cash" logic.
+    *   Implement "Manager Float" tracking.
+4.  **Backend Integration**:
+    *   **CRITICIAL**: Connect `DailyTracker` (Transactions) to `Journal/Ledger` so P&L is accurate.
+5.  **Reports**:
+    *   Create detailed P&L breaking down by Category (COGS vs OpEx).
+    *   Create KPIs.
+    *   Create Spending Report.

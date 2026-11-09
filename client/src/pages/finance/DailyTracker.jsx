@@ -302,7 +302,7 @@ const DailyTracker = () => {
                     )}
                     <div className="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-lg border border-white/20">
                         <FiCalendar className="text-gray-400" />
-                        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="bg-transparent border-none text-white focus:outline-none text-sm" />
+                        <input aria-label="Date" type="date" value={date} onChange={(e) => setDate(e.target.value)} className="bg-transparent border-none text-white focus:outline-none text-sm" />
                     </div>
                 </div>
             </div>
@@ -352,7 +352,7 @@ const DailyTracker = () => {
                             <button onClick={handleAddRow} className="bg-blue-600/30 text-blue-200 hover:bg-blue-600 hover:text-white px-3 py-1.5 rounded text-xs transition border border-blue-500/50">
                                 + Add Row
                             </button>
-                            <button onClick={handleSaveAll} disabled={loading} className="bg-green-600 hover:bg-green-700 text-white px-4 py-1.5 rounded text-xs font-bold transition flex items-center gap-2">
+                            <button aria-label="Refresh" onClick={handleSaveAll} disabled={loading} className="bg-green-600 hover:bg-green-700 text-white px-4 py-1.5 rounded text-xs font-bold transition flex items-center gap-2">
                                 {loading ? <FiRefreshCw className="animate-spin" /> : <FiSave />} Save All
                             </button>
                         </div>
@@ -388,7 +388,7 @@ const DailyTracker = () => {
                                         </td>
                                     )}
                                     <td className="p-2">
-                                        <input
+                                        <input aria-label="Description"
                                             type="text"
                                             value={row.description}
                                             onChange={(e) => handleRowChange(idx, 'description', e.target.value)}
@@ -397,7 +397,7 @@ const DailyTracker = () => {
                                         />
                                     </td>
                                     <td className="p-2">
-                                        <input
+                                        <input aria-label="Amount"
                                             type="number"
                                             value={row.amount}
                                             onChange={(e) => handleRowChange(idx, 'amount', e.target.value)}
@@ -406,7 +406,7 @@ const DailyTracker = () => {
                                         />
                                     </td>
                                     <td className="p-2">
-                                        <select
+                                        <select aria-label="Category id"
                                             value={row.category_id}
                                             onChange={(e) => handleRowChange(idx, 'category_id', e.target.value)}
                                             className="w-full bg-gray-900 border border-white/10 rounded px-2 py-1 text-xs text-gray-300 focus:border-blue-500 outline-none"
@@ -426,7 +426,7 @@ const DailyTracker = () => {
                                     {activeTab === 'expenses' && (
                                         <>
                                             <td className="p-2">
-                                                <select
+                                                <select aria-label="Vendor id"
                                                     value={row.vendor_id}
                                                     onChange={(e) => handleRowChange(idx, 'vendor_id', e.target.value)}
                                                     className="w-full bg-gray-900 border border-white/10 rounded px-2 py-1 text-xs text-gray-300 focus:border-blue-500 outline-none"
@@ -438,7 +438,7 @@ const DailyTracker = () => {
                                                 </select>
                                             </td>
                                             <td className="p-2">
-                                                <select
+                                                <select aria-label="Status"
                                                     value={row.status}
                                                     onChange={(e) => handleRowChange(idx, 'status', e.target.value)}
                                                     className={`w-full bg-gray-900 border border-white/10 rounded px-2 py-1 text-xs outline-none ${row.status === 'Paid' ? 'text-green-400' : 'text-yellow-400'}`}
@@ -450,7 +450,7 @@ const DailyTracker = () => {
                                         </>
                                     )}
                                     <td className="p-2 text-center">
-                                        <button onClick={() => handleRemoveRow(idx)} className="text-gray-600 hover:text-red-400">
+                                        <button aria-label="Delete" onClick={() => handleRemoveRow(idx)} className="text-gray-600 hover:text-red-400">
                                             <FiTrash2 />
                                         </button>
                                     </td>
@@ -472,7 +472,7 @@ const DailyTracker = () => {
             <div className="bg-gray-800/30 backdrop-blur-md rounded-xl border border-white/10 p-4">
                 <div className="flex justify-between items-center mb-4">
                     <h3 className="font-bold text-white text-sm uppercase text-gray-400">Today's Log</h3>
-                    <button onClick={fetchData} className="text-gray-400 hover:text-white"><FiRefreshCw /></button>
+                    <button aria-label="Refresh" onClick={fetchData} className="text-gray-400 hover:text-white"><FiRefreshCw /></button>
                 </div>
                 <div className="overflow-auto max-h-[300px]">
                     <table className="w-full text-left text-sm">
@@ -534,6 +534,7 @@ const DailyTracker = () => {
                                         type="number"
                                         className="flex-1 bg-gray-800 border border-white/10 rounded p-2 text-white focus:outline-none focus:border-green-500 text-right"
                                         placeholder="0"
+                                        min="0" step="1"
                                         value={cashDenominations[denom]}
                                         onChange={(e) => setCashDenominations(p => ({ ...p, [denom]: e.target.value }))}
                                     />

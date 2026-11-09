@@ -1,3 +1,4 @@
+const {sqlMock}=require('./helpers/sql-mock');
 const {
     getDailyRates,
     saveDailyRates,
@@ -32,10 +33,15 @@ jest.mock('../src/config/db', () => {
 describe('Chicken/Supplier Module', () => {
     let req, res;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         req = global.testUtils.mockRequest();
         res = global.testUtils.mockResponse();
         jest.clearAllMocks();
+        db.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        if(db.pool) {
+            const isolatedClient=await db.pool.connect();
+            if(isolatedClient.query !== db.query) isolatedClient.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        }
     });
 
     describe('getDailyRates', () => {
@@ -259,6 +265,14 @@ describe('Chicken/Supplier Module', () => {
                 .mockResolvedValueOnce(mockQueryResult([])) // Insert vendor ledger
                 .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
+            sqlMock(db.query,(sql,p)=>{
+                if(sql.startsWith('SELECT id FROM suppliers'))return mockQueryResult([{id:1}]);
+                if(sql.includes('FROM daily_rates'))return mockQueryResult([{tandoor_rate:180,boiler_rate:160,egg_rate:6}]);
+                if(sql.includes('FROM markup_rules'))return mockQueryResult([{base_rate_type:'TandoorRate',op1:'+',val1:5}]);
+                if(sql.startsWith('INSERT INTO bill_entries'))return mockQueryResult([{id:1,...req.body,expected_rate:p[5],variance:p[6],status:'Pending'}]);
+                if(sql.includes('FROM inventory_items'))return mockQueryResult([]);
+            });
+
             await createBillEntry(req, res);
 
             expect(res.json).toHaveBeenCalledWith(
@@ -299,6 +313,14 @@ describe('Chicken/Supplier Module', () => {
                 .mockResolvedValueOnce(mockQueryResult([])) // LEDGER
                 .mockResolvedValueOnce(mockQueryResult([])); // COMMIT
 
+            sqlMock(db.query,(sql,p)=>{
+                if(sql.startsWith('SELECT id FROM suppliers'))return mockQueryResult([{id:1}]);
+                if(sql.includes('FROM daily_rates'))return mockQueryResult([{tandoor_rate:180,boiler_rate:160,egg_rate:6}]);
+                if(sql.includes('FROM markup_rules'))return mockQueryResult([{base_rate_type:'TandoorRate',op1:'+',val1:5}]);
+                if(sql.startsWith('INSERT INTO bill_entries'))return mockQueryResult([{id:1,...req.body,expected_rate:p[5],variance:p[6],status:'Pending'}]);
+                if(sql.includes('FROM inventory_items'))return mockQueryResult([]);
+            });
+
             await createBillEntry(req, res);
 
             expect(res.json).toHaveBeenCalledWith(
@@ -316,6 +338,11 @@ describe('Chicken/Supplier Module', () => {
             };
 
             db.query.mockResolvedValue(mockQueryResult([]));
+
+            sqlMock(db.query,(sql)=>{
+                if(sql.startsWith('SELECT id FROM suppliers'))return mockQueryResult([{id:1}]);
+                if(sql.includes('FROM daily_rates'))return mockQueryResult([]);
+            });
 
             await createBillEntry(req, res);
 

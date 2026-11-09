@@ -1,0 +1,265 @@
+{
+  "recorded_at": "2026-11-09T07:40:11.577746+00:00",
+  "scope": "Dated registry, official SheetJS distribution, lockfile and installed Python evidence; actual versions and advisories remain visible.",
+  "npm": {
+    "root": {
+      "resolved": {
+        "@types/pg": "8.23.1",
+        "axios": "1.21.0",
+        "pg": "8.23.1",
+        "@playwright/test": "1.65.0",
+        "@types/node": "26.6.6",
+        "dotenv": "18.0.10"
+      },
+      "outdated": {},
+      "registry_checked_at": "2026-11-09T06:53:31.590292+00:00",
+      "audit": {
+        "auditReportVersion": 2,
+        "vulnerabilities": {},
+        "metadata": {
+          "vulnerabilities": {
+            "info": 0,
+            "low": 0,
+            "moderate": 0,
+            "high": 0,
+            "critical": 0,
+            "total": 0
+          },
+          "dependencies": {
+            "prod": 44,
+            "dev": 4,
+            "optional": 1,
+            "peer": 0,
+            "peerOptional": 0,
+            "total": 48
+          }
+        }
+      },
+      "advisories_checked_at": "2026-11-09T07:13:27.340178+00:00",
+      "lockfile_sha256": "67f8ff7ab8cef071917fd816ed8e3b8955671ce0ef7ef1159dbe6330563f17ec"
+    },
+    "client": {
+      "resolved": {
+        "axios": "1.21.0",
+        "jspdf": "4.2.1",
+        "jspdf-autotable": "5.0.9",
+        "react": "19.3.1",
+        "react-dom": "19.3.1",
+        "react-hot-toast": "2.6.1",
+        "react-icons": "5.7.0",
+        "react-router-dom": "7.18.5",
+        "recharts": "3.10.1",
+        "@tailwindcss/postcss": "4.3.5",
+        "@testing-library/jest-dom": "7.0.1",
+        "@testing-library/react": "16.3.3",
+        "@testing-library/user-event": "14.6.8",
+        "@types/react": "19.3.0",
+        "@vitejs/plugin-react": "6.3.0",
+        "autoprefixer": "10.6.2",
+        "jsdom": "31.0.0",
+        "postcss": "8.5.32",
+        "tailwindcss": "4.3.5",
+        "vite": "8.3.6",
+        "vitest": "5.1.0"
+      },
+      "outdated": {},
+      "registry_checked_at": "2026-11-09T07:13:24.406085+00:00",
+      "audit": {
+        "auditReportVersion": 2,
+        "vulnerabilities": {},
+        "metadata": {
+          "vulnerabilities": {
+            "info": 0,
+            "low": 0,
+            "moderate": 0,
+            "high": 0,
+            "critical": 0,
+            "total": 0
+          },
+          "dependencies": {
+            "prod": 86,
+            "dev": 151,
+            "optional": 61,
+            "peer": 12,
+            "peerOptional": 0,
+            "total": 253
+          }
+        }
+      },
+      "advisories_checked_at": "2026-11-09T07:13:24.873857+00:00",
+      "lockfile_sha256": "953d480082eba0bb1e307c4940e63ba2575d9c3e7d0c809cb782068dee9750ca"
+    },
+    "server": {
+      "resolved": {
+        "bcryptjs": "3.0.3",
+        "compression": "1.8.2",
+        "cors": "2.8.6",
+        "dotenv": "18.0.10",
+        "express": "5.3.0",
+        "express-rate-limit": "8.7.3",
+        "helmet": "8.3.0",
+        "jsonwebtoken": "9.0.3",
+        "morgan": "1.12.1",
+        "pg": "8.23.1",
+        "socket.io": "4.8.4",
+        "winston": "3.19.0",
+        "xlsx": "0.20.3",
+        "@types/jest": "30.0.0",
+        "jest": "30.5.2",
+        "nodemon": "3.1.14",
+        "supertest": "7.3.2"
+      },
+      "outdated": {},
+      "registry_checked_at": "2026-11-09T06:53:30.637014+00:00",
+      "audit": {
+        "auditReportVersion": 2,
+        "vulnerabilities": {
+          "@jest/core": {
+            "name": "@jest/core",
+            "severity": "low",
+            "isDirect": false,
+            "via": [
+              "jest-config"
+            ],
+            "effects": [],
+            "range": ">=25.2.0-alpha.86",
+            "nodes": [
+              "node_modules/@jest/core"
+            ],
+            "fixAvailable": true
+          },
+          "deepmerge": {
+            "name": "deepmerge",
+            "severity": "low",
+            "isDirect": false,
+            "via": [
+              {
+                "source": 1243505,
+                "name": "deepmerge",
+                "dependency": "deepmerge",
+                "title": "deepmerge mergeObject() allows prototype poisoning of returned objects",
+                "url": "https://github.com/advisories/GHSA-gcqx-w48m-w2h4",
+                "severity": "low",
+                "cwe": [
+                  "CWE-1321"
+                ],
+                "cvss": {
+                  "score": 5.3,
+                  "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+                },
+                "range": ">=4.2.0 <=4.3.1"
+              }
+            ],
+            "effects": [
+              "jest-config"
+            ],
+            "range": ">=4.2.0",
+            "nodes": [
+              "node_modules/deepmerge"
+            ],
+            "fixAvailable": {
+              "name": "jest",
+              "version": "25.1.0",
+              "isSemVerMajor": true
+            }
+          },
+          "jest": {
+            "name": "jest",
+            "severity": "low",
+            "isDirect": true,
+            "via": [
+              "@jest/core",
+              "jest-cli"
+            ],
+            "effects": [],
+            "range": ">=25.2.0-alpha.86",
+            "nodes": [
+              "node_modules/jest"
+            ],
+            "fixAvailable": {
+              "name": "jest",
+              "version": "25.1.0",
+              "isSemVerMajor": true
+            }
+          },
+          "jest-cli": {
+            "name": "jest-cli",
+            "severity": "low",
+            "isDirect": false,
+            "via": [
+              "@jest/core",
+              "jest-config"
+            ],
+            "effects": [
+              "jest"
+            ],
+            "range": ">=25.2.0-alpha.86",
+            "nodes": [
+              "node_modules/jest-cli"
+            ],
+            "fixAvailable": {
+              "name": "jest",
+              "version": "25.1.0",
+              "isSemVerMajor": true
+            }
+          },
+          "jest-config": {
+            "name": "jest-config",
+            "severity": "low",
+            "isDirect": false,
+            "via": [
+              "deepmerge"
+            ],
+            "effects": [
+              "@jest/core",
+              "jest-cli"
+            ],
+            "range": ">=25.2.0-alpha.86",
+            "nodes": [
+              "node_modules/jest-config"
+            ],
+            "fixAvailable": {
+              "name": "jest",
+              "version": "25.1.0",
+              "isSemVerMajor": true
+            }
+          }
+        },
+        "metadata": {
+          "vulnerabilities": {
+            "info": 0,
+            "low": 5,
+            "moderate": 0,
+            "high": 0,
+            "critical": 0,
+            "total": 5
+          },
+          "dependencies": {
+            "prod": 175,
+            "dev": 333,
+            "optional": 35,
+            "peer": 0,
+            "peerOptional": 0,
+            "total": 508
+          }
+        }
+      },
+      "advisories_checked_at": "2026-11-09T07:13:25.527286+00:00",
+      "lockfile_sha256": "26cd2ec662a202ad740eb2a5c05f38584368e2df271a0d7ac667a9c406ea500a"
+    }
+  },
+  "python_outdated": [],
+  "python_checked_at": "2026-11-09T06:54:55.276162+00:00",
+  "sheetjs": {
+    "official_source": "https://docs.sheetjs.com/docs/getting-started/installation/nodejs/",
+    "tarball": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "deepmerge_mitigation": {
+    "version": "4.3.1",
+    "advisory": "https://github.com/advisories/GHSA-gcqx-w48m-w2h4",
+    "postinstall": "server/scripts/patch-deepmerge.cjs",
+    "security_assertions": 5,
+    "clean_lockfile_install": "passed",
+    "note": "Own data-property definitions mitigate prototype setter poisoning. Five low development-chain npm findings remain visible pending an upstream release."
+  }
+}

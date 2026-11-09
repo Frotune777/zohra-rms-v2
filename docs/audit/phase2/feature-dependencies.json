@@ -1,0 +1,285 @@
+{
+  "checked_at": "2026-11-09T06:01:08.014302+00:00",
+  "scope": "Current feature-completion dependency supplement. Earlier dependency-final.json and before-feature-completion evidence remain historical.",
+  "npm": {
+    "root": {
+      "resolved": {
+        "@types/pg": "8.23.1",
+        "axios": "1.21.0",
+        "pg": "8.23.1",
+        "@playwright/test": "1.65.0",
+        "@types/node": "26.6.6",
+        "dotenv": "18.0.10"
+      },
+      "outdated": {},
+      "audit": {
+        "auditReportVersion": 2,
+        "vulnerabilities": {},
+        "metadata": {
+          "vulnerabilities": {
+            "info": 0,
+            "low": 0,
+            "moderate": 0,
+            "high": 0,
+            "critical": 0,
+            "total": 0
+          },
+          "dependencies": {
+            "prod": 44,
+            "dev": 4,
+            "optional": 1,
+            "peer": 0,
+            "peerOptional": 0,
+            "total": 48
+          }
+        }
+      }
+    },
+    "client": {
+      "resolved": {
+        "axios": "1.21.0",
+        "jspdf": "4.2.1",
+        "jspdf-autotable": "5.0.9",
+        "react": "19.3.1",
+        "react-dom": "19.3.1",
+        "react-hot-toast": "2.6.1",
+        "react-icons": "5.7.0",
+        "react-router-dom": "7.18.5",
+        "recharts": "3.10.1",
+        "@tailwindcss/postcss": "4.3.5",
+        "@testing-library/jest-dom": "7.0.1",
+        "@testing-library/react": "16.3.3",
+        "@testing-library/user-event": "14.6.8",
+        "@types/react": "19.3.0",
+        "@vitejs/plugin-react": "6.2.1",
+        "autoprefixer": "10.6.2",
+        "jsdom": "31.0.0",
+        "postcss": "8.5.32",
+        "tailwindcss": "4.3.5",
+        "vite": "8.3.6",
+        "vitest": "5.1.0"
+      },
+      "outdated": {},
+      "audit": {
+        "auditReportVersion": 2,
+        "vulnerabilities": {},
+        "metadata": {
+          "vulnerabilities": {
+            "info": 0,
+            "low": 0,
+            "moderate": 0,
+            "high": 0,
+            "critical": 0,
+            "total": 0
+          },
+          "dependencies": {
+            "prod": 86,
+            "dev": 151,
+            "optional": 61,
+            "peer": 12,
+            "peerOptional": 0,
+            "total": 253
+          }
+        }
+      }
+    },
+    "server": {
+      "resolved": {
+        "bcryptjs": "3.0.3",
+        "compression": "1.8.2",
+        "cors": "2.8.6",
+        "dotenv": "18.0.10",
+        "express": "5.3.0",
+        "express-rate-limit": "8.7.3",
+        "helmet": "8.3.0",
+        "jsonwebtoken": "9.0.3",
+        "morgan": "1.12.1",
+        "pg": "8.23.1",
+        "socket.io": "4.8.4",
+        "winston": "3.19.0",
+        "xlsx": "0.20.3",
+        "@types/jest": "30.0.0",
+        "jest": "30.5.2",
+        "nodemon": "3.1.14",
+        "supertest": "7.3.2"
+      },
+      "outdated": {},
+      "audit": {
+        "auditReportVersion": 2,
+        "vulnerabilities": {
+          "@jest/core": {
+            "name": "@jest/core",
+            "severity": "low",
+            "isDirect": false,
+            "via": [
+              "jest-config"
+            ],
+            "effects": [
+              "jest"
+            ],
+            "range": ">=25.2.0-alpha.86",
+            "nodes": [
+              "node_modules/@jest/core"
+            ],
+            "fixAvailable": {
+              "name": "jest",
+              "version": "25.1.0",
+              "isSemVerMajor": true
+            }
+          },
+          "deepmerge": {
+            "name": "deepmerge",
+            "severity": "low",
+            "isDirect": false,
+            "via": [
+              {
+                "source": 1243505,
+                "name": "deepmerge",
+                "dependency": "deepmerge",
+                "title": "deepmerge mergeObject() allows prototype poisoning of returned objects",
+                "url": "https://github.com/advisories/GHSA-gcqx-w48m-w2h4",
+                "severity": "low",
+                "cwe": [
+                  "CWE-1321"
+                ],
+                "cvss": {
+                  "score": 5.3,
+                  "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+                },
+                "range": ">=4.2.0 <=4.3.1"
+              }
+            ],
+            "effects": [
+              "jest-config"
+            ],
+            "range": ">=4.2.0",
+            "nodes": [
+              "node_modules/deepmerge"
+            ],
+            "fixAvailable": {
+              "name": "jest",
+              "version": "25.1.0",
+              "isSemVerMajor": true
+            }
+          },
+          "jest": {
+            "name": "jest",
+            "severity": "low",
+            "isDirect": true,
+            "via": [
+              "@jest/core",
+              "jest-cli"
+            ],
+            "effects": [],
+            "range": ">=25.2.0-alpha.86",
+            "nodes": [
+              "node_modules/jest"
+            ],
+            "fixAvailable": {
+              "name": "jest",
+              "version": "25.1.0",
+              "isSemVerMajor": true
+            }
+          },
+          "jest-cli": {
+            "name": "jest-cli",
+            "severity": "low",
+            "isDirect": false,
+            "via": [
+              "@jest/core",
+              "jest-config"
+            ],
+            "effects": [],
+            "range": ">=25.2.0-alpha.86",
+            "nodes": [
+              "node_modules/jest-cli"
+            ],
+            "fixAvailable": true
+          },
+          "jest-config": {
+            "name": "jest-config",
+            "severity": "low",
+            "isDirect": false,
+            "via": [
+              "deepmerge"
+            ],
+            "effects": [
+              "@jest/core",
+              "jest-cli"
+            ],
+            "range": ">=25.2.0-alpha.86",
+            "nodes": [
+              "node_modules/jest-config"
+            ],
+            "fixAvailable": {
+              "name": "jest",
+              "version": "25.1.0",
+              "isSemVerMajor": true
+            }
+          }
+        },
+        "metadata": {
+          "vulnerabilities": {
+            "info": 0,
+            "low": 5,
+            "moderate": 0,
+            "high": 0,
+            "critical": 0,
+            "total": 5
+          },
+          "dependencies": {
+            "prod": 175,
+            "dev": 333,
+            "optional": 35,
+            "peer": 0,
+            "peerOptional": 0,
+            "total": 508
+          }
+        }
+      }
+    }
+  },
+  "latest_patch_updates": {
+    "root/dotenv": "18.0.10",
+    "server/dotenv": "18.0.10",
+    "server/supertest": "7.3.2"
+  },
+  "python_audit_parser": {
+    "package": "pypdf",
+    "version": "7.0.0",
+    "lock_check": "passed offline",
+    "registry_check": {
+      "checked_at": "2026-11-09T06:03:35.874079+00:00",
+      "url": "https://pypi.org/pypi/pypdf/json",
+      "latest": "7.0.0",
+      "requires_python": ">=3.10"
+    }
+  },
+  "remaining_advisory": {
+    "severity": "low",
+    "cause": "deepmerge4.3.1 prototype poisoning",
+    "url": "https://github.com/advisories/GHSA-gcqx-w48m-w2h4",
+    "affected_chain": [
+      "deepmerge",
+      "jest-config",
+      "@jest/core",
+      "jest-cli",
+      "jest"
+    ],
+    "reported_count": 5,
+    "scope": "server development dependency chain",
+    "registry_latest": "4.3.1",
+    "release_fix_available": false,
+    "decision": "Retain latest Jest30.5.2; npm audit suggests downgrade to Jest25.1.0, which conflicts with the requested latest-version upgrade."
+  },
+  "sha256": {
+    "package.json": "f3796e999d2738e013ce1bb21b852ca5ab28d9e83ddbc645534e9f94f0625b34",
+    "package-lock.json": "67f8ff7ab8cef071917fd816ed8e3b8955671ce0ef7ef1159dbe6330563f17ec",
+    "client/package.json": "957f1326f8332341bc46994b19d493140c76c208960853af7113e2d0db31a819",
+    "client/package-lock.json": "fdd6135d1fead5fc9c9f85986a42c0e6b20013c424a7aa485b527ec997fc5da0",
+    "server/package.json": "07b58db385a6b7a91e938c82266356e3f00cd96e41c2f5efa54511b0fae32058",
+    "server/package-lock.json": "47b329468c74d0b071a977da670641ea84419f1421ca51c4d323995d220c1056",
+    "pyproject.toml": "51144ee0f097f5c5fa9bd5d78fb9bed512a488c9733662b5eeaa820ca3cae626",
+    "uv.lock": "f21c1c8153cead962a93469a6992c104c2ca2f98829a115c434972af3303f278"
+  }
+}

@@ -1,0 +1,1 @@
+24-case table-focused run: 22 passed, 2 failed. Menu error locator matched both the shared request alert and POS-specific alert; table edit locator stopped one ancestor below the actual row. Later assertions in these cases were unexecuted.

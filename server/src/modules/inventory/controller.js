@@ -1,4 +1,5 @@
 const InventoryService = require('./service');
+const { statusFor } = require('../../utils/domain');
 
 // --- Inventory Item Controllers ---
 
@@ -7,7 +8,7 @@ exports.getInventory = async (req, res) => {
         const items = await InventoryService.getAllItems();
         res.json(items);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -24,7 +25,7 @@ exports.addInventory = async (req, res) => {
         if (err.code === '23505') {
             res.status(400).json({ error: 'Item name already exists' });
         } else {
-            res.status(500).json({ error: err.message });
+            res.status(statusFor(err)).json({ error: err.message });
         }
     }
 };
@@ -43,7 +44,7 @@ exports.updateInventory = async (req, res) => {
         if (err.message === 'Item not found') {
             return res.status(404).json({ error: 'Item not found' });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -56,7 +57,7 @@ exports.deleteInventory = async (req, res) => {
         if (err.message === 'Item not found') {
             return res.status(404).json({ error: 'Item not found' });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -69,7 +70,7 @@ exports.getDailyRates = async (req, res) => {
         res.json(result);
     } catch (err) {
         console.error('getDailyRates error:', err.message, err.stack);
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -79,7 +80,7 @@ exports.saveDailyRates = async (req, res) => {
         const result = await InventoryService.saveDailyRates(req.body, userId);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -88,7 +89,7 @@ exports.getRateStatus = async (req, res) => {
         const result = await InventoryService.getRateStatus();
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -102,7 +103,7 @@ exports.getAllRatesCalendar = async (req, res) => {
         console.log('Calendar Data:', JSON.stringify(result[0] || 'No Data'));
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -111,7 +112,7 @@ exports.getSuppliers = async (req, res) => {
         const result = await InventoryService.getSuppliers();
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -120,7 +121,7 @@ exports.createSupplier = async (req, res) => {
         const result = await InventoryService.createSupplier(req.body);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -133,7 +134,7 @@ exports.updateSupplier = async (req, res) => {
         if (err.message === 'Supplier not found') {
             return res.status(404).json({ error: 'Supplier not found' });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -143,7 +144,7 @@ exports.getMarkupRules = async (req, res) => {
         const result = await InventoryService.getMarkupRules(supplierId);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -152,7 +153,7 @@ exports.saveMarkupRule = async (req, res) => {
         const result = await InventoryService.saveMarkupRule(req.body);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -166,7 +167,7 @@ exports.updateMarkupRule = async (req, res) => {
         if (err.message === 'Markup rule not found') {
             return res.status(404).json({ error: 'Markup rule not found' });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -179,7 +180,7 @@ exports.deleteMarkupRule = async (req, res) => {
         if (err.message === 'Markup rule not found') {
             return res.status(404).json({ error: 'Markup rule not found' });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -192,7 +193,7 @@ exports.createBillEntry = async (req, res) => {
         if (err.message === 'Daily rates not set for this date') {
             return res.status(400).json({ error: err.message });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -208,7 +209,7 @@ exports.updateBillStatus = async (req, res) => {
         if (err.message === 'Bill entry not found') {
             return res.status(404).json({ error: 'Bill entry not found' });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -217,7 +218,7 @@ exports.getBillEntries = async (req, res) => {
         const result = await InventoryService.getBillEntries(req.query);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -226,7 +227,7 @@ exports.getBillSummary = async (req, res) => {
         const result = await InventoryService.getBillSummary(req.query);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -236,6 +237,6 @@ exports.getVendorLedger = async (req, res) => {
         const result = await InventoryService.getVendorLedger(supplierId);
         res.json(result);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };

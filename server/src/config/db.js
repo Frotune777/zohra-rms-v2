@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+const { Pool, types } = require('pg');
 require('dotenv').config({ path: require('path').join(__dirname, '../../../.env') });
 
 if (!process.env.DATABASE_URL) {
@@ -11,6 +11,13 @@ const pool = new Pool({
   max: 20, // Increase pool size
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 5000, // Fail fast if DB is busy
+  // SQL DATE is a calendar day, not a local-midnight instant. Keep its day
+  // intact when services compare it with UTC posting/closure dates.
+  types: {
+    getTypeParser: (oid, format) => oid === 1082 && format !== 'binary'
+      ? value => value
+      : types.getTypeParser(oid, format),
+  },
 });
 
 const fs = require('fs');

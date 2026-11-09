@@ -1,15 +1,16 @@
-const db = require('../../config/db');
+const db = require("../../config/db");
 
 // Helper to ensure valid dates
 const getsatfeDateRange = (startDate, endDate) => {
   const now = new Date();
-  const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
-  const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
+  const firstDay = new Date(now.getFullYear(), now.getMonth(), 1)
+    .toISOString()
+    .split("T")[0];
+  const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0)
+    .toISOString()
+    .split("T")[0];
 
-  return [
-    startDate || firstDay,
-    endDate || lastDay
-  ];
+  return [startDate || firstDay, endDate || lastDay];
 };
 
 // ==================== FINANCIAL REPORTS ====================
@@ -20,65 +21,74 @@ const getsatfeDateRange = (startDate, endDate) => {
  */
 async function getFinancialOverview(req, res) {
   try {
-    const [startDate, endDate] = getsatfeDateRange(req.query.startDate, req.query.endDate);
+    const [startDate, endDate] = getsatfeDateRange(
+      req.query.startDate,
+      req.query.endDate,
+    );
 
     // Revenue and Expenses Summary
     const summaryQuery = `
-      SELECT 
-        COALESCE(SUM(CASE WHEN coa.type = 'Revenue' THEN ll.credit ELSE 0 END), 0) as total_revenue,
-        COALESCE(SUM(CASE WHEN coa.type = 'Expense' THEN ll.debit ELSE 0 END), 0) as total_expenses,
-        COALESCE(SUM(CASE WHEN coa.type = 'Revenue' THEN ll.credit ELSE 0 END), 0) - 
-        COALESCE(SUM(CASE WHEN coa.type = 'Expense' THEN ll.debit ELSE 0 END), 0) as net_profit
+      SELECT
+        COALESCE(SUM(CASE WHEN coa.type = 'Revenue' THEN ll.credit - ll.debit ELSE 0 END), 0) as total_revenue,
+        COALESCE(SUM(CASE WHEN coa.type = 'Expense' THEN ll.debit - ll.credit ELSE 0 END), 0) as total_expenses,
+        COALESCE(SUM(CASE WHEN coa.type = 'Revenue' THEN ll.credit - ll.debit ELSE 0 END), 0) -
+        COALESCE(SUM(CASE WHEN coa.type = 'Expense' THEN ll.debit - ll.credit ELSE 0 END), 0) as net_profit
       FROM ledger_lines ll
       JOIN chart_of_accounts coa ON ll.account_code = coa.code
       JOIN journal_entries je ON ll.journal_entry_id = je.id
-      WHERE je.transaction_date >= $1 AND je.transaction_date <= $2
+      WHERE je.transaction_date >= $1 AND je.transaction_date < $2::date + INTERVAL '1 day'
     `;
 
     const summary = await db.query(summaryQuery, [startDate, endDate]);
 
     // Revenue Trend (daily)
     const revenueTrendQuery = `
-      SELECT 
+      SELECT
         DATE(je.transaction_date) as date,
-        COALESCE(SUM(ll.credit), 0) as revenue
+        COALESCE(SUM(ll.credit-ll.debit), 0) as revenue
       FROM ledger_lines ll
       JOIN chart_of_accounts coa ON ll.account_code = coa.code
       JOIN journal_entries je ON ll.journal_entry_id = je.id
       WHERE coa.type = 'Revenue'
-        AND je.transaction_date >= $1 
-        AND je.transaction_date <= $2
+        AND je.transaction_date >= $1
+        AND je.transaction_date < $2::date + INTERVAL '1 day'
       GROUP BY DATE(je.transaction_date)
       ORDER BY date ASC
     `;
 
-    const revenueTrend = await db.query(revenueTrendQuery, [startDate, endDate]);
+    const revenueTrend = await db.query(revenueTrendQuery, [
+      startDate,
+      endDate,
+    ]);
 
     // Expense Trend (daily)
     const expenseTrendQuery = `
-      SELECT 
+      SELECT
         DATE(je.transaction_date) as date,
-        COALESCE(SUM(ll.debit), 0) as expenses
+        COALESCE(SUM(ll.debit-ll.credit), 0) as expenses
       FROM ledger_lines ll
       JOIN chart_of_accounts coa ON ll.account_code = coa.code
       JOIN journal_entries je ON ll.journal_entry_id = je.id
       WHERE coa.type = 'Expense'
-        AND je.transaction_date >= $1 
-        AND je.transaction_date <= $2
+        AND je.transaction_date >= $1
+        AND je.transaction_date < $2::date + INTERVAL '1 day'
       GROUP BY DATE(je.transaction_date)
       ORDER BY date ASC
     `;
 
-    const expenseTrend = await db.query(expenseTrendQuery, [startDate, endDate]);
+    const expenseTrend = await db.query(expenseTrendQuery, [
+      startDate,
+      endDate,
+    ]);
 
     res.json({
       summary: summary.rows[0],
       revenueTrend: revenueTrend.rows,
-      expenseTrend: expenseTrend.rows
+      expenseTrend: expenseTrend.rows,
     });
   } catch (error) {
-    console.error('Error fetching financial overview:', error);
-    res.status(500).json({ error: 'Failed to fetch financial overview' });
+    console.error("Error fetching financial overview:", error);
+    res.status(500).json({ error: "Failed to fetch financial overview" });
   }
 }
 
@@ -87,19 +97,22 @@ async function getFinancialOverview(req, res) {
  */
 async function getExpenseBreakdown(req, res) {
   try {
-    const [startDate, endDate] = getsatfeDateRange(req.query.startDate, req.query.endDate);
+    const [startDate, endDate] = getsatfeDateRange(
+      req.query.startDate,
+      req.query.endDate,
+    );
 
     const query = `
-      SELECT 
+      SELECT
         coa.name as category,
-        COALESCE(SUM(ll.debit), 0) as amount,
+        COALESCE(SUM(ll.debit-ll.credit), 0) as amount,
         COUNT(*) as transaction_count
       FROM ledger_lines ll
       JOIN chart_of_accounts coa ON ll.account_code = coa.code
       JOIN journal_entries je ON ll.journal_entry_id = je.id
       WHERE coa.type = 'Expense'
-        AND je.transaction_date >= $1 
-        AND je.transaction_date <= $2
+        AND je.transaction_date >= $1
+        AND je.transaction_date < $2::date + INTERVAL '1 day'
       GROUP BY coa.name
       ORDER BY amount DESC
     `;
@@ -108,8 +121,8 @@ async function getExpenseBreakdown(req, res) {
 
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching expense breakdown:', error);
-    res.status(500).json({ error: 'Failed to fetch expense breakdown' });
+    console.error("Error fetching expense breakdown:", error);
+    res.status(500).json({ error: "Failed to fetch expense breakdown" });
   }
 }
 
@@ -118,15 +131,18 @@ async function getExpenseBreakdown(req, res) {
  */
 async function getRevenueTrends(req, res) {
   try {
-    const { groupBy = 'day' } = req.query;
-    const [startDate, endDate] = getsatfeDateRange(req.query.startDate, req.query.endDate);
+    const { groupBy = "day" } = req.query;
+    const [startDate, endDate] = getsatfeDateRange(
+      req.query.startDate,
+      req.query.endDate,
+    );
 
     let dateFormat;
     switch (groupBy) {
-      case 'week':
+      case "week":
         dateFormat = "DATE_TRUNC('week', je.transaction_date)";
         break;
-      case 'month':
+      case "month":
         dateFormat = "DATE_TRUNC('month', je.transaction_date)";
         break;
       default:
@@ -134,16 +150,16 @@ async function getRevenueTrends(req, res) {
     }
 
     const query = `
-      SELECT 
+      SELECT
         ${dateFormat} as period,
-        COALESCE(SUM(ll.credit), 0) as revenue,
+        COALESCE(SUM(ll.credit-ll.debit), 0) as revenue,
         COUNT(DISTINCT je.id) as transaction_count
       FROM ledger_lines ll
       JOIN chart_of_accounts coa ON ll.account_code = coa.code
       JOIN journal_entries je ON ll.journal_entry_id = je.id
       WHERE coa.type = 'Revenue'
-        AND je.transaction_date >= $1 
-        AND je.transaction_date <= $2
+        AND je.transaction_date >= $1
+        AND je.transaction_date < $2::date + INTERVAL '1 day'
       GROUP BY ${dateFormat}
       ORDER BY period ASC
     `;
@@ -152,8 +168,8 @@ async function getRevenueTrends(req, res) {
 
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching revenue trends:', error);
-    res.status(500).json({ error: 'Failed to fetch revenue trends' });
+    console.error("Error fetching revenue trends:", error);
+    res.status(500).json({ error: "Failed to fetch revenue trends" });
   }
 }
 
@@ -163,33 +179,33 @@ async function getRevenueTrends(req, res) {
 async function getBalanceSheet(req, res) {
   try {
     const { date } = req.query; // As of date
-    const asOfDate = date || new Date().toISOString().split('T')[0];
+    const asOfDate = date || new Date().toISOString().split("T")[0];
 
     // Calculate Net Profit (Retained Earnings) up to this date
     // Revenue (Credit) - Expense (Debit)
     const retainedEarningsQuery = `
-            SELECT 
+            SELECT
                 COALESCE(SUM(CASE WHEN coa.type = 'Revenue' THEN ll.credit - ll.debit ELSE 0 END), 0) -
                 COALESCE(SUM(CASE WHEN coa.type = 'Expense' THEN ll.debit - ll.credit ELSE 0 END), 0) as net_profit
             FROM ledger_lines ll
             JOIN chart_of_accounts coa ON ll.account_code = coa.code
             JOIN journal_entries je ON ll.journal_entry_id = je.id
-            WHERE je.transaction_date <= $1
+            WHERE je.transaction_date < $1::date + INTERVAL '1 day'
         `;
     const reRes = await db.query(retainedEarningsQuery, [asOfDate]);
     const netProfit = parseFloat(reRes.rows[0].net_profit || 0);
 
     // Get Account Balances for Assets, Liabilities, Equity
     const balancesQuery = `
-            SELECT 
+            SELECT
                 coa.code,
                 coa.name,
                 coa.type,
-                COALESCE(SUM(ll.debit), 0) as total_debit,
-                COALESCE(SUM(ll.credit), 0) as total_credit
+                COALESCE(SUM(CASE WHEN je.id IS NOT NULL THEN ll.debit ELSE 0 END), 0) as total_debit,
+                COALESCE(SUM(CASE WHEN je.id IS NOT NULL THEN ll.credit ELSE 0 END), 0) as total_credit
             FROM chart_of_accounts coa
             LEFT JOIN ledger_lines ll ON coa.code = ll.account_code
-            LEFT JOIN journal_entries je ON ll.journal_entry_id = je.id AND je.transaction_date <= $1
+            LEFT JOIN journal_entries je ON ll.journal_entry_id = je.id AND je.transaction_date < $1::date + INTERVAL '1 day'
             WHERE coa.type IN ('Asset', 'Liability', 'Equity')
             GROUP BY coa.code, coa.name, coa.type
         `;
@@ -203,24 +219,24 @@ async function getBalanceSheet(req, res) {
     let totalLiabilities = 0;
     let totalEquity = 0;
 
-    balancesRes.rows.forEach(acc => {
+    balancesRes.rows.forEach((acc) => {
       const debit = parseFloat(acc.total_debit);
       const credit = parseFloat(acc.total_credit);
       let balance = 0;
 
-      if (acc.type === 'Asset') {
+      if (acc.type === "Asset") {
         balance = debit - credit;
         if (Math.abs(balance) > 0.01) {
           assets.push({ ...acc, balance });
           totalAssets += balance;
         }
-      } else if (acc.type === 'Liability') {
+      } else if (acc.type === "Liability") {
         balance = credit - debit;
         if (Math.abs(balance) > 0.01) {
           liabilities.push({ ...acc, balance });
           totalLiabilities += balance;
         }
-      } else if (acc.type === 'Equity') {
+      } else if (acc.type === "Equity") {
         balance = credit - debit;
         if (Math.abs(balance) > 0.01) {
           equity.push({ ...acc, balance });
@@ -231,7 +247,12 @@ async function getBalanceSheet(req, res) {
 
     // Add Net Profit to Equity (Retained Earnings)
     if (Math.abs(netProfit) > 0.01) {
-      equity.push({ code: '9999', name: 'Retained Earnings (Net Profit)', type: 'Equity', balance: netProfit });
+      equity.push({
+        code: "9999",
+        name: "Retained Earnings (Net Profit)",
+        type: "Equity",
+        balance: netProfit,
+      });
       totalEquity += netProfit;
     }
 
@@ -243,13 +264,12 @@ async function getBalanceSheet(req, res) {
         totalAssets,
         totalLiabilities,
         totalEquity,
-        totalLiabilitiesAndEquity: totalLiabilities + totalEquity
-      }
+        totalLiabilitiesAndEquity: totalLiabilities + totalEquity,
+      },
     });
-
   } catch (error) {
-    console.error('Error fetching balance sheet:', error);
-    res.status(500).json({ error: 'Failed to fetch balance sheet' });
+    console.error("Error fetching balance sheet:", error);
+    res.status(500).json({ error: "Failed to fetch balance sheet" });
   }
 }
 
@@ -264,11 +284,11 @@ async function getBalanceSheet(req, res) {
 async function getDailyStats(req, res) {
   try {
     const { date } = req.query;
-    const queryDate = date || new Date().toISOString().split('T')[0];
+    const queryDate = date || new Date().toISOString().split("T")[0];
 
     // Sales by Payment Method
     const salesQuery = `
-      SELECT 
+      SELECT
         payment_method,
         COUNT(*) as count,
         COALESCE(SUM(amount), 0) as total_amount
@@ -279,22 +299,26 @@ async function getDailyStats(req, res) {
     const salesRes = await db.query(salesQuery, [queryDate]);
 
     // Total Revenue
-    const totalRevenue = salesRes.rows.reduce((sum, row) => sum + parseFloat(row.total_amount), 0);
+    const totalRevenue = salesRes.rows.reduce(
+      (sum, row) => sum + parseFloat(row.total_amount),
+      0,
+    );
 
     // Cash in Hand (Cash Sales - Cash Expenses) -- Simplified
     // Real logic would be: Opening Balance + Cash Sales - Cash Expenses (Petty Cash)
     // Here we just return Cash Sales + Cash Payments Received
-    const cashSales = salesRes.rows.find(r => r.payment_method === 'Cash')?.total_amount || 0;
+    const cashSales =
+      salesRes.rows.find((r) => r.payment_method === "Cash")?.total_amount || 0;
 
     res.json({
       date: queryDate,
       totalRevenue,
       salesBreakdown: salesRes.rows,
-      cashCollected: cashSales
+      cashCollected: cashSales,
     });
   } catch (error) {
-    console.error('Error fetching daily stats:', error);
-    res.status(500).json({ error: 'Failed to fetch daily stats' });
+    console.error("Error fetching daily stats:", error);
+    res.status(500).json({ error: "Failed to fetch daily stats" });
   }
 }
 
@@ -310,7 +334,7 @@ async function getPayrollSummary(req, res) {
     if (month && year) {
       // Monthly summary
       query = `
-        SELECT 
+        SELECT
           COUNT(DISTINCT sh.employee_id) as employee_count,
           COALESCE(SUM(sh.calculated_salary), 0) as total_gross_salary,
           COALESCE(SUM(sh.advance_deduction), 0) as total_advance_deductions,
@@ -324,14 +348,14 @@ async function getPayrollSummary(req, res) {
       // Date range summary
       const [start, end] = getsatfeDateRange(startDate, endDate);
       query = `
-        SELECT 
+        SELECT
           COUNT(DISTINCT sh.employee_id) as employee_count,
           COALESCE(SUM(sh.calculated_salary), 0) as total_gross_salary,
           COALESCE(SUM(sh.advance_deduction), 0) as total_advance_deductions,
           COALESCE(SUM(sh.net_pay), 0) as total_net_pay,
           COALESCE(AVG(sh.days_worked), 0) as avg_days_worked
         FROM salary_history sh
-        WHERE sh.processed_at >= $1 AND sh.processed_at <= $2
+        WHERE sh.processed_at >= $1 AND sh.processed_at < $2::date + INTERVAL '1 day'
       `;
       params = [start, end];
     }
@@ -340,9 +364,9 @@ async function getPayrollSummary(req, res) {
 
     // Get Component-wise Breakdown (New P1 Feature)
     let compQuery = `
-        SELECT 
-            sc.component_name, 
-            sc.type, 
+        SELECT
+            sc.component_name,
+            sc.type,
             SUM(sc.amount) as total_amount
         FROM salary_history_components sc
         JOIN salary_history sh ON sc.salary_history_id = sh.id
@@ -353,7 +377,7 @@ async function getPayrollSummary(req, res) {
       compQuery += ` AND sh.month = $1 AND sh.year = $2`;
       compParams = [month, year];
     } else {
-      compQuery += ` AND sh.processed_at >= $1 AND sh.processed_at <= $2`;
+      compQuery += ` AND sh.processed_at >= $1 AND sh.processed_at < $2::date + INTERVAL '1 day'`;
       compParams = [startDate, endDate];
     }
     compQuery += ` GROUP BY sc.component_name, sc.type ORDER BY sc.type, total_amount DESC`;
@@ -362,7 +386,7 @@ async function getPayrollSummary(req, res) {
 
     // Get monthly trend
     const trendQuery = `
-      SELECT 
+      SELECT
         month,
         year,
         COALESCE(SUM(net_pay), 0) as total_payout,
@@ -378,11 +402,11 @@ async function getPayrollSummary(req, res) {
     res.json({
       summary: summary.rows[0],
       componentBreakdown: breakdown.rows,
-      monthlyTrend: trend.rows
+      monthlyTrend: trend.rows,
     });
   } catch (error) {
-    console.error('Error fetching payroll summary:', error);
-    res.status(500).json({ error: 'Failed to fetch payroll summary' });
+    console.error("Error fetching payroll summary:", error);
+    res.status(500).json({ error: "Failed to fetch payroll summary" });
   }
 }
 
@@ -391,21 +415,24 @@ async function getPayrollSummary(req, res) {
  */
 async function getAdvanceTracking(req, res) {
   try {
-    const [startDate, endDate] = getsatfeDateRange(req.query.startDate, req.query.endDate);
+    const [startDate, endDate] = getsatfeDateRange(
+      req.query.startDate,
+      req.query.endDate,
+    );
 
     // Get all advances with employee details
     const advancesQuery = `
-      SELECT 
+      SELECT
         e.id as employee_id,
         e.full_name,
         e.position,
         COALESCE(SUM(CASE WHEN LOWER(al.transaction_type) = 'advance' THEN al.amount ELSE 0 END), 0) as total_advances,
         COALESCE(SUM(CASE WHEN LOWER(al.transaction_type) IN ('repayment', 'recovery') THEN al.amount ELSE 0 END), 0) as total_recovered,
-        COALESCE(SUM(CASE WHEN LOWER(al.transaction_type) = 'advance' THEN al.amount ELSE 0 END), 0) - 
+        COALESCE(SUM(CASE WHEN LOWER(al.transaction_type) = 'advance' THEN al.amount ELSE 0 END), 0) -
         COALESCE(SUM(CASE WHEN LOWER(al.transaction_type) IN ('repayment', 'recovery') THEN al.amount ELSE 0 END), 0) as outstanding_balance
       FROM employees e
       LEFT JOIN advance_ledger al ON e.id = al.employee_id
-        AND al.transaction_date >= $1 
+        AND al.transaction_date >= $1
         AND al.transaction_date <= $2
       WHERE e.status = 'active'
       GROUP BY e.id, e.full_name, e.position
@@ -417,9 +444,9 @@ async function getAdvanceTracking(req, res) {
 
     // Get summary
     const summaryQuery = `
-      SELECT 
-        COALESCE(SUM(CASE WHEN transaction_type = 'advance' THEN amount ELSE 0 END), 0) as total_advances_given,
-        COALESCE(SUM(CASE WHEN transaction_type = 'recovery' THEN amount ELSE 0 END), 0) as total_recovered,
+      SELECT
+        COALESCE(SUM(CASE WHEN LOWER(transaction_type) = 'advance' THEN amount ELSE 0 END), 0) as total_advances_given,
+        COALESCE(SUM(CASE WHEN LOWER(transaction_type) IN ('repayment','recovery') THEN amount ELSE 0 END), 0) as total_recovered,
         COUNT(DISTINCT employee_id) as employees_with_advances
       FROM advance_ledger
       WHERE transaction_date >= $1 AND transaction_date <= $2
@@ -429,11 +456,11 @@ async function getAdvanceTracking(req, res) {
 
     res.json({
       summary: summary.rows[0],
-      advances: advances.rows
+      advances: advances.rows,
     });
   } catch (error) {
-    console.error('Error fetching advance tracking:', error);
-    res.status(500).json({ error: 'Failed to fetch advance tracking' });
+    console.error("Error fetching advance tracking:", error);
+    res.status(500).json({ error: "Failed to fetch advance tracking" });
   }
 }
 
@@ -446,12 +473,12 @@ async function getAttendanceAnalytics(req, res) {
 
     // Overall attendance stats
     const statsQuery = `
-      SELECT 
+      SELECT
         COUNT(*) as total_records,
         COUNT(CASE WHEN status = 'Present' THEN 1 END) as present_count,
         COUNT(CASE WHEN status = 'Absent' THEN 1 END) as absent_count,
         COUNT(CASE WHEN status = 'Half-Day' THEN 1 END) as half_day_count,
-        ROUND(COUNT(CASE WHEN status = 'Present' THEN 1 END)::NUMERIC / 
+        ROUND(SUM(CASE WHEN status = 'Present' THEN 1 WHEN status = 'Half-Day' THEN 0.5 ELSE 0 END)::NUMERIC /
               NULLIF(COUNT(*)::NUMERIC, 0) * 100, 2) as attendance_rate
       FROM attendance
       WHERE date >= $1 AND date <= $2
@@ -461,7 +488,7 @@ async function getAttendanceAnalytics(req, res) {
 
     // Employee-wise attendance
     const employeeQuery = `
-      SELECT 
+      SELECT
         e.id,
         e.full_name,
         e.position,
@@ -469,7 +496,7 @@ async function getAttendanceAnalytics(req, res) {
         COUNT(CASE WHEN a.status = 'Present' THEN 1 END) as present_days,
         COUNT(CASE WHEN a.status = 'Absent' THEN 1 END) as absent_days,
         COUNT(CASE WHEN a.status = 'Half-Day' THEN 1 END) as half_days,
-        ROUND(COUNT(CASE WHEN a.status = 'Present' THEN 1 END)::NUMERIC / 
+        ROUND(SUM(CASE WHEN a.status = 'Present' THEN 1 WHEN a.status = 'Half-Day' THEN 0.5 ELSE 0 END)::NUMERIC /
               NULLIF(COUNT(a.id)::NUMERIC, 0) * 100, 2) as attendance_percentage
       FROM employees e
       LEFT JOIN attendance a ON e.id = a.employee_id
@@ -483,7 +510,7 @@ async function getAttendanceAnalytics(req, res) {
 
     // Daily attendance trend
     const trendQuery = `
-      SELECT 
+      SELECT
         date,
         COUNT(CASE WHEN status = 'Present' THEN 1 END) as present,
         COUNT(CASE WHEN status = 'Absent' THEN 1 END) as absent,
@@ -499,11 +526,11 @@ async function getAttendanceAnalytics(req, res) {
     res.json({
       stats: stats.rows[0],
       employeeStats: employeeStats.rows,
-      trend: trend.rows
+      trend: trend.rows,
     });
   } catch (error) {
-    console.error('Error fetching attendance analytics:', error);
-    res.status(500).json({ error: 'Failed to fetch attendance analytics' });
+    console.error("Error fetching attendance analytics:", error);
+    res.status(500).json({ error: "Failed to fetch attendance analytics" });
   }
 }
 
@@ -518,7 +545,7 @@ async function getChickenAnalytics(req, res) {
 
     // Daily rates trend
     const ratesQuery = `
-      SELECT 
+      SELECT
         date,
         tandoor_rate,
         boiler_rate,
@@ -532,7 +559,7 @@ async function getChickenAnalytics(req, res) {
 
     // Bill summary
     const billSummaryQuery = `
-      SELECT 
+      SELECT
         COUNT(*) as total_bills,
         COUNT(CASE WHEN status = 'Approved' THEN 1 END) as approved_bills,
         COUNT(CASE WHEN status = 'Pending' THEN 1 END) as pending_bills,
@@ -547,7 +574,7 @@ async function getChickenAnalytics(req, res) {
 
     // Item-wise purchase summary
     const itemSummaryQuery = `
-      SELECT 
+      SELECT
         item_name,
         COALESCE(SUM(qty), 0) as total_qty,
         COALESCE(AVG(vendor_rate), 0) as avg_rate,
@@ -564,11 +591,11 @@ async function getChickenAnalytics(req, res) {
     res.json({
       rates: rates.rows,
       billSummary: billSummary.rows[0],
-      itemSummary: itemSummary.rows
+      itemSummary: itemSummary.rows,
     });
   } catch (error) {
-    console.error('Error fetching chicken analytics:', error);
-    res.status(500).json({ error: 'Failed to fetch chicken analytics' });
+    console.error("Error fetching chicken analytics:", error);
+    res.status(500).json({ error: "Failed to fetch chicken analytics" });
   }
 }
 
@@ -581,7 +608,7 @@ async function getVendorPerformance(req, res) {
 
     // Vendor-wise performance
     const vendorQuery = `
-      SELECT 
+      SELECT
         s.id,
         s.name,
         s.vendor_type,
@@ -603,12 +630,12 @@ async function getVendorPerformance(req, res) {
 
     // Vendor ledger summary
     const ledgerQuery = `
-      SELECT 
+      SELECT
         s.id,
         s.name,
         COALESCE(SUM(CASE WHEN vl.transaction_type = 'Bill' THEN vl.amount ELSE 0 END), 0) as total_bills,
         COALESCE(SUM(CASE WHEN vl.transaction_type = 'Payment' THEN vl.amount ELSE 0 END), 0) as total_payments,
-        COALESCE(SUM(CASE WHEN vl.transaction_type = 'Bill' THEN vl.amount ELSE 0 END), 0) - 
+        COALESCE(SUM(CASE WHEN vl.transaction_type = 'Bill' THEN vl.amount ELSE 0 END), 0) -
         COALESCE(SUM(CASE WHEN vl.transaction_type = 'Payment' THEN vl.amount ELSE 0 END), 0) as outstanding_balance
       FROM suppliers s
       LEFT JOIN vendor_ledger vl ON s.id = vl.supplier_id
@@ -622,11 +649,11 @@ async function getVendorPerformance(req, res) {
 
     res.json({
       vendorPerformance: vendors.rows,
-      vendorLedger: ledger.rows
+      vendorLedger: ledger.rows,
     });
   } catch (error) {
-    console.error('Error fetching vendor performance:', error);
-    res.status(500).json({ error: 'Failed to fetch vendor performance' });
+    console.error("Error fetching vendor performance:", error);
+    res.status(500).json({ error: "Failed to fetch vendor performance" });
   }
 }
 
@@ -639,14 +666,14 @@ async function getStockStatus(req, res) {
   try {
     // Current stock levels
     const stockQuery = `
-      SELECT 
+      SELECT
         id,
         name,
         stock_qty,
         unit_cost,
         unit,
-        (stock_qty * unit_cost) as stock_value,
-        CASE 
+        COALESCE(stock_value,ROUND(stock_qty * unit_cost,2)) as stock_value,
+        CASE
           WHEN stock_qty <= 10 THEN 'low'
           WHEN stock_qty <= 30 THEN 'medium'
           ELSE 'high'
@@ -659,9 +686,9 @@ async function getStockStatus(req, res) {
 
     // Summary
     const summaryQuery = `
-      SELECT 
+      SELECT
         COUNT(*) as total_items,
-        COALESCE(SUM(stock_qty * unit_cost), 0) as total_value,
+        COALESCE(SUM(COALESCE(stock_value,ROUND(stock_qty * unit_cost,2))), 0) as total_value,
         COUNT(CASE WHEN stock_qty <= 10 THEN 1 END) as low_stock_count,
         COUNT(CASE WHEN stock_qty = 0 THEN 1 END) as out_of_stock_count
       FROM inventory_items
@@ -671,11 +698,11 @@ async function getStockStatus(req, res) {
 
     res.json({
       summary: summary.rows[0],
-      items: stock.rows
+      items: stock.rows,
     });
   } catch (error) {
-    console.error('Error fetching stock status:', error);
-    res.status(500).json({ error: 'Failed to fetch stock status' });
+    console.error("Error fetching stock status:", error);
+    res.status(500).json({ error: "Failed to fetch stock status" });
   }
 }
 
@@ -688,19 +715,19 @@ async function getWastageReport(req, res) {
 
     // Wastage summary
     const summaryQuery = `
-      SELECT 
+      SELECT
         COUNT(*) as total_incidents,
         COALESCE(SUM(cost), 0) as total_cost,
         COALESCE(SUM(qty), 0) as total_qty
       FROM wastage_logs
-      WHERE created_at >= $1 AND created_at <= $2
+      WHERE created_at >= $1 AND created_at < $2::date + INTERVAL '1 day'
     `;
 
     const summary = await db.query(summaryQuery, [startDate, endDate]);
 
     // Item-wise wastage
     const itemWastageQuery = `
-      SELECT 
+      SELECT
         ii.name as item_name,
         ii.unit,
         COALESCE(SUM(wl.qty), 0) as total_qty,
@@ -709,7 +736,7 @@ async function getWastageReport(req, res) {
         wl.reason
       FROM wastage_logs wl
       JOIN inventory_items ii ON wl.inventory_item_id = ii.id
-      WHERE wl.created_at >= $1 AND wl.created_at <= $2
+      WHERE wl.created_at >= $1 AND wl.created_at < $2::date + INTERVAL '1 day'
       GROUP BY ii.name, ii.unit, wl.reason
       ORDER BY total_cost DESC
     `;
@@ -718,12 +745,12 @@ async function getWastageReport(req, res) {
 
     // Wastage trend
     const trendQuery = `
-      SELECT 
+      SELECT
         DATE(created_at) as date,
         COALESCE(SUM(cost), 0) as daily_cost,
         COUNT(*) as incident_count
       FROM wastage_logs
-      WHERE created_at >= $1 AND created_at <= $2
+      WHERE created_at >= $1 AND created_at < $2::date + INTERVAL '1 day'
       GROUP BY DATE(created_at)
       ORDER BY date ASC
     `;
@@ -733,11 +760,11 @@ async function getWastageReport(req, res) {
     res.json({
       summary: summary.rows[0],
       itemWastage: itemWastage.rows,
-      trend: trend.rows
+      trend: trend.rows,
     });
   } catch (error) {
-    console.error('Error fetching wastage report:', error);
-    res.status(500).json({ error: 'Failed to fetch wastage report' });
+    console.error("Error fetching wastage report:", error);
+    res.status(500).json({ error: "Failed to fetch wastage report" });
   }
 }
 
@@ -752,22 +779,22 @@ async function getDashboardKPIs(req, res) {
 
     // Financial KPIs
     const financialQuery = `
-      SELECT 
-        COALESCE(SUM(CASE WHEN coa.type = 'Revenue' THEN ll.credit ELSE 0 END), 0) as total_revenue,
-        COALESCE(SUM(CASE WHEN coa.type = 'Expense' THEN ll.debit ELSE 0 END), 0) as total_expenses,
-        COALESCE(SUM(CASE WHEN coa.type = 'Revenue' THEN ll.credit ELSE 0 END), 0) - 
-        COALESCE(SUM(CASE WHEN coa.type = 'Expense' THEN ll.debit ELSE 0 END), 0) as net_profit
+      SELECT
+        COALESCE(SUM(CASE WHEN coa.type = 'Revenue' THEN ll.credit - ll.debit ELSE 0 END), 0) as total_revenue,
+        COALESCE(SUM(CASE WHEN coa.type = 'Expense' THEN ll.debit - ll.credit ELSE 0 END), 0) as total_expenses,
+        COALESCE(SUM(CASE WHEN coa.type = 'Revenue' THEN ll.credit - ll.debit ELSE 0 END), 0) -
+        COALESCE(SUM(CASE WHEN coa.type = 'Expense' THEN ll.debit - ll.credit ELSE 0 END), 0) as net_profit
       FROM ledger_lines ll
       JOIN chart_of_accounts coa ON ll.account_code = coa.code
       JOIN journal_entries je ON ll.journal_entry_id = je.id
-      WHERE je.transaction_date >= $1 AND je.transaction_date <= $2
+      WHERE je.transaction_date >= $1 AND je.transaction_date < $2::date + INTERVAL '1 day'
     `;
 
     const financial = await db.query(financialQuery, [startDate, endDate]);
 
     // HR KPIs
     const hrQuery = `
-      SELECT 
+      SELECT
         COUNT(DISTINCT id) as total_employees,
         COALESCE(SUM(base_salary), 0) as total_salary_base
       FROM employees
@@ -778,8 +805,8 @@ async function getDashboardKPIs(req, res) {
 
     // Outstanding advances
     const advancesQuery = `
-      SELECT 
-        COALESCE(SUM(CASE WHEN transaction_type = 'advance' THEN amount ELSE -amount END), 0) as outstanding_advances
+      SELECT
+        COALESCE(SUM(CASE WHEN LOWER(transaction_type) = 'advance' THEN amount ELSE -amount END), 0) as outstanding_advances
       FROM advance_ledger
     `;
 
@@ -787,9 +814,9 @@ async function getDashboardKPIs(req, res) {
 
     // Inventory KPIs
     const inventoryQuery = `
-      SELECT 
+      SELECT
         COUNT(*) as total_items,
-        COALESCE(SUM(stock_qty * unit_cost), 0) as inventory_value,
+        COALESCE(SUM(COALESCE(stock_value,ROUND(stock_qty * unit_cost,2))), 0) as inventory_value,
         COUNT(CASE WHEN stock_qty <= 10 THEN 1 END) as low_stock_items
       FROM inventory_items
     `;
@@ -798,7 +825,7 @@ async function getDashboardKPIs(req, res) {
 
     // Operations KPIs
     const operationsQuery = `
-      SELECT 
+      SELECT
         COUNT(*) as total_bills,
         COUNT(CASE WHEN status = 'Pending' THEN 1 END) as pending_bills,
         COALESCE(SUM(variance), 0) as total_variance
@@ -813,11 +840,11 @@ async function getDashboardKPIs(req, res) {
       hr: hr.rows[0],
       advances: advances.rows[0],
       inventory: inventory.rows[0],
-      operations: operations.rows[0]
+      operations: operations.rows[0],
     });
   } catch (error) {
-    console.error('Error fetching dashboard KPIs:', error);
-    res.status(500).json({ error: 'Failed to fetch dashboard KPIs' });
+    console.error("Error fetching dashboard KPIs:", error);
+    res.status(500).json({ error: "Failed to fetch dashboard KPIs" });
   }
 }
 
@@ -843,5 +870,5 @@ module.exports = {
   getWastageReport,
 
   // Dashboard
-  getDashboardKPIs
+  getDashboardKPIs,
 };

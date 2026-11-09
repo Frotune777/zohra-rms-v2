@@ -1,0 +1,421 @@
+{
+  "date": "2026-11-09",
+  "node": "26.13.0",
+  "node_image_manifest": "node:26.13.0-alpine verified via docker manifest inspect",
+  "npm": {
+    "root": {
+      "manifest": {
+        "dependencies": {
+          "@types/pg": "^8.23.1",
+          "axios": "^1.21.0",
+          "pg": "^8.23.1"
+        },
+        "devDependencies": {
+          "@playwright/test": "^1.65.0",
+          "@types/node": "^26.6.6",
+          "dotenv": "^18.0.9"
+        },
+        "engines": {
+          "node": ">=24.0.0"
+        },
+        "name": "zohra-rms-v2",
+        "private": true,
+        "scripts": {
+          "test:server": "npm --prefix server test",
+          "test:client": "npm --prefix client test",
+          "build": "npm --prefix client run build",
+          "test:e2e": "playwright test --config=playwright.config.js",
+          "audit:inventory": "python3 scripts/repository_inventory.py"
+        }
+      },
+      "resolved": {
+        "@types/pg": "8.23.1",
+        "axios": "1.21.0",
+        "pg": "8.23.1",
+        "@playwright/test": "1.65.0",
+        "@types/node": "26.6.6",
+        "dotenv": "18.0.9"
+      },
+      "outdated": {},
+      "audit": {
+        "auditReportVersion": 2,
+        "vulnerabilities": {},
+        "metadata": {
+          "vulnerabilities": {
+            "info": 0,
+            "low": 0,
+            "moderate": 0,
+            "high": 0,
+            "critical": 0,
+            "total": 0
+          },
+          "dependencies": {
+            "prod": 44,
+            "dev": 4,
+            "optional": 1,
+            "peer": 0,
+            "peerOptional": 0,
+            "total": 48
+          }
+        }
+      }
+    },
+    "client": {
+      "manifest": {
+        "name": "al-zohra-client",
+        "version": "0.1.0",
+        "type": "module",
+        "scripts": {
+          "dev": "vite",
+          "build": "vite build",
+          "preview": "vite preview",
+          "test": "vitest run",
+          "test:watch": "vitest"
+        },
+        "dependencies": {
+          "axios": "^1.21.0",
+          "react": "^19.3.1",
+          "react-dom": "^19.3.1",
+          "react-hot-toast": "^2.6.1",
+          "react-icons": "^5.7.0",
+          "react-router-dom": "^7.18.5",
+          "recharts": "^3.10.1"
+        },
+        "devDependencies": {
+          "@testing-library/jest-dom": "^7.0.1",
+          "@testing-library/react": "^16.3.3",
+          "@testing-library/user-event": "^14.6.8",
+          "@types/react": "^19.3.0",
+          "@vitejs/plugin-react": "^6.2.1",
+          "autoprefixer": "^10.6.2",
+          "jsdom": "^31.0.0",
+          "postcss": "^8.5.32",
+          "tailwindcss": "^4.3.5",
+          "vite": "^8.3.6",
+          "vitest": "^5.1.0",
+          "@tailwindcss/postcss": "^4.3.5"
+        },
+        "engines": {
+          "node": ">=24.0.0"
+        }
+      },
+      "resolved": {
+        "axios": "1.21.0",
+        "react": "19.3.1",
+        "react-dom": "19.3.1",
+        "react-hot-toast": "2.6.1",
+        "react-icons": "5.7.0",
+        "react-router-dom": "7.18.5",
+        "recharts": "3.10.1",
+        "@testing-library/jest-dom": "7.0.1",
+        "@testing-library/react": "16.3.3",
+        "@testing-library/user-event": "14.6.8",
+        "@types/react": "19.3.0",
+        "@vitejs/plugin-react": "6.2.1",
+        "autoprefixer": "10.6.2",
+        "jsdom": "31.0.0",
+        "postcss": "8.5.32",
+        "tailwindcss": "4.3.5",
+        "vite": "8.3.6",
+        "vitest": "5.1.0",
+        "@tailwindcss/postcss": "4.3.5"
+      },
+      "outdated": {},
+      "audit": {
+        "auditReportVersion": 2,
+        "vulnerabilities": {},
+        "metadata": {
+          "vulnerabilities": {
+            "info": 0,
+            "low": 0,
+            "moderate": 0,
+            "high": 0,
+            "critical": 0,
+            "total": 0
+          },
+          "dependencies": {
+            "prod": 78,
+            "dev": 152,
+            "optional": 45,
+            "peer": 12,
+            "peerOptional": 0,
+            "total": 230
+          }
+        }
+      }
+    },
+    "server": {
+      "manifest": {
+        "name": "al-zohra-server",
+        "version": "1.0.0",
+        "main": "server.js",
+        "scripts": {
+          "setup": "bash ../setup.sh",
+          "start": "node server.js",
+          "dev": "nodemon server.js",
+          "test": "jest",
+          "test:watch": "jest --watch",
+          "test:coverage": "jest --coverage",
+          "db:migrate": "node scripts/migrate.js",
+          "db:seed": "node scripts/seed.js"
+        },
+        "dependencies": {
+          "bcryptjs": "^3.0.3",
+          "compression": "^1.8.2",
+          "cors": "^2.8.6",
+          "dotenv": "^18.0.9",
+          "express": "^5.3.0",
+          "express-rate-limit": "^8.7.3",
+          "helmet": "^8.3.0",
+          "jsonwebtoken": "^9.0.3",
+          "morgan": "^1.12.1",
+          "pg": "^8.23.1",
+          "socket.io": "^4.8.4",
+          "winston": "^3.19.0",
+          "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+        },
+        "devDependencies": {
+          "@types/jest": "^30.0.0",
+          "jest": "^30.5.2",
+          "supertest": "^7.3.1",
+          "nodemon": "^3.1.14"
+        },
+        "overrides": {
+          "glob": "14.0.4",
+          "minimatch": "11.0.5"
+        },
+        "engines": {
+          "node": ">=24.0.0"
+        }
+      },
+      "resolved": {
+        "bcryptjs": "3.0.3",
+        "compression": "1.8.2",
+        "cors": "2.8.6",
+        "dotenv": "18.0.9",
+        "express": "5.3.0",
+        "express-rate-limit": "8.7.3",
+        "helmet": "8.3.0",
+        "jsonwebtoken": "9.0.3",
+        "morgan": "1.12.1",
+        "pg": "8.23.1",
+        "socket.io": "4.8.4",
+        "winston": "3.19.0",
+        "xlsx": "0.20.3",
+        "@types/jest": "30.0.0",
+        "jest": "30.5.2",
+        "supertest": "7.3.1",
+        "nodemon": "3.1.14"
+      },
+      "outdated": {},
+      "audit": {
+        "auditReportVersion": 2,
+        "vulnerabilities": {
+          "@jest/core": {
+            "name": "@jest/core",
+            "severity": "low",
+            "isDirect": false,
+            "via": [
+              "jest-config"
+            ],
+            "effects": [],
+            "range": ">=25.2.0-alpha.86",
+            "nodes": [
+              "node_modules/@jest/core"
+            ],
+            "fixAvailable": true
+          },
+          "deepmerge": {
+            "name": "deepmerge",
+            "severity": "low",
+            "isDirect": false,
+            "via": [
+              {
+                "source": 1243505,
+                "name": "deepmerge",
+                "dependency": "deepmerge",
+                "title": "deepmerge mergeObject() allows prototype poisoning of returned objects",
+                "url": "https://github.com/advisories/GHSA-gcqx-w48m-w2h4",
+                "severity": "low",
+                "cwe": [
+                  "CWE-1321"
+                ],
+                "cvss": {
+                  "score": 5.3,
+                  "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+                },
+                "range": ">=4.2.0 <=4.3.1"
+              }
+            ],
+            "effects": [
+              "jest-config"
+            ],
+            "range": ">=4.2.0",
+            "nodes": [
+              "node_modules/deepmerge"
+            ],
+            "fixAvailable": {
+              "name": "jest",
+              "version": "25.1.0",
+              "isSemVerMajor": true
+            }
+          },
+          "jest": {
+            "name": "jest",
+            "severity": "low",
+            "isDirect": true,
+            "via": [
+              "@jest/core",
+              "jest-cli"
+            ],
+            "effects": [],
+            "range": ">=25.2.0-alpha.86",
+            "nodes": [
+              "node_modules/jest"
+            ],
+            "fixAvailable": {
+              "name": "jest",
+              "version": "25.1.0",
+              "isSemVerMajor": true
+            }
+          },
+          "jest-cli": {
+            "name": "jest-cli",
+            "severity": "low",
+            "isDirect": false,
+            "via": [
+              "@jest/core",
+              "jest-config"
+            ],
+            "effects": [
+              "jest"
+            ],
+            "range": ">=25.2.0-alpha.86",
+            "nodes": [
+              "node_modules/jest-cli"
+            ],
+            "fixAvailable": {
+              "name": "jest",
+              "version": "25.1.0",
+              "isSemVerMajor": true
+            }
+          },
+          "jest-config": {
+            "name": "jest-config",
+            "severity": "low",
+            "isDirect": false,
+            "via": [
+              "deepmerge"
+            ],
+            "effects": [
+              "@jest/core",
+              "jest-cli"
+            ],
+            "range": ">=25.2.0-alpha.86",
+            "nodes": [
+              "node_modules/jest-config"
+            ],
+            "fixAvailable": {
+              "name": "jest",
+              "version": "25.1.0",
+              "isSemVerMajor": true
+            }
+          }
+        },
+        "metadata": {
+          "vulnerabilities": {
+            "info": 0,
+            "low": 5,
+            "moderate": 0,
+            "high": 0,
+            "critical": 0,
+            "total": 5
+          },
+          "dependencies": {
+            "prod": 175,
+            "dev": 333,
+            "optional": 35,
+            "peer": 0,
+            "peerOptional": 0,
+            "total": 508
+          }
+        }
+      }
+    }
+  },
+  "python": {
+    "pandas": {
+      "version": "3.1.1",
+      "requires_python": ">=3.11",
+      "source": "https://pypi.org/pypi/pandas/json"
+    },
+    "pandas-stubs": {
+      "version": "3.1.0.261029",
+      "requires_python": ">=3.11",
+      "source": "https://pypi.org/pypi/pandas-stubs/json"
+    },
+    "sqlalchemy": {
+      "version": "2.1.8",
+      "requires_python": ">=3.11",
+      "source": "https://pypi.org/pypi/sqlalchemy/json"
+    },
+    "psycopg2-binary": {
+      "version": "2.9.13",
+      "requires_python": ">=3.10",
+      "source": "https://pypi.org/pypi/psycopg2-binary/json"
+    },
+    "openpyxl": {
+      "version": "3.1.5",
+      "requires_python": ">=3.8",
+      "source": "https://pypi.org/pypi/openpyxl/json"
+    },
+    "xlrd": {
+      "version": "2.0.2",
+      "requires_python": "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,>=2.7",
+      "source": "https://pypi.org/pypi/xlrd/json"
+    },
+    "python-dotenv": {
+      "version": "1.2.4",
+      "requires_python": ">=3.10",
+      "source": "https://pypi.org/pypi/python-dotenv/json"
+    },
+    "mypy": {
+      "version": "2.4.1",
+      "requires_python": ">=3.10",
+      "source": "https://pypi.org/pypi/mypy/json"
+    },
+    "pytest": {
+      "version": "9.2.0",
+      "requires_python": ">=3.10",
+      "source": "https://pypi.org/pypi/pytest/json"
+    },
+    "ruff": {
+      "version": "0.17.4",
+      "requires_python": ">=3.7",
+      "source": "https://pypi.org/pypi/ruff/0.17.4/json"
+    }
+  },
+  "sheetjs_source": "https://docs.sheetjs.com/docs/getting-started/installation/nodejs/",
+  "server_production_audit": {
+    "auditReportVersion": 2,
+    "vulnerabilities": {},
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 175,
+        "dev": 333,
+        "optional": 35,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 508
+      }
+    }
+  }
+}

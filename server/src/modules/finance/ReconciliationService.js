@@ -28,8 +28,8 @@ class ReconciliationService {
 
         // Insert
         const insertRes = await pool.query(
-            "INSERT INTO daily_balances (date, type, opening_balance) VALUES ($1, $2, $3) RETURNING *",
-            [date, type, opening]
+            "INSERT INTO daily_balances (date, type, opening_balance,account_code) VALUES ($1, $2, $3,$4) ON CONFLICT(date,account_code) DO UPDATE SET account_code=EXCLUDED.account_code RETURNING *",
+            [date, type, opening,type === 'Counter' ? 1000 : 1030]
         );
         return insertRes.rows[0];
     }

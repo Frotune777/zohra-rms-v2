@@ -110,7 +110,7 @@ const AIDashboard = () => {
 
                     <div className="mb-4">
                         <label className="text-sm text-gray-400 block mb-2">Select Item to Forecast</label>
-                        <select
+                        <select aria-label="Item to forecast"
                             className="w-full p-2 rounded bg-black/30 border border-white/10 text-white focus:border-zohra-blue outline-none"
                             value={selectedItem || ''}
                             onChange={(e) => setSelectedItem(e.target.value)}

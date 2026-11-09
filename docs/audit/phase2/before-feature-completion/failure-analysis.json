@@ -1,0 +1,145 @@
+{
+  "analysed_at": "2026-11-09T05:05:05.729414+00:00",
+  "run_finished_at": "2026-11-09T05:00:09.145Z",
+  "results_sha256": "4f88efcac493c4ffe5217d6ca7f27d6d8c8198d05ed10ef230a32561bfce8768",
+  "failed_tests": 3,
+  "recorded_error_objects": 4,
+  "by_file": {
+    "tests/audit/finance.spec.cjs": 1,
+    "tests/audit/hr.spec.cjs": 2
+  },
+  "by_primary_kind": {
+    "policy_assumption": 3
+  },
+  "scope": "Current completed-run failures. The historical 194-failure diagnosis is preserved under baseline-before-fixes. Policy assertions remain enabled and provisional. Passing subcases do not certify complete features.",
+  "tests": [
+    {
+      "primary_id": "TRANSFER-003",
+      "ids": [
+        "TRANSFER-003"
+      ],
+      "title": "TRANSFER-003 concurrent excessive wallet returns cannot create negative float",
+      "test_file": "tests/audit/finance.spec.cjs",
+      "test_line": 88,
+      "status": "failed",
+      "kind": "policy_assumption",
+      "diagnosis": "Wallet returns are transactional but do not reject insufficient funds. The no-overdraft expectation remains an unanswered business rule.",
+      "source_files": [
+        "server/src/modules/finance/TransferService.js"
+      ],
+      "errors": [
+        "Error: expect(received).toHaveLength(expected)\n\nExpected length: 1\nReceived length: 2\nReceived array:  [{\"body\": {\"created_at\": \"2026-11-09T10:21:47.661Z\", \"date\": \"2026-11-09T12:00:00.000Z\", \"description\": \"Return via Cash\", \"id\": \"101e070d-d4a6-4b7a-8e07-8790ebfcd7f7\", \"total_amount\": 60}, \"response\": {\"_apiName\": \"APIResponse\", \"_headers\": {\"_headersArray\": [{\"name\": \"Content-Security-Policy\", \"value\": \"default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\"}, {\"name\": \"Cross-Origin-Opener-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Cross-Origin-Resource-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Origin-Agent-Cluster\", \"value\": \"?1\"}, {\"name\": \"Referrer-Policy\", \"value\": \"no-referrer\"}, {\"name\": \"Strict-Transport-Security\", \"value\": \"max-age=31536000; includeSubDomains\"}, {\"name\": \"X-Content-Type-Options\", \"value\": \"nosniff\"}, {\"name\": \"X-DNS-Prefetch-Control\", \"value\": \"off\"}, {\"name\": \"X-Download-Options\", \"value\": \"noopen\"}, {\"name\": \"X-Frame-Options\", \"value\": \"SAMEORIGIN\"}, \u2026], \"_headersMap\": {\"_map\": Map {\"content-security-policy\" => [\"default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\"], \"cross-origin-opener-policy\" => [\"same-origin\"], \"cross-origin-resource-policy\" => [\"same-origin\"], \"origin-agent-cluster\" => [\"?1\"], \"referrer-policy\" => [\"no-referrer\"], \"strict-transport-security\" => [\"max-age=31536000; includeSubDomains\"], \"x-content-type-options\" => [\"nosniff\"], \"x-dns-prefetch-control\" => [\"off\"], \"x-download-options\" => [\"noopen\"], \"x-frame-options\" => [\"SAMEORIGIN\"], \u2026}}}, \"_initializer\": {\"fetchUid\": \"90b0a8c8b58df44b0d93012a521dbc89\", \"headers\": [{\"name\": \"Content-Security-Policy\", \"value\": \"default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\"}, {\"name\": \"Cross-Origin-Opener-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Cross-Origin-Resource-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Origin-Agent-Cluster\", \"value\": \"?1\"}, {\"name\": \"Referrer-Policy\", \"value\": \"no-referrer\"}, {\"name\": \"Strict-Transport-Security\", \"value\": \"max-age=31536000; includeSubDomains\"}, {\"name\": \"X-Content-Type-Options\", \"value\": \"nosniff\"}, {\"name\": \"X-DNS-Prefetch-Control\", \"value\": \"off\"}, {\"name\": \"X-Download-Options\", \"value\": \"noopen\"}, {\"name\": \"X-Frame-Options\", \"value\": \"SAMEORIGIN\"}, \u2026], \"responseEndTiming\": 13.479999999995925, \"serverAddr\": {\"ipAddress\": \"127.0.0.1\", \"port\": 33130}, \"status\": 200, \"statusText\": \"OK\", \"timing\": {\"connectEnd\": -1, \"connectStart\": -1, \"domainLookupEnd\": -1, \"domainLookupStart\": -1, \"requestStart\": 0.07999999999447027, \"responseStart\": 13.380999999993946, \"secureConnectionStart\": -1, \"startTime\": 1794199907657}, \"url\": \"http://127.0.0.1:33130/api/finance/transfer/user-to-safe\"}, \"_request\": {\"_guid\": \"request-context@936ca4fc34b2ac9ec4ccf837676c8c9b\", \"_type\": \"APIRequestContext\"}, Symbol(nodejs.util.inspect.custom): [Function anonymous]}, \"status\": 200}, {\"body\": {\"created_at\": \"2026-11-09T10:21:47.663Z\", \"date\": \"2026-11-09T12:00:00.000Z\", \"description\": \"Return via Cash\", \"id\": \"a3106f0d-a6fe-4390-bc0b-179b616cafee\", \"total_amount\": 60}, \"response\": {\"_apiName\": \"APIResponse\", \"_headers\": {\"_headersArray\": [{\"name\": \"Content-Security-Policy\", \"value\": \"default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\"}, {\"name\": \"Cross-Origin-Opener-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Cross-Origin-Resource-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Origin-Agent-Cluster\", \"value\": \"?1\"}, {\"name\": \"Referrer-Policy\", \"value\": \"no-referrer\"}, {\"name\": \"Strict-Transport-Security\", \"value\": \"max-age=31536000; includeSubDomains\"}, {\"name\": \"X-Content-Type-Options\", \"value\": \"nosniff\"}, {\"name\": \"X-DNS-Prefetch-Control\", \"value\": \"off\"}, {\"name\": \"X-Download-Options\", \"value\": \"noopen\"}, {\"name\": \"X-Frame-Options\", \"value\": \"SAMEORIGIN\"}, \u2026], \"_headersMap\": {\"_map\": Map {\"content-security-policy\" => [\"default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\"], \"cross-origin-opener-policy\" => [\"same-origin\"], \"cross-origin-resource-policy\" => [\"same-origin\"], \"origin-agent-cluster\" => [\"?1\"], \"referrer-policy\" => [\"no-referrer\"], \"strict-transport-security\" => [\"max-age=31536000; includeSubDomains\"], \"x-content-type-options\" => [\"nosniff\"], \"x-dns-prefetch-control\" => [\"off\"], \"x-download-options\" => [\"noopen\"], \"x-frame-options\" => [\"SAMEORIGIN\"], \u2026}}}, \"_initializer\": {\"fetchUid\": \"e6cec57edd59ed21ec3b722a42d2cda2\", \"headers\": [{\"name\": \"Content-Security-Policy\", \"value\": \"default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests\"}, {\"name\": \"Cross-Origin-Opener-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Cross-Origin-Resource-Policy\", \"value\": \"same-origin\"}, {\"name\": \"Origin-Agent-Cluster\", \"value\": \"?1\"}, {\"name\": \"Referrer-Policy\", \"value\": \"no-referrer\"}, {\"name\": \"Strict-Transport-Security\", \"value\": \"max-age=31536000; includeSubDomains\"}, {\"name\": \"X-Content-Type-Options\", \"value\": \"nosniff\"}, {\"name\": \"X-DNS-Prefetch-Control\", \"value\": \"off\"}, {\"name\": \"X-Download-Options\", \"value\": \"noopen\"}, {\"name\": \"X-Frame-Options\", \"value\": \"SAMEORIGIN\"}, \u2026], \"responseEndTiming\": 18.131999999997788, \"serverAddr\": {\"ipAddress\": \"127.0.0.1\", \"port\": 33130}, \"status\": 200, \"statusText\": \"OK\", \"timing\": {\"connectEnd\": 0.4250000000029104, \"connectStart\": 0, \"domainLookupEnd\": -1, \"domainLookupStart\": -1, \"requestStart\": 0.4250000000029104, \"responseStart\": 18.061000000001513, \"secureConnectionStart\": -1, \"startTime\": 1794199907657}, \"url\": \"http://127.0.0.1:33130/api/finance/transfer/user-to-safe\"}, \"_request\": {\"_guid\": \"request-context@936ca4fc34b2ac9ec4ccf837676c8c9b\", \"_type\": \"APIRequestContext\"}, Symbol(nodejs.util.inspect.custom): [Function anonymous]}, \"status\": 200}]",
+        "Error: expect(received).toBeGreaterThanOrEqual(expected)\n\nExpected: >= 0\nReceived:    -20"
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_c75a74fb1320_1794199849244",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/user-to-safe",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/user-to-safe",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "primary_id": "LEAVE-006",
+      "ids": [
+        "LEAVE-006"
+      ],
+      "title": "LEAVE-006 Paid leave earns pay while Unpaid leave does not",
+      "test_file": "tests/audit/hr.spec.cjs",
+      "test_line": 95,
+      "status": "failed",
+      "kind": "policy_assumption",
+      "diagnosis": "Paid leave approval records Absent and payroll counts Present/Half-Day. The assertion that Paid leave earns salary remains provisional until the user confirms leave-pay rules.",
+      "source_files": [
+        "server/src/modules/leaves/controller.js",
+        "server/src/modules/payroll/controller.js"
+      ],
+      "errors": [
+        "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 1000\nReceived: 0"
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ee0a7de333f4_1794199849244",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/2/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "primary_id": "PAY-004",
+      "ids": [
+        "PAY-004"
+      ],
+      "title": "PAY-004 explicit advance deductions never exceed gross salary or the outstanding balance",
+      "test_file": "tests/audit/hr.spec.cjs",
+      "test_line": 164,
+      "status": "failed",
+      "kind": "policy_assumption",
+      "diagnosis": "Explicit advance deduction is capped at outstanding balance, but can exceed gross salary; net is clamped to zero. The gross-recovery cap remains an unanswered business rule.",
+      "source_files": [
+        "server/src/modules/payroll/controller.js"
+      ],
+      "errors": [
+        "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 30000\nReceived: 40000"
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_974d8b6824ca_1794199849244",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    }
+  ]
+}

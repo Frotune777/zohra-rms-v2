@@ -1,0 +1,485 @@
+suite,test_file,test_name,message,scope
+backend,server/tests/auth.test.js,Auth Module POST /api/auth/register should return 400 if email already exists,"Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 400
+Received: 500
+    at Object.toEqual (/Users/I557587/Personal/zohra-rms-v2/server/tests/auth.test.js:137:36)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/auth.test.js,Auth Module POST /api/auth/register should successfully register a new user with auth,"Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 200
+Received: 500
+    at Object.toEqual (/Users/I557587/Personal/zohra-rms-v2/server/tests/auth.test.js:165:36)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/operations.test.js,Operations Module Wastage Management logWastage should log wastage and update inventory,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+- Expected
++ Received
+
+  Object {
+-   ""cost"": 500,
+-   ""id"": 1,
+-   ""inventory_item_id"": 10,
+-   ""qty"": 5,
+-   ""reason"": ""Expired"",
+-   ""reported_by"": ""manager@test.com"",
++   ""error"": ""Invalid account code: 1200"",
+  },
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/operations.test.js:288:34)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/operations.test.js,Operations Module Wastage Management logWastage should rollback on database error,"Error: Query failed
+    at Object.<anonymous> (/Users/I557587/Personal/zohra-rms-v2/server/tests/operations.test.js:245:44)
+    at Promise.finally.completed (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1834:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1774:10)
+    at _callCircusTest (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1167:40)
+    at _runTestInContext (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1103:3)
+    at runTestWithContext (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:996:5)
+    at _runTestsForDescribeBlockOnce (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:1008:11)
+    at _runTestsForDescribeBlock (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestAdapterInit.js:824:5)
+    at _runTestsForDescribeBlockOnce (/Users/I557587/Personal/zohra-rms-v2/server/node_modules/jest-circus/build/jestA",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/finance.test.js,Finance Module addExpense should add an expense transaction,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: ObjectContaining {""success"": true}
+Received: {""error"": ""Database error""}
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/finance.test.js:221:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/finance.test.js,Finance Module recordPayment should record a vendor payment,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: ObjectContaining {""success"": true}
+Received: {""error"": ""Cannot read properties of undefined (reading '0')""}
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/finance.test.js:291:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/finance.test.js,Finance Module Account Closure & Balance should get daily balance summary,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: ObjectContaining {""closing_balance"": 6000}
+Received: {""closing_balance"": 0, ""expected_closing_calculated"": 0, ""is_closed"": false, ""variance"": 0}
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/finance.test.js:311:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/finance.test.js,Finance Module Account Closure & Balance should close daily balance,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: ObjectContaining {""variance"": -50}
+Received: {""error"": ""Cannot read properties of undefined (reading 'length')""}
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/finance.test.js:337:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/advances.test.js,Advances and Payroll Module runPayroll should process payroll with prorated salary,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: ObjectContaining {""earnedSalary"": Any<Number>, ""netPay"": Any<Number>, ""success"": true}
+Received: {""error"": ""Employee not found""}
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/advances.test.js:213:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/advances.test.js,Advances and Payroll Module runPayroll should apply manual adjustments to payroll,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: ObjectContaining {""netPay"": Any<Number>, ""success"": true}
+Received: {""error"": ""Cannot read properties of undefined (reading 'id')""}
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/advances.test.js:255:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/advances.test.js,Advances and Payroll Module runPayroll should handle database errors,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: 500
+
+Number of calls: 0
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/advances.test.js:316:32)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/payroll.test.js,Payroll Module runPayroll should run payroll for an employee with manual days worked,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: ObjectContaining {""data"": Any<Array>, ""success"": true}
+Received: {""error"": ""Cannot read properties of undefined (reading 'outstanding_balance')""}
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:70:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/payroll.test.js,Payroll Module runPayroll should handle database errors and rollback,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: 500
+
+Number of calls: 0
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:192:32)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/payroll.test.js,Payroll Module getMonthlyPayroll should return payroll records for a specific month,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+- Expected
++ Received
+
+- Array [
+-   Object {
+-     ""base_salary"": 30000,
+-     ""days_worked"": 30,
+-     ""employee_id"": 1,
+-     ""full_name"": ""John Doe"",
+-     ""id"": 1,
+-     ""month"": 12,
+-     ""net_pay"": 28000,
+-     ""position"": ""Chef"",
+-     ""status"": ""Pending"",
+-     ""total_outstanding_advances"": 2000,
+-     ""year"": 2024,
+-   },
+- ]
++ Array [],
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:225:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/payroll.test.js,Payroll Module getMonthlyPayroll should handle database errors,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: 500
+
+Number of calls: 0
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:235:32)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/payroll.test.js,Payroll Module approvePayroll should approve a pending payroll entry,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+- Expected
++ Received
+
+  Object {
+-   ""employee_id"": 1,
++   ""base_salary"": 30000,
++   ""full_name"": ""John Doe"",
+    ""id"": 1,
+-   ""net_pay"": 28000,
+-   ""status"": ""Approved"",
++   ""status"": ""active"",
+  },
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:258:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/payroll.test.js,Payroll Module approvePayroll should handle database errors,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: 500
+
+Number of calls: 0
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:268:32)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/payroll.test.js,Payroll Module markPaid should mark payroll as paid and create journal entries,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+- Expected
++ Received
+
+  Object {
+-   ""advance_deduction"": 2000,
+-   ""employee_id"": 1,
+-   ""id"": 1,
+-   ""month"": 12,
+-   ""net_pay"": 28000,
+-   ""status"": ""Paid"",
+-   ""year"": 2024,
++   ""error"": ""Record not found or not Approved"",
+  },
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:304:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/payroll.test.js,Payroll Module markPaid should return error if record not found or not approved,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+- Expected
++ Received
+
+  Object {
+-   ""error"": ""Record not found or not Approved"",
++   ""error"": ""Database error"",
+  },
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:321:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/payroll.test.js,Payroll Module markPaid should handle payroll without advance deductions,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+- Expected
++ Received
+
+  Object {
+-   ""advance_deduction"": 0,
+-   ""employee_id"": 1,
+-   ""id"": 1,
+-   ""net_pay"": 30000,
+-   ""status"": ""Paid"",
++   ""error"": ""Record not found or not Approved"",
+  },
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/payroll.test.js:351:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/chicken.test.js,Chicken/Supplier Module createBillEntry should handle variance calculation,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: ObjectContaining {""variance"": 250}
+Received: {""error"": ""Daily rates not set for this date""}
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/chicken.test.js:304:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/chicken.test.js,Chicken/Supplier Module createBillEntry should return 400 if daily rates not set,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: 400
+
+Number of calls: 0
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/chicken.test.js:322:32)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/vendors.test.js,Vendors Module processPayment should process vendor payment successfully,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: ObjectContaining {""newBalance"": 5000, ""payment"": Any<Object>, ""success"": true}
+Received: {""error"": ""Account code is required for a ledger line""}
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:66:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/vendors.test.js,Vendors Module processPayment should return 404 if vendor not found,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: 404
+Received: 500
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:91:32)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/vendors.test.js,Vendors Module processPayment should prevent overpayment,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: 400
+Received: 500
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:114:32)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/vendors.test.js,Vendors Module processPayment should validate required fields,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: 400
+Received: 500
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:140:32)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/vendors.test.js,Vendors Module getPayments should return all vendor payments,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+- Expected
++ Received
+
+  Array [
+    Object {
+-     ""amount"": 5000,
+      ""id"": 1,
+-     ""payment_date"": ""2024-12-15"",
+-     ""payment_mode"": ""Cash"",
+-     ""vendor_id"": 1,
+-     ""vendor_name"": ""ABC Suppliers"",
++     ""name"": ""ABC Suppliers"",
+    },
+  ],
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:179:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/vendors.test.js,Vendors Module getPayments should handle database errors,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: 500
+
+Number of calls: 0
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:216:32)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/vendors.test.js,Vendors Module getOutstanding should return outstanding balance for vendor,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+- Expected
++ Received
+
+  Object {
+-   ""outstanding_balance"": 5000,
+-   ""vendor_id"": 1,
++   ""error"": ""Database error"",
+  },
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:233:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/vendors.test.js,Vendors Module getVendorDetails should return comprehensive vendor details,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: ObjectContaining {""aging"": Any<Object>, ""outstanding_balance"": 5000, ""total_bill_amount"": 15000, ""total_payment_amount"": 10000, ""vendor_id"": 1, ""vendor_name"": ""ABC Suppliers""}
+Received: {""aging"": {""0_30_days"": 0, ""30_60_days"": 0, ""60_90_days"": 0, ""over_90_days"": 0}, ""outstanding_balance"": 5000, ""vendor_id"": 1, ""vendor_name"": ""ABC Suppliers""}
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:315:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/vendors.test.js,Vendors Module getVendorDetails should return 404 if vendor not found,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: 404
+
+Number of calls: 0
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:334:32)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/vendors.test.js,Vendors Module getVendorsWithOutstanding should return vendors with outstanding balances,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+- Expected
++ Received
+
+- Array [
+-   Object {
+-     ""outstanding_balance"": 10000,
+-     ""vendor_id"": 1,
+-     ""vendor_name"": ""ABC Suppliers"",
+-   },
+-   Object {
+-     ""outstanding_balance"": 5000,
+-     ""vendor_id"": 2,
+-     ""vendor_name"": ""XYZ Traders"",
+-   },
+- ]
++ Array [],
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:357:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/vendors.test.js,Vendors Module getVendorsWithOutstanding should filter by category,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: StringContaining ""category_id = $1"", [""1""]
+Received: ""SELECT * FROM vendor_outstanding ORDER BY outstanding_balance DESC""
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/vendors.test.js:367:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/pos.test.js,POS Module createOrder should create an order with inventory updates,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: ObjectContaining {""success"": true}
+Received: {""error"": ""Cannot read properties of undefined (reading 'id')""}
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/pos.test.js:251:30)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/pos.test.js,POS Module createOrder should calculate total revenue correctly,"Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: StringContaining ""INSERT INTO orders"", ArrayContaining [500]
+Received
+       1: ""BEGIN""
+       2: ""SELECT m.id, m.price, m.category, m.tax_rate_id, t.rate_percentage·
+                 FROM menu_items m
+                 LEFT JOIN tax_rates t ON m.tax_rate_id = t.id
+                 WHERE m.id = ANY($1)"", [[1]]
+       3: ""INSERT INTO orders (
+                    total_amount, payment_mode, status, customer_id, created_by, order_number
+                ) VALUES ($1, $2, 'Completed', $3, $4, $5) RETURNING id"", [0, ""Cash"", null, null, ""ORD-1794167525362-317""]
+
+Number of calls: 8
+    at Object.toHaveBeenCalledWith (/Users/I557587/Personal/zohra-rms-v2/server/tests/pos.test.js:276:23)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/ai.test.js,AI Module getSuggestedPOs should return suggested purchase orders for low stock items,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at Object.toBe (/Users/I557587/Personal/zohra-rms-v2/server/tests/ai.test.js:136:71)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+backend,server/tests/ai.test.js,AI Module getSuggestedPOs should handle items with no usage data,"Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at Object.toBe (/Users/I557587/Personal/zohra-rms-v2/server/tests/ai.test.js:243:71)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+client,client/src/tests/POS.test.jsx,POS Component handles checkout successfully,"AssertionError: expected ""vi.fn()"" to be called with arguments: [ '/orders', ObjectContaining{…} ]
+
+Received:
+
+  1st vi.fn() call:
+
+@@ -1,11 +1,14 @@
+  [
+-   ""/orders"",
+-   ObjectContaining {
+-     ""items"": ArrayContaining [
+-       ObjectContaining {
++   ""orders"",
++   {
++     ""items"": [
++       {
++         ""category"": ""Main Course"",
+          ""id"": 1,
++         ""name"": ""Chicken Biryani"",
++         ""price"": 150,
+          ""qty"": 1,
+        },
+      ],
+      ""paymentMode"": ""Cash"",
+      ""type"": ""Dine In"",
+
+
+Number of calls: 1
+
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m""flex h-screen w-full bg-gray-100 text-gray-800 font-sans overflow-hidden""[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m""hidden md:flex w-40 lg:w-48 bg-gray-800 flex-col text-gray-300""[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m""p-2 md:p-4 border-b border-gray-700 font-bold text-white text-sm md:text-base""[39m
+          [36m>[39m
+            [0mCategories[0m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m""flex-1 overflow-y-auto""[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m""w-full text-left p-2 md:p-4 hover:bg-gray-700 transition-colors border-l-4 text-xs md:text-sm border-green-500 bg-gray-700 text-white""[39m
+            [36m>[39m
+              [0mAll[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m""w-full text-left p-2 md:p-4 hover:bg-gray-700 transition-colors border-l-4 text-xs md:text-sm border-transparent""[39m
+            [36m>[39m
+              [0mMain Course[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m""w-full text-left p-2 md:p-4 hover:bg-gray-700 transition-colors border-l-4 text-xs md:text-sm border-transparent""[39m
+            [36m>[39m
+              [0mBeverages[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m""w-full text-left p-2 md:p-4 hover:bg-gray-700 transition-colors border-l-4 text-xs md:text-sm border-transparent""[39m
+            [36m>[39m
+              [0mStarters[0m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m""flex-1 flex flex-col min-w-0 bg-gray-200""[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m""bg-white p-2 flex items-center gap-4 shadow-sm""[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m""relative flex-1""[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m""absolute left-3 top-1/2 -translate-y-1/2 text-gray-400""[39m
+                [33mfill[39m=[32m""none""[39m
+                [33mheig",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+client,client/src/tests/VendorPayments.test.jsx,VendorPayments Component loads and displays vendor list,"Error: Unable to find an element with the text: Chicken Supplier A. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+    at Proxy.waitForWrapper (/Users/I557587/Personal/zohra-rms-v2/client/node_modules/@testing-library/dom/dist/wait-for.js:163:27)
+    at /Users/I557587/Personal/zohra-rms-v2/client/src/tests/VendorPayments.test.jsx:111:15
+    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:1632:35
+    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:2801:26
+    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3338:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3333:10)
+    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3318:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3276:10)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+client,client/src/tests/VendorPayments.test.jsx,VendorPayments Component opens payment modal for vendor with outstanding balance,"Error: Unable to find an element with the text: Chicken Supplier A. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+    at Proxy.waitForWrapper (/Users/I557587/Personal/zohra-rms-v2/client/node_modules/@testing-library/dom/dist/wait-for.js:163:27)
+    at /Users/I557587/Personal/zohra-rms-v2/client/src/tests/VendorPayments.test.jsx:126:15
+    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:1632:35
+    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:2801:26
+    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3338:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3333:10)
+    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3318:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3276:10)",Earlier post-upgrade unit checkpoint; not rerun during this analysis
+client,client/src/tests/VendorPayments.test.jsx,VendorPayments Component submits payment successfully,"Error: Unable to find an element with the text: Chicken Supplier A. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+    at Proxy.waitForWrapper (/Users/I557587/Personal/zohra-rms-v2/client/node_modules/@testing-library/dom/dist/wait-for.js:163:27)
+    at /Users/I557587/Personal/zohra-rms-v2/client/src/tests/VendorPayments.test.jsx:157:15
+    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:1632:35
+    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:2801:26
+    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3338:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3333:10)
+    at file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3318:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/I557587/Personal/zohra-rms-v2/client/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:3276:10)",Earlier post-upgrade unit checkpoint; not rerun during this analysis

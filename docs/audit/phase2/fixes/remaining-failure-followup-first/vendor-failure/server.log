@@ -1,0 +1,22 @@
+◇ injected env (0) from .env
+◇ injected env (0) from .env
+Backend server running on port 33130
+Environment: development
+[32minfo[39m: ::ffff:127.0.0.1 - - [09/Nov/2026:12:00:00 +0000] "GET /health HTTP/1.1" 200 75 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36" {"service":"zohra-rms-server","timestamp":"2026-11-09T12:00:00.000Z"}
+Login attempt for email: owner@audit.invalid
+Login successful for user: owner@audit.invalid (owner)
+[32minfo[39m: ::ffff:127.0.0.1 - - [09/Nov/2026:12:00:00 +0000] "POST /api/auth/login HTTP/1.1" 200 331 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36" {"service":"zohra-rms-server","timestamp":"2026-11-09T12:00:00.000Z"}
+Login attempt for email: manager@audit.invalid
+Login successful for user: manager@audit.invalid (manager)
+[32minfo[39m: ::ffff:127.0.0.1 - - [09/Nov/2026:12:00:00 +0000] "POST /api/auth/login HTTP/1.1" 200 345 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36" {"service":"zohra-rms-server","timestamp":"2026-11-09T12:00:00.000Z"}
+Login attempt for email: staff@audit.invalid
+Login successful for user: staff@audit.invalid (staff)
+[32minfo[39m: ::ffff:127.0.0.1 - - [09/Nov/2026:12:00:00 +0000] "POST /api/auth/login HTTP/1.1" 200 331 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36" {"service":"zohra-rms-server","timestamp":"2026-11-09T12:00:00.000Z"}
+[32minfo[39m: ::ffff:127.0.0.1 - - [09/Nov/2026:12:00:00 +0000] "GET /api/vendors/payments HTTP/1.1" 403 62 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36" {"service":"zohra-rms-server","timestamp":"2026-11-09T12:00:00.000Z"}
+[32minfo[39m: ::ffff:127.0.0.1 - - [09/Nov/2026:12:00:00 +0000] "GET /api/vendors/1/outstanding HTTP/1.1" 403 62 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36" {"service":"zohra-rms-server","timestamp":"2026-11-09T12:00:00.000Z"}
+[32minfo[39m: ::ffff:127.0.0.1 - - [09/Nov/2026:12:00:00 +0000] "GET /api/vendors/1/ledger HTTP/1.1" 403 62 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36" {"service":"zohra-rms-server","timestamp":"2026-11-09T12:00:00.000Z"}
+[32minfo[39m: ::ffff:127.0.0.1 - - [09/Nov/2026:12:00:00 +0000] "GET /api/vendors/reports/aging HTTP/1.1" 403 62 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36" {"service":"zohra-rms-server","timestamp":"2026-11-09T12:00:00.000Z"}
+[32minfo[39m: ::ffff:127.0.0.1 - - [09/Nov/2026:12:00:00 +0000] "GET /api/vendors/all-suppliers HTTP/1.1" 403 62 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36" {"service":"zohra-rms-server","timestamp":"2026-11-09T12:00:00.000Z"}
+[32minfo[39m: ::ffff:127.0.0.1 - - [09/Nov/2026:12:00:00 +0000] "POST /api/vendors/payments HTTP/1.1" 403 62 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36" {"service":"zohra-rms-server","timestamp":"2026-11-09T12:00:00.000Z"}
+[32minfo[39m: ::ffff:127.0.0.1 - - [09/Nov/2026:12:00:00 +0000] "GET /api/vendors/1/ledger?endDate=2026-11-05 HTTP/1.1" 200 342 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36" {"service":"zohra-rms-server","timestamp":"2026-11-09T12:00:00.000Z"}
+[32minfo[39m: ::ffff:127.0.0.1 - - [09/Nov/2026:12:00:00 +0000] "POST /api/vendors/payments HTTP/1.1" 500 105 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36" {"service":"zohra-rms-server","timestamp":"2026-11-09T12:00:00.000Z"}

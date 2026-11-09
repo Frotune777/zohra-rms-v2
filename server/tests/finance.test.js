@@ -1,3 +1,4 @@
+const {sqlMock}=require('./helpers/sql-mock');
 const {
     getPnL,
     getTransactions,
@@ -31,10 +32,15 @@ const mockJournalEntrySequence = (client) => {
 describe('Finance Module', () => {
     let req, res;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         req = global.testUtils.mockRequest();
         res = global.testUtils.mockResponse();
         jest.clearAllMocks();
+        db.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        if(db.pool) {
+            const isolatedClient=await db.pool.connect();
+            if(isolatedClient.query !== db.query) isolatedClient.query.mockReset().mockResolvedValue(mockQueryResult([]));
+        }
     });
 
     describe('getYearlyPnL', () => {
@@ -161,6 +167,8 @@ describe('Finance Module', () => {
             mockJournalEntrySequence(db._mockClient);
             db._mockClient.query.mockResolvedValueOnce({}); // COMMIT
 
+            sqlMock(db._mockClient.query,()=>undefined);
+
             await addRevenue(req, res);
 
             expect(res.json).toHaveBeenCalledWith(
@@ -216,6 +224,11 @@ describe('Finance Module', () => {
                 .mockResolvedValueOnce(mockQueryResult([])) // INSERT transactions (backward compat)
                 .mockResolvedValueOnce({}); // COMMIT
 
+            sqlMock(db._mockClient.query,(sql)=>{
+                if(sql.includes('FROM transaction_categories'))return mockQueryResult([{account_code:6300,name:'Utilities'}]);
+                if(sql.startsWith('INSERT INTO transactions'))return mockQueryResult([]);
+            });
+
             await addExpense(req, res);
 
             expect(res.json).toHaveBeenCalledWith(
@@ -236,35 +249,11 @@ describe('Finance Module', () => {
     });
 
     describe('deleteTransaction', () => {
-        // deleteTransaction uses FinanceService.deleteTransaction or deleteJournalTransaction.
-        // If it uses transaction (likely), update it.
-        // Wait, checking controller: await FinanceService.deleteJournalTransaction(id);
-        // I assume I implemented deleteJournalTransaction in Service.
-        // But I didn't verify if it uses transaction.
-        // Assuming it does (safest), or just checking previous controller code (it did use transaction usually).
-        // But since I don't recall editing deleteTransaction in Service explicitly in previous turn (I used "Implement other methods" comment),
-        // wait! I might NOT have implemented deleteTransaction in Service!
-        // In step 114, I wrote `async deleteTrackerTransaction` and `async getPnL`, `addRevenue`, `addExpense`, `recordPayment`.
-        // I did NOT implement `deleteJournalTransaction`.
-        // That means `FinanceController.deleteTransaction` calling `FinanceService.deleteJournalTransaction` will FAIL if it's missing!
-        // Ah, I need to check FinanceService content to be sure. 
-        // If it is missing, I need to add it.
-
-        // Let's assume for now I will check logs or file.
-        // But for the test update:
-        it('should delete a transaction', async () => {
-            req.params = { id: '1' };
-
-            // Assuming deleteJournalTransaction uses transaction:
-            db._mockClient.query.mockResolvedValue(mockQueryResult([], 1)); // Just success for all
-
-            await deleteTransaction(req, res);
-
-            // If service method is missing, this will fail with "is not a function".
-            // If logic is there, update expectation.
+        it('rejects generic deletion of a source-linked journal',async()=>{
+            req.params={id:'source'};db.query.mockResolvedValue(mockQueryResult([{id:'source',reference_type:'SalaryPayment'}]));
+            await deleteTransaction(req,res);expect(res.status).toHaveBeenCalledWith(409);
+            expect(db._mockClient.query).not.toHaveBeenCalledWith(expect.stringContaining('DELETE FROM ledger_lines'),expect.anything());
         });
-
-        // I'll skip deleting update for deleteTransaction for a moment and check Service code after this tool call.
     });
 
     // ... getDailySummary (reads via FinancialCalculator, usually db.query) ...
@@ -278,13 +267,13 @@ describe('Finance Module', () => {
                 details: 'Payment for chicken',
             };
 
-            db._mockClient.query
-                .mockResolvedValueOnce({}) // BEGIN
-                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // INSERT vendor_ledger
-                .mockResolvedValueOnce(mockQueryResult([{ id: 1 }])) // INSERT journal entry
-                .mockResolvedValueOnce(mockQueryResult([])) // INSERT ledger line 1
-                .mockResolvedValueOnce(mockQueryResult([])) // INSERT ledger line 2
-                .mockResolvedValueOnce({}); // COMMIT
+            req.user={id:1,full_name:'Owner'};
+            sqlMock(db._mockClient.query,(sql,p)=>{
+                if(sql.includes('FROM suppliers'))return mockQueryResult([{id:1,name:'Supplier',ledger_account_code:2000}]);
+                if(sql.includes('FROM vendor_outstanding'))return mockQueryResult([{outstanding_balance:10000}]);
+                if(sql.startsWith('INSERT INTO vendor_payments'))return mockQueryResult([{id:1,amount:p[1]}]);
+                if(sql.startsWith('INSERT INTO vendor_ledger')||sql.startsWith('UPDATE vendor_payments'))return mockQueryResult([]);
+            });
 
             await recordPayment(req, res);
 
@@ -305,6 +294,13 @@ describe('Finance Module', () => {
                     status: 'Open'
                 }
             ]));
+
+            sqlMock(db.query,(sql)=>{
+                if(sql.startsWith('UPDATE daily_balances'))return mockQueryResult([]);
+                if(sql.includes('SUM(ll.debit)'))return mockQueryResult([{total_debit:1000,total_credit:0}]);
+                if(sql.includes('FROM ledger_lines l JOIN journal_entries j'))return mockQueryResult([{amount:0}]);
+                if(sql.includes('FROM daily_balances'))return mockQueryResult([{id:1,account_code:1000,opening_balance:5000,actual_closing_balance:null,closing_balance:6000,status:'Open'}]);
+            });
 
             await getDailyBalance(req, res);
 
@@ -331,6 +327,14 @@ describe('Finance Module', () => {
                 .mockResolvedValueOnce({}) // Update status
                 .mockResolvedValueOnce({}) // Upsert next day
                 .mockResolvedValueOnce({}); // COMMIT
+
+            sqlMock(db._mockClient.query,(sql)=>{
+                if(sql.includes('account_code = ANY'))return mockQueryResult([]);
+                if(sql.includes('SUM(ll.debit)'))return mockQueryResult([{total_debit:1000,total_credit:0}]);
+                if(sql.includes('FROM ledger_lines l JOIN journal_entries j'))return mockQueryResult([{amount:0}]);
+                if(sql.startsWith('SELECT') && sql.includes('FROM daily_balances'))return mockQueryResult([{id:1,account_code:1000,opening_balance:5000,closing_balance:6000,status:'Open'}]);
+                if(sql.startsWith('UPDATE daily_balances') || sql.startsWith('INSERT INTO daily_balances'))return mockQueryResult([]);
+            });
 
             await closeDailyBalance(req, res);
 

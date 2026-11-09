@@ -12,8 +12,12 @@ class LedgerLine {
             throw new Error('Account code is required for a ledger line');
         }
 
-        const d = parseFloat(debit || 0);
-        const c = parseFloat(credit || 0);
+        if(Number(debit)<0 || Number(credit)<0)throw new Error('Debit and credit values must be non-negative');
+        const d = Math.round((Number(debit)+Number.EPSILON)*100)/100;
+        const c = Math.round((Number(credit)+Number.EPSILON)*100)/100;
+        if (!Number.isFinite(d) || !Number.isFinite(c)) {
+            throw new Error('Debit and credit values must be finite numbers');
+        }
 
         if (d < 0 || c < 0) {
             throw new Error('Debit and credit values must be non-negative');

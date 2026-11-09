@@ -1,7 +1,10 @@
 const db = require('../../config/db');
+const { DomainError, finite, statusFor } = require('../../utils/domain');
 
 exports.getAdvanceRequests = async (req, res) => {
-    const { status, employeeId } = req.query;
+    const { status } = req.query;
+    const employeeId=req.user.role==='staff'?req.user.employee_id:req.query.employeeId;
+    if(req.user.role==='staff'&&!employeeId)return res.status(403).json({error:'Linked employee required'});
     try {
         let query = `
             SELECT ar.*, e.full_name, e.employee_code, e.position,
@@ -32,19 +35,22 @@ exports.getAdvanceRequests = async (req, res) => {
         const result = await db.query(query, params);
         res.json(result.rows);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
 exports.createAdvanceRequest = async (req, res) => {
     const { employee_id, requested_amount, reason, urgency, repayment_months } = req.body;
     const userId = req.user.id;
+    if(req.user.role==='staff'&&Number(employee_id)!==req.user.employee_id)return res.status(403).json({error:'Employee access denied'});
 
     if (!employee_id || !requested_amount || !reason) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
 
     try {
+        finite(requested_amount,'Requested amount',{positive:true});
+        if(!Number.isInteger(finite(repayment_months ?? 3,'Repayment months',{positive:true}))) throw new DomainError('Repayment months must be a positive integer');
         const monthly_deduction = (requested_amount / (repayment_months || 3)).toFixed(2);
 
         const result = await db.query(`
@@ -56,7 +62,7 @@ exports.createAdvanceRequest = async (req, res) => {
 
         res.json(result.rows[0]);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -68,36 +74,12 @@ exports.approveAdvanceRequest = async (req, res) => {
     const client = await db.pool.connect();
     try {
         await client.query('BEGIN');
+        finite(approved_amount,'Approved amount',{positive:true});
+        if(!Number.isInteger(finite(repayment_months,'Repayment months',{positive:true}))) throw new DomainError('Repayment months must be a positive integer');
 
-        const result = await client.query(`
-            UPDATE advance_requests
-            SET status = 'Approved',
-                approved_amount = $1,
-                repayment_months = $2,
-                monthly_deduction = $3,
-                approved_by = $4,
-                approved_at = CURRENT_TIMESTAMP
-            WHERE id = $5 AND status = 'Pending'
-            RETURNING *
-        `, [approved_amount, repayment_months, (approved_amount / repayment_months).toFixed(2), userId, id]);
-
-        if (result.rows.length === 0) {
-            throw new Error('Request not found or already processed');
-        }
-
-        const request = result.rows[0];
-
-        // Generate repayment schedule
-        for (let i = 1; i <= repayment_months; i++) {
-            const dueDate = new Date();
-            dueDate.setMonth(dueDate.getMonth() + i);
-
-            await client.query(`
-                INSERT INTO advance_repayment_schedule
-                (advance_request_id, employee_id, month_number, due_date, scheduled_amount)
-                VALUES ($1, $2, $3, $4, $5)
-            `, [id, request.employee_id, i, dueDate.toISOString().split('T')[0], request.monthly_deduction]);
-        }
+        const paid=await require('../employees/AdvanceService').approveRequest(id,userId,client,{approved_amount,repayment_months,payment_mode:req.body.payment_mode || 'Cash',schedule:true});
+        const result=await client.query('UPDATE advance_requests SET repayment_months=$2,monthly_deduction=$3 WHERE id=$1 RETURNING *',[id,repayment_months,(approved_amount/repayment_months).toFixed(2)]);
+        const request=result.rows[0];
 
         // Audit log
         await client.query(`
@@ -110,7 +92,7 @@ exports.approveAdvanceRequest = async (req, res) => {
         res.json(result.rows[0]);
     } catch (err) {
         await client.query('ROLLBACK');
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     } finally {
         client.release();
     }
@@ -138,13 +120,14 @@ exports.rejectAdvanceRequest = async (req, res) => {
 
         res.json(result.rows[0]);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
 exports.getRepaymentSchedule = async (req, res) => {
     const { id } = req.params;
     try {
+        if(req.user.role==='staff'){const request=(await db.query('SELECT employee_id FROM advance_requests WHERE id=$1',[id])).rows[0];if(!request||request.employee_id!==req.user.employee_id)return res.status(403).json({error:'Employee access denied'});}
         const result = await db.query(`
             SELECT * FROM advance_repayment_schedule
             WHERE advance_request_id = $1
@@ -152,6 +135,6 @@ exports.getRepaymentSchedule = async (req, res) => {
         `, [id]);
         res.json(result.rows);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };

@@ -1,0 +1,212 @@
+
+> test:audit
+> playwright test --config=playwright.audit.config.cjs tests/audit/pos-tables.spec.cjs tests/audit/pos-inventory.spec.cjs tests/audit/completion.spec.cjs --grep POS-
+
+[WebServer] (node:74699) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 55 tests using 1 worker
+
+(node:74707) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/audit/completion.spec.cjs:56:1 › PAY-004 POS-004 final cent payments reconcile order receivables and payroll shortfalls (1.2s)
+  ✓   2 tests/audit/completion.spec.cjs:428:1 › POS-003 POS-004 POS-006 discounts, tax, customer, table, notes and partial settlement persist through browser flow (2.2s)
+  ✓   3 tests/audit/completion.spec.cjs:493:1 › POS-004 POS-005 due checkout and competing settlements reconcile debt without double collection (977ms)
+  ✓   4 tests/audit/completion.spec.cjs:544:1 › POS-005 invalid discounts, malformed customer data and oversized partial payments roll back (990ms)
+  ✓   5 tests/audit/completion.spec.cjs:558:1 › POS-009 browser retry after a lost response creates one order and one ticket (2.1s)
+  ✓   6 tests/audit/completion.spec.cjs:585:1 › POS-007 KDS-001 KDS-002 recipe editor drives stock costing and kitchen transitions (1.9s)
+  ✓   7 tests/audit/pos-inventory.spec.cjs:3:1 › POS-001 search and category filters show exact menu matches and empty results (1.6s)
+  ✓   8 tests/audit/pos-inventory.spec.cjs:14:1 › POS-002 cart merges items, calculates exact totals and prevents empty checkout (1.6s)
+  ✓   9 tests/audit/pos-inventory.spec.cjs:25:1 › POS-003 the server uses stored prices and rejects unknown menu IDs atomically (1.1s)
+  ✓  10 tests/audit/pos-inventory.spec.cjs:33:3 › POS-004 Cash UI checkout persists its payment mode and matching journal (2.6s)
+  ✓  11 tests/audit/pos-inventory.spec.cjs:33:3 › POS-004 Card UI checkout persists its payment mode and matching journal (2.9s)
+  ✓  12 tests/audit/pos-inventory.spec.cjs:46:3 › POS-005 invalid quantity 0 is rejected without stock, payment or journal writes (2.0s)
+  ✓  13 tests/audit/pos-inventory.spec.cjs:46:3 › POS-005 invalid quantity -1 is rejected without stock, payment or journal writes (1.3s)
+  ✓  14 tests/audit/pos-inventory.spec.cjs:46:3 › POS-005 invalid quantity 0.5 is rejected without stock, payment or journal writes (1.5s)
+  ✓  15 tests/audit/pos-inventory.spec.cjs:46:3 › POS-005 invalid quantity NaN is rejected without stock, payment or journal writes (1.8s)
+  ✓  16 tests/audit/pos-inventory.spec.cjs:46:3 › POS-005 invalid quantity Infinity is rejected without stock, payment or journal writes (1.8s)
+  ✓  17 tests/audit/pos-inventory.spec.cjs:50:1 › POS-006 explicit tax reconciles order, payment and journal cents (1.8s)
+  ✓  18 tests/audit/pos-inventory.spec.cjs:59:1 › POS-007 shared recipe ingredients produce exact stock deductions and separate revenue/COGS journals (2.2s)
+  ✓  19 tests/audit/pos-inventory.spec.cjs:68:1 › POS-008 simultaneous last-stock orders cannot overdraw ingredients (1.9s)
+  ✓  20 tests/audit/pos-inventory.spec.cjs:74:1 › POS-009 retrying one idempotency key creates one durable order/payment/source journal (2.0s)
+  ✓  21 tests/audit/pos-inventory.spec.cjs:81:1 › POS-010 advertised SAVE & PRINT actually invokes printing after a committed sale (2.3s)
+  ✓  22 tests/audit/pos-inventory.spec.cjs:89:1 › MENU-001 supported menu creation/deletion persists and edit availability is explicit (2.5s)
+  ✓  23 tests/audit/pos-inventory.spec.cjs:97:1 › MENU-002 deleting a sold menu item preserves historical order details and recipes (4.8s)
+  ✓  24 tests/audit/pos-inventory.spec.cjs:103:1 › INV-001 zero and fractional initial stock preserve exact quantities, cost and initial movements (2.0s)
+  ✓  25 tests/audit/pos-inventory.spec.cjs:112:1 › INV-002 quantity edits record direction, exact delta and actor attribution (1.9s)
+  ✓  26 tests/audit/pos-inventory.spec.cjs:120:3 › INV-003 invalid inventory values {"stock_qty":-1,"unit_cost":150} leave no partial changes (1.9s)
+  ✓  27 tests/audit/pos-inventory.spec.cjs:120:3 › INV-003 invalid inventory values {"stock_qty":20,"unit_cost":-1} leave no partial changes (1.9s)
+  ✓  28 tests/audit/pos-inventory.spec.cjs:120:3 › INV-003 invalid inventory values {"stock_qty":"NaN","unit_cost":150} leave no partial changes (1.2s)
+  ✓  29 tests/audit/pos-inventory.spec.cjs:124:1 › INV-004 deleting inventory with historical wastage preserves dependencies (1.5s)
+  ✓  30 tests/audit/pos-inventory.spec.cjs:130:1 › INV-005 fractional wastage links the log, stock deduction and journal (1.9s)
+  ✓  31 tests/audit/pos-inventory.spec.cjs:138:1 › INV-006 excessive wastage is rejected and preserves inventory and accounting (2.2s)
+  ✓  32 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 1 opens its cart and automatically persists the table at checkout (2.7s)
+  ✓  33 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 2 opens its cart and automatically persists the table at checkout (2.8s)
+  ✓  34 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 3 opens its cart and automatically persists the table at checkout (2.4s)
+  ✓  35 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 4 opens its cart and automatically persists the table at checkout (3.5s)
+  ✓  36 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 5 opens its cart and automatically persists the table at checkout (3.6s)
+  ✓  37 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 6 opens its cart and automatically persists the table at checkout (3.0s)
+  ✓  38 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 7 opens its cart and automatically persists the table at checkout (3.6s)
+  ✓  39 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 8 opens its cart and automatically persists the table at checkout (3.9s)
+  ✓  40 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 9 opens its cart and automatically persists the table at checkout (2.7s)
+  ✓  41 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 10 opens its cart and automatically persists the table at checkout (2.6s)
+  ✓  42 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 11 opens its cart and automatically persists the table at checkout (3.2s)
+  ✓  43 tests/audit/pos-tables.spec.cjs:5:3 › POS-002 table 12 opens its cart and automatically persists the table at checkout (3.3s)
+  ✘  44 tests/audit/pos-tables.spec.cjs:22:3 › POS-004 owner Due checkout without a phone records debt and can collect payment later (35.2s)
+(node:75654) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  45 tests/audit/pos-tables.spec.cjs:22:3 › POS-004 manager Part checkout without a phone records debt and can collect payment later (35.3s)
+(node:75798) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  46 tests/audit/pos-tables.spec.cjs:22:3 › POS-004 staff Due checkout without a phone records debt and can collect payment later (51.5s)
+
+
+  1) tests/audit/pos-tables.spec.cjs:22:3 › POS-004 owner Due checkout without a phone records debt and can collect payment later 
+
+    Test timeout of 35000ms exceeded.
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/audit/pos-tables-POS-004-owner-D-db20d-d-can-collect-payment-later/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: audit-evidence (application/json) ───────────────────────────────────────────────
+    test-results/audit/pos-tables-POS-004-owner-D-db20d-d-can-collect-payment-later/attachments/audit-evidence-80f228f876146d6f87999cfca02738a43e245ba6.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/audit/pos-tables-POS-004-owner-D-db20d-d-can-collect-payment-later/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/audit/pos-tables-POS-004-owner-D-db20d-d-can-collect-payment-later/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/audit/pos-tables-POS-004-owner-D-db20d-d-can-collect-payment-later/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/audit/pos-tables.spec.cjs:22:3 › POS-004 manager Part checkout without a phone records debt and can collect payment later 
+
+    Test timeout of 35000ms exceeded.
+
+    Error: locator.check: Test timeout of 35000ms exceeded.
+    Call log:
+      - waiting for getByRole('radio', { name: 'Part', exact: true })
+        - locator resolved to <input type="radio" name="paymentMode" class="peer sr-only"/>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <label class="flex-1 cursor-pointer">…</label> intercepts pointer events
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <label class="flex-1 cursor-pointer">…</label> intercepts pointer events
+        - retrying click action
+          - waiting 100ms
+        65 × waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <label class="flex-1 cursor-pointer">…</label> intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+        - waiting for element to be visible, enabled and stable
+
+
+      23 |     await audit.login(page,role);await audit.openTable(page,'12');
+      24 |     await page.getByRole('button',{name:'Audit Rice Bowl ₹100.00'}).click();
+    > 25 |     await page.getByRole('radio',{name:mode,exact:true}).check();
+         |                                                          ^
+      26 |     if(mode==='Part') await page.getByLabel('Amount paid now').fill(String(paid));
+      27 |     await expect(page.getByLabel('Customer phone')).not.toHaveAttribute('required');
+      28 |     await page.getByRole('button',{name:'SAVE',exact:true}).click();
+        at /Users/I557587/Personal/zohra-rms-v2/tests/audit/pos-tables.spec.cjs:25:58
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/audit/pos-tables-POS-004-manager-51b43-d-can-collect-payment-later/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: audit-evidence (application/json) ───────────────────────────────────────────────
+    test-results/audit/pos-tables-POS-004-manager-51b43-d-can-collect-payment-later/attachments/audit-evidence-6a8e5b4b3885cb500bcb8788f0cf49d6b4d50052.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/audit/pos-tables-POS-004-manager-51b43-d-can-collect-payment-later/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/audit/pos-tables-POS-004-manager-51b43-d-can-collect-payment-later/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/audit/pos-tables-POS-004-manager-51b43-d-can-collect-payment-later/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests/audit/pos-tables.spec.cjs:22:3 › POS-004 staff Due checkout without a phone records debt and can collect payment later 
+
+    Test was interrupted.
+
+    Error: locator.check: Test ended.
+    Call log:
+      - waiting for getByRole('radio', { name: 'Due', exact: true })
+        - locator resolved to <input type="radio" name="paymentMode" class="peer sr-only"/>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <label class="flex-1 cursor-pointer">…</label> intercepts pointer events
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <label class="flex-1 cursor-pointer">…</label> intercepts pointer events
+        - retrying click action
+          - waiting 100ms
+        29 × waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <label class="flex-1 cursor-pointer">…</label> intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+        - waiting for element to be visible, enabled and stable
+
+
+      23 |     await audit.login(page,role);await audit.openTable(page,'12');
+      24 |     await page.getByRole('button',{name:'Audit Rice Bowl ₹100.00'}).click();
+    > 25 |     await page.getByRole('radio',{name:mode,exact:true}).check();
+         |                                                          ^
+      26 |     if(mode==='Part') await page.getByLabel('Amount paid now').fill(String(paid));
+      27 |     await expect(page.getByLabel('Customer phone')).not.toHaveAttribute('required');
+      28 |     await page.getByRole('button',{name:'SAVE',exact:true}).click();
+        at /Users/I557587/Personal/zohra-rms-v2/tests/audit/pos-tables.spec.cjs:25:58
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/audit/pos-tables-POS-004-staff-D-d84bb-d-can-collect-payment-later/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: audit-evidence (application/json) ───────────────────────────────────────────────
+    test-results/audit/pos-tables-POS-004-staff-D-d84bb-d-can-collect-payment-later/attachments/audit-evidence-692bf8f30c49f5158a785a15d0f356f499933e9e.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/audit/pos-tables-POS-004-staff-D-d84bb-d-can-collect-payment-later/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/audit/pos-tables-POS-004-staff-D-d84bb-d-can-collect-payment-later/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/audit/pos-tables-POS-004-staff-D-d84bb-d-can-collect-payment-later/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests/audit/pos-tables.spec.cjs:22:3 › POS-004 owner Due checkout without a phone records debt and can collect payment later 
+    tests/audit/pos-tables.spec.cjs:22:3 › POS-004 manager Part checkout without a phone records debt and can collect payment later 
+  1 interrupted
+    tests/audit/pos-tables.spec.cjs:22:3 › POS-004 staff Due checkout without a phone records debt and can collect payment later 
+  9 did not run
+  43 passed (3.7m)

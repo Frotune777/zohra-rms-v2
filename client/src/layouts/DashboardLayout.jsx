@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
-  FiCoffee, FiDollarSign, FiUsers, FiLogOut, FiUser, FiGift, FiMenu,
+  FiList, FiCoffee, FiDollarSign, FiUsers, FiLogOut, FiUser, FiGift, FiMenu,
   FiTrendingUp, FiHome, FiBarChart2, FiActivity, FiGrid, FiX,
   FiChevronDown, FiChevronRight, FiPackage, FiCalendar, FiCreditCard, FiCheckSquare
 } from 'react-icons/fi';
@@ -102,6 +102,7 @@ export default ({ children }) => {
             <h1 className="text-xl font-bold text-zohra-blue">Al Zohra</h1>
             <button
               onClick={closeMobileMenu}
+              aria-label="Close menu"
               className="p-1 hover:bg-white/10 rounded transition"
             >
               <FiX className="text-xl text-gray-400" />
@@ -121,6 +122,20 @@ export default ({ children }) => {
           {/* <SidebarItem to="/menu" icon={FiMenu} label="Menu" active={loc.pathname === '/menu'} onClick={closeMobileMenu} /> */}
 
           <div className="my-2 border-t border-white/10 pt-2" />
+
+          <CollapsibleMenuGroup icon={FiCoffee} label="Restaurant Operations">
+            <SidebarItem to="/" icon={FiCoffee} label="POS" active={loc.pathname==='/'} onClick={closeMobileMenu}/>
+            <SidebarItem to="/orders" icon={FiCreditCard} label="Orders & Payments" active={loc.pathname==='/orders'} onClick={closeMobileMenu}/>
+            <SidebarItem to="/kitchen" icon={FiCoffee} label="Kitchen Display" active={loc.pathname==='/kitchen'} onClick={closeMobileMenu}/>
+            {canAccessPayroll&&<>
+            <SidebarItem to="/menu" icon={FiMenu} label="Menu" active={loc.pathname==='/menu'} onClick={closeMobileMenu}/>
+            <SidebarItem to="/recipes" icon={FiList} label="Recipes" active={loc.pathname==='/recipes'} onClick={closeMobileMenu}/>
+            <SidebarItem to="/purchase-orders" icon={FiPackage} label="Purchase Orders" active={loc.pathname==='/purchase-orders'} onClick={closeMobileMenu}/>
+            <SidebarItem to="/wastage" icon={FiPackage} label="Wastage" active={loc.pathname==='/wastage'} onClick={closeMobileMenu}/>
+            <SidebarItem to="/stock-adjustments" icon={FiPackage} label="Stock Adjustments" active={loc.pathname==='/stock-adjustments'} onClick={closeMobileMenu}/>
+            <SidebarItem to="/employee-balances" icon={FiDollarSign} label="Employee Balances" active={loc.pathname==='/employee-balances'} onClick={closeMobileMenu}/>
+            </>}
+          </CollapsibleMenuGroup>
 
           {/* HR & Payroll Group */}
           <CollapsibleMenuGroup icon={FiUsers} label="HR & Payroll" defaultOpen={true}>

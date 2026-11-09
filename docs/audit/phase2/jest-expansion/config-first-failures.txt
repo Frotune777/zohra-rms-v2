@@ -1,0 +1,18 @@
+  ● Configuration CRUD, scoped identity and atomic multi-row writes › a malformed later import row rolls back earlier inserted rows
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 400
+    Received: 500
+
+      81 |   });
+      82 |   test('a malformed later import row rolls back earlier inserted rows',async()=>{
+    > 83 |     const before=await ctx.snapshot();const result=await ctx.api('POST','config/jest/bulk-import',{options:[{value:'valid',label:'Valid'},{value:'missing-label'}]});expect(result.status).toBe(400);expect(await ctx.snapshot()).toEqual(before);
+         |                                                                                                                                                                                            ^
+      84 |   });
+      85 |   test('a later reorder failure rolls back the first updated position',async()=>{
+      86 |     const one=await add();const two=await add({value:'two',label:'Two'});await ctx.failOn('config_options','UPDATE','NEW.id='+two.body.id);const before=await ctx.snapshot();
+
+      at Object.toBe (tests/procurement-config.integration.test.js:83:188)
+
+

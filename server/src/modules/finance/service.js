@@ -207,24 +207,12 @@ class FinanceService {
     }
 
     async deleteJournalTransaction(id) {
-        // Use transaction to delete ledger lines and journal entry
-        const client = await db.pool.connect();
-        try {
-            await client.query('BEGIN');
-            await client.query('DELETE FROM ledger_lines WHERE journal_entry_id = $1', [id]);
-            const result = await client.query('DELETE FROM journal_entries WHERE id = $1 RETURNING id', [id]);
-            if (result.rowCount === 0) {
-                await client.query('ROLLBACK');
-                return false; // Not found
-            }
-            await client.query('COMMIT');
-            return true;
-        } catch (e) {
-            await client.query('ROLLBACK');
-            throw e;
-        } finally {
-            client.release();
-        }
+        const {DomainError}=require('../../utils/domain');
+        const source=(await db.query('SELECT * FROM journal_entries WHERE id=$1',[id])).rows[0];
+        if(!source)return false;
+        if(source.reference_type)throw new DomainError('Correct this transaction through its source workflow',409);
+        await JournalService.reverseJournalEntry(id,'Manual journal correction',source.transaction_date);
+        return true;
     }
 
     /**
@@ -414,28 +402,10 @@ class FinanceService {
     }
 
 
-    async recordPayment(data) {
-        const { supplierId, amount, paymentMode, details } = data;
-        const client = await db.pool.connect();
-        try {
-            await client.query('BEGIN');
-            await client.query(
-                `INSERT INTO vendor_ledger (date, supplier_id, transaction_type, amount, details)
-                 VALUES (CURRENT_DATE, $1, 'Payment', $2, $3)`,
-                [supplierId, -parseFloat(amount), `Payment via ${paymentMode}: ${details}`]
-            );
-            const jeRes = await client.query("INSERT INTO journal_entries (description) VALUES ($1) RETURNING id", [`Vendor Payment: ${details}`]);
-            const jeId = jeRes.rows[0].id;
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 5000, $2)", [jeId, parseFloat(amount)]);
-            await client.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 1000, $2)", [jeId, parseFloat(amount)]);
-            await client.query('COMMIT');
-            return { success: true };
-        } catch (e) {
-            await client.query('ROLLBACK');
-            throw e;
-        } finally {
-            client.release();
-        }
+    async recordPayment(data,actor) {
+        const client=await db.pool.connect();
+        try{await client.query('BEGIN');const result=await require('../vendors/VendorPaymentService').processPayment({vendorId:data.supplierId,amount:data.amount,paymentMode:data.paymentMode || 'Cash',notes:data.details,reference:data.reference,paidBy:actor?.full_name,userId:actor?.id},client);await client.query('COMMIT');return {success:true,...result};}
+        catch(e){await client.query('ROLLBACK');throw e;}finally{client.release();}
     }
     // --- Expense Mappings ---
 
@@ -477,24 +447,13 @@ class FinanceService {
     }
 
     async applyMappingToHistory(mappingId) {
-        // 1. Get the mapping rule
-        const mapRes = await db.query('SELECT * FROM expense_mappings WHERE id = $1', [mappingId]);
-        if (mapRes.rows.length === 0) throw new Error('Mapping not found');
-        const { item_keyword, category_id } = mapRes.rows[0];
-
-        // 2. Find matching transactions requiring update
-        // Case insensitive match, update category_id where it is null or different? 
-        // Usually user wants to fix UNCATEGORIZED or WRONG categories.
-        // Let's safe update: Update where description contains keyword (case-insensitive)
-
-        const updateRes = await db.query(`
-            UPDATE transactions
-            SET category_id = $1
-            WHERE description ILIKE $2
-            RETURNING id
-        `, [category_id, `%${item_keyword}%`]);
-
-        return { updatedCount: updateRes.rowCount };
+        return TransactionService.atomic(async client => {
+            const mapping=(await client.query('SELECT * FROM expense_mappings WHERE id=$1',[mappingId])).rows[0];
+            if(!mapping) throw new Error('Mapping not found');
+            const matches=await client.query("SELECT id FROM transactions WHERE type='Expense' AND description ILIKE $1 AND category_id IS DISTINCT FROM $2",['%'+mapping.item_keyword+'%',mapping.category_id]);
+            for(const t of matches.rows) await TransactionService.updateTransaction(t.id,{category_id:mapping.category_id},client);
+            return {updatedCount:matches.rowCount};
+        });
     }
     async getSpendingByPerson(startDate, endDate) {
         // Aggregate 'Payment' or 'Expense' transactions by 'paid_by'

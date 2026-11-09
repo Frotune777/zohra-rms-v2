@@ -155,7 +155,7 @@ const MoneyTransfer = () => {
                             </label>
                             <div className="relative">
                                 <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                                <select
+                                <select aria-label="Target id"
                                     value={targetId}
                                     onChange={(e) => setTargetId(e.target.value)}
                                     className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white outline-none focus:border-zohra-blue appearance-none cursor-pointer"
@@ -196,7 +196,7 @@ const MoneyTransfer = () => {
                                 <label className="block text-sm font-medium text-gray-300 mb-2">Amount (₹)</label>
                                 <div className="relative">
                                     <FiDollarSign className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                                    <input
+                                    <input aria-label="Amount"
                                         type="number"
                                         min="1"
                                         step="0.01"
@@ -212,7 +212,7 @@ const MoneyTransfer = () => {
 
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-2">Description / Reason</label>
-                            <textarea
+                            <textarea aria-label="Description"
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white outline-none focus:border-zohra-blue"

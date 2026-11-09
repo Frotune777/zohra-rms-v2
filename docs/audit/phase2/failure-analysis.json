@@ -1,0 +1,11 @@
+{
+  "analysed_at": "2026-11-09T10:23:23.103294+00:00",
+  "run_finished_at": "2026-11-09T10:21:08.405Z",
+  "results_sha256": "0c29d8b43646602daea6012e094072617198e19049a64976c159427f953c5980",
+  "failed_tests": 0,
+  "recorded_error_objects": 0,
+  "by_file": {},
+  "by_primary_kind": {},
+  "scope": "Current completed-run failures. The historical 194-failure diagnosis is preserved under baseline-before-fixes. Paid leave, uncapped recovery and signed-payout tracking assertions now reflect the confirmed user rules. Passing subcases do not certify complete features.",
+  "tests": []
+}

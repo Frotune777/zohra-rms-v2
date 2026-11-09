@@ -9,6 +9,7 @@
 
 const db = require('../../config/db');
 const JournalEntry = require('./entities/JournalEntry');
+const { assertWritable } = require('./writeGuard');
 
 class JournalService {
     /**
@@ -31,6 +32,7 @@ class JournalService {
             if (shouldManageTransaction) {
                 await dbClient.query('BEGIN');
             }
+            await assertWritable(dbClient, entry.date, entryData.allowClosed ? [] : entry.lines.map(line => line.account_code));
 
             // 1. Validate all account codes exist (Database level validation)
             for (const line of entry.lines) {
@@ -100,13 +102,13 @@ class JournalService {
     async getAccountBalance(accountCode, asOfDate = null) {
         const query = `
             SELECT 
-                COALESCE(SUM(ll.debit), 0) - COALESCE(SUM(ll.credit), 0) as balance,
+                COALESCE(SUM(CASE WHEN je.id IS NOT NULL THEN ll.debit - ll.credit ELSE 0 END), 0) as balance,
                 ca.type as account_type
             FROM chart_of_accounts ca
             LEFT JOIN ledger_lines ll ON ca.code = ll.account_code
             LEFT JOIN journal_entries je ON ll.journal_entry_id = je.id
+            ${asOfDate ? "AND je.transaction_date < $2::date + INTERVAL '1 day'" : ''}
             WHERE ca.code = $1
-            ${asOfDate ? 'AND je.transaction_date <= $2' : ''}
             GROUP BY ca.code, ca.type
         `;
 
@@ -123,7 +125,7 @@ class JournalService {
         // Return signed balance based on account type
         // Assets & Expenses: Debit positive
         // Liabilities & Revenue: Credit positive (so negate)
-        if (accountType === 'Liability' || accountType === 'Revenue') {
+        if (['Liability', 'Revenue', 'Equity'].includes(accountType)) {
             return -balance;
         }
 
@@ -136,8 +138,8 @@ class JournalService {
      * @param {String|Number} jeId - Journal entry ID
      * @returns {Promise<Object>} Journal entry with lines
      */
-    async getJournalEntry(jeId) {
-        const entryRes = await db.query(`
+    async getJournalEntry(jeId, client = db) {
+        const entryRes = await client.query(`
             SELECT * FROM journal_entries WHERE id = $1
         `, [jeId]);
 
@@ -147,7 +149,7 @@ class JournalService {
 
         const entry = entryRes.rows[0];
 
-        const linesRes = await db.query(`
+        const linesRes = await client.query(`
             SELECT ll.*, ca.name as account_name, ca.type as account_type
             FROM ledger_lines ll
             JOIN chart_of_accounts ca ON ll.account_code = ca.code
@@ -169,8 +171,20 @@ class JournalService {
      * @param {Date} reversalDate - Date for reversal entry
      * @returns {Promise<Object>} New reversing journal entry
      */
-    async reverseJournalEntry(jeId, reason, reversalDate = new Date()) {
-        const originalEntry = await this.getJournalEntry(jeId);
+    async reverseJournalEntry(jeId, reason, reversalDate = new Date(), client = null, allowClosed = false) {
+        const ownsTransaction = !client;
+        const connection = client || await db.pool.connect();
+        try {
+        if (ownsTransaction) await connection.query('BEGIN');
+        await assertWritable(connection, reversalDate);
+        await connection.query('SELECT id FROM journal_entries WHERE id = $1 FOR UPDATE', [jeId]);
+        const originalEntry = await this.getJournalEntry(jeId, connection);
+        if (!allowClosed) await assertWritable(connection, reversalDate, originalEntry.lines.map(line => line.account_code));
+        const previous = await connection.query("SELECT id FROM journal_entries WHERE reference_type = 'Reversal' AND reference_id = $1", [String(jeId)]);
+        if (previous.rowCount) {
+            if (ownsTransaction) await connection.query('COMMIT');
+            return previous.rows[0];
+        }
 
         // Create reversed lines (swap debit/credit)
         const reversedLines = originalEntry.lines.map(line => ({
@@ -184,10 +198,19 @@ class JournalService {
             description: `REVERSAL: ${originalEntry.description} | Reason: ${reason}`,
             reference_id: originalEntry.id,
             reference_type: 'Reversal',
+            allowClosed,
             lines: reversedLines
         };
 
-        return await this.createJournalEntry(reversalEntry);
+        const reversed = await this.createJournalEntry(reversalEntry, connection);
+        if (ownsTransaction) await connection.query('COMMIT');
+        return reversed;
+        } catch (err) {
+            if (ownsTransaction) await connection.query('ROLLBACK');
+            throw err;
+        } finally {
+            if (ownsTransaction) connection.release();
+        }
     }
 }
 

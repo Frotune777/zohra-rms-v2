@@ -47,7 +47,7 @@ const corsOptions = {
             callback(null, true);
         } else {
             console.log('CORS Blocked Origin:', origin);
-            callback(null, true); // Temporarily allow all for debugging
+            callback(null, false);
             // callback(new Error('Not allowed by CORS'));
         }
     },

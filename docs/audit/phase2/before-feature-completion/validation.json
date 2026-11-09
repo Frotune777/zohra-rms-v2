@@ -1,0 +1,43 @@
+{
+  "verified_at": "2026-11-09T05:02:11.001573+00:00",
+  "playwright": {
+    "counts": {
+      "passed": 359,
+      "failed": 3
+    },
+    "total": 362,
+    "finished_at": "2026-11-09T05:00:09.145Z",
+    "skipped": 0,
+    "timed_out": 0
+  },
+  "server_unit": {
+    "passed": 185,
+    "failed": 0,
+    "total": 185,
+    "suite_count": 15
+  },
+  "client_unit": {
+    "passed": 50,
+    "failed": 0,
+    "total": 50,
+    "suite_count": 22,
+    "file_count": 6
+  },
+  "server_coverage": {
+    "threshold_percent": 70,
+    "actual_percent": {
+      "statements": 55.37,
+      "branches": 39.02,
+      "lines": 57.33,
+      "functions": 48.45
+    },
+    "status": "failed",
+    "note": "All assertions pass; Jest exits nonzero because the unchanged global coverage threshold is not met."
+  },
+  "production_build": {
+    "status": "passed",
+    "warning": "One minified JS chunk exceeds 500kB; no build errors.",
+    "log": "build-verification.txt"
+  },
+  "scope": "Guarded PostgreSQL 14.20/Chromium/Node 26.13.0. All 166 checklist IDs remain partial; no live business-data migration or Docker/PostgreSQL 15 certification."
+}

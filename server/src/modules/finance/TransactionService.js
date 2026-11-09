@@ -1,167 +1,79 @@
-const pool = require('../../config/db');
-
-class TransactionService {
-    /**
-     * Create a new transaction
-     * @param {Object} data - Transaction data
-     */
-    async createTransaction(data) {
-        const {
-            date,
-            type,
-            amount,
-            payment_method,
-            status,
-            description,
-            category_id,
-            metadata,
-            paid_by,
-            paid_date,
-            vendor_id,
-            mode // New field: Cash, Bank, Bank_Cash
-        } = data;
-
-        const query = `
-      INSERT INTO transactions 
-      (date, type, amount, payment_method, status, description, category_id, metadata, paid_by, paid_date, vendor_id, mode)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-      RETURNING *
-    `;
-
-        const values = [
-            date,
-            type,
-            amount,
-            payment_method,
-            status || 'Pending',
-            description,
-            category_id,
-            metadata || {},
-            paid_by,
-            paid_date,
-            vendor_id,
-            mode
-        ];
-
-        const result = await pool.query(query, values);
-        const transaction = result.rows[0];
-
-        // ---------------------------------------------------------
-        // P&L Synchronization (Create Journal Entry)
-        // ---------------------------------------------------------
-        // We only create JEs for actual P&L events (Income/Expense).
-        // Bank_Cash Transfers are internal movements, handled separately or ignored by P&L.
-        // If mode == 'Bank_Cash' AND type == 'Income', it's a transfer (Cash -> Float), not Revenue.
-
-        const isTransfer = mode === 'Bank_Cash' && type === 'Sales'; // "Income" in UI for transfer
-        const isFloatExpense = mode === 'Bank_Cash' && type === 'Expense'; // Manager spending float
-
-        // P&L Logic:
-        // 1. Sales (Income) -> Credit 4000 (Revenue), Debit 1100 (Cash/Bank)
-        // 2. Expense -> Debit 6000 (Expense), Credit 1100 (Cash/Bank) or 2000 (Payable)
-
-        if (!isTransfer) { // Normal P&L event OR Float Expense (which Is an expense)
-            try {
-                const jeDesc = `Tracker: ${description} (${type})`;
-                const jeRes = await pool.query(
-                    "INSERT INTO journal_entries (transaction_date, description) VALUES ($1, $2) RETURNING id",
-                    [date, jeDesc]
-                );
-                const jeId = jeRes.rows[0].id; // FIXED from jeDesc.rows needed jeRes.rows
-
-                if (type === 'Sales') {
-                    // Credit Revenue (4000)
-                    await pool.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 4000, $2)", [jeId, amount]);
-                    // Debit Asset (1100) - Assuming Cash/Bank for now. Ideally split by mode.
-                    await pool.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 1100, $2)", [jeId, amount]);
-                } else if (type === 'Expense') {
-                    // Debit Expense (6000)
-                    await pool.query("INSERT INTO ledger_lines (journal_entry_id, account_code, debit) VALUES ($1, 6000, $2)", [jeId, amount]);
-
-                    if (status === 'Pending' && vendor_id) {
-                        // Credit Payable (2000 - or 5000 Vendor)
-                        await pool.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 5000, $2)", [jeId, amount]);
-                    } else {
-                        // Credit Asset (1100) - Paid immediately
-                        await pool.query("INSERT INTO ledger_lines (journal_entry_id, account_code, credit) VALUES ($1, 1100, $2)", [jeId, amount]);
-                    }
-                }
-            } catch (err) {
-                console.error("Failed to sync to P&L Ledger:", err);
-                // Don't fail the transaction, just log. 
-                // In production, we should probably use a transaction block for atomicity.
-            }
-        }
-
-        // ---------------------------------------------------------
-        // Vendor Ledger Integration
-        // ---------------------------------------------------------
-        if (type === 'Expense' && vendor_id) {
-
-            // 1. Always record the "Bill" (Liability)
-            // This increases the outstanding balance
-            await pool.query(`
-                INSERT INTO vendor_ledger 
-                (supplier_id, date, transaction_type, amount, details, payment_mode, reference_number, created_at)
-                VALUES ($1, $2, 'Bill', $3, $4, $5, $6, NOW())
-            `, [
-                vendor_id,
-                date,
-                amount,
-                description || 'Daily Tracker Expense',
-                'Credit', // Bills are usually Credit purchases initially
-                `TRX-${transaction.id}`
-            ]);
-
-            // 2. If Status is "Paid", immediately record the "Payment"
-            // This decreases the outstanding balance back down
-            if (status === 'Paid') {
-                // Ensure payment details are captured
-                const payMode = payment_method || 'Cash';
-                const payDetails = paid_by ? `Paid by ${paid_by}` : 'Paid via Daily Tracker';
-
-                // Insert into vendor_payments (Official Payment Record)
-                const paymentRes = await pool.query(`
-                    INSERT INTO vendor_payments 
-                    (vendor_id, amount, payment_mode, reference_number, notes, paid_by, payment_date, created_at)
-                    VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())
-                    RETURNING id
-                `, [
-                    vendor_id,
-                    amount,
-                    payMode,
-                    `TRX-${transaction.id}`,
-                    payDetails,
-                    paid_by || 'Unknown',
-                    paid_date || date
-                ]);
-
-                const paymentId = paymentRes.rows[0].id;
-
-                // Insert into vendor_ledger as Payment
-                await pool.query(`
-                    INSERT INTO vendor_ledger 
-                    (supplier_id, date, transaction_type, amount, details, payment_mode, reference_number, payment_id, created_at)
-                    VALUES ($1, $2, 'Payment', $3, $4, $5, $6, $7, NOW())
-                `, [
-                    vendor_id,
-                    paid_date || date,
-                    amount,
-                    payDetails,
-                    payMode,
-                    `TRX-${transaction.id}`,
-                    paymentId
-                ]);
-            }
-        }
-
-        return transaction;
+const db = require('../../config/db');
+const JournalService = require('./JournalService');
+const PaymentModeService = require('./PaymentModeService');
+const { assertWritable } = require('./writeGuard');
+const { DomainError, finite } = require('../../utils/domain');
+const { isDeepStrictEqual } = require('node:util');
+const fields = ['date','type','amount','payment_method','status','description','category_id','metadata','paid_by','paid_date','vendor_id','mode'];
+function sameField(key, left, right) {
+    if (left == null || right == null) return left === right;
+    if (key === 'amount') return Math.round((Number(left)+Number.EPSILON)*100) === Math.round((Number(right)+Number.EPSILON)*100);
+    if (key === 'category_id' || key === 'vendor_id') return Number(left) === Number(right);
+    if (key === 'date' || key === 'paid_date') {
+        const day = value => value instanceof Date ? value.toISOString().slice(0,10) : String(value).slice(0,10);
+        return day(left) === day(right);
     }
-
-    /**
-     * Get transactions for a specific date or range
-     * @param {Object} filters - Filter criteria
-     */
+    return isDeepStrictEqual(left, right);
+}
+class TransactionService {
+    async atomic(work, suppliedClient = null) {
+        if (suppliedClient) return work(suppliedClient);
+        const client = await db.pool.connect();
+        try { await client.query('BEGIN'); const result=await work(client); await client.query('COMMIT'); return result; }
+        catch (err) { await client.query('ROLLBACK'); throw err; }
+        finally { client.release(); }
+    }
+    validate(t) {
+        finite(t.amount,'Amount',{positive:true});
+        if (!['Sales','Expense'].includes(t.type) || !['Pending','Paid'].includes(t.status)) throw new DomainError('Invalid transaction type or status');
+    }
+    async account(t, client) {
+        if (t.mode === 'Bank_Cash') return 1030;
+        return PaymentModeService.getAccountCode(t.mode === 'Bank' ? 'Bank' : (t.payment_method || t.mode || 'Cash'), client);
+    }
+    async post(t, client) {
+        this.validate(t);
+        const amount=Number(t.amount), account=await this.account(t,client);
+        let payable=2000, expense=6000;
+        if(t.category_id) {
+            const category=(await client.query('SELECT account_code,type FROM transaction_categories WHERE id=$1',[t.category_id])).rows[0];
+            if(!category || category.type !== t.type.replace('Sales','Revenue') && t.type === 'Expense') throw new DomainError('Invalid expense category');
+            expense=category.account_code || expense;
+        }
+        if(t.vendor_id && t.type === 'Expense') {
+            const vendor=(await client.query('SELECT ledger_account_code FROM suppliers WHERE id=$1 FOR UPDATE',[t.vendor_id])).rows[0];
+            if(!vendor) throw new DomainError('Vendor not found',404);
+            payable=vendor.ledger_account_code || 2000;
+            await client.query("INSERT INTO vendor_ledger(supplier_id,date,transaction_type,amount,details,reference_number) VALUES($1,$2,'Bill',$3,$4,$5)",[t.vendor_id,t.date,amount,t.description,'TRX-'+t.id]);
+        }
+        const transfer=t.mode === 'Bank_Cash' && t.type === 'Sales';
+        const lines=transfer ? [{account_code:1030,debit:amount},{account_code:1000,credit:amount}]
+          : t.type === 'Sales' ? [{account_code:account,debit:amount},{account_code:4000,credit:amount}]
+          : [{account_code:expense,debit:amount},{account_code:t.vendor_id ? payable : account,credit:amount}];
+        await JournalService.createJournalEntry({date:t.date,description:'Tracker: '+t.description,reference_type:'Tracker',reference_id:t.id,lines},client);
+        if(t.vendor_id && t.type === 'Expense' && t.status === 'Paid') {
+            const payment=(await client.query("INSERT INTO vendor_payments(vendor_id,amount,payment_mode,reference_number,notes,paid_by,payment_date) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *",[t.vendor_id,amount,t.payment_method || 'Cash','TRX-'+t.id,t.description || 'Tracker settlement',t.paid_by || 'Unknown',t.paid_date || t.date])).rows[0];
+            await client.query("INSERT INTO vendor_ledger(supplier_id,date,transaction_type,amount,details,reference_number,payment_id) VALUES($1,$2,'Payment',$3,$4,$5,$6)",[t.vendor_id,t.paid_date || t.date,amount,t.description,'TRX-'+t.id,payment.id]);
+            const je=await JournalService.createJournalEntry({date:t.paid_date || t.date,description:'Tracker settlement '+t.id,reference_type:'TrackerSettlement',reference_id:t.id,lines:[{account_code:payable,debit:amount},{account_code:account,credit:amount}]},client);
+            await client.query('UPDATE vendor_payments SET journal_entry_id=$1 WHERE id=$2',[je.id,payment.id]);
+        }
+    }
+    async undo(t, client) {
+        const journals=await client.query("SELECT j.id,j.transaction_date FROM journal_entries j WHERE reference_id=$1 AND reference_type IN ('Tracker','TrackerSettlement') AND NOT EXISTS(SELECT 1 FROM journal_entries r WHERE r.reference_type='Reversal' AND r.reference_id=j.id::text)",[String(t.id)]);
+        for(const j of journals.rows) await JournalService.reverseJournalEntry(j.id,'Tracker corrected or deleted',j.transaction_date,client);
+        const ledgers=await client.query('SELECT supplier_id,transaction_type,SUM(amount) AS amount FROM vendor_ledger WHERE reference_number=$1 GROUP BY supplier_id,transaction_type',['TRX-'+t.id]);
+        for(const l of ledgers.rows) if(Number(l.amount)) await client.query('INSERT INTO vendor_ledger(supplier_id,date,transaction_type,amount,details,reference_number) VALUES($1,$2,$3,$4,$5,$6)',[l.supplier_id,t.date,l.transaction_type,-Number(l.amount),'Tracker reversal','TRX-'+t.id]);
+        await client.query("UPDATE vendor_payments SET status='Reversed' WHERE reference_number=$1 AND status='Posted'",['TRX-'+t.id]);
+    }
+    async createTransaction(data) {
+        return this.atomic(async client => {
+            const t={...data,status:data.status || 'Pending',metadata:data.metadata || {}};
+            this.validate(t);
+            await assertWritable(client,t.date,[await this.account(t,client)]);
+            const inserted=(await client.query('INSERT INTO transactions ('+fields.join(',')+') VALUES ('+fields.map((f,i)=>'$'+(i+1)).join(',')+') RETURNING *',fields.map(f=>t[f] ?? null))).rows[0];
+            await this.post(inserted,client);return inserted;
+        });
+    }
     async getTransactions(filters = {}) {
         let query = `
             SELECT t.*, s.name as vendor_name, c.name as category_name
@@ -193,117 +105,41 @@ class TransactionService {
 
         query += ` ORDER BY t.created_at DESC`;
 
-        const result = await pool.query(query, values);
+        const result = await db.query(query, values);
         return result.rows;
     }
 
-    /**
-     * Update a transaction
-     */
-    async updateTransaction(id, updates) {
-        const allowedFields = ['date', 'type', 'amount', 'payment_method', 'status', 'description', 'category_id', 'metadata', 'paid_by', 'paid_date', 'vendor_id'];
-        const values = [id];
-        let paramCount = 2;
-        const setClause = [];
 
-        Object.keys(updates).forEach(key => {
-            if (allowedFields.includes(key)) {
-                setClause.push(`${key} = $${paramCount}`);
-                values.push(updates[key]);
-                paramCount++;
-            }
-        });
-
-        if (setClause.length === 0) return null;
-
-        const query = `
-      UPDATE transactions
-      SET ${setClause.join(', ')}, updated_at = NOW()
-      WHERE id = $1
-      RETURNING *
-    `;
-
-        const result = await pool.query(query, values);
-        const updatedTransaction = result.rows[0];
-
-        // ---------------------------------------------------------
-        // Vendor Ledger Integration (Update Flow)
-        // ---------------------------------------------------------
-        if (updatedTransaction.type === 'Expense' && updatedTransaction.vendor_id) {
-
-            // Detect Status Change: Pending -> Paid
-            // We assume the original transaction already created the "Bill".
-            // Now we just need to record the "Payment".
-
-            // Check if status changed to Paid (and wasn't before? We assume UI handles strict flow)
-            // But safely, we can check if this specific update call set status to Paid
-            if (updates.status === 'Paid') {
-
-                const {
-                    amount,
-                    vendor_id,
-                    payment_method,
-                    paid_by,
-                    paid_date,
-                    date
-                } = updatedTransaction;
-
-                // Check if payment already exists for this reference (prevent duplicates)
-                const checkRes = await pool.query(`
-                    SELECT id FROM vendor_payments WHERE reference_number = $1
-                `, [`TRX-${updatedTransaction.id}`]);
-
-                if (checkRes.rows.length === 0) {
-                    const payDetails = paid_by ? `Paid by ${paid_by}` : 'Paid via Daily Tracker Update';
-
-                    // Insert into vendor_payments
-                    const paymentRes = await pool.query(`
-                        INSERT INTO vendor_payments 
-                        (vendor_id, amount, payment_mode, reference_number, notes, paid_by, payment_date, created_at)
-                        VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())
-                        RETURNING id
-                    `, [
-                        vendor_id,
-                        amount,
-                        payment_method || 'Cash',
-                        `TRX-${updatedTransaction.id}`,
-                        payDetails,
-                        paid_by || 'Unknown',
-                        paid_date || date
-                    ]);
-
-                    const paymentId = paymentRes.rows[0].id;
-
-                    // Insert into vendor_ledger as Payment
-                    await pool.query(`
-                        INSERT INTO vendor_ledger 
-                        (supplier_id, date, transaction_type, amount, details, payment_mode, reference_number, payment_id, created_at)
-                        VALUES ($1, $2, 'Payment', $3, $4, $5, $6, $7, NOW())
-                    `, [
-                        vendor_id,
-                        paid_date || date,
-                        amount,
-                        payDetails,
-                        payment_method || 'Cash',
-                        `TRX-${updatedTransaction.id}`,
-                        paymentId
-                    ]);
-                }
-            }
-        }
-
-        return updatedTransaction;
+    async updateTransaction(id, updates, suppliedClient = null) {
+        return this.atomic(async client => {
+            const candidate=(await client.query('SELECT * FROM transactions WHERE id=$1',[id])).rows[0];
+            if(!candidate) throw new DomainError('Transaction not found',404);
+            const day=await assertWritable(client,candidate.date,[await this.account(candidate,client)]);
+            const current=(await client.query('SELECT * FROM transactions WHERE id=$1 FOR UPDATE',[id])).rows[0];
+            if(!current) throw new DomainError('Transaction not found',404);
+            if(new Date(current.date).toISOString().slice(0,10)!==day) throw new DomainError('Transaction date changed; retry',409);
+            const patch=Object.fromEntries(Object.entries(updates).filter(([key])=>fields.includes(key)));
+            const t={...current,...patch};this.validate(t);
+            await assertWritable(client,t.date,[await this.account(t,client)]);
+            const keys=Object.keys(patch);
+            if(!keys.length || keys.every(key=>sameField(key,t[key],current[key]))) return current;
+            await this.undo(current,client);
+            const updated=(await client.query('UPDATE transactions SET '+keys.map((k,i)=>k+'=$'+(i+2)).join(',')+',updated_at=NOW() WHERE id=$1 RETURNING *',[id,...keys.map(k=>t[k])])).rows[0];
+            await this.post(updated,client);return updated;
+        }, suppliedClient);
     }
-
-    /**
-     * Delete a transaction
-     */
     async deleteTransaction(id) {
-        const query = 'DELETE FROM transactions WHERE id = $1 RETURNING id';
-        const result = await pool.query(query, [id]);
-        return result.rows[0];
+        return this.atomic(async client => {
+            const candidate=(await client.query('SELECT * FROM transactions WHERE id=$1',[id])).rows[0];
+            if(!candidate) return null;
+            const day=await assertWritable(client,candidate.date,[await this.account(candidate,client)]);
+            const t=(await client.query('SELECT * FROM transactions WHERE id=$1 FOR UPDATE',[id])).rows[0];
+            if(!t) return null;
+            if(new Date(t.date).toISOString().slice(0,10)!==day) throw new DomainError('Transaction date changed; retry',409);
+            await this.undo(t,client);
+            return (await client.query('DELETE FROM transactions WHERE id=$1 RETURNING id',[id])).rows[0];
+        });
     }
-
     /**
      * Get total sum by type for a date
      */
@@ -313,7 +149,7 @@ class TransactionService {
       FROM transactions 
       WHERE date = $1 AND type = $2
     `;
-        const result = await pool.query(query, [date, type]);
+        const result = await db.query(query, [date, type]);
         return parseFloat(result.rows[0].total);
     }
 
@@ -326,7 +162,7 @@ class TransactionService {
       FROM transactions 
       WHERE date = $1 AND type = 'Sales' AND payment_method = $2
     `;
-        const result = await pool.query(query, [date, method]);
+        const result = await db.query(query, [date, method]);
         return parseFloat(result.rows[0].total);
     }
 
@@ -339,7 +175,7 @@ class TransactionService {
       FROM transactions 
       WHERE date = $1 AND type = 'Expense' AND payment_method = $2
     `;
-        const result = await pool.query(query, [date, method]);
+        const result = await db.query(query, [date, method]);
         return parseFloat(result.rows[0].total);
     }
 
@@ -349,7 +185,7 @@ class TransactionService {
         FROM transactions
         WHERE date = $1 AND status = 'Pending'
       `;
-        const result = await pool.query(query, [date]);
+        const result = await db.query(query, [date]);
         return parseFloat(result.rows[0].total);
     }
 
@@ -358,10 +194,8 @@ class TransactionService {
      */
     async getCategories() {
         const query = 'SELECT * FROM transaction_categories ORDER BY type, name';
-        const result = await pool.query(query);
+        const result = await db.query(query);
         return result.rows;
     }
 }
-
-
-module.exports = new TransactionService();
+module.exports=new TransactionService();

@@ -174,7 +174,7 @@ const BillEntry = () => {
                                 {/* Date */}
                                 <div>
                                     <label className="block text-xs text-gray-400 mb-1">Date</label>
-                                    <input
+                                    <input aria-label="Date"
                                         type="date"
                                         value={date}
                                         onChange={e => setDate(e.target.value)}
@@ -186,7 +186,7 @@ const BillEntry = () => {
                                 {/* Supplier */}
                                 <div>
                                     <label className="block text-xs text-gray-400 mb-1">Supplier</label>
-                                    <select
+                                    <select aria-label="Selected supplier"
                                         value={selectedSupplier}
                                         onChange={e => setSelectedSupplier(e.target.value)}
                                         className="w-full bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm"
@@ -226,7 +226,7 @@ const BillEntry = () => {
                                             <div key={row.id} className="grid grid-cols-12 gap-2 items-center bg-white/5 p-2 rounded">
                                                 {/* Item */}
                                                 <div className="col-span-5">
-                                                    <select
+                                                    <select aria-label="Item name"
                                                         value={row.item_name}
                                                         onChange={e => updateRow(row.id, 'item_name', e.target.value)}
                                                         className="w-full bg-black/20 border border-white/10 rounded p-1.5 text-white text-xs"
@@ -241,7 +241,7 @@ const BillEntry = () => {
 
                                                 {/* Quantity */}
                                                 <div className="col-span-3">
-                                                    <input
+                                                    <input aria-label="Qty"
                                                         type="number"
                                                         step="0.01"
                                                         placeholder="Qty"
@@ -254,7 +254,7 @@ const BillEntry = () => {
 
                                                 {/* Vendor Rate */}
                                                 <div className="col-span-3">
-                                                    <input
+                                                    <input aria-label="Vendor rate"
                                                         type="number"
                                                         step="0.01"
                                                         placeholder="₹"
@@ -267,7 +267,7 @@ const BillEntry = () => {
 
                                                 {/* Delete Button */}
                                                 <div className="col-span-1 flex justify-center">
-                                                    <button
+                                                    <button aria-label="Delete"
                                                         type="button"
                                                         onClick={() => removeRow(row.id)}
                                                         className="p-1 text-red-400 hover:bg-red-600/20 rounded transition"

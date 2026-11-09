@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { renderHook, waitFor } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { usePagination } from '../usePagination';
 
 describe('usePagination Hook', () => {
@@ -24,7 +24,7 @@ describe('usePagination Hook', () => {
     it('should navigate to next page', () => {
         const { result } = renderHook(() => usePagination(sampleData, 10));
 
-        result.current.nextPage();
+        act(()=>result.current.nextPage());
 
         expect(result.current.currentPage).toBe(2);
         expect(result.current.paginatedData[0].id).toBe(11);
@@ -34,8 +34,8 @@ describe('usePagination Hook', () => {
     it('should navigate to previous page', () => {
         const { result } = renderHook(() => usePagination(sampleData, 10));
 
-        result.current.nextPage();
-        result.current.previousPage();
+        act(()=>result.current.nextPage());
+        act(()=>result.current.previousPage());
 
         expect(result.current.currentPage).toBe(1);
         expect(result.current.paginatedData[0].id).toBe(1);
@@ -44,7 +44,7 @@ describe('usePagination Hook', () => {
     it('should go to specific page', () => {
         const { result } = renderHook(() => usePagination(sampleData, 10));
 
-        result.current.goToPage(3);
+        act(()=>result.current.goToPage(3));
 
         expect(result.current.currentPage).toBe(3);
         expect(result.current.paginatedData[0].id).toBe(21);
@@ -53,8 +53,8 @@ describe('usePagination Hook', () => {
     it('should go to first page', () => {
         const { result } = renderHook(() => usePagination(sampleData, 10));
 
-        result.current.goToPage(3);
-        result.current.goToFirstPage();
+        act(()=>result.current.goToPage(3));
+        act(()=>result.current.goToFirstPage());
 
         expect(result.current.currentPage).toBe(1);
     });
@@ -62,7 +62,7 @@ describe('usePagination Hook', () => {
     it('should go to last page', () => {
         const { result } = renderHook(() => usePagination(sampleData, 10));
 
-        result.current.goToLastPage();
+        act(()=>result.current.goToLastPage());
 
         expect(result.current.currentPage).toBe(5);
         expect(result.current.paginatedData).toHaveLength(10);
@@ -71,8 +71,8 @@ describe('usePagination Hook', () => {
     it('should not go beyond last page', () => {
         const { result } = renderHook(() => usePagination(sampleData, 10));
 
-        result.current.goToLastPage();
-        result.current.nextPage();
+        act(()=>result.current.goToLastPage());
+        act(()=>result.current.nextPage());
 
         expect(result.current.currentPage).toBe(5);
     });
@@ -80,7 +80,7 @@ describe('usePagination Hook', () => {
     it('should not go below first page', () => {
         const { result } = renderHook(() => usePagination(sampleData, 10));
 
-        result.current.previousPage();
+        act(()=>result.current.previousPage());
 
         expect(result.current.currentPage).toBe(1);
     });
@@ -90,7 +90,7 @@ describe('usePagination Hook', () => {
 
         expect(result.current.hasNextPage).toBe(true);
 
-        result.current.goToLastPage();
+        act(()=>result.current.goToLastPage());
         expect(result.current.hasNextPage).toBe(false);
     });
 
@@ -99,7 +99,7 @@ describe('usePagination Hook', () => {
 
         expect(result.current.hasPreviousPage).toBe(false);
 
-        result.current.nextPage();
+        act(()=>result.current.nextPage());
         expect(result.current.hasPreviousPage).toBe(true);
     });
 
@@ -109,7 +109,7 @@ describe('usePagination Hook', () => {
         expect(result.current.startIndex).toBe(1);
         expect(result.current.endIndex).toBe(10);
 
-        result.current.nextPage();
+        act(()=>result.current.nextPage());
         expect(result.current.startIndex).toBe(11);
         expect(result.current.endIndex).toBe(20);
     });
@@ -117,7 +117,7 @@ describe('usePagination Hook', () => {
     it('should handle last page with fewer items', () => {
         const { result } = renderHook(() => usePagination(sampleData, 10));
 
-        result.current.goToLastPage();
+        act(()=>result.current.goToLastPage());
 
         expect(result.current.paginatedData).toHaveLength(10);
         expect(result.current.endIndex).toBe(50);

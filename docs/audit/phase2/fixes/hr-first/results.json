@@ -1,0 +1,2182 @@
+{
+  "started_at": "2026-11-09T04:25:59.044Z",
+  "finished_at": "2026-11-09T04:26:40.440Z",
+  "planned_tests": [
+    {
+      "title": "EMP-001 create, edit and history agree with persisted salary, position, role and status",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 11
+    },
+    {
+      "title": "EMP-002 zero salary edits and clearing optional fields do not silently retain old values",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 21
+    },
+    {
+      "title": "EMP-003 concurrent creation produces two unique employee codes",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 29
+    },
+    {
+      "title": "EMP-004 manager/staff cannot delete; owner receives a conflict for historical payroll dependencies",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 35
+    },
+    {
+      "title": "ATT-001 Present, Absent and Half-Day survive repeated bulk saves without duplicate employee dates",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 40
+    },
+    {
+      "title": "ATT-002 both attendance namespaces persist the same supported statuses",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 46
+    },
+    {
+      "title": "ATT-003 calendar completeness counts active staff and excludes inactive attendance",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 53
+    },
+    {
+      "title": "ATT-004 attendance/bulk rejects invalid statuses and preserves locked attendance",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 61
+    },
+    {
+      "title": "ATT-004 employees/attendance/bulk rejects invalid statuses and preserves locked attendance",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 61
+    },
+    {
+      "title": "LEAVE-001 owner create/filter/approve/reject/delete transitions persist attendance and status",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 67
+    },
+    {
+      "title": "LEAVE-002 reversed ranges are validation errors and valid cross-year dates retain exact day count",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 75
+    },
+    {
+      "title": "LEAVE-003 manager approval works and simultaneous owner approvals create one attendance event",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 79
+    },
+    {
+      "title": "LEAVE-004 bulk edits cannot overwrite approved leave attendance",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 84
+    },
+    {
+      "title": "LEAVE-005 staff cannot read, submit or delete another employee request",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 89
+    },
+    {
+      "title": "LEAVE-006 Paid leave earns pay while Unpaid leave does not",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 95
+    },
+    {
+      "title": "ADV-001 both advance request APIs persist their declared request contracts",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 101
+    },
+    {
+      "title": "ADV-002 manager approves a legacy request once with a source-linked ledger and journal",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 106
+    },
+    {
+      "title": "ADV-002 manager can approve the standalone repayment-schedule request",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 112
+    },
+    {
+      "title": "ADV-003 jointly excessive concurrent repayments cannot produce negative employee receivables",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 116
+    },
+    {
+      "title": "ADV-004 invalid amounts and negative repayment months are rejected without schedules",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 121
+    },
+    {
+      "title": "ADV-005 installment cents sum exactly to the approved amount",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 126
+    },
+    {
+      "title": "ADV-005 January 31 schedules use February month-end instead of overflowing to March",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 134
+    },
+    {
+      "title": "ADV-006 failure to auto-approve a transfer leaves no partial advance request",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 140
+    },
+    {
+      "title": "PAY-001 explicit 0 days draft earns exactly 0",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 145
+    },
+    {
+      "title": "PAY-001 explicit 0.5 days draft earns exactly 500",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 145
+    },
+    {
+      "title": "PAY-001 explicit 15 days draft earns exactly 15000",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 145
+    },
+    {
+      "title": "PAY-001 explicit 30 days draft earns exactly 30000",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 145
+    },
+    {
+      "title": "PAY-002 February leap and non-leap proration uses the correct month length",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 149
+    },
+    {
+      "title": "PAY-003 components, overtime, extra days and negative adjustment reconcile the draft",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 154
+    },
+    {
+      "title": "PAY-004 explicit advance deductions never exceed gross salary or the outstanding balance",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 164
+    },
+    {
+      "title": "PAY-005 regenerating an approved record does not silently change its locked salary",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 168
+    },
+    {
+      "title": "PAY-006 approval and payout reject repeated or out-of-order transitions",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 172
+    },
+    {
+      "title": "PAY-007 FIFO partial recovery reconciles both advance models, ledger and source journals",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 178
+    },
+    {
+      "title": "PAY-008 zero-net payroll completes advance recovery without invalid zero payment lines",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 188
+    },
+    {
+      "title": "PAY-009 Cash payout commits once despite concurrent repeated submissions",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 193
+    },
+    {
+      "title": "PAY-009 UPI payout commits once despite concurrent repeated submissions",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 193
+    },
+    {
+      "title": "PAY-009 Card payout commits once despite concurrent repeated submissions",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 193
+    },
+    {
+      "title": "PAY-009 Bank Transfer payout commits once despite concurrent repeated submissions",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 193
+    },
+    {
+      "title": "PAY-010 reverting one of two same-date payouts preserves the other and reverses cash exactly",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 197
+    },
+    {
+      "title": "PAY-011 paid to approved to paid restores one net payout across the complete round trip",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 204
+    },
+    {
+      "title": "PAY-012 legacy zero-days payroll never substitutes a full month",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 210
+    },
+    {
+      "title": "PAY-009 payer name entered in the payout UI is accepted and persisted",
+      "file": "tests/audit/payroll-ui.spec.cjs",
+      "line": 3
+    }
+  ],
+  "source_sha256": {
+    "playwright.audit.config.cjs": "a71db4d943a18608429fca9fe6f33014d4a87d69d4a12572aeff2b724fe12cad",
+    "tests/audit/auth.spec.cjs": "95fae9609d8a778dc2280a346d62e86197491236a1fa216a407cc5227381bc57",
+    "tests/audit/clock.cjs": "d610bc5db42c3f5ca22a04380af278baa79c80e528636da8fc068e1f3b7bf740",
+    "tests/audit/data-roundtrip.spec.cjs": "7d94671537178e3d032210d71dd69e4e1a6d985ecac811488a4b1a79a45ee2f9",
+    "tests/audit/database.cjs": "cbfa494e2a645cd7c7896f609f4bbfb7801b597150f71920d42fe2eef35553ad",
+    "tests/audit/exports.spec.cjs": "98cd06087cdfbf2bef7d94858704d23db5fe823539ecf89e35962ff60a436820",
+    "tests/audit/finance.spec.cjs": "9b810e295f0a928d656ed628b868d244d43d59c76ca4efb030648a5064222d25",
+    "tests/audit/fixtures.cjs": "754e4b030497b681c9b8a0bcf177e78201f07a8fa2aa815eb2b98bdda14ab14a",
+    "tests/audit/global-setup.cjs": "0193336d5a2c9c384ff79b1d7d4f39a64b5d6ca733f3411264958e6c51a05d38",
+    "tests/audit/global-teardown.cjs": "05fe5aef9cd5e4e0c7187257d4177f20e3fbafe790268e12448a402c310c509d",
+    "tests/audit/harness.spec.cjs": "09ecde360e4257c4e43df2cbdb65fd280a36314f14eb17fd055243f6329451d6",
+    "tests/audit/helpers.cjs": "41922596bef71690777ab88108ce74fe31ff5410e91650aa3d454b70dddf167a",
+    "tests/audit/hr.spec.cjs": "3ebbadd9a9ab34102de274d6bd0f75d258ab98e250f96858960b619f06065ca5",
+    "tests/audit/import-runner.py": "99eb69b02bf882a6255c7bddc1251466edb6cade53cc4d1af563fcd53b114331",
+    "tests/audit/payroll-ui.spec.cjs": "77ced4163432777ac05ca72028dc3ca1fa032337d2977df79895602166e2e4e6",
+    "tests/audit/pos-inventory.spec.cjs": "36812fccaf454a1b2a8a8cb5228b7440ab16a1919a834bf8a9d6020d78adadef",
+    "tests/audit/procurement.spec.cjs": "0f711d50e9bf22a7bafb473f388b64c3ca903387433d1e6fa6de6ca410b5e089",
+    "tests/audit/reporter.cjs": "2c5903c8e445544dccefaeff47521650f78652ace907e35ae68a9127f8f259f0",
+    "tests/audit/reports-config-ai.spec.cjs": "24b19eea59aff75842d92282ef56dd7c23c79ddf242efef52b38b4958eae7fa9",
+    "tests/audit/screen-states.spec.cjs": "36b3c238aaacfb96945afe0ba37e1302bf683d51ba04c637b0a68d29feb3a7ab",
+    "tests/audit/screens.cjs": "d1a775987958f7a4ea7951f1c67e4aaeee2171e9a5b758b465dc0de207a1ae17",
+    "tests/audit/screens.spec.cjs": "daede1a5e376ea623c767960d84f6b50b74015bd090fdbca18379cb1ec38da4c",
+    "tests/audit/service-runner.cjs": "b946717a5c368f4f20d46887489a5c4d4aa361ebcf08c1390963efaf17241c3b"
+  },
+  "status": "failed",
+  "counts": {
+    "passed": 40,
+    "failed": 2
+  },
+  "results": [
+    {
+      "title": "EMP-001 create, edit and history agree with persisted salary, position, role and status",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 11,
+      "ids": [
+        "EMP-001"
+      ],
+      "status": "passed",
+      "duration_ms": 3126,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-EMP-001-create-edit-and-65251-ry-position-role-and-status/attachments/audit-evidence-80ccce197fdd27eef815dd9af6cda7869642a943.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_c44e847abb5e_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "PUT",
+            "endpoint": "employees/4",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/4/history",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "EMP-002 zero salary edits and clearing optional fields do not silently retain old values",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 21,
+      "ids": [
+        "EMP-002"
+      ],
+      "status": "passed",
+      "duration_ms": 855,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-EMP-002-zero-salary-edi-a9a33--silently-retain-old-values/attachments/audit-evidence-8cabc0ca60e7557d4861affd547fb8bfd594d992.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_eae9b69091c1_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "PUT",
+            "endpoint": "employees/1",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/1/history",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "EMP-003 concurrent creation produces two unique employee codes",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 29,
+      "ids": [
+        "EMP-003"
+      ],
+      "status": "passed",
+      "duration_ms": 856,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-EMP-003-concurrent-crea-f08fe-s-two-unique-employee-codes/attachments/audit-evidence-d95eb14a21e778412fb97aba001816e93b8e340b.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d2339a7d4f29_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees",
+            "role": "owner",
+            "status": 201
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "EMP-004 manager/staff cannot delete; owner receives a conflict for historical payroll dependencies",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 35,
+      "ids": [
+        "EMP-004"
+      ],
+      "status": "passed",
+      "duration_ms": 856,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-EMP-004-manager-staff-c-952cf-orical-payroll-dependencies/attachments/audit-evidence-572da133f91ecd799da7c3bfb95f3d9b45507612.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_479ee3b769f4_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "DELETE",
+            "endpoint": "employees/3",
+            "role": "manager",
+            "status": 403,
+            "error": "Insufficient permissions"
+          },
+          {
+            "method": "DELETE",
+            "endpoint": "employees/3",
+            "role": "staff",
+            "status": 403,
+            "error": "Insufficient permissions"
+          },
+          {
+            "method": "DELETE",
+            "endpoint": "employees/3",
+            "role": "owner",
+            "status": 409,
+            "error": "update or delete on table \"employees\" violates foreign key constraint \"salary_history_employee_id_fkey\" on table \"salary_history\""
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ATT-001 Present, Absent and Half-Day survive repeated bulk saves without duplicate employee dates",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 40,
+      "ids": [
+        "ATT-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1348,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ATT-001-Present-Absent--f155b-ut-duplicate-employee-dates/attachments/audit-evidence-3d68cfec7c200808d62dcc7035c81b9dcdedd9f3.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d24e098c18c1_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "attendance/bulk",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "attendance/bulk",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ATT-002 both attendance namespaces persist the same supported statuses",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 46,
+      "ids": [
+        "ATT-002"
+      ],
+      "status": "passed",
+      "duration_ms": 866,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ATT-002-both-attendance-3a3ef-the-same-supported-statuses/attachments/audit-evidence-23b47fceb21a88e8827c02d1d0c067a74b502e18.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_c303c3d5b013_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "attendance/bulk",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/attendance/bulk",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "attendance?date=2026-11-09",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/attendance?date=2026-11-09",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ATT-003 calendar completeness counts active staff and excludes inactive attendance",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 53,
+      "ids": [
+        "ATT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 880,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ATT-003-calendar-comple-4d38e-xcludes-inactive-attendance/attachments/audit-evidence-618bdb0fab70a32765db2e98ce2d85497e8f86dd.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1cf067aedb79_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "attendance/calendar?startDate=2026-11-09&endDate=2026-11-09",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "attendance/bulk",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "attendance/calendar?startDate=2026-11-09&endDate=2026-11-09",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "attendance/bulk",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "attendance/calendar?startDate=2026-11-09&endDate=2026-11-09",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "attendance/calendar?startDate=2026-11-09&endDate=2026-11-09",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ATT-004 attendance/bulk rejects invalid statuses and preserves locked attendance",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 61,
+      "ids": [
+        "ATT-004"
+      ],
+      "status": "passed",
+      "duration_ms": 974,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ATT-004-attendance-bulk-c0451-preserves-locked-attendance/attachments/audit-evidence-9594c7e63d5540c12bb52da505f80729fe9702be.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_dd03882ffea6_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "attendance/bulk",
+            "role": "owner",
+            "status": 400,
+            "error": "Invalid attendance status"
+          },
+          {
+            "method": "POST",
+            "endpoint": "attendance/bulk",
+            "role": "owner",
+            "status": 409,
+            "error": "Attendance is locked or belongs to approved leave"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ATT-004 employees/attendance/bulk rejects invalid statuses and preserves locked attendance",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 61,
+      "ids": [
+        "ATT-004"
+      ],
+      "status": "passed",
+      "duration_ms": 851,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ATT-004-employees-atten-0aa9d-preserves-locked-attendance/attachments/audit-evidence-c3cd0193aff77b4d64f9aa25dbe7cd527f3c0dd6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b4fa4a84f754_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees/attendance/bulk",
+            "role": "owner",
+            "status": 400,
+            "error": "Invalid attendance status"
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/attendance/bulk",
+            "role": "owner",
+            "status": 409,
+            "error": "Attendance is locked or belongs to approved leave"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "LEAVE-001 owner create/filter/approve/reject/delete transitions persist attendance and status",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 67,
+      "ids": [
+        "LEAVE-001"
+      ],
+      "status": "passed",
+      "duration_ms": 877,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-LEAVE-001-owner-create--926e1-rsist-attendance-and-status/attachments/audit-evidence-c39c3b3b56d92492c762190915a3ca5996b04be4.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_230e2f132a8a_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "leaves?status=Pending",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/2/reject",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "DELETE",
+            "endpoint": "leaves/3",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "leaves?status=Rejected",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "LEAVE-002 reversed ranges are validation errors and valid cross-year dates retain exact day count",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 75,
+      "ids": [
+        "LEAVE-002"
+      ],
+      "status": "passed",
+      "duration_ms": 859,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-LEAVE-002-reversed-rang-df12e-ates-retain-exact-day-count/attachments/audit-evidence-9c002befc10ad49208209685799b064dd4fa290d.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ca10e1040f02_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 400,
+            "error": "new row for relation \"leave_requests\" violates check constraint \"valid_date_range\""
+          },
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "LEAVE-003 manager approval works and simultaneous owner approvals create one attendance event",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 79,
+      "ids": [
+        "LEAVE-003"
+      ],
+      "status": "passed",
+      "duration_ms": 875,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-LEAVE-003-manager-appro-51580-create-one-attendance-event/attachments/audit-evidence-1ef19b8b33c33d1ac8fcaccad3f9caef99490f67.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ad2b3f7692c1_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/1/approve",
+            "role": "manager",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/2/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/2/approve",
+            "role": "owner",
+            "status": 409,
+            "error": "Leave request not found or already processed"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "LEAVE-004 bulk edits cannot overwrite approved leave attendance",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 84,
+      "ids": [
+        "LEAVE-004"
+      ],
+      "status": "passed",
+      "duration_ms": 852,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-LEAVE-004-bulk-edits-ca-55ecf-e-approved-leave-attendance/attachments/audit-evidence-55da3743ad7a6d594c2cd55d2d0568cbfe8f2cb3.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_3350ae51ffd9_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "attendance/bulk",
+            "role": "owner",
+            "status": 409,
+            "error": "Attendance is locked or belongs to approved leave"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "LEAVE-005 staff cannot read, submit or delete another employee request",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 89,
+      "ids": [
+        "LEAVE-005"
+      ],
+      "status": "passed",
+      "duration_ms": 901,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-LEAVE-005-staff-cannot--86a54-te-another-employee-request/attachments/audit-evidence-3db8be6b2cfa58e26054cc2af6dded55b866ea5f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a62f25fec9c2_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "leaves/employee/3",
+            "role": "staff",
+            "status": 403,
+            "error": "Employee access denied"
+          },
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "staff",
+            "status": 403,
+            "error": "Employee access denied"
+          },
+          {
+            "method": "DELETE",
+            "endpoint": "leaves/1",
+            "role": "staff",
+            "status": 403,
+            "error": "Employee access denied"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "LEAVE-006 Paid leave earns pay while Unpaid leave does not",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 95,
+      "ids": [
+        "LEAVE-006"
+      ],
+      "status": "failed",
+      "duration_ms": 884,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1000\u001b[39m\nReceived: \u001b[31m0\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-LEAVE-006-Paid-leave-ea-96985-while-Unpaid-leave-does-not/attachments/audit-evidence-4561db3e3d83bc7255dc90373d0cef5d52fe075d.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-LEAVE-006-Paid-leave-ea-96985-while-Unpaid-leave-does-not/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-LEAVE-006-Paid-leave-ea-96985-while-Unpaid-leave-does-not/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_ee0a7de333f4_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "leaves",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "leaves/2/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ADV-001 both advance request APIs persist their declared request contracts",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 101,
+      "ids": [
+        "ADV-001"
+      ],
+      "status": "passed",
+      "duration_ms": 779,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ADV-001-both-advance-re-f2780--declared-request-contracts/attachments/audit-evidence-311866f478c1d5ae6fd5b7de74890a85b4fa47bf.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_667d74c3c425_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "advance-requests",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ADV-002 manager approves a legacy request once with a source-linked ledger and journal",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 106,
+      "ids": [
+        "ADV-002"
+      ],
+      "status": "passed",
+      "duration_ms": 879,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ADV-002-manager-approve-26c00-e-linked-ledger-and-journal/attachments/audit-evidence-309f10ef2bcf615fe167ef26ece61e243276c1ea.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_f3ee898616b4_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/1/approve",
+            "role": "manager",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/1/approve",
+            "role": "manager",
+            "status": 409,
+            "error": "Request already processed"
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal AdvanceAdvance 1",
+            "actual": {
+              "header": {
+                "id": "8443e3d1-5dac-4e0c-be37-59a05d729ce9",
+                "transaction_date": "2026-11-09T06:30:00.000Z",
+                "description": "Salary Advance - Audit advance",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "AdvanceAdvance",
+                "created_at": "2026-11-09T04:26:16.893Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 0,
+                  "credit": 1000
+                },
+                {
+                  "account": 1100,
+                  "debit": 1000,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "ADV-002 manager can approve the standalone repayment-schedule request",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 112,
+      "ids": [
+        "ADV-002"
+      ],
+      "status": "passed",
+      "duration_ms": 993,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ADV-002-manager-can-app-fedcb--repayment-schedule-request/attachments/audit-evidence-1cee65776b92d68f073b363688c2a494f476260c.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_6ae556b11b89_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "advance-requests",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "advance-requests/1/approve",
+            "role": "manager",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ADV-003 jointly excessive concurrent repayments cannot produce negative employee receivables",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 116,
+      "ids": [
+        "ADV-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1112,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ADV-003-jointly-excessi-2c05f-gative-employee-receivables/attachments/audit-evidence-f072d5dd5f0ff3988698e70de274019c5696258c.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_6130ff784dab_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/requests/2/approve",
+            "role": "owner",
+            "status": 400,
+            "error": "Repayment amount exceeds outstanding balance (₹400)"
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ADV-004 invalid amounts and negative repayment months are rejected without schedules",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 121,
+      "ids": [
+        "ADV-004"
+      ],
+      "status": "passed",
+      "duration_ms": 907,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ADV-004-invalid-amounts-1d562--rejected-without-schedules/attachments/audit-evidence-b4dd9afb06e7a29f1d6b73eac1e42f24909a3b08.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_3ad64240b369_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 400,
+            "error": "Invalid transaction details"
+          },
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/advance",
+            "role": "owner",
+            "status": 400,
+            "error": "Invalid transaction details"
+          },
+          {
+            "method": "POST",
+            "endpoint": "advance-requests",
+            "role": "owner",
+            "status": 400,
+            "error": "Requested amount must be a finite positive number"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ADV-005 installment cents sum exactly to the approved amount",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 126,
+      "ids": [
+        "ADV-005"
+      ],
+      "status": "passed",
+      "duration_ms": 910,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ADV-005-installment-cen-f523b-ctly-to-the-approved-amount/attachments/audit-evidence-5c2cb5cba67d1f3d21032ca68b97f6e5ead47e6f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_24d38e36c705_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "advance-requests",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "advance-requests/1/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "advance-requests/1/repayment-schedule",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ADV-005 January 31 schedules use February month-end instead of overflowing to March",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 134,
+      "ids": [
+        "ADV-005"
+      ],
+      "status": "passed",
+      "duration_ms": 900,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ADV-005-month-end-sched-c3035-ead-of-overflowing-to-March/attachments/audit-evidence-d4ca93977e817900fa4c9550905dc4ca9a0906b9.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_65f174e4bcf4_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-01-31T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "advance-requests",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PUT",
+            "endpoint": "advance-requests/1/approve",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "ADV-006 failure to auto-approve a transfer leaves no partial advance request",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 140,
+      "ids": [
+        "ADV-006"
+      ],
+      "status": "passed",
+      "duration_ms": 855,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-ADV-006-failure-to-auto-ffb9d--no-partial-advance-request/attachments/audit-evidence-bf82c539bae6ba8a415a481b658bdbed83c638c3.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d83835ce88e3_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "finance/transfer/safe-to-user",
+            "role": "owner",
+            "status": 400,
+            "error": "Invalid or inactive payment mode: invalid"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-001 explicit 0 days draft earns exactly 0",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 145,
+      "ids": [
+        "PAY-001"
+      ],
+      "status": "passed",
+      "duration_ms": 874,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-001-explicit-0-days-draft-earns-exactly-0/attachments/audit-evidence-e832b8d0b6f791866ed26d7768acd6ae6451d57e.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e09fa6c3c734_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-001 explicit 0.5 days draft earns exactly 500",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 145,
+      "ids": [
+        "PAY-001"
+      ],
+      "status": "passed",
+      "duration_ms": 856,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-001-explicit-0-5-days-draft-earns-exactly-500/attachments/audit-evidence-386f94f466946cf8ee887f22255dbbffc34a97c0.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_61380b4c192a_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-001 explicit 15 days draft earns exactly 15000",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 145,
+      "ids": [
+        "PAY-001"
+      ],
+      "status": "passed",
+      "duration_ms": 843,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-001-explicit-15-days-draft-earns-exactly-15000/attachments/audit-evidence-6202d4272c9d592d046af79814349d07823ce58e.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_411ccb20de40_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-001 explicit 30 days draft earns exactly 30000",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 145,
+      "ids": [
+        "PAY-001"
+      ],
+      "status": "passed",
+      "duration_ms": 856,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-001-explicit-30-days-draft-earns-exactly-30000/attachments/audit-evidence-b4a85765f8972aedc973dcea3b879b9ebc8eb157.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_790d702fa471_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-002 February leap and non-leap proration uses the correct month length",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 149,
+      "ids": [
+        "PAY-002"
+      ],
+      "status": "passed",
+      "duration_ms": 997,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-002-February-leap-a-6c8f2-es-the-correct-month-length/attachments/audit-evidence-f5624039deeac3735f1b780272886d0458c695d8.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1d604b252736_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-003 components, overtime, extra days and negative adjustment reconcile the draft",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 154,
+      "ids": [
+        "PAY-003"
+      ],
+      "status": "passed",
+      "duration_ms": 851,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-003-components-over-dc6d1-ustment-reconcile-the-draft/attachments/audit-evidence-d414bfc3a6f7310a0ddea5fa9a58bc9102aea16f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d33f8d0631c1_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-004 explicit advance deductions never exceed gross salary or the outstanding balance",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 164,
+      "ids": [
+        "PAY-004"
+      ],
+      "status": "failed",
+      "duration_ms": 873,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m30000\u001b[39m\nReceived: \u001b[31m40000\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-004-explicit-advanc-ecf02--or-the-outstanding-balance/attachments/audit-evidence-6690aee225ed441221e35867303a01bdf92672a2.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-004-explicit-advanc-ecf02--or-the-outstanding-balance/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-004-explicit-advanc-ecf02--or-the-outstanding-balance/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_974d8b6824ca_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-005 regenerating an approved record does not silently change its locked salary",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 168,
+      "ids": [
+        "PAY-005"
+      ],
+      "status": "passed",
+      "duration_ms": 901,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-005-regenerating-an-35b98-ly-change-its-locked-salary/attachments/audit-evidence-95b61fc2e9a297085c6b547c47534fb3446fee72.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_5c44d8ef60c5_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Regeneration response",
+            "actual": 200
+          }
+        ]
+      }
+    },
+    {
+      "title": "PAY-006 approval and payout reject repeated or out-of-order transitions",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 172,
+      "ids": [
+        "PAY-006"
+      ],
+      "status": "passed",
+      "duration_ms": 872,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-006-approval-and-pa-f03a7-or-out-of-order-transitions/attachments/audit-evidence-8e26ec01753d798a4addbc74a2d114a23e767110.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_0a43470d8f92_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 409,
+            "error": "Payroll must be Approved before payout"
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/approve",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/approve",
+            "role": "owner",
+            "status": 409,
+            "error": "Payroll is not Pending"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-007 FIFO partial recovery reconciles both advance models, ledger and source journals",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 178,
+      "ids": [
+        "PAY-007"
+      ],
+      "status": "passed",
+      "duration_ms": 864,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-007-FIFO-partial-re-9c6f2--ledger-and-source-journals/attachments/audit-evidence-5ccf7eee79cdaf8c13125715acd8645a0ca7cca4.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_dba3d2a4c9e6_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Journal AdvanceRepayment 1",
+            "actual": {
+              "header": {
+                "id": "95192aa8-1f54-40f5-b58b-607687be09fb",
+                "transaction_date": "2026-11-08T18:30:00.000Z",
+                "description": "Advance recovery for payroll #1",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "AdvanceRepayment",
+                "created_at": "2026-11-09T04:26:31.640Z"
+              },
+              "lines": [
+                {
+                  "account": 1100,
+                  "debit": 0,
+                  "credit": 1000
+                },
+                {
+                  "account": 6100,
+                  "debit": 1000,
+                  "credit": 0
+                }
+              ]
+            }
+          },
+          {
+            "name": "Journal SalaryPayment 1",
+            "actual": {
+              "header": {
+                "id": "7c2d6f01-c514-4116-9951-eac3f315a814",
+                "transaction_date": "2026-11-08T18:30:00.000Z",
+                "description": "Payroll payout #1",
+                "created_by_user_id": null,
+                "reference_id": "1",
+                "reference_type": "SalaryPayment",
+                "created_at": "2026-11-09T04:26:31.640Z"
+              },
+              "lines": [
+                {
+                  "account": 1000,
+                  "debit": 0,
+                  "credit": 29000
+                },
+                {
+                  "account": 6100,
+                  "debit": 29000,
+                  "credit": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "PAY-008 zero-net payroll completes advance recovery without invalid zero payment lines",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 188,
+      "ids": [
+        "PAY-008"
+      ],
+      "status": "passed",
+      "duration_ms": 854,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-008-zero-net-payrol-64556--invalid-zero-payment-lines/attachments/audit-evidence-fa37aa9ba582e02a5817a9324368fbb6b5cc7641.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_e15436601628_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "employees/payroll/advances/1/balance",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-009 Cash payout commits once despite concurrent repeated submissions",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 193,
+      "ids": [
+        "PAY-009"
+      ],
+      "status": "passed",
+      "duration_ms": 866,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-009-Cash-payout-com-9ce95-urrent-repeated-submissions/attachments/audit-evidence-c6ebb7bf057cca104154c4d8d716dc64ec20f606.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_b145d956fafd_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 409,
+            "error": "Payroll must be Approved before payout"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-009 UPI payout commits once despite concurrent repeated submissions",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 193,
+      "ids": [
+        "PAY-009"
+      ],
+      "status": "passed",
+      "duration_ms": 874,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-009-UPI-payout-comm-30987-urrent-repeated-submissions/attachments/audit-evidence-a86b9da425c9c9829f54cb67f26fe8f9c1841f47.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_4f0120119ac1_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 409,
+            "error": "Payroll must be Approved before payout"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-009 Card payout commits once despite concurrent repeated submissions",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 193,
+      "ids": [
+        "PAY-009"
+      ],
+      "status": "passed",
+      "duration_ms": 858,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-009-Card-payout-com-7dfc8-urrent-repeated-submissions/attachments/audit-evidence-b6283a6ef4402930f37fa5fbb33b4570b3a5e0d3.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_1ff7edc18e0b_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 409,
+            "error": "Payroll must be Approved before payout"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-009 Bank Transfer payout commits once despite concurrent repeated submissions",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 193,
+      "ids": [
+        "PAY-009"
+      ],
+      "status": "passed",
+      "duration_ms": 854,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-009-Bank-Transfer-p-db150-urrent-repeated-submissions/attachments/audit-evidence-2696135a738d723fa294db51565a3d92941259ab.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_4c1524f9ec29_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 409,
+            "error": "Payroll must be Approved before payout"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-010 reverting one of two same-date payouts preserves the other and reverses cash exactly",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 197,
+      "ids": [
+        "PAY-010"
+      ],
+      "status": "passed",
+      "duration_ms": 859,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-010-reverting-one-o-5dfa1-r-and-reverses-cash-exactly/attachments/audit-evidence-8d0fc6abab8417bb97d5bc00f4550b4e23b65be0.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d63a0717d7a2_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/revert/1",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-011 paid to approved to paid restores one net payout across the complete round trip",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 204,
+      "ids": [
+        "PAY-011"
+      ],
+      "status": "passed",
+      "duration_ms": 854,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-011-paid-to-approve-6b04c-oss-the-complete-round-trip/attachments/audit-evidence-0b3421e588734e5f5a354e0a0183c826d19401d6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a14dd880497f_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/revert/1",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "payroll/payout",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-012 legacy zero-days payroll never substitutes a full month",
+      "file": "tests/audit/hr.spec.cjs",
+      "line": 210,
+      "ids": [
+        "PAY-012"
+      ],
+      "status": "passed",
+      "duration_ms": 828,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/hr-PAY-012-legacy-zero-day-9efda-er-substitutes-a-full-month/attachments/audit-evidence-cb5f2971ca6cc2e6943a66898ff1d9d2f1335611.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_969ae5e8169d_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "employees/payroll/run",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "PAY-009 payer name entered in the payout UI is accepted and persisted",
+      "file": "tests/audit/payroll-ui.spec.cjs",
+      "line": 3,
+      "ids": [
+        "PAY-009"
+      ],
+      "status": "passed",
+      "duration_ms": 1442,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/payroll-ui-PAY-009-payer-n-b0a93-I-is-accepted-and-persisted/attachments/audit-evidence-af44f397ecc1f4a683b1a60118ebc12b166bbcc4.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_3dc978fd7292_1794198358271",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "Payer name browser response",
+            "actual": {
+              "status": 200,
+              "body": {
+                "success": true,
+                "record": {
+                  "id": 1,
+                  "employee_id": 1,
+                  "month": 11,
+                  "year": 2026,
+                  "days_worked": "30.00",
+                  "calculated_salary": "30000.00",
+                  "advance_deduction": "0.00",
+                  "net_pay": "30000.00",
+                  "processed_at": "2026-11-09T09:56:39.514Z",
+                  "manual_adjustment": "0.00",
+                  "adjustment_reason": null,
+                  "status": "Paid",
+                  "allowances": {},
+                  "deductions": {},
+                  "overtime_hours": "0.00",
+                  "overtime_amount": "0.00",
+                  "extra_days": "0.00",
+                  "extra_day_amount": "0.00",
+                  "payment_mode": "Cash",
+                  "payment_date": "2026-11-09T12:00:00.000Z",
+                  "paid_by": "Audit owner",
+                  "payslip_url": null,
+                  "total_days_in_month": null,
+                  "paid_by_user_id": 1
+                },
+                "repayment_journal_id": null
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

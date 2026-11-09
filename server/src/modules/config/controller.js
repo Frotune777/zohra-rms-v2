@@ -1,14 +1,15 @@
 const ConfigService = require('./service');
+const { statusFor } = require('../../utils/domain');
 
 // Get all options for a category
 exports.getOptions = async (req, res) => {
     const { category } = req.params;
     try {
-        const options = await ConfigService.getOptions(category);
+        const options = await ConfigService.getOptions(category,req.query.includeInactive === 'true');
         res.json(options);
     } catch (err) {
         console.error('getOptions error:', err);
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -19,7 +20,7 @@ exports.getAllCategories = async (req, res) => {
         res.json(categories);
     } catch (err) {
         console.error('getAllCategories error:', err);
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -35,7 +36,7 @@ exports.addOption = async (req, res) => {
         if (err.code === '23505') { // Unique constraint violation
             return res.status(409).json({ error: 'Option with this value already exists' });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -44,14 +45,15 @@ exports.updateOption = async (req, res) => {
     const { id } = req.params;
     try {
         const userId = req.user?.id || null;
-        const option = await ConfigService.updateOption(id, req.body, userId);
+        const option = await ConfigService.updateOption(id, req.body, userId, req.params.category);
         res.json(option);
     } catch (err) {
         console.error('updateOption error:', err);
         if (err.message === 'Configuration option not found') {
             return res.status(404).json({ error: err.message });
         }
-        res.status(500).json({ error: err.message });
+        if (err.code === '23505') return res.status(409).json({ error: 'Option with this value already exists' });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -59,14 +61,14 @@ exports.updateOption = async (req, res) => {
 exports.deleteOption = async (req, res) => {
     const { id } = req.params;
     try {
-        const option = await ConfigService.deleteOption(id);
+        const option = await ConfigService.deleteOption(id,req.params.category);
         res.json({ message: 'Option deleted successfully', option });
     } catch (err) {
         console.error('deleteOption error:', err);
         if (err.message === 'Configuration option not found') {
             return res.status(404).json({ error: err.message });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -74,14 +76,14 @@ exports.deleteOption = async (req, res) => {
 exports.toggleActive = async (req, res) => {
     const { id } = req.params;
     try {
-        const option = await ConfigService.toggleActive(id);
+        const option = await ConfigService.toggleActive(id,req.params.category);
         res.json(option);
     } catch (err) {
         console.error('toggleActive error:', err);
         if (err.message === 'Configuration option not found') {
             return res.status(404).json({ error: err.message });
         }
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -94,7 +96,7 @@ exports.reorderOptions = async (req, res) => {
         res.json(result);
     } catch (err) {
         console.error('reorderOptions error:', err);
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };
 
@@ -108,6 +110,6 @@ exports.bulkImport = async (req, res) => {
         res.json({ message: 'Options imported successfully', count: results.length, options: results });
     } catch (err) {
         console.error('bulkImport error:', err);
-        res.status(500).json({ error: err.message });
+        res.status(statusFor(err)).json({ error: err.message });
     }
 };

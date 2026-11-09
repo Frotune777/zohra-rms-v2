@@ -207,6 +207,7 @@ const VendorManager = () => {
                                                 {rate.replace('_', ' ')}
                                             </label>
                                             <input
+                                                aria-label={rate.replaceAll('_', ' ')}
                                                 type="number" step="0.01" placeholder="0.00"
                                                 value={dailyRates[rate]}
                                                 onChange={e => setDailyRates({ ...dailyRates, [rate]: e.target.value })}
@@ -266,29 +267,29 @@ const VendorManager = () => {
                             </h2>
                             <form onSubmit={handleSaveSupplier} className="space-y-3">
                                 <div className="grid grid-cols-2 gap-3">
-                                    <input type="text" placeholder="Name" value={newSupplier.name}
+                                    <input aria-label="Name" type="text" placeholder="Name" value={newSupplier.name}
                                         onChange={e => setNewSupplier({ ...newSupplier, name: e.target.value })}
                                         className="bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm" required />
-                                    <input type="text" placeholder="Phone" value={newSupplier.phone}
+                                    <input aria-label="Phone" type="text" placeholder="Phone" value={newSupplier.phone}
                                         onChange={e => setNewSupplier({ ...newSupplier, phone: e.target.value })}
                                         className="bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm" />
                                 </div>
                                 <div className="grid grid-cols-2 gap-3">
-                                    <input type="email" placeholder="Email" value={newSupplier.email}
+                                    <input aria-label="Email" type="email" placeholder="Email" value={newSupplier.email}
                                         onChange={e => setNewSupplier({ ...newSupplier, email: e.target.value })}
                                         className="bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm" />
-                                    <input type="text" placeholder="Contact Person" value={newSupplier.contact_person}
+                                    <input aria-label="Contact person" type="text" placeholder="Contact Person" value={newSupplier.contact_person}
                                         onChange={e => setNewSupplier({ ...newSupplier, contact_person: e.target.value })}
                                         className="bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm" />
                                 </div>
-                                <textarea placeholder="Address" value={newSupplier.address}
+                                <textarea aria-label="Address" placeholder="Address" value={newSupplier.address}
                                     onChange={e => setNewSupplier({ ...newSupplier, address: e.target.value })}
                                     className="w-full bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm h-16" />
                                 <div className="grid grid-cols-2 gap-3">
-                                    <input type="text" placeholder="GSTIN" value={newSupplier.gstin}
+                                    <input aria-label="Gstin" type="text" placeholder="GSTIN" value={newSupplier.gstin}
                                         onChange={e => setNewSupplier({ ...newSupplier, gstin: e.target.value })}
                                         className="bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm" />
-                                    <select value={newSupplier.vendor_type}
+                                    <select aria-label="Vendor type" value={newSupplier.vendor_type}
                                         onChange={e => setNewSupplier({ ...newSupplier, vendor_type: e.target.value })}
                                         className="bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm">
                                         <option value="Chicken" className="text-black">Chicken</option>
@@ -316,7 +317,7 @@ const VendorManager = () => {
                         <div className="lg:col-span-5 space-y-4">
                             <div className="glass-panel p-4">
                                 <label className="text-xs text-gray-400 block mb-1">Select Supplier to Configure</label>
-                                <select value={selectedSupplier} onChange={e => setSelectedSupplier(e.target.value)}
+                                <select aria-label="Selected supplier" value={selectedSupplier} onChange={e => setSelectedSupplier(e.target.value)}
                                     className="w-full bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm">
                                     <option value="" className="text-black">-- Select Supplier --</option>
                                     {suppliers.map(s => <option key={s.id} value={s.id} className="text-black">{s.name}</option>)}
@@ -327,13 +328,13 @@ const VendorManager = () => {
                                 <div className="glass-panel p-4 bg-white/5">
                                     <h4 className="text-sm font-bold text-white mb-3">Add New Rule</h4>
                                     <form onSubmit={handleSaveRule} className="space-y-3">
-                                        <input type="text" placeholder="Item Name" value={newRule.item_name}
+                                        <input aria-label="Item name" type="text" placeholder="Item Name" value={newRule.item_name}
                                             onChange={e => setNewRule({ ...newRule, item_name: e.target.value })}
                                             className="w-full bg-white/5 border border-white/10 rounded-md p-2 text-white text-sm" required />
 
                                         <div className="grid grid-cols-12 gap-2 items-center">
                                             <div className="col-span-4">
-                                                <select value={newRule.base_rate_type} onChange={e => setNewRule({ ...newRule, base_rate_type: e.target.value })}
+                                                <select aria-label="Base rate type" value={newRule.base_rate_type} onChange={e => setNewRule({ ...newRule, base_rate_type: e.target.value })}
                                                     className="w-full bg-white/5 border border-white/10 rounded-md p-2 text-white text-xs">
                                                     <option value="TandoorRate" className="text-black">Tandoor Rate</option>
                                                     <option value="BoilerRate" className="text-black">Boiler Rate</option>
@@ -360,7 +361,7 @@ const VendorManager = () => {
                                                     <option value="-" className="text-black">-</option>
                                                     <option value="*" className="text-black">*</option>
                                                 </select>
-                                                <input type="number" value={newRule.val2} onChange={e => setNewRule({ ...newRule, val2: e.target.value })}
+                                                <input aria-label="Optional" type="number" value={newRule.val2} onChange={e => setNewRule({ ...newRule, val2: e.target.value })}
                                                     className="flex-1 bg-white/5 border border-white/10 rounded-md p-1 text-white text-xs min-w-0" placeholder="Optional" />
                                             </div>
                                         </div>
@@ -370,17 +371,17 @@ const VendorManager = () => {
                                             <p className="text-[10px] text-gray-400 mb-1">Conditional Adjustment (Optional)</p>
                                             <div className="flex gap-2 items-center">
                                                 <span className="text-xs text-gray-500">If &gt;</span>
-                                                <input type="number" placeholder="Threshold" value={newRule.threshold_val}
+                                                <input aria-label="Threshold val" type="number" placeholder="Threshold" value={newRule.threshold_val}
                                                     onChange={e => setNewRule({ ...newRule, threshold_val: e.target.value })}
                                                     className="w-20 bg-white/5 border border-white/10 rounded-md p-1 text-white text-xs" />
                                                 <span className="text-xs text-gray-500">Then</span>
-                                                <select value={newRule.threshold_markup_op} onChange={e => setNewRule({ ...newRule, threshold_markup_op: e.target.value })}
+                                                <select aria-label="Threshold markup op" value={newRule.threshold_markup_op} onChange={e => setNewRule({ ...newRule, threshold_markup_op: e.target.value })}
                                                     className="bg-white/5 border border-white/10 rounded-md p-1 text-white text-xs w-10">
                                                     <option value="" className="text-black">-</option>
                                                     <option value="+" className="text-black">+</option>
                                                     <option value="-" className="text-black">-</option>
                                                 </select>
-                                                <input type="number" placeholder="Value" value={newRule.threshold_markup_val}
+                                                <input aria-label="Threshold markup val" type="number" placeholder="Value" value={newRule.threshold_markup_val}
                                                     onChange={e => setNewRule({ ...newRule, threshold_markup_val: e.target.value })}
                                                     className="w-16 bg-white/5 border border-white/10 rounded-md p-1 text-white text-xs" />
                                             </div>
@@ -413,12 +414,12 @@ const VendorManager = () => {
                                                     </div>
                                                 </div>
 
-                                                <input type="text" value={editingRule.item_name} onChange={e => setEditingRule({ ...editingRule, item_name: e.target.value })}
+                                                <input aria-label="Item name" type="text" value={editingRule.item_name} onChange={e => setEditingRule({ ...editingRule, item_name: e.target.value })}
                                                     className="w-full bg-black/20 border border-white/20 rounded p-2 text-xs text-white mb-2" placeholder="Item Name" />
 
                                                 <div className="grid grid-cols-12 gap-2 items-center">
                                                     <div className="col-span-4">
-                                                        <select value={editingRule.base_rate_type} onChange={e => setEditingRule({ ...editingRule, base_rate_type: e.target.value })}
+                                                        <select aria-label="Base rate type" value={editingRule.base_rate_type} onChange={e => setEditingRule({ ...editingRule, base_rate_type: e.target.value })}
                                                             className="w-full bg-black/20 border border-white/20 rounded p-1 text-white text-xs">
                                                             <option value="TandoorRate" className="text-black">Tandoor Rate</option>
                                                             <option value="BoilerRate" className="text-black">Boiler Rate</option>
@@ -443,22 +444,22 @@ const VendorManager = () => {
                                                             <option value="-" className="text-black">-</option>
                                                             <option value="*" className="text-black">*</option>
                                                         </select>
-                                                        <input type="number" value={editingRule.val2 || 0} onChange={e => setEditingRule({ ...editingRule, val2: e.target.value })}
+                                                        <input aria-label="Opt" type="number" value={editingRule.val2 || 0} onChange={e => setEditingRule({ ...editingRule, val2: e.target.value })}
                                                             className="flex-1 bg-black/20 border border-white/20 rounded p-1 text-white text-xs min-w-0" placeholder="Opt" />
                                                     </div>
                                                 </div>
 
                                                 <div className="border-t border-white/10 pt-2 flex gap-2 items-center">
                                                     <span className="text-[10px] text-gray-400">If &gt;</span>
-                                                    <input type="number" value={editingRule.threshold_val || ''} onChange={e => setEditingRule({ ...editingRule, threshold_val: e.target.value })}
+                                                    <input aria-label="Threshold val" type="number" value={editingRule.threshold_val || ''} onChange={e => setEditingRule({ ...editingRule, threshold_val: e.target.value })}
                                                         className="w-16 bg-black/20 border border-white/20 rounded p-1 text-white text-xs" placeholder="Thresh" />
-                                                    <select value={editingRule.threshold_markup_op || ''} onChange={e => setEditingRule({ ...editingRule, threshold_markup_op: e.target.value })}
+                                                    <select aria-label="Threshold markup op" value={editingRule.threshold_markup_op || ''} onChange={e => setEditingRule({ ...editingRule, threshold_markup_op: e.target.value })}
                                                         className="bg-black/20 border border-white/20 rounded p-1 text-white text-xs w-10">
                                                         <option value="" className="text-black"></option>
                                                         <option value="+" className="text-black">+</option>
                                                         <option value="-" className="text-black">-</option>
                                                     </select>
-                                                    <input type="number" value={editingRule.threshold_markup_val || ''} onChange={e => setEditingRule({ ...editingRule, threshold_markup_val: e.target.value })}
+                                                    <input aria-label="Threshold markup val" type="number" value={editingRule.threshold_markup_val || ''} onChange={e => setEditingRule({ ...editingRule, threshold_markup_val: e.target.value })}
                                                         className="w-16 bg-black/20 border border-white/20 rounded p-1 text-white text-xs" placeholder="Val" />
                                                 </div>
                                             </form>
@@ -477,8 +478,8 @@ const VendorManager = () => {
                                                     )}
                                                 </div>
                                                 <div className="flex gap-1 opacity-50 group-hover:opacity-100 transition">
-                                                    <button onClick={() => setEditingRule(r)} className="p-1.5 bg-blue-600/20 text-blue-400 rounded hover:bg-blue-600 hover:text-white"><FiEdit2 size={12} /></button>
-                                                    <button onClick={() => setDeleteConfirm(r.id)} className="p-1.5 bg-red-600/20 text-red-400 rounded hover:bg-red-600 hover:text-white"><FiTrash2 size={12} /></button>
+                                                    <button aria-label="Edit" onClick={() => setEditingRule(r)} className="p-1.5 bg-blue-600/20 text-blue-400 rounded hover:bg-blue-600 hover:text-white"><FiEdit2 size={12} /></button>
+                                                    <button aria-label="Delete" onClick={() => setDeleteConfirm(r.id)} className="p-1.5 bg-red-600/20 text-red-400 rounded hover:bg-red-600 hover:text-white"><FiTrash2 size={12} /></button>
                                                 </div>
                                             </div>
                                         )}

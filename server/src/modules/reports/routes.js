@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('./controller');
+const { verifyToken, checkRole } = require('../../middleware/auth');
+router.use(verifyToken, checkRole(['owner','manager']));
 
 // ==================== FINANCIAL REPORTS ====================
 router.get('/financial/overview', controller.getFinancialOverview);

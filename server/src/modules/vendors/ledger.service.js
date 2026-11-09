@@ -39,11 +39,12 @@ exports.calculateRunningBalance = async (vendorId, startDate = null, endDate = n
 
         const result = await db.query(query, params);
 
-        // Calculate running balance
-        let runningBalance = parseFloat(result.rows[0]?.opening_balance || 0);
+        const prior = await db.query("SELECT s.opening_balance + COALESCE(SUM(CASE WHEN vl.transaction_type = 'Payment' THEN -ABS(vl.amount) ELSE vl.amount END),0) AS opening FROM suppliers s LEFT JOIN vendor_ledger vl ON vl.supplier_id=s.id AND ($2::date IS NOT NULL AND vl.date < $2::date) WHERE s.id=$1 GROUP BY s.id", [vendorId, startDate]);
+        const openingBalance = Number(prior.rows[0]?.opening || 0);
+        let runningBalance = openingBalance;
         const transactions = result.rows.map(txn => {
             const amount = parseFloat(txn.amount);
-            runningBalance += amount;
+            runningBalance += txn.transaction_type === 'Payment' ? -Math.abs(amount) : amount;
 
             return {
                 id: txn.id,
@@ -58,7 +59,7 @@ exports.calculateRunningBalance = async (vendorId, startDate = null, endDate = n
         });
 
         return {
-            opening_balance: parseFloat(result.rows[0]?.opening_balance || 0),
+            opening_balance: openingBalance,
             transactions,
             closing_balance: runningBalance
         };
@@ -78,7 +79,7 @@ exports.getOutstandingAmount = async (vendorId) => {
                 s.opening_balance,
                 COALESCE(SUM(CASE 
                     WHEN vl.transaction_type IN ('Bill', 'Purchase') THEN vl.amount
-                    WHEN vl.transaction_type = 'Payment' THEN vl.amount
+                    WHEN vl.transaction_type = 'Payment' THEN -ABS(vl.amount)
                     ELSE 0 
                 END), 0) as total_transactions
             FROM suppliers s
@@ -112,44 +113,27 @@ exports.getOutstandingAmount = async (vendorId) => {
  */
 exports.getCategoryAggregation = async (categoryId = null, startDate = null, endDate = null) => {
     try {
-        let query = `
-            SELECT 
-                vc.id as category_id,
-                vc.name as category_name,
-                COUNT(DISTINCT s.id) as vendor_count,
-                COALESCE(SUM(CASE 
-                    WHEN vl.transaction_type IN ('Bill', 'Purchase') THEN vl.amount
-                    WHEN vl.transaction_type = 'Payment' THEN vl.amount
-                    ELSE 0 
-                END), 0) as total_transactions,
-                COALESCE(SUM(s.opening_balance), 0) as total_opening_balance
+        // Aggregate events per supplier before summing opening balances.
+        // Date restrictions apply only to events so suppliers without events
+        // in the requested window retain their opening balance.
+        const params = [categoryId, startDate, endDate];
+        const query = `
+            SELECT vc.id AS category_id, vc.name AS category_name,
+                   COUNT(s.id) AS vendor_count,
+                   COALESCE(SUM(events.total),0) AS total_transactions,
+                   COALESCE(SUM(s.opening_balance),0) AS total_opening_balance
             FROM vendor_categories vc
-            LEFT JOIN suppliers s ON vc.id = s.category_id
-            LEFT JOIN vendor_ledger vl ON s.id = vl.supplier_id
-            WHERE 1=1
+            LEFT JOIN suppliers s ON s.category_id=vc.id
+            LEFT JOIN LATERAL (
+                SELECT SUM(CASE WHEN vl.transaction_type IN ('Bill','Purchase') THEN vl.amount
+                                WHEN vl.transaction_type='Payment' THEN -ABS(vl.amount) ELSE 0 END) AS total
+                FROM vendor_ledger vl WHERE vl.supplier_id=s.id
+                AND ($2::date IS NULL OR vl.date >= $2::date)
+                AND ($3::date IS NULL OR vl.date <= $3::date)
+            ) events ON TRUE
+            WHERE ($1::int IS NULL OR vc.id=$1::int)
+            GROUP BY vc.id,vc.name ORDER BY total_transactions DESC
         `;
-        const params = [];
-        let paramCount = 1;
-
-        if (categoryId) {
-            query += ` AND vc.id = $${paramCount}`;
-            params.push(categoryId);
-            paramCount++;
-        }
-
-        if (startDate) {
-            query += ` AND (vl.date >= $${paramCount} OR vl.date IS NULL)`;
-            params.push(startDate);
-            paramCount++;
-        }
-
-        if (endDate) {
-            query += ` AND (vl.date <= $${paramCount} OR vl.date IS NULL)`;
-            params.push(endDate);
-            paramCount++;
-        }
-
-        query += ' GROUP BY vc.id, vc.name ORDER BY total_transactions DESC';
 
         const result = await db.query(query, params);
 

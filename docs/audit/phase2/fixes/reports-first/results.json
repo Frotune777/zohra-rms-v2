@@ -1,0 +1,1297 @@
+{
+  "started_at": "2026-11-09T04:38:04.821Z",
+  "finished_at": "2026-11-09T04:38:56.208Z",
+  "planned_tests": [
+    {
+      "title": "EXPORT-001 CSV preserves quotes, Unicode and embedded newlines without executable formula cells",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 7
+    },
+    {
+      "title": "EXPORT-002 /reports/financial JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13
+    },
+    {
+      "title": "EXPORT-002 /reports/hr JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13
+    },
+    {
+      "title": "EXPORT-002 /reports/operations JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13
+    },
+    {
+      "title": "EXPORT-002 /reports/inventory JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13
+    },
+    {
+      "title": "EXPORT-003 /reports/financial PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23
+    },
+    {
+      "title": "EXPORT-003 /reports/hr PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23
+    },
+    {
+      "title": "EXPORT-003 /reports/operations PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23
+    },
+    {
+      "title": "EXPORT-003 /reports/inventory PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23
+    },
+    {
+      "title": "EXPORT-003 repeated downloads release their Blob URLs",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 27
+    },
+    {
+      "title": "REPORT-001 overview, expense breakdown and revenue trends reconcile reversals to GL",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 7
+    },
+    {
+      "title": "REPORT-001 inclusive end date contains transactions at 23:59:59",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 14
+    },
+    {
+      "title": "REPORT-002 historical balance sheet excludes future account movements and satisfies equation",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 18
+    },
+    {
+      "title": "REPORT-003 capitalized advances and repayments agree in employee report and summary",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 22
+    },
+    {
+      "title": "REPORT-004 attendance percentage includes the earned half-day proportion",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 26
+    },
+    {
+      "title": "REPORT-005 approved/rejected bill counts and partial vendor payment reconcile exact fixtures",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 30
+    },
+    {
+      "title": "REPORT-006 stock valuation and dated wastage reconcile sale and waste deductions",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 36
+    },
+    {
+      "title": "DASH-001 dashboard KPIs agree with net financial and advance balances",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 41
+    },
+    {
+      "title": "AI-001 no history yields zero and weighted completed recipes retain ingredient units",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 48
+    },
+    {
+      "title": "AI-002 documented two-day lead plus one-day safety triggers strictly below reorder point",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 53
+    },
+    {
+      "title": "CFG-001 bulk upsert/reorder, toggle and rollback preserve category-scoped configuration",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 58
+    },
+    {
+      "title": "CFG-001 inactive options remain reachable in the management screen for reactivation",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 66
+    },
+    {
+      "title": "CFG-002 staff cannot mutate and an ID from another category cannot be deleted",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 70
+    },
+    {
+      "title": "CFG-002 partial label update retains value, activation, metadata and display order",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 75
+    },
+    {
+      "title": "CFG-003 configured active payment label is accepted by financial services",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 79
+    }
+  ],
+  "source_sha256": {
+    "playwright.audit.config.cjs": "a71db4d943a18608429fca9fe6f33014d4a87d69d4a12572aeff2b724fe12cad",
+    "tests/audit/auth.spec.cjs": "95fae9609d8a778dc2280a346d62e86197491236a1fa216a407cc5227381bc57",
+    "tests/audit/clock.cjs": "d610bc5db42c3f5ca22a04380af278baa79c80e528636da8fc068e1f3b7bf740",
+    "tests/audit/data-roundtrip.spec.cjs": "6fa80c53d2e33b20c09c70d943e1292d41adf99a6e0fc4b05394f19994ab94f4",
+    "tests/audit/database.cjs": "cbfa494e2a645cd7c7896f609f4bbfb7801b597150f71920d42fe2eef35553ad",
+    "tests/audit/exports.spec.cjs": "98cd06087cdfbf2bef7d94858704d23db5fe823539ecf89e35962ff60a436820",
+    "tests/audit/finance.spec.cjs": "9b810e295f0a928d656ed628b868d244d43d59c76ca4efb030648a5064222d25",
+    "tests/audit/fixtures.cjs": "754e4b030497b681c9b8a0bcf177e78201f07a8fa2aa815eb2b98bdda14ab14a",
+    "tests/audit/global-setup.cjs": "0193336d5a2c9c384ff79b1d7d4f39a64b5d6ca733f3411264958e6c51a05d38",
+    "tests/audit/global-teardown.cjs": "05fe5aef9cd5e4e0c7187257d4177f20e3fbafe790268e12448a402c310c509d",
+    "tests/audit/harness.spec.cjs": "09ecde360e4257c4e43df2cbdb65fd280a36314f14eb17fd055243f6329451d6",
+    "tests/audit/helpers.cjs": "41922596bef71690777ab88108ce74fe31ff5410e91650aa3d454b70dddf167a",
+    "tests/audit/hr.spec.cjs": "3ebbadd9a9ab34102de274d6bd0f75d258ab98e250f96858960b619f06065ca5",
+    "tests/audit/import-runner.py": "99eb69b02bf882a6255c7bddc1251466edb6cade53cc4d1af563fcd53b114331",
+    "tests/audit/payroll-ui.spec.cjs": "77ced4163432777ac05ca72028dc3ca1fa032337d2977df79895602166e2e4e6",
+    "tests/audit/pos-inventory.spec.cjs": "36812fccaf454a1b2a8a8cb5228b7440ab16a1919a834bf8a9d6020d78adadef",
+    "tests/audit/procurement.spec.cjs": "0f711d50e9bf22a7bafb473f388b64c3ca903387433d1e6fa6de6ca410b5e089",
+    "tests/audit/reporter.cjs": "2c5903c8e445544dccefaeff47521650f78652ace907e35ae68a9127f8f259f0",
+    "tests/audit/reports-config-ai.spec.cjs": "24b19eea59aff75842d92282ef56dd7c23c79ddf242efef52b38b4958eae7fa9",
+    "tests/audit/screen-states.spec.cjs": "36b3c238aaacfb96945afe0ba37e1302bf683d51ba04c637b0a68d29feb3a7ab",
+    "tests/audit/screens.cjs": "d1a775987958f7a4ea7951f1c67e4aaeee2171e9a5b758b465dc0de207a1ae17",
+    "tests/audit/screens.spec.cjs": "daede1a5e376ea623c767960d84f6b50b74015bd090fdbca18379cb1ec38da4c",
+    "tests/audit/service-runner.cjs": "b946717a5c368f4f20d46887489a5c4d4aa361ebcf08c1390963efaf17241c3b"
+  },
+  "status": "failed",
+  "counts": {
+    "passed": 20,
+    "failed": 5
+  },
+  "results": [
+    {
+      "title": "EXPORT-001 CSV preserves quotes, Unicode and embedded newlines without executable formula cells",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 7,
+      "ids": [
+        "EXPORT-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1527,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-001-CSV-pre-1c94f-ut-executable-formula-cells/attachments/audit-evidence-92cf34ccfb047f4ae657276d61a426f9796da061.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_863a275f49d8_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "CSV content",
+            "actual": {
+              "name": "inventory_report_2026-11-09.csv",
+              "content": "id,name,stock_qty,unit_cost,unit,stock_value,stock_level\n1,'=1+1,20.0000,150.00,kg,3000.000000,medium\n2,\"Zohra, \"\"रसोई\"\"\nSecond line\",10.0000,50.00,kg,500.000000,low"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-002 /reports/financial JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13,
+      "ids": [
+        "EXPORT-002"
+      ],
+      "status": "failed",
+      "duration_ms": 1470,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 7\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[32m- Array [\u001b[39m\n\u001b[32m-   Object {\u001b[39m\n\u001b[32m-     \"date\": \"9 Nov\",\u001b[39m\n\u001b[32m-     \"expenses\": 50,\u001b[39m\n\u001b[32m-     \"revenue\": 100,\u001b[39m\n\u001b[32m-   },\u001b[39m\n\u001b[32m- ]\u001b[39m\n\u001b[31m+ Array []\u001b[39m"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-002-reports-00ff3-ad-matches-the-report-input/test-failed-1.png",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-002-reports-00ff3-ad-matches-the-report-input/attachments/audit-evidence-c3af6c227cd7f2ae63a9ca6dab20f107ff713f9d.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-002-reports-00ff3-ad-matches-the-report-input/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-002-reports-00ff3-ad-matches-the-report-input/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_37c8d2943356_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "JSON content",
+            "actual": []
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-002 /reports/hr JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13,
+      "ids": [
+        "EXPORT-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1362,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-002-reports-1a0b6-ad-matches-the-report-input/attachments/audit-evidence-3f435b5abbf27bf49589e2587995ffe71c73a680.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d3032b486112_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "reports/hr/advances?startDate=2026-10-10&endDate=2026-11-09",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "JSON content",
+            "actual": [
+              {
+                "employee_id": 1,
+                "full_name": "Audit Staff",
+                "position": "Cook",
+                "total_advances": "1000.00",
+                "total_recovered": "0",
+                "outstanding_balance": "1000.00"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-002 /reports/operations JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13,
+      "ids": [
+        "EXPORT-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1461,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-002-reports-acbe1-ad-matches-the-report-input/attachments/audit-evidence-c6e1801c7676d4b478b4c0e3edf3d9c3deea7fb7.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_cbfe0a36f559_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "reports/operations/chicken-analytics?startDate=2026-10-10&endDate=2026-11-09",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "JSON content",
+            "actual": [
+              {
+                "item_name": "Audit Chicken",
+                "total_qty": "2.00",
+                "avg_rate": "160.0000000000000000",
+                "total_amount": "320.0000",
+                "bill_count": "1"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-002 /reports/inventory JSON download matches the report input",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 13,
+      "ids": [
+        "EXPORT-002"
+      ],
+      "status": "passed",
+      "duration_ms": 1402,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-002-reports-ae8c1-ad-matches-the-report-input/attachments/audit-evidence-4350a5c1e1d38fcee4021bd40c06b3a79e27c93b.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_444e3fbe7845_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": [
+          {
+            "name": "JSON content",
+            "actual": [
+              {
+                "id": 1,
+                "name": "Audit Chicken",
+                "stock_qty": "20.0000",
+                "unit_cost": "150.00",
+                "unit": "kg",
+                "stock_value": "3000.000000",
+                "stock_level": "medium"
+              },
+              {
+                "id": 2,
+                "name": "Audit Rice",
+                "stock_qty": "10.0000",
+                "unit_cost": "50.00",
+                "unit": "kg",
+                "stock_value": "500.000000",
+                "stock_level": "low"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "EXPORT-003 /reports/financial PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "failed",
+      "duration_ms": 6622,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('PDF export coming soon!', { exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"soft toBeVisible\" getByText('PDF export coming soon!', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('PDF export coming soon!', { exact: true })\u001b[22m\n"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-11896-an-unavailable-toast-method/test-failed-1.png",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-11896-an-unavailable-toast-method/attachments/audit-evidence-5818e85dee42b481f938a203c9f9480af79fb4e4.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-11896-an-unavailable-toast-method/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-11896-an-unavailable-toast-method/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_50c33f33b66d_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "EXPORT-003 /reports/hr PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "failed",
+      "duration_ms": 6481,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('PDF export coming soon!', { exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"soft toBeVisible\" getByText('PDF export coming soon!', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('PDF export coming soon!', { exact: true })\u001b[22m\n"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-5e22c-an-unavailable-toast-method/test-failed-1.png",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-5e22c-an-unavailable-toast-method/attachments/audit-evidence-8a4deb765bb7594fb032866ecb84d844724dff19.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-5e22c-an-unavailable-toast-method/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-5e22c-an-unavailable-toast-method/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d5be8be7008f_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "EXPORT-003 /reports/operations PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "failed",
+      "duration_ms": 6602,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('PDF export coming soon!', { exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"soft toBeVisible\" getByText('PDF export coming soon!', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('PDF export coming soon!', { exact: true })\u001b[22m\n"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-a869c-an-unavailable-toast-method/test-failed-1.png",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-a869c-an-unavailable-toast-method/attachments/audit-evidence-f56a1e76def1d96a3f8af0fba341937c60b47255.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-a869c-an-unavailable-toast-method/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-a869c-an-unavailable-toast-method/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d0884dcea4b6_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "EXPORT-003 /reports/inventory PDF placeholder is clear and never throws an unavailable toast method",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 23,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "failed",
+      "duration_ms": 6472,
+      "errors": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('PDF export coming soon!', { exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"soft toBeVisible\" getByText('PDF export coming soon!', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('PDF export coming soon!', { exact: true })\u001b[22m\n"
+      ],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-33807-an-unavailable-toast-method/test-failed-1.png",
+          "contentType": "image/png"
+        },
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-33807-an-unavailable-toast-method/attachments/audit-evidence-97394f5f8534e111659f587ca2ad2766b34af1f6.json",
+          "contentType": "application/json"
+        },
+        {
+          "name": "error-context",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-33807-an-unavailable-toast-method/error-context.md",
+          "contentType": "text/markdown"
+        },
+        {
+          "name": "trace",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-reports-33807-an-unavailable-toast-method/trace.zip",
+          "contentType": "application/zip"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_f070fdb6a663_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "EXPORT-003 repeated downloads release their Blob URLs",
+      "file": "tests/audit/exports.spec.cjs",
+      "line": 27,
+      "ids": [
+        "EXPORT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 1585,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/exports-EXPORT-003-repeate-49600-ads-release-their-Blob-URLs/attachments/audit-evidence-e27fec6d8186f3ca4c54f334954a9caf575b01df.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_58ee35887dcf_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [],
+        "checks": []
+      }
+    },
+    {
+      "title": "REPORT-001 overview, expense breakdown and revenue trends reconcile reversals to GL",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 7,
+      "ids": [
+        "REPORT-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1373,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-REPORT-0-98b54-s-reconcile-reversals-to-GL/attachments/audit-evidence-1cf41a1ec6721947f4b7e46debdf724533b15ec0.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_d2a0d8352740_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "reports/financial/overview?startDate=2026-11-01&endDate=2026-11-30",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "reports/financial/expense-breakdown?startDate=2026-11-01&endDate=2026-11-30",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "reports/financial/revenue-trends?startDate=2026-11-01&endDate=2026-11-30&groupBy=day",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "reports/financial/revenue-trends?startDate=2026-11-01&endDate=2026-11-30&groupBy=week",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "reports/financial/revenue-trends?startDate=2026-11-01&endDate=2026-11-30&groupBy=month",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Financial overview",
+            "actual": {
+              "summary": {
+                "total_revenue": "800.00",
+                "total_expenses": "250.00",
+                "net_profit": "550.00"
+              },
+              "revenueTrend": [
+                {
+                  "date": "2026-11-09T00:00:00.000Z",
+                  "revenue": "800.00"
+                }
+              ],
+              "expenseTrend": [
+                {
+                  "date": "2026-11-09T00:00:00.000Z",
+                  "expenses": "250.00"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "REPORT-001 inclusive end date contains transactions at 23:59:59",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 14,
+      "ids": [
+        "REPORT-001"
+      ],
+      "status": "passed",
+      "duration_ms": 866,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-REPORT-0-36f8e-ns-transactions-at-23-59-59/attachments/audit-evidence-c0de5ce40eaa8e2ca8ab3dfdc5c401a3645e0173.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_0e449d9eb0b4_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "reports/financial/overview?startDate=2026-11-01&endDate=2026-11-30",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "REPORT-002 historical balance sheet excludes future account movements and satisfies equation",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 18,
+      "ids": [
+        "REPORT-002"
+      ],
+      "status": "passed",
+      "duration_ms": 856,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-REPORT-0-209ea-ents-and-satisfies-equation/attachments/audit-evidence-24fe2444878fbe5d4ab6e2edb963910a529665cb.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_f1214585a3a1_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "reports/financial/balance-sheet?date=2026-11-30",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "REPORT-003 capitalized advances and repayments agree in employee report and summary",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 22,
+      "ids": [
+        "REPORT-003"
+      ],
+      "status": "passed",
+      "duration_ms": 749,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-REPORT-0-df3c2-employee-report-and-summary/attachments/audit-evidence-01774304fa8e03756304634d3bf3fa44ec9641e2.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_91ed5e9379d2_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "reports/hr/advances?startDate=2026-11-01&endDate=2026-11-30",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "REPORT-004 attendance percentage includes the earned half-day proportion",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 26,
+      "ids": [
+        "REPORT-004"
+      ],
+      "status": "passed",
+      "duration_ms": 849,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-REPORT-0-42892--earned-half-day-proportion/attachments/audit-evidence-b04eaa89181900b2ff09d5d32cc2ca46716eb049.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_da58af4b0217_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "reports/hr/attendance?startDate=2026-11-01&endDate=2026-11-30",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "REPORT-005 approved/rejected bill counts and partial vendor payment reconcile exact fixtures",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 30,
+      "ids": [
+        "REPORT-005"
+      ],
+      "status": "passed",
+      "duration_ms": 865,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-REPORT-0-68f7d-nt-reconcile-exact-fixtures/attachments/audit-evidence-0a5de247b068680ad3910110355e5d3cf6c96464.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_296afc754ec0_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "reports/operations/chicken-analytics?startDate=2026-11-01&endDate=2026-11-30",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "reports/operations/vendor-performance?startDate=2026-11-01&endDate=2026-11-30",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "REPORT-006 stock valuation and dated wastage reconcile sale and waste deductions",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 36,
+      "ids": [
+        "REPORT-006"
+      ],
+      "status": "passed",
+      "duration_ms": 880,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-REPORT-0-c773b-e-sale-and-waste-deductions/attachments/audit-evidence-65c088fb6a1a54f8bb82db8f33f207f8f5938aa5.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a2114a7fd19e_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "wastage",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "reports/inventory/stock-status",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "reports/inventory/wastage?startDate=2026-11-01&endDate=2026-11-30",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "DASH-001 dashboard KPIs agree with net financial and advance balances",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 41,
+      "ids": [
+        "DASH-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1350,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-DASH-001-896f1-ancial-and-advance-balances/attachments/audit-evidence-693b92bd31b8558524274b76a33219a16a021ec2.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_4178ecf16d22_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "reports/dashboard/kpis?startDate=2026-11-01&endDate=2026-11-30",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": [
+          {
+            "name": "Dashboard",
+            "actual": {
+              "financial": {
+                "total_revenue": "800.00",
+                "total_expenses": "250.00",
+                "net_profit": "550.00"
+              },
+              "hr": {
+                "total_employees": "3",
+                "total_salary_base": "95000.00"
+              },
+              "advances": {
+                "outstanding_advances": "600.00"
+              },
+              "inventory": {
+                "total_items": "2",
+                "inventory_value": "3500.000000",
+                "low_stock_items": "1"
+              },
+              "operations": {
+                "total_bills": "0",
+                "pending_bills": "0",
+                "total_variance": "0"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "title": "AI-001 no history yields zero and weighted completed recipes retain ingredient units",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 48,
+      "ids": [
+        "AI-001"
+      ],
+      "status": "passed",
+      "duration_ms": 876,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-AI-001-n-56de2-pes-retain-ingredient-units/attachments/audit-evidence-ae1b3697806e29a1cfd1e05674b68b793bef0cdb.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_314e565fbf76_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "ai/forecast/1",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "ai/forecast/1",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "AI-002 documented two-day lead plus one-day safety triggers strictly below reorder point",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 53,
+      "ids": [
+        "AI-002"
+      ],
+      "status": "passed",
+      "duration_ms": 854,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-AI-002-d-70ffe-trictly-below-reorder-point/attachments/audit-evidence-2b57eb3302143f2ed9964b0d7e47a23f0047140f.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_146b2d281d1b_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "ai/suggested-orders",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "ai/suggested-orders",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CFG-001 bulk upsert/reorder, toggle and rollback preserve category-scoped configuration",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 58,
+      "ids": [
+        "CFG-001"
+      ],
+      "status": "passed",
+      "duration_ms": 897,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-CFG-001--986f8-tegory-scoped-configuration/attachments/audit-evidence-65eae989fb0e40448aa104b7985c1fd5cb4ebb18.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_fc142fe27bd8_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "config/audit-options/bulk-import",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "config/audit-options/bulk-import",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "config/audit-options",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "config/audit-options/reorder",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "config/audit-options",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "PATCH",
+            "endpoint": "config/audit-options/45/toggle",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "endpoint": "config/audit-options",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "config/audit-options/bulk-import",
+            "role": "owner",
+            "status": 500,
+            "error": "null value in column \"value\" of relation \"config_options\" violates not-null constraint"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CFG-001 inactive options remain reachable in the management screen for reactivation",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 66,
+      "ids": [
+        "CFG-001"
+      ],
+      "status": "passed",
+      "duration_ms": 1303,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-CFG-001--2e290-ent-screen-for-reactivation/attachments/audit-evidence-1f99e1f7e9f95474071a30d1899e2c3e60f0e4fa.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_a6384a47059f_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "config/item_categories",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "PATCH",
+            "endpoint": "config/item_categories/44/toggle",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CFG-002 staff cannot mutate and an ID from another category cannot be deleted",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 70,
+      "ids": [
+        "CFG-002"
+      ],
+      "status": "passed",
+      "duration_ms": 858,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-CFG-002--a75e2--category-cannot-be-deleted/attachments/audit-evidence-c9932e17dfdc3c9ac13e12b5a41890b6b5f27cd6.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_34f6be918d54_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "config/units",
+            "role": "staff",
+            "status": 403,
+            "error": "Insufficient permissions"
+          },
+          {
+            "method": "POST",
+            "endpoint": "config/units",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "DELETE",
+            "endpoint": "config/payment_types/44",
+            "role": "owner",
+            "status": 404,
+            "error": "Configuration option not found"
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CFG-002 partial label update retains value, activation, metadata and display order",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 75,
+      "ids": [
+        "CFG-002"
+      ],
+      "status": "passed",
+      "duration_ms": 854,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-CFG-002--13ce8--metadata-and-display-order/attachments/audit-evidence-74270f96237526b0dad7af3b7549d7ce2fa935ab.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_04e7f490678a_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "POST",
+            "endpoint": "config/units",
+            "role": "owner",
+            "status": 201
+          },
+          {
+            "method": "PUT",
+            "endpoint": "config/units/44",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    },
+    {
+      "title": "CFG-003 configured active payment label is accepted by financial services",
+      "file": "tests/audit/reports-config-ai.spec.cjs",
+      "line": 79,
+      "ids": [
+        "CFG-003"
+      ],
+      "status": "passed",
+      "duration_ms": 897,
+      "errors": [],
+      "annotations": [],
+      "attachments": [
+        {
+          "name": "audit-evidence",
+          "path": "/Users/I557587/Personal/zohra-rms-v2/test-results/audit/reports-config-ai-CFG-003--14877-epted-by-financial-services/attachments/audit-evidence-3d8a5068cbef15cfd96af5f0337790ab886325e9.json",
+          "contentType": "application/json"
+        }
+      ],
+      "evidence": {
+        "database": "zohra_pw_case_f9cd48c44b73_1794199084292",
+        "date": "2026-11-09",
+        "business_instant": "2026-11-09T12:00:00Z",
+        "calls": [
+          {
+            "method": "GET",
+            "endpoint": "finance/payment-modes",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/revenue",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/revenue",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/revenue",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/revenue",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/revenue",
+            "role": "owner",
+            "status": 200
+          },
+          {
+            "method": "POST",
+            "endpoint": "finance/revenue",
+            "role": "owner",
+            "status": 200
+          }
+        ],
+        "checks": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+[
+  {
+    "path": "database/00_init.sql",
+    "sha256": "a2872b59ddc00b6ea3d95df87780899ed7f886eccab52d4a504347c6286d60ac"
+  },
+  {
+    "path": "database/01_add_employee_code.sql",
+    "sha256": "9a25a7134c6215fc5be0a3357ecbd7c8f9356cc6108a94d497d91aaa9e108996"
+  },
+  {
+    "path": "database/02_missing_tables.sql",
+    "sha256": "fce72f78edc37d572842ad09a6f301fc77eed0b8190f5b459832fceebeac3ce0"
+  },
+  {
+    "path": "database/03_fix_advance_ledger.sql",
+    "sha256": "fd7ef3fea5bfca3df64a23d24779083bbee68a0d048d5beccd2506bceb77bb48"
+  },
+  {
+    "path": "database/04_fix_salary_history.sql",
+    "sha256": "5846acdf97f7f42bde2107b5761d4fe4b6b28761f60f9805e2a641ee605325bb"
+  },
+  {
+    "path": "database/05_phase2_schema.sql",
+    "sha256": "155b3b9f51b4e666e7f17ec56f668232e6f507cd8229f0a115745bac966ce60e"
+  },
+  {
+    "path": "database/06_add_department_to_employees.sql",
+    "sha256": "5f38436506b20102200190b30e87ef6687d9a4c8e8caa167a92ee8caa8cb93e4"
+  },
+  {
+    "path": "database/06_critical_fixes.sql",
+    "sha256": "d5e1b954557f088641b52fc680cbe1e6238977610112e103785a86289e950cca"
+  },
+  {
+    "path": "database/07_add_supplier_fields.sql",
+    "sha256": "241920df1c139ca69d05cc3565f522e7223dabd1745ff2b09828d98a3d2d7ab1"
+  },
+  {
+    "path": "database/07_gap_fixes.sql",
+    "sha256": "bdcd63b9aa1ee633796d891288b06de5b8ec7522413108ab224dc8a062170e16"
+  },
+  {
+    "path": "database/08_fix_salary_history.sql",
+    "sha256": "56081396e185f41aade712e05e5e560532e8106d1c6aa77e09ea842c7aee586b"
+  },
+  {
+    "path": "database/08_payroll_schema.sql",
+    "sha256": "ae196be10d99cb8854551c43e1936b953b466f461cf184a373b0ebb372b63162"
+  },
+  {
+    "path": "database/09_audit_system.sql",
+    "sha256": "73d191d1949c26b057e16ec78be5acaf9e8cc3dd82411c943d7fca20608d244c"
+  },
+  {
+    "path": "database/09_payroll_enhancements.sql",
+    "sha256": "bd470eb85f712044e3faae5f3ee330fc9aaad96fcb0c7ef3fc56eb5b5c232228"
+  },
+  {
+    "path": "database/10_financial_periods.sql",
+    "sha256": "14b259a221d97328ddc7cd51e99e94ee24a6ddc79db10ba05535f6cd2c2f90dd"
+  },
+  {
+    "path": "database/11_add_paid_by_to_salary_history.sql",
+    "sha256": "f4a8613942f7bbb689936633b9cfb7430cd95b802a30f82bcaee5ac593da63ec"
+  },
+  {
+    "path": "database/12_add_recovered_amount_to_advances.sql",
+    "sha256": "48d48bc12f7c17a750ec76d48c97f7cc7ea808c753cd68fb9e082d746d703b4f"
+  },
+  {
+    "path": "database/13_audit_and_status.sql",
+    "sha256": "0410c96ac08a00529f9b87fb6d4e947d01cd7a566d2611a3234cd314261ac16e"
+  },
+  {
+    "path": "database/15_leave_and_attendance_governance.sql",
+    "sha256": "8b8ca490dd7653d666ad5f05e7ac2dac6816a66392e2f9275a6b0ad3bcc5ee02"
+  },
+  {
+    "path": "database/16_add_conditional_markup.sql",
+    "sha256": "fb2b4cfbaf8e6241f627388dab0ea4513089711b447e40809e4a3ef8b5e62d52"
+  },
+  {
+    "path": "database/17_add_markup_timestamps.sql",
+    "sha256": "818bc065e3f8aa12a7ebc5a68f846965b92727e05d17677b4d514e1d14e2f502"
+  },
+  {
+    "path": "database/18_add_daily_rates_audit.sql",
+    "sha256": "75a6b277c55c5b7aae0626ce746760890badacf7e0591a51d47e693cff9af817"
+  },
+  {
+    "path": "database/19_create_config_options.sql",
+    "sha256": "7d83fd4d69f98eaad8ec3ec009c9df1d24c32b4c772a8f63ee6c87f0e64aa522"
+  },
+  {
+    "path": "database/20_create_advance_requests.sql",
+    "sha256": "3c1c3eea5c238133d99058cc1f11ab349185c98f4d9f6435b3596a6078f53eab"
+  },
+  {
+    "path": "database/21_add_bill_id_to_ledger.sql",
+    "sha256": "b250f1a77c2bee646922d502b2aa6db93b63307992e3f707c3051de4b558bce1"
+  },
+  {
+    "path": "database/22_add_created_by_to_ledger.sql",
+    "sha256": "037cc165d53fed788664e0845ed7b50dc57d990c2fbc22b3f167532ec0f38efc"
+  },
+  {
+    "path": "database/23_employee_history.sql",
+    "sha256": "a5c3547f6a1173ee2d5d278070ecec5db305fc39271f642e6e5021a378be51b3"
+  },
+  {
+    "path": "server/migrations/001_advance_recovery_validation.sql",
+    "sha256": "e4fbff84f5e3a83a0d4201b9fa6a0a5263cc0372778629c1fabe85bbe135e415"
+  },
+  {
+    "path": "server/migrations/002_vendor_payment_system.sql",
+    "sha256": "96c6cab3a018e00b5538eea4ff4aa386250123811bfc53b2f2746e3c05853ae7"
+  },
+  {
+    "path": "server/migrations/003_fix_journal_entry_id_type.sql",
+    "sha256": "5c7b22a9c27efd1f009bd0c1501628b13d2037743577edc09d70b618fbae3785"
+  },
+  {
+    "path": "server/migrations/004_add_payment_accounts.sql",
+    "sha256": "eee2cc9c9732371561c945f426e50990118c5620456a0dc2ef8ea01df7412a5c"
+  },
+  {
+    "path": "server/migrations/036_restore_transactions_table.sql",
+    "sha256": "0bbb073e2739f4b8aa448f0ca2eadfc5d96c3f03a9117f2ed14bbcfa1e7fd81a"
+  },
+  {
+    "path": "server/src/modules/finance/migrations/001_finance_updates.sql",
+    "sha256": "4a34477dc6119b131ac6a8d29d7733201d2e130d1a77d8ef567012483f6aa48b"
+  },
+  {
+    "path": "server/src/modules/finance/migrations/002_expense_mappings.sql",
+    "sha256": "3923b768582f338183ce8334ff27b34b61bd59a4e2d4bb8a05f014a3c033c599"
+  },
+  {
+    "path": "database/14_fix_table_connections.sql",
+    "sha256": "644765a343a5e5c28aa6260a1b642b57e99343871fa96699e28abca80d05368e"
+  },
+  {
+    "path": "server/migrations/023_add_auditing_fields.sql",
+    "sha256": "acdd51ccce0a14cca205812225a4d6f0c38ca1dc96ba57face2c022ea4af3a93"
+  },
+  {
+    "path": "server/migrations/024_create_stock_movements.sql",
+    "sha256": "28cc05cb6488af6f74c735af92f8dfa9b8e925830d299688afce8e4e8ced0454"
+  },
+  {
+    "path": "server/migrations/025_create_pos_transactions.sql",
+    "sha256": "3e9d999cd4a9a8cc8eeda19d61cb8145ff9cd10eb60a739cf2d85a4799fb960f"
+  },
+  {
+    "path": "server/migrations/026_update_vendor_outstanding_dates.sql",
+    "sha256": "665c41819ad2e20bd82a289eff8a857e8a036e5d7db95bcda08950e948d40574"
+  },
+  {
+    "path": "database/migrations/042_runtime_contract_prerequisites.sql",
+    "sha256": "7c75d11f75eddf49e83d10f4d208d1d2ff6029bc051790f5c7052c12874130ea"
+  },
+  {
+    "path": "server/migrations/030_payment_modes.sql",
+    "sha256": "dc8973bfecc71b05d55156e4025b641b96ce9b89080142a66b64a7e57feb5745"
+  },
+  {
+    "path": "server/migrations/031_category_account_mapping.sql",
+    "sha256": "241bcf93cfc145f82f5ca2dbc8d93b6b035e0d26fc9ed7a3984579e03464e299"
+  },
+  {
+    "path": "server/migrations/032_daily_closure_enforcement.sql",
+    "sha256": "2c437e7c7d6f9f4696326dda3d1eebc6014513da0099bb43c06a827c9a42ad9f"
+  },
+  {
+    "path": "server/migrations/033_period_locking.sql",
+    "sha256": "81493ffa08d627c0122e72469bc1b4f4a70e9536609dc93088b5c5fc7b3daae8"
+  },
+  {
+    "path": "server/migrations/034_advance_ledger_je_link.sql",
+    "sha256": "b6ceefefd390709e9e79f291fdb46184d6baa3456926bdccc12d8212977eb0f0"
+  },
+  {
+    "path": "server/migrations/037_owner_equity_tracking.sql",
+    "sha256": "f61950b3328ed0215d0d465933bc8d71b79e75ef3bf58a405240c7ebad4d2347"
+  },
+  {
+    "path": "server/migrations/040_fix_closure_schema.sql",
+    "sha256": "7a87f3969924643b21d8bd540405c44c6829840780381f571df16cf6364742f8"
+  },
+  {
+    "path": "server/migrations/041_link_user_employee.sql",
+    "sha256": "fe72b5078ddd128179dd5bb2e0193ce312799bf23297cea3623306ef455d0ab0"
+  },
+  {
+    "path": "database/migrations/11_payroll_audit_log.sql",
+    "sha256": "4d9b7c0efc61088c1ac8bdd7b99c7db696af5027d597301092f843ded951088e"
+  },
+  {
+    "path": "database/migrations/043_audit_integrity_repairs.sql",
+    "sha256": "5cae09e58dbec345f63723af53e84f53072ffb66532290578530584d856e7c4e"
+  },
+  {
+    "path": "database/migrations/044_workflow_completion.sql",
+    "sha256": "f81902d28eaf6555469a436d1b7f1f0728ae2ebcb58e3918a734f9d2c8c832ef"
+  },
+  {
+    "path": "database/migrations/045_advance_schedule_sync.sql",
+    "sha256": "a353a325b3f98d8017e841ba954dfad4ff5eacda60af4c83ac55a241cb639c46"
+  },
+  {
+    "path": "database/migrations/046_stock_valuation_history.sql",
+    "sha256": "60ad651ee14627b26eff2405f6e75ae5ef5632b02536c4448efb86d668487a8e"
+  },
+  {
+    "path": "database/migrations/047_corrections_and_stock_value.sql",
+    "sha256": "7a87027d2a6db0943f8128741c14f00e65e5b2c925e34dadf391870087733a4e"
+  }
+]

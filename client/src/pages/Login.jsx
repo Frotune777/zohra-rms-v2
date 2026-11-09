@@ -60,10 +60,11 @@ const Login = () => {
 
           {/* Email Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+            <label htmlFor="login-email" className="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
             <div className="flex items-center gap-3 px-4 py-3 bg-white/5 border border-white/10 rounded-lg">
               <FiMail className="text-gray-400" />
               <input
+                id="login-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -76,10 +77,11 @@ const Login = () => {
 
           {/* Password Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
+            <label htmlFor="login-password" className="block text-sm font-medium text-gray-300 mb-2">Password</label>
             <div className="flex items-center gap-3 px-4 py-3 bg-white/5 border border-white/10 rounded-lg">
               <FiLock className="text-gray-400" />
               <input
+                id="login-password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

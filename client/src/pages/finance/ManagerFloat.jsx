@@ -55,7 +55,7 @@ const ManagerFloat = () => {
                 </div>
                 <div className="flex gap-4 items-center bg-white/5 p-2 rounded-lg border border-white/10">
                     <FiCalendar className="text-gray-400" />
-                    <input
+                    <input aria-label="Date"
                         type="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}

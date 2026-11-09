@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "scope": "Login, POS render, direct route reloads, Tailwind background and uncaught browser errors.",
+  "background": "rgb(15, 23, 42)",
+  "routes": [
+    {
+      "route": "/dashboard",
+      "heading": "Al Zohra RMS"
+    },
+    {
+      "route": "/employees",
+      "heading": "Al Zohra RMS"
+    },
+    {
+      "route": "/reports",
+      "heading": "Al Zohra RMS"
+    }
+  ],
+  "errors": [],
+  "full_feature_audit": "pending"
+}

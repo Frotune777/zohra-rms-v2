@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-11-09T05:02:11.004649+00:00",
+  "completed_run": "2026-11-09T05:00:09.145Z",
+  "executed_test_hashes_match_current": true,
+  "mismatched_test_files": [],
+  "scope": "Execution-time test/harness hashes only; not a feature completeness claim.",
+  "maintained_local_links_checked": 762,
+  "missing_links": [],
+  "skills_validated": 4,
+  "knowledge_source_hashes": 336,
+  "result_analysis_and_coverage_match": true
+}

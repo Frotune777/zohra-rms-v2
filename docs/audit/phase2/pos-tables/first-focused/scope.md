@@ -1,0 +1,1 @@
+Interrupted focused audit: 43 passed, 2 failed, 1 interrupted, 9 unexecuted. Hidden radio targets prevented the two payment cases from reaching checkout; UI label clicks are the corrected user interaction.

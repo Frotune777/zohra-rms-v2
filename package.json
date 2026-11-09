@@ -1,12 +1,28 @@
 {
   "dependencies": {
-    "@types/pg": "^8.16.0",
-    "axios": "^1.13.2",
-    "pg": "^8.16.3"
+    "@types/pg": "^8.23.1",
+    "axios": "^1.21.0",
+    "pg": "^8.23.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.57.0",
-    "@types/node": "^25.0.3",
-    "dotenv": "^17.2.3"
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6",
+    "dotenv": "^18.0.10"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "name": "zohra-rms-v2",
+  "private": true,
+  "scripts": {
+    "test:server": "npm --prefix server test --",
+    "test:client": "npm --prefix client test --",
+    "build": "npm --prefix client run build",
+    "test:e2e": "playwright test --config=playwright.config.js",
+    "audit:inventory": "python3 scripts/repository_inventory.py",
+    "test:audit": "playwright test --config=playwright.audit.config.cjs",
+    "dev:demo": "node scripts/start-demo.cjs",
+    "test:coverage": "node scripts/test-server-coverage.cjs",
+    "test:docker": "node scripts/verify-docker.cjs"
   }
 }

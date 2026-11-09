@@ -156,7 +156,7 @@ const LeaveManagement = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-2">Employee *</label>
-                            <select
+                            <select aria-label="Employee id"
                                 value={formData.employee_id}
                                 onChange={(e) => setFormData({ ...formData, employee_id: e.target.value })}
                                 className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:border-zohra-blue"
@@ -172,7 +172,7 @@ const LeaveManagement = () => {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-2">Leave Type *</label>
-                            <select
+                            <select aria-label="Leave type"
                                 value={formData.leave_type}
                                 onChange={(e) => setFormData({ ...formData, leave_type: e.target.value })}
                                 className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
@@ -187,7 +187,7 @@ const LeaveManagement = () => {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-2">Start Date *</label>
-                            <input
+                            <input aria-label="Start date"
                                 type="date"
                                 value={formData.start_date}
                                 onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
@@ -197,7 +197,7 @@ const LeaveManagement = () => {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-2">End Date *</label>
-                            <input
+                            <input aria-label="End date"
                                 type="date"
                                 value={formData.end_date}
                                 onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
@@ -208,7 +208,7 @@ const LeaveManagement = () => {
                         </div>
                         <div className="md:col-span-2">
                             <label className="block text-sm font-medium text-gray-300 mb-2">Reason *</label>
-                            <textarea
+                            <textarea aria-label="Reason"
                                 value={formData.reason}
                                 onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
                                 className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white"
